@@ -23,6 +23,17 @@ Regel (fra `master_plan.md` §8): Logg *før* lokale private treningsdokumenter 
 
 ## Logg
 
+### 2026-06-20 — Subject_B Seed Matrix: 5k tartan calibration (Gemini directive)
+
+**Kilde:** Gemini handoff — Telemetry Calibration Directive
+**Funn:** Subject_B lacks a dedicated `Asphalt_Anchor`. APR/TI denominators were floating without a frictionless baseline. `Asphalt_Anchor_Proxy` synthesis **halted**.
+**Konsekvens:**
+- `seed_matrix.py` + `config/seed_matrix.local.json` — per-subject locked anchors
+- `01_vaskemaskinen.py --calibration-5k` — ingest paired tartan `.fit` (Subject_A pacer + Subject_B)
+- `02_terrengindeks.py`, `11_gap_engine.py`, `08_kinematic_scan.py` — resolve anchor via Seed Matrix
+- **After Stadion 5k:** run wash → validate → `--lock-subject-b` before Subject_B terrain APR/TI
+**Status:** [x] Pipeline ready  [ ] Calibration executed  [ ] Anchor locked
+
 ### 2026-06-20 — Teknikk-Røntgen som donor-leveranse
 
 **Kilde:** Dokumentavklaring

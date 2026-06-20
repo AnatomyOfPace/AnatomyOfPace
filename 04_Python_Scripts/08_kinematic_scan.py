@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -22,10 +23,13 @@ import numpy as np
 import pandas as pd
 from matplotlib.colors import Normalize
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import seed_matrix
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 RAW_DATA_DIR = BASE_DIR / "02_Raw_Data"
 VIZ_DIR = BASE_DIR / "06_Visualizations"
-DEFAULT_ANCHOR = "Stavanger_Halvmaraton.fit"
+DEFAULT_ANCHOR = "Stavanger_Halvmaraton.fit"  # fallback if Seed Matrix unavailable
 SCAN_VERSION = "v1.0"
 MIN_SEGMENT_SAMPLES = 20
 PRIVACY_CLIP_M = 500
@@ -280,15 +284,25 @@ def render_scan(
     plt.close(fig)
 
 
+def resolve_anchor_name(subject_id: str, anchor_override: str | None) -> str:
+    if anchor_override:
+        return Path(anchor_override).name
+    try:
+        return seed_matrix.anchor_path(subject_id).name
+    except FileNotFoundError:
+        return DEFAULT_ANCHOR
+
+
 def run_scan(
     fit_path: Path,
     subject_id: str,
-    anchor_name: str,
+    anchor_name: str | None,
     segment_km: float,
     privacy_clip: bool,
     output_path: Path | None,
     legacy_apr: bool = False,
 ) -> None:
+    anchor_name = resolve_anchor_name(subject_id, anchor_name)
     anchor_path = RAW_DATA_DIR / anchor_name
     try:
         anchor_df = _gap.load_fit(anchor_path)
@@ -357,8 +371,8 @@ def parse_args() -> argparse.Namespace:
         help="Clinical subject ID for chart labels (default: Subject_A)",
     )
     parser.add_argument(
-        "--anchor", default=DEFAULT_ANCHOR,
-        help=f"Asphalt anchor filename in 02_Raw_Data/ (default: {DEFAULT_ANCHOR})",
+        "--anchor", default=None,
+        help="Override anchor .fit in 02_Raw_Data/ (default: Seed Matrix for --subject)",
     )
     parser.add_argument(
         "--segment-km", type=float, default=1.0,

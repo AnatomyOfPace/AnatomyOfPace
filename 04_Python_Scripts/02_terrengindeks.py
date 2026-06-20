@@ -1,84 +1,128 @@
-import fitparse
-import pandas as pd
+#!/usr/bin/env python3
+"""
+Aerobic Pace Ratio (APR) calculator — iso-HR terrain vs asphalt anchor.
+
+Uses Seed Matrix per-subject anchors (seed_matrix.py).
+Subject_B requires locked tartan 5k calibration before terrain APR is valid.
+
+Usage:
+    python 02_terrengindeks.py --subject Subject_B --terrain-fit session.fit
+    python 02_terrengindeks.py --subject Subject_A
+"""
+
+from __future__ import annotations
+
+import argparse
 import sys
 from pathlib import Path
 
+import fitparse
+import pandas as pd
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import seed_matrix
 from subject_resolve import find_fit, fit_filename_token
 
-# Definer stier basert på hvor skriptet ligger (04_Python_Scripts/)
 BASE_DIR = Path(__file__).resolve().parent.parent
-RAW_DATA_DIR = BASE_DIR / '02_Raw_Data'
+RAW_DATA_DIR = BASE_DIR / "02_Raw_Data"
 
-print("Starter Aerob Pace Ratio-kalkulatoren (APR)...\n")
+HR_ZONE = (140, 150)
 
-def hent_og_vask_fit(filnavn):
-    filsti = RAW_DATA_DIR / filnavn
-    
-    if not filsti.exists():
-        print(f"FEIL: Fant ikke filen {filnavn} i {RAW_DATA_DIR}")
+
+def load_fit_data(fit_basename: str) -> pd.DataFrame | None:
+    path = RAW_DATA_DIR / fit_basename
+    if not path.exists():
+        print(f"ERROR: file not found — {path}")
         return None
-        
+
     try:
-        print(f"Prosesserer: {filnavn}...")
-        fitfile = fitparse.FitFile(str(filsti))
-        data = []
-        for record in fitfile.get_messages('record'):
-            data.append(record.get_values())
-        
-        df = pd.DataFrame(data)
-
-        # 1. Sikre at fart-kolonne finnes (prioriterer enhanced_speed)
-        if 'enhanced_speed' not in df.columns:
-            df['enhanced_speed'] = df.get('speed', 0)
-        
-        # 2. Filtrer bort stillstand (alt under 0.5 m/s fjernes umiddelbart)
-        df = df[df['enhanced_speed'] > 0.5]
-        
-        # 3. Standardiser kolonner (ffill fyller hull etter start)
-        cols = [c for c in ['timestamp', 'heart_rate', 'enhanced_speed'] if c in df.columns]
-        df = df[cols].copy().ffill().dropna()
-
-        # 4. Beregn pace (min/km)
-        # Formel: (1000m / speed(m/s)) / 60 = min/km
-        df['pace_min_km'] = (1000 / df['enhanced_speed']) / 60
+        fitfile = fitparse.FitFile(str(path))
+        rows = [r.get_values() for r in fitfile.get_messages("record")]
+        df = pd.DataFrame(rows)
+        if "enhanced_speed" not in df.columns:
+            df["enhanced_speed"] = df.get("speed", 0)
+        df = df[df["enhanced_speed"] > 0.5].copy()
+        cols = [c for c in ["timestamp", "heart_rate", "enhanced_speed"] if c in df.columns]
+        df = df[cols].ffill().dropna()
+        df["pace_min_km"] = (1000 / df["enhanced_speed"]) / 60
         return df
-        
-    except Exception as e:
-        print(f"Feil ved prosessering av {filnavn}: {e}")
+    except Exception as exc:
+        print(f"ERROR processing {fit_basename}: {exc}")
         return None
 
-# --- HOVEDPROSESS ---
 
-# 1. Laster inn datafabrikkens råvarer
-print("Laster inn aerobt anker (Asfalt)...")
-df_asfalt = hent_og_vask_fit("Stavanger_Halvmaraton.fit")
+def mean_pace_in_hr_zone(df: pd.DataFrame, lo: int, hi: int) -> float:
+    zone = df[(df["heart_rate"] >= lo) & (df["heart_rate"] <= hi)]
+    return float(zone["pace_min_km"].mean())
 
-print("Laster inn teknisk terreng...")
-token_b = fit_filename_token("Subject_B")
-df_fjell = hent_og_vask_fit(find_fit("Sunderunde", token_b, "20260530"))
 
-# 2. Utfør analysen
-if df_asfalt is not None and df_fjell is not None:
-    # Vi isolerer en moderat aerob sone for sammenligning (140-150 bpm)
-    sone_min, sone_max = 140, 150
+def run_apr(
+    subject_id: str,
+    terrain_fit: str | None,
+    hr_lo: int,
+    hr_hi: int,
+) -> None:
+    print(f"\nAPR calculator — Seed Matrix anchor for {subject_id}\n")
 
-    snitt_asfalt = df_asfalt[(df_asfalt['heart_rate'] >= sone_min) & (df_asfalt['heart_rate'] <= sone_max)]['pace_min_km'].mean()
-    snitt_fjell = df_fjell[(df_fjell['heart_rate'] >= sone_min) & (df_fjell['heart_rate'] <= sone_max)]['pace_min_km'].mean()
+    if seed_matrix.anchor_status(subject_id) == "awaiting_calibration":
+        proto = seed_matrix.subject_status(subject_id).get("calibration_protocol", "")
+        print(f"  STATUS: {subject_id} anchor AWAITING calibration ({proto})")
+        print("  Run: python 01_vaskemaskinen.py --calibration-5k ... --lock-subject-b")
+        print("  Asphalt_Anchor_Proxy synthesis is HALTED.\n")
+        return
 
-    # APR = pace_terreng / pace_asfalt @ iso-HR (ikke TI — se docs/theory.md §5)
-    apr = snitt_fjell / snitt_asfalt
+    try:
+        anchor_name = seed_matrix.anchor_fit_basename(subject_id)
+        anchor_path = seed_matrix.anchor_path(subject_id)
+    except FileNotFoundError as exc:
+        print(f"  ERROR: {exc}\n")
+        return
 
-    print("\n" + "=" * 50)
-    print(f"  AEROB PACE RATIO (Puls: {sone_min}-{sone_max})")
-    print("=" * 50)
-    print(f"Fart på flat asfalt:    {snitt_asfalt:.2f} min/km")
-    print(f"Fart i teknisk fjell:   {snitt_fjell:.2f} min/km")
-    print("-" * 50)
-    print(f"APR:                    {apr:.2f}")
-    print("=" * 50)
-    print(f"Konklusjon: Ved samme puls krevde terrenget")
-    print(f"{apr:.2f}x mer tid per kilometer enn asfaltankeret.")
-    print("(APR ≠ TI — inkluderer stigning + underlag; TI krever GAP.)")
-else:
-    print("\nKunne ikke fullføre analysen. Sjekk at begge filene ligger i 02_Raw_Data.")
+    surface = seed_matrix.subject_status(subject_id).get("surface", "asphalt")
+    print(f"  Locked anchor: {anchor_name} ({surface})")
+    print(f"  Path:          {anchor_path}")
+
+    df_anchor = load_fit_data(anchor_name)
+    if df_anchor is None:
+        return
+
+    if terrain_fit is None:
+        if subject_id == "Subject_B":
+            token_b = fit_filename_token("Subject_B")
+            terrain_fit = find_fit("Sunderunde", token_b, "20260530")
+        else:
+            terrain_fit = find_fit("Sunderunde", fit_filename_token("Subject_A"), "20260530")
+
+    print(f"  Terrain session: {terrain_fit}")
+    df_terrain = load_fit_data(terrain_fit)
+    if df_terrain is None:
+        return
+
+    pace_anchor = mean_pace_in_hr_zone(df_anchor, hr_lo, hr_hi)
+    pace_terrain = mean_pace_in_hr_zone(df_terrain, hr_lo, hr_hi)
+    apr = pace_terrain / pace_anchor if pace_anchor > 0 else float("nan")
+
+    print("\n" + "=" * 55)
+    print(f"  AEROBIC PACE RATIO — {subject_id}  (HR {hr_lo}–{hr_hi} bpm)")
+    print("=" * 55)
+    print(f"  Anchor pace ({surface}):  {pace_anchor:.2f} min/km")
+    print(f"  Terrain pace:             {pace_terrain:.2f} min/km")
+    print("-" * 55)
+    print(f"  APR:                      {apr:.2f}")
+    print("=" * 55)
+    print("  APR = pace_terrain / pace_anchor @ iso-HR (APR ≠ TI; TI uses GAP)")
+    print("=" * 55 + "\n")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="APR vs Seed Matrix anchor @ iso-HR")
+    parser.add_argument("--subject", default="Subject_B", help="Clinical subject ID")
+    parser.add_argument("--terrain-fit", help="Terrain .fit basename (default: Sunderunde)")
+    parser.add_argument("--hr-lo", type=int, default=HR_ZONE[0])
+    parser.add_argument("--hr-hi", type=int, default=HR_ZONE[1])
+    args = parser.parse_args()
+    run_apr(args.subject, args.terrain_fit, args.hr_lo, args.hr_hi)
+
+
+if __name__ == "__main__":
+    main()

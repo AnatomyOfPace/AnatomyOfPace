@@ -2,6 +2,7 @@
 .env
 .env.*
 config/subject_registry.local.json
+config/seed_matrix.local.json
 02_Raw_Data/**/*.fit
 05_Macro_Database/*.db
 06_Visualizations/*.png

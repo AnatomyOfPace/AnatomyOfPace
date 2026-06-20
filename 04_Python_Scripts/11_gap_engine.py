@@ -13,17 +13,22 @@ Phase 3: 30 s rolling mean on TI — GPS noise filter (docs/theory.md §5)
 Usage:
     python 11_gap_engine.py --fit 02_Raw_Data/Stavanger_Halvmaraton.fit
     python 11_gap_engine.py --batch
-    python 11_gap_engine.py --fit 02_Raw_Data/Subject_B_session.fit --no-ti-smoothing
+    python 11_gap_engine.py --fit 02_Raw_Data/session.fit --subject Subject_B
+    python 11_gap_engine.py --batch --subject Subject_A
 """
 
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 import fitparse
 import numpy as np
 import pandas as pd
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import seed_matrix
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 RAW_DIR = BASE_DIR / "02_Raw_Data"
@@ -324,13 +329,28 @@ def run_batch_summary(
     return pd.DataFrame(rows)
 
 
+def resolve_anchor_path(subject_id: str | None, anchor_arg: str | None) -> Path:
+    """Seed Matrix anchor for subject, or explicit --anchor override."""
+    if anchor_arg:
+        p = Path(anchor_arg)
+        return p if p.is_absolute() else BASE_DIR / p
+    if subject_id:
+        return seed_matrix.anchor_path_or_default(subject_id, DEFAULT_ANCHOR)
+    return DEFAULT_ANCHOR
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="GAP Engine — Minetti 2002 + barometric shift")
     parser.add_argument("--fit", help="Path to session .fit file")
     parser.add_argument(
+        "--subject",
+        default="Subject_A",
+        help="Clinical subject ID — resolves Seed Matrix anchor (default: Subject_A)",
+    )
+    parser.add_argument(
         "--anchor",
-        default=str(DEFAULT_ANCHOR),
-        help="Asphalt anchor .fit for iso-HR reference",
+        default=None,
+        help="Override anchor .fit (default: Seed Matrix for --subject)",
     )
     parser.add_argument(
         "--save",
@@ -354,9 +374,13 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    anchor_path = Path(args.anchor)
-    if not anchor_path.is_absolute():
-        anchor_path = BASE_DIR / anchor_path
+    try:
+        anchor_path = resolve_anchor_path(args.subject, args.anchor)
+    except FileNotFoundError as exc:
+        print(f"ERROR: {exc}")
+        if seed_matrix.anchor_status(args.subject) == "awaiting_calibration":
+            print("  Run 5k tartan calibration: 01_vaskemaskinen.py --calibration-5k --lock-subject-b")
+        return
 
     baro = not args.no_barometric_shift
     smooth = not args.no_ti_smoothing

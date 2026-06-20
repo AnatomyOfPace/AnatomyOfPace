@@ -1,0 +1,32 @@
+{
+  "_notice": "Copy to seed_matrix.local.json (gitignored). Never commit the local file.",
+  "proxy_policy": {
+    "Asphalt_Anchor_Proxy": "halted — real tartan calibration required (directive 2026-06-20)"
+  },
+  "subjects": {
+    "Subject_A": {
+      "anchor_fit": "Stavanger_Halvmaraton.fit",
+      "surface": "asphalt",
+      "status": "locked",
+      "notes": "Flat race — Seed Matrix v1"
+    },
+    "Subject_B": {
+      "anchor_fit": null,
+      "surface": "tartan",
+      "status": "awaiting_calibration",
+      "calibration_protocol": "5k_stavanger_stadion",
+      "notes": "Awaiting paired 5k tartan effort; Subject_A mechanical pacer"
+    }
+  },
+  "calibration_protocols": {
+    "5k_stavanger_stadion": {
+      "venue": "Stavanger Stadion",
+      "surface": "tartan",
+      "target_distance_m": 5000,
+      "pacer_subject": "Subject_A",
+      "calibration_subject": "Subject_B",
+      "max_elevation_gain_m": 5,
+      "objective": "Lock pace_asphalt_anchor @ iso-HR for Subject_B Seed Matrix"
+    }
+  }
+}
