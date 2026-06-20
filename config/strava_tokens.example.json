@@ -1,0 +1,13 @@
+{
+  "_notice": "Copy to strava_tokens.local.json (gitignored). Never commit tokens.",
+  "donors": {
+    "Reference_Elite_A": {
+      "athlete_id": null,
+      "access_token": "REDACTED",
+      "refresh_token": "REDACTED",
+      "expires_at": 0,
+      "scope": "activity:read_all",
+      "connected_at": null
+    }
+  }
+}

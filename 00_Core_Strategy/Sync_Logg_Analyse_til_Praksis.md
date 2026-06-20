@@ -23,6 +23,16 @@ Regel (fra `master_plan.md` §8): Logg *før* lokale private treningsdokumenter 
 
 ## Logg
 
+### 2026-06-20 — Donor value-exchange architecture (Gemini directive)
+
+**Kilde:** Gemini handoff — Strava intake + Kinematic_Scan tiers
+**Funn:** Manual `.fit` transfer deprecated for reference elites. Deliverable must scale through Tier 1 (diagnostic) → Tier 2 (terrain signature) → Tier 3 (pacing budgets).
+**Konsekvens:**
+- `12_strava_fetcher.py` + `donor_io.py` — OAuth scaffold, 500 m privacy clip, gitignored inbox
+- `docs/donor_pipeline_architecture.md` — tier roadmap aligned with GAP/Kinematic_Scan v1
+- Next: `13_intake_runner.py`, Kinematic_Scan v1.1 (lat/lon black hole + PDF), Strava pilot before 16 Jul
+**Status:** [x] Architecture + scaffold  [ ] OAuth pilot  [ ] Intake runner  [ ] Tier 1.1
+
 ### 2026-06-20 — Subject_B Seed Matrix: 5k tartan calibration (Gemini directive)
 
 **Kilde:** Gemini handoff — Telemetry Calibration Directive

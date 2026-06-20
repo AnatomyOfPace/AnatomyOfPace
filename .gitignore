@@ -1,8 +1,12 @@
 # --- Anatomy of Pace: private data (never push) ---
 .env
 .env.*
+!.env.example
 config/subject_registry.local.json
 config/seed_matrix.local.json
+config/strava_tokens.local.json
+02_Raw_Data/inbox/
+02_Raw_Data/donors/
 02_Raw_Data/**/*.fit
 05_Macro_Database/*.db
 06_Visualizations/*.png

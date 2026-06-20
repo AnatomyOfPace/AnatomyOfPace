@@ -37,6 +37,7 @@ Data science framework for deconstructing running economy in technical mountain 
 | [`race_ecology.md`](race_ecology.md) | Reference races for the macro database |
 | [`outreach_referanselopere.md`](outreach_referanselopere.md) | Strava OAuth pitches for baseline athletes |
 | [`launch_strategy.md`](launch_strategy.md) | Substack, Instagram, Ghost Authority, data-donation model |
+| [`donor_pipeline_architecture.md`](donor_pipeline_architecture.md) | Strava intake, Kinematic_Scan tiers, pre–16 Jul launch |
 
 **Also (outside `docs/`):**
 
