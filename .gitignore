@@ -1,0 +1,27 @@
+# --- Anatomy of Pace: private data (never push) ---
+.env
+.env.*
+config/subject_registry.local.json
+02_Raw_Data/**/*.fit
+05_Macro_Database/*.db
+06_Visualizations/*.png
+06_Visualizations/reports/
+03_Processed_Data/*.csv
+docs/seig_og_kjapp.md
+
+# Local-only donor tools (personal names in templates — do not push)
+04_Python_Scripts/09_donor_narrative_report.py
+04_Python_Scripts/10_paired_comparison_pdf.py
+
+# --- Python / venv ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.Python
+
+# --- OS / editor ---
+.DS_Store
+.idea/
+*.swp

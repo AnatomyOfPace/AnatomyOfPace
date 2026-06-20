@@ -1,0 +1,14 @@
+{
+  "_notice": "Copy to subject_registry.local.json (gitignored). Never commit the local file.",
+  "subjects": {
+    "Subject_A": "PRIMARY_OPERATOR",
+    "Subject_B": "TECHNICAL_REFERENCE"
+  },
+  "fit_tokens": {
+    "Subject_A": "LOCAL_FILENAME_TOKEN_A",
+    "Subject_B": "LOCAL_FILENAME_TOKEN_B"
+  },
+  "db_names": {
+    "Subject_A": "LOCAL_DB_ATHLETE_NAME"
+  }
+}

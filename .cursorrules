@@ -1,0 +1,100 @@
+# Project Context: The Anatomy of Pace
+
+This repo hosts two distinct but connected plans:
+
+1. **The Anatomy of Pace** — Research / data science (code, DB, telemetry, publications).
+2. **Endurance_Protocol** — Internal training execution (periodization, race tactics). Local-only docs; see `docs/README.md` §2.
+
+Endurance_Protocol consumes research output; never treat the two as a single master plan. See `docs/README.md`.
+
+- Research goal: Sub-10:50 at Lysefjorden Inn 2027 (data-informed).
+- Research focus: Biomechanical efficiency, telemetry analysis, TI/TPR/EPR, macro/meso/micro pipelines.
+- Source of truth (research): `docs/master_plan.md`, `docs/theory.md`, and related docs in `docs/README.md`.
+- Source of truth (training, internal only): Endurance_Protocol docs and LFI manuals — updated only after logging in `00_Core_Strategy/Sync_Logg_Analyse_til_Praksis.md`.
+
+# GHOST AUTHORITY PROTOCOL (CRITICAL — ALL EXTERNAL OUTPUT)
+
+Effective immediately. Enforce strict data sanitization for GitHub, code comments, filenames in commits, documentation destined for publication, Substack, and Instagram.
+
+## Forbidden in external-facing output (zero exceptions)
+
+- Personal names of any runner or collaborator.
+- The legacy training project title and filename variants (e.g. `seig_og_kjapp`).
+- Local identifying markers or affiliations (except raw geographic tokens required for parsing — never in public copy).
+
+## Required replacements
+
+| Context | Use |
+|---------|-----|
+| Individual runners | `Subject_A`, `Subject_B`, `Subject_C`, … |
+| Training strategy | `Endurance_Protocol`, `Efficiency_Model`, `Biomechanical_Framework` |
+| Reference athletes (outreach) | `Reference_Elite_A`, `Reference_Elite_B`, … in public copy |
+
+Real-name ↔ Subject mapping lives **only** in gitignored `config/subject_registry.local.json` (never commit).
+
+## Brand tone
+
+- No personal pronouns (I, me, my, we, our).
+- Passive, clinical framing: "The telemetry reveals…", "Data indicates structural pacing decay…"
+- Persona: scientific authority at the intersection of data science and biomechanics.
+
+## Pre-output scan
+
+Before any commit, public doc, chart label, or social copy: silently verify zero forbidden terms and zero personal identifiers.
+
+Internal-only local files may retain legacy names until sanitized; **do not push unsanitized content to public GitHub.**
+
+# GLOBAL LANGUAGE & TRANSLATION PROTOCOL (CRITICAL)
+
+Primary and exclusive language: **English**. Applies to all AI output, code comments, variable names, new documentation, commits, and external copy.
+
+## English-only rule
+
+- All analysis, reasoning, and generated text must be in English.
+- Clinical, high-level English required for global Ghost Authority audience.
+
+## Permitted exceptions (proper nouns only)
+
+Norwegian is forbidden except immutable proper nouns:
+
+- Geographic locations (Rogaland, Lysefjorden, Songesand, …).
+- Official race names (Lysefjorden Inn, Sandnes Ultra Trail, …).
+- Official Strava segment names as they appear in raw `.fit` telemetry.
+
+## Legacy term translations
+
+Use English equivalents in all new and external-facing material. Legacy Norwegian may remain in untouched local files until migrated.
+
+| Legacy (NO) | Clinical English |
+|-------------|------------------|
+| Teknikk-Røntgen | `Kinematic_Scan`, `Telemetry_Audit`, or `Biomechanical_X_Ray` |
+| Terrengindeks | Terrain Index (TI) |
+| Terrengskatt | Terrain Tax |
+| Vaskemaskinen | Data Pipeline / Telemetry Pipeline |
+| Aerob Pace Ratio | Aerobic Pace Ratio (APR) — already English |
+| Sync Logg | Sync Log |
+| Løpsmanual | Race Manual / Tactical Matrix |
+| Referanseløper | Reference Elite |
+| Innsatsparadokset | Effort Paradox |
+| Kumulativ gjeld | Cumulative Debt |
+| Endurance_Protocol | (replaces legacy training project title) |
+
+Preferred product name for donor deliverable: **`Kinematic_Scan`** (default), unless context requires `Telemetry_Audit` or `Biomechanical_X_Ray`.
+
+## Pre-output scan
+
+Before any output: verify no conversational or conceptual Norwegian remains (except permitted proper nouns).
+
+# Workflow Guidelines
+
+1. Align **code and models** with `docs/master_plan.md`.
+2. Prioritize readability and performance suitable for local telemetry analysis.
+3. When suggesting research features, check `docs/` for conflicts with stated hypotheses.
+4. If unsure about a biomechanical parameter, consult `docs/theory.md`.
+5. Research findings that imply training changes → Sync Log first; then Endurance_Protocol docs.
+
+# Technical Preferences
+
+- Use pandas, numpy, and scipy for data manipulation.
+- Output all visual graphs to `06_Visualizations/`.
+- Maintain modular code: separate data ingestion from analysis logic.
