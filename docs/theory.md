@@ -121,7 +121,7 @@ Metrikkene over er ikke bare interne research-verktøy. De er **produktet** du b
 |-------|-----|-----|----------------|
 | **Referanseløper** (Thomas, Lars Ole, …) | OAuth + nøkkelruter | Teknikk-Røntgen + pacing-budsjett | Kalibrerer Baseline TI *og* mottar egen analyse |
 | **Offentlig donor** | `.fit` via Google Forms | Teknikk-Røntgen | Utvider datasett; ingen elite-forpliktelse |
-| **Subject_A / Subject_B** | Egen trenings-/løpsdata | Intern analyse → *Endurance_Protocol* | Subjekt + med-forsker |
+| **Subject_A / Subject_B** | Egen trenings-/løpsdata | Intern analyse → *lokal privat trening* | Subjekt + med-forsker |
 
 TPR og EPR beregnes **for donor-utøveren**, ikke bare for deg. Referanseløperen som kalibrerer Baseline TI skal fortsatt få vite *sin egen* TPR/EPR på ruten de delte.
 

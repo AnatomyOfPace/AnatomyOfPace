@@ -1,11 +1,15 @@
 # Documentation Index
 
-This repository carries **two distinct but connected plans**. Do not merge them into a single master document.
+**Public project:** *The Anatomy of Pace* — Principal Investigator: **Dr. Anatomy Pace**
+
+Private training periodization (*Seig og Kjapp*) is **not** part of this repository's public scope and must never be published. See [`brand_identity.md`](brand_identity.md).
+
+---
 
 ## Project layout
 
 ```
-00_Core_Strategy/   Sync Log (research → Endurance_Protocol)
+00_Core_Strategy/   Sync Log (research → local training application)
 01_Geo_Blueprints/
 02_Raw_Data/
 03_Processed_Data/
@@ -13,13 +17,13 @@ This repository carries **two distinct but connected plans**. Do not merge them 
 05_Macro_Database/
 06_Visualizations/
 07_ML_Models/
-docs/               Research & training documentation (unnumbered)
+docs/               Research documentation (unnumbered)
 config/
 ```
 
 ---
 
-## 1. The Anatomy of Pace (Research)
+## The Anatomy of Pace (Research — public)
 
 **Question:** *What does the data show?*
 
@@ -27,6 +31,7 @@ Data science framework for deconstructing running economy in technical mountain 
 
 | Document | Purpose |
 |----------|---------|
+| [`brand_identity.md`](brand_identity.md) | Public owner (Dr. Anatomy Pace), Ghost Authority, scope firewall |
 | [`master_plan.md`](master_plan.md) | Architecture, data hierarchy, Vaskemaskinen, v4.0 roadmap |
 | [`theory.md`](theory.md) | Scientific foundation (Minetti, Pinnington, Giandolini, Millet) |
 | [`race_ecology.md`](race_ecology.md) | Reference races for the macro database |
@@ -37,34 +42,42 @@ Data science framework for deconstructing running economy in technical mountain 
 
 | Path | Purpose |
 |------|---------|
-| [`00_Core_Strategy/Sync_Logg_Analyse_til_Praksis.md`](../00_Core_Strategy/Sync_Logg_Analyse_til_Praksis.md) | Bridge log: research findings → training changes |
+| [`00_Core_Strategy/Sync_Logg_Analyse_til_Praksis.md`](../00_Core_Strategy/Sync_Logg_Analyse_til_Praksis.md) | Bridge log: research findings → *local* training updates *(never publish)* |
 
 ---
 
-## 2. Endurance_Protocol (Training — local only)
+## Race manuals (course intelligence — public research asset)
 
-**Question:** *What do we do this week — and on race day?*
-
-Internal periodization and race tactics for Subject_A & Subject_B (2026–2028). Learns from Anatomy of Pace; does not define research architecture.
+Tactical terrain matrices for reference races. These describe **courses**, not private athletes.
 
 | Document | Purpose |
 |----------|---------|
-| Local Endurance_Protocol manual *(gitignored)* | Periodization, zones, strength, milestones |
 | [`lopsmanual_lfi_v2.2.md`](lopsmanual_lfi_v2.2.md) | Current LFI race manual (Master-Matrix v2.0) |
 | [`lopsmanual_lfi_v2.1_historisk.md`](lopsmanual_lfi_v2.1_historisk.md) | Archived LFI manual (historical reference) |
 
-Clinical ID ↔ identity mapping: `config/subject_registry.local.json` *(never commit)*.
+---
+
+## Local-only (never GitHub / never public)
+
+| Item | Notes |
+|------|-------|
+| `docs/seig_og_kjapp.md` | Private training project — **not** under The Anatomy of Pace |
+| `config/subject_registry.local.json` | Real-name ↔ Subject ID mapping |
+| `02_Raw_Data/**/*.fit` | Personal telemetry |
+| `06_Visualizations/reports/` | Private donor PDFs with real names |
+
+Clinical ID mapping template: [`config/subject_registry.example.json`](../config/subject_registry.example.json)
 
 ---
 
-## How they connect
+## Internal data flow (not for publication)
 
 ```
-Anatomy of Pace (research)
-    → findings logged in Sync Log
-        → Endurance_Protocol manual updated (local)
+The Anatomy of Pace (research, public)
+    → findings logged in Sync Log (local bridge)
+        → private training manual updated (Seig og Kjapp — local only)
             → training produces FIT files & race results
-                → fed back into Anatomy of Pace
+                → fed back into The Anatomy of Pace pipeline
 ```
 
-**Rule:** Log discoveries in the Sync Log *before* updating local Endurance_Protocol docs or race manuals.
+**Rule:** Log discoveries in the Sync Log before changing local private training docs. Never reverse-publish training content to Anatomy of Pace channels.

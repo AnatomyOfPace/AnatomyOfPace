@@ -2,9 +2,25 @@
 
 **Økosystem, Estetikk og "Ghost Authority" for The Anatomy of Pace**
 
-Dette dokumentet definerer hvordan prosjektet kommuniseres utad. Målet er ikke å samle "likes" eller bygge en personlig merkevare som en tradisjonell influencer. Målet er å bygge en faglig autoritet der maskinens rådata og dine analytiske konklusjoner snakker for seg selv.
+---
 
-Prosjektet frontes via en kompromissløs, klinisk "Dark Mode"-estetikk.
+## **0. PUBLIC BRAND (English — authoritative for all channels)**
+
+| Field | Value |
+|-------|-------|
+| **Project** | The Anatomy of Pace |
+| **Owner / public face** | **Dr. Anatomy Pace** |
+| **GitHub** | `AnatomyOfPace` / `anatomypace@gmail.com` |
+| **Substack** | *The Anatomy of Pace* |
+| **Instagram** | `@anatomyofpace` |
+
+**Scope firewall:** *Seig og Kjapp* is a **private** training project. It does **not** belong under The Anatomy of Pace and must **never** appear on GitHub, Substack, Instagram, or in donor-facing material. Full rules: [`brand_identity.md`](brand_identity.md).
+
+---
+
+Dette dokumentet definerer hvordan prosjektet kommuniseres utad. Målet er ikke å samle "likes" eller bygge en personlig merkevare som en tradisjonell influencer. Målet er å bygge en faglig autoritet der maskinens rådata og **Dr. Anatomy Paces** analytiske konklusjoner snakker for seg selv.
+
+Prosjektet frontes via en kompromissløs, klinisk "Dark Mode"-estetikk under **Dr. Anatomy Pace** — aldri under private treningsprosjekter.
 
 ## **1\. THE ECOSYSTEM LOOP (PUBLISERINGSHIERARKIET)**
 
@@ -22,9 +38,10 @@ Prosjektet distribueres gjennom en lukket sirkel i tre lag. Du produserer innhol
 
 ## **2\. REGLER FOR "GHOST AUTHORITY"**
 
-For å beskytte din egen tid (og anonymitet) under treningsleirer og tøffe treningsblokker, skal kommunikasjonen utad være strengt frakoblet deg som privatperson. Du er ikke en influencer; du er et API for fysiologisk innsikt.
+For å beskytte operatørenes anonymitet og skille forskning fra privat trening, skal all **offentlig** kommunikasjon være strengt frakoblet realpersoner. **Dr. Anatomy Pace** er det eneste offentlige ansiktet — ikke en influencer, men laboratoriets kliniske stemme.
 
-* **Førsteperson pluralis:** Skriv alltid som maskinen eller prosjektet. Bruk "vi", "våre data" eller "algoritmen indikerer". Unngå "jeg tror" eller "jeg føler".  
+* **Stemme:** Attribuer analyse til *The Anatomy of Pace* eller **Dr. Anatomy Pace**. Unngå "jeg tror" / "jeg føler" fra realpersoner.
+* **Forbudt offentlig:** Ethvert innhold fra *Seig og Kjapp* (privat treningsprosjekt).
 * **Svar i kommentarfelt:** Hvis noen stiller et spørsmål på Instagram, svar kort og klinisk.  
   * *Feil:* "Takk kompis\! Ja, jeg ble skikkelig sliten i den bakken 😂"  
   * *Riktig:* "Interessant observasjon. Dataene fra Vaskemaskinen v2.0 tyder på at overgangen fra Klasse 4 til Klasse 6 terreng krever 14 % høyere puls for å opprettholde samme GAP. Se full analyse i ukens Substack-post."  

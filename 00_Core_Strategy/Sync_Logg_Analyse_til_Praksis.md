@@ -2,7 +2,7 @@
 
 **Beslutningslogg: data → endring i trening, ernæring eller kode.**
 
-Regel (fra `master_plan.md` §8): Logg *før* lokale Endurance_Protocol-dokumenter oppdateres.
+Regel (fra `master_plan.md` §8): Logg *før* lokale private treningsdokumenter oppdateres. **Publiser aldri** Sync Log-innhold eller Seig og Kjapp under The Anatomy of Pace.
 
 **Teknikk-Røntgen:** Endring i obligatorisk donor-leveranse (nytt panel, ny versjon) loggføres her *før* outreach-pitches eller genereringsskript oppdateres. Se `docs/theory.md` §6.
 

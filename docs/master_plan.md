@@ -6,10 +6,7 @@
 
 Dette dokumentet er "Single Source of Truth" for data science-prosjektet *The Anatomy of Pace*. Prosjektet er dedikert til å dekonstruere og optimalisere løpsøkonomi i tekniske fjell-ultraløp, og tetter gapet mellom asfaltdominert idrettsfysiologi og de brutale mekaniske kravene i rogalandsterrenget.
 
-Tradisjonell "even-pace" er en illusjon i fjellet. Suksess krever et paradigmeskifte til "even-effort" styrt av Grade Adjusted Pace (GAP), kontinuerlig kalibrert mot underlagets iboende friksjon. Den langsiktige innsikten konverteres til den operative treningsfilosofien *Endurance_Protocol* for å muliggjøre følgende to hovedmål:
-
-1. **2027:** Sluttid på sub-10:50 i Lysefjorden Inn (LFI, 62 km).  
-2. **2028:** Sandnes Ultra Trail 50 Miles (SUT\_80).
+Tradisjonell "even-pace" er en illusjon i fjellet. Suksess krever et paradigmeskifte til "even-effort" styrt av Grade Adjusted Pace (GAP), kontinuerlig kalibrert mot underlagets iboende friksjon. Forskningen under *The Anatomy of Pace* (Dr. Anatomy Pace) leverer den kvantitative basen; anvendelse i privat treningsplanlegging skjer **lokalt** og publiseres aldri under dette merkenavnet.
 
 ## **2\. DET MATEMATISKE RAMMEVERKET**
 
@@ -58,7 +55,7 @@ Prosjektet opererer med en tredelt datagranularitet støttet av aerobe ankere:
 
 Prosjektet kjøres lokalt i et isolert Python-miljø (`venv`) på Mac. Rørgaten styres av en rigid, låst mappestruktur:
 
-* `00_Core_Strategy/` *(Sync Logg — bro mellom research og Endurance_Protocol)*  
+* `00_Core_Strategy/` *(Sync Logg — bro mellom research og lokal privat trening; aldri publiser)*  
 * `01_Geo_Blueprints/` *(Kartverkets N50 shapefiler)*  
 * `02_Raw_Data/` *(Ubehandlede .fit filer og JSON scrapes)*  
 * `03_Processed_Data/` *(Rensede CSV og lynraske Parquet-filer)*  
