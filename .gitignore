@@ -3,8 +3,13 @@
 .env.*
 !.env.example
 config/subject_registry.local.json
+config/subject_biomechanical_priors.local.json
 config/seed_matrix.local.json
 config/strava_tokens.local.json
+config/strava_leaderboards.local.csv
+config/strava_leaderboards_excluded.local.csv
+config/strava_segments.local.json
+config/session_metadata.local.json
 02_Raw_Data/inbox/
 02_Raw_Data/donors/
 02_Raw_Data/**/*.fit
@@ -12,6 +17,7 @@ config/strava_tokens.local.json
 06_Visualizations/*.png
 06_Visualizations/reports/
 03_Processed_Data/*.csv
+03_Processed_Data/race_results/
 docs/seig_og_kjapp.md
 
 # Local-only donor tools (personal names in templates — do not push)
@@ -30,3 +36,16 @@ __pycache__/
 .DS_Store
 .idea/
 *.swp
+.tile_cache/
+
+config/reference_elite_d_curated_runs.local.json
+config/reference_elite_d_curated_runs.local.csv
+config/reference_elite_d_anchor.local.json
+config/sut_course_mileage_atlas.local.json
+config/sut160_sector_zoom.local.json
+
+# Local-only donor outreach packs (personal names — do not push)
+docs/outreach/
+
+# Local-only collaboration memos (operator names — do not push)
+docs/memos/*.local.md
