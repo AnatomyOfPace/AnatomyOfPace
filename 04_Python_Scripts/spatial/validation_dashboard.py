@@ -29,6 +29,11 @@ Usage:
         --panel .../panel_1m.parquet \\
         --variance-threshold 0.35 \\
         --write-flags config/spatial_validation_flags.json
+
+    python3 04_Python_Scripts/spatial/validation_dashboard.py \\
+        --terrain-map config/spatial_terrain_map_sut43.json \\
+        --panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet \\
+        --chunk-km 2 --chunk-index 1 --with-map --decision-mode
 """
 
 from __future__ import annotations
@@ -64,6 +69,7 @@ if str(_SCRIPTS) not in sys.path:
 
 from fit_micro.course_project import load_gpx_course_km, load_gpx_latlon, project_course_km
 from spatial.corridor_scope import SUT43_PRIMARY_KM_END, SUT43_PRIMARY_KM_START
+from spatial.reproject_to_spine import is_spine_panel, normalize_panel_axes, subject_id_column
 from spatial.spatial_hitl_overlay import SURFACE_COLORS, load_terrain_map
 from spatial.surface_ontology import SURFACE_CLASS_SPECS
 from spatial.terrain_map_gen import aggregate_nti_by_course_m, compute_nti
@@ -112,6 +118,12 @@ LEGEND_HANDLELENGTH = 1.25
 LEGEND_LABELSPACING = 0.28
 LEGEND_HANDLETEXTPAD = 0.38
 LEGEND_BORDERAXESPAD = 0.10
+
+# Per-athlete NTI overlay colours on ref_chainage_m spine panels.
+SPINE_ATHLETE_NTI_COLORS: dict[str, str] = {
+    "Subject_A": "#4FC3F7",
+    "Subject_B": "#FF8A65",
+}
 
 # Default NTI cross-athlete std above which a metre is flagged for review.
 DEFAULT_VARIANCE_THRESHOLD = 0.30
@@ -594,8 +606,12 @@ def _try_add_basemap(
 def resolve_axis_label(terrain_map: dict[str, Any], panel: pd.DataFrame) -> str:
     """
     Course-axis label for x-axis — panel telemetry wins when corridor metadata is stale.
+    Spine panels use ref_chainage_m (Subject_A race spine); operator gold joins 1:1 on course_km.
     """
-    work = panel.sort_values("course_m")
+    sort_col = "course_m" if "course_m" in panel.columns else "ref_chainage_m"
+    work = panel.sort_values(sort_col)
+    if is_spine_panel(panel):
+        return "SUT_43 ref_chainage km (Subject_A spine)"
     p_lo = float(work["course_km"].min())
     p_hi = float(work["course_km"].max())
     corridor = terrain_map.get("corridor") or {}
@@ -2514,6 +2530,40 @@ def render_reference_map(
     return basemap_status, ml_map_drawn, assigned_map_drawn
 
 
+def plot_spine_athlete_nti_overlays(
+    ax: plt.Axes,
+    race_work: pd.DataFrame,
+    *,
+    km_lo: float,
+    km_hi: float,
+) -> None:
+    """Faint per-subject NTI traces on ref_chainage_m axis for cross-athlete QC."""
+    if not is_spine_panel(race_work):
+        return
+    sid_col = subject_id_column(race_work)
+    if race_work[sid_col].nunique() < 2:
+        return
+    for sid in sorted(race_work[sid_col].astype(str).unique()):
+        sub = race_work[race_work[sid_col].astype(str) == sid].copy()
+        sub["nti"] = compute_nti(sub)
+        profile = (
+            sub[(sub["course_km"] >= km_lo) & (sub["course_km"] < km_hi)]
+            .groupby("course_km", as_index=False)["nti"]
+            .median()
+        )
+        if profile.empty:
+            continue
+        color = SPINE_ATHLETE_NTI_COLORS.get(sid, "#CCCCCC")
+        ax.plot(
+            profile["course_km"],
+            profile["nti"],
+            color=color,
+            linewidth=0.85,
+            alpha=0.68,
+            label=f"{sid} NTI",
+        )
+
+
 def compute_variance_flags(
     panel: pd.DataFrame,
     *,
@@ -3835,6 +3885,12 @@ def render_validation_dashboard(
                     color="#76FF03",
                     label="±1σ across athletes",
                 )
+            plot_spine_athlete_nti_overlays(
+                ax0_nti,
+                race_work,
+                km_lo=km_lo,
+                km_hi=km_hi,
+            )
     if decision_mode and not race_work.empty:
         plot_profile_grade_axis(ax0, race_work)
     ax0_nti.axhline(1.0, color="#666", linestyle=":", linewidth=0.8)
@@ -4274,7 +4330,7 @@ def main() -> None:
         raise FileNotFoundError(f"Terrain map not found: {tmap_path}. Run terrain_map_gen.py first.")
 
     terrain_map = load_terrain_map(tmap_path)
-    panel = pd.read_parquet(panel_path)
+    panel = normalize_panel_axes(pd.read_parquet(panel_path))
 
     gpx_path = args.gpx
     if gpx_path is not None:
