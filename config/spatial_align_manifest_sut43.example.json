@@ -59,6 +59,63 @@
       "note": "SUT43 2026-04-18 race-day (Strava 19000570862) \u2014 canonical FIT 02_Raw_Data/donors/Subject_B/SUT43_20260418.fit; full HR+cadence. Supersedes mis-wash activity_18162306249 (pace-only tile)."
     }
   ],
+  "coverage_gaps": [
+    {
+      "course_km_start": 29.0,
+      "course_km_end": 29.936,
+      "length_m": 936,
+      "status": "missing_training",
+      "reason": "Upstream tail — no training tile passes cross_track ≤ 30 m on race tread; partial tiles begin ~km 29.94"
+    },
+    {
+      "course_km_start": 34.655,
+      "course_km_end": 35.373,
+      "length_m": 718,
+      "status": "missing_training",
+      "reason": "Internal hole between partial reverse tiles — no continuous GPS on race corridor"
+    },
+    {
+      "course_km_start": 36.004,
+      "course_km_end": 38.229,
+      "length_m": 2225,
+      "status": "missing_training",
+      "reason": "Vassfjellet / late-traverse band — largest internal gap; bedrock tile ends ~km 39.25 downstream"
+    },
+    {
+      "course_km_start": 39.247,
+      "course_km_end": 41.0,
+      "length_m": 1753,
+      "status": "missing_training",
+      "reason": "Downstream tail (Paradisskaret stile → Alsvik asphalt) — no training tile on race tread"
+    }
+  ],
+  "pending_activities": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "gramstad_band_full_traverse_20260628",
+      "session_type": "training",
+      "subject_id": "Subject_A",
+      "align_mode": "gpx",
+      "direction": "reverse",
+      "status": "awaiting_field_record",
+      "target_ref_chainage_km": [29.0, 41.0],
+      "cross_track_threshold_m": 30,
+      "canonical_fit_path": "02_Raw_Data/donors/Subject_A/gramstad_band_full_traverse_20260628.fit",
+      "wash_flags": ["--no-privacy-clip", "--race", "SUT_43", "--project-course", "--enrich-ti"],
+      "qc_gates": [
+        "check_spine_coverage.py union ≥ 95% on km 29–41",
+        "cross_track_m median ≤ 30 m on ref_chainage axis",
+        "continuous traverse — no gaps ≥ 200 m except tagged TRF exclusions"
+      ],
+      "field_spec": {
+        "direction": "reverse",
+        "start_anchor": "downstream ~km 41 (Alsvik asphalt tail / Paradisskaret sector)",
+        "finish_anchor": "upstream ~km 29 (Gramstad approach from Revhol sector)",
+        "mid_knots_km": [30.52, 34.64, 39.135]
+      },
+      "note": "Single continuous Subject_A training lap on SUT_43 race tread covering gramstad_band km 29–41. Record reverse (upstream) to match existing partial tiles. Partial tiles union ~43% spine coverage (2026-06-28) — cannot be stitched for TRF. Promote to activities[] after wash + spine QC pass."
+    }
+  ],
   "deferred_activities": [
     {
       "donor_id": "Reference_Elite_A",

@@ -28,3 +28,8 @@ typing-inspection==0.4.2
 typing_extensions==4.15.0
 tzdata==2026.2
 urllib3==2.7.0
+matplotlib>=3.8.0
+scikit-learn>=1.4
+lxml>=5.0.0
+html5lib>=1.1
+contextily>=1.4.0
