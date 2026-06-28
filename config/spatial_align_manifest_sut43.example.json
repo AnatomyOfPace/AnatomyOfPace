@@ -51,15 +51,6 @@
       "note": "Rain-day Gramstad loop training 2026-03-27 (~14.8 km); GPX snap km 13.5\u201337.9; gramstad_band km 29.0\u201337.9 (~8.9 km); bedrock F3 km 31.0\u201332.0 full overlap (~1 km) \u2014 reverse traverse vs SUT43 race forward on same course metres; washed without privacy clip"
     },
     {
-      "donor_id": "Subject_A",
-      "activity_id": "gramstad_lifjell_20250625",
-      "session_type": "training",
-      "subject_id": "Subject_A",
-      "align_mode": "gpx",
-      "direction": "forward",
-      "note": "Gramstad\u2013Lifjell training loop 2025-06-25 (~15 km); GPX snap km 13.6\u201333.4; gramstad_band upstream tile km 29.0\u201333.4 (~4.4 km aligned); excludes km 31\u201332 HITL sector; washed without privacy clip (tail clip removed gramstad overlap)"
-    },
-    {
       "donor_id": "Subject_B",
       "activity_id": "19000570862",
       "session_type": "race",
@@ -84,6 +75,16 @@
       "align_mode": "gpx",
       "direction": "forward",
       "note": "Hommers\u00e5k\u2013Storaberget early-lap training 2025-06-28 (~6.5 km); GPX snap km 1.85\u20138.0 (leg_a_technical / start hills); washed micro Parquet present \u2014 Phase E full-course tile; zero gramstad_band overlap"
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "gramstad_lifjell_20250625",
+      "session_type": "training",
+      "subject_id": "Subject_A",
+      "align_mode": "gpx",
+      "direction": "forward",
+      "deferred_reason": "spine_qc_fail",
+      "note": "EXCLUDED from training TRF (2026-06-28 QC): Gramstad\u2013Lifjell loop 2025-06-25 (~15 km); GPX snap km 13.6\u201333.4 yields only 236 source samples on gramstad_band km 29\u201333.4. cross_track_m median 172 m vs Subject_A race spine (other tiles 5\u201328 m). Root cause: partial Lifjell loop off SUT43 race corridor \u2014 GPS 180\u20131100 m lateral to spine at km 30\u201333 despite GPX course_km labels; only km 29.0\u201329.45 passes <30 m gate. Not wrong activity \u2014 wrong geometry for spine-aligned TRF. Re-include only if loop segment re-snapped to race tread."
     }
   ],
   "full_course_stretch_goal": {

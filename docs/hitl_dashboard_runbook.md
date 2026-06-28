@@ -44,6 +44,20 @@ Writes `06_Visualizations/sut43_hitl/chunk_04_km33-34.png`.
 ./04_Python_Scripts/spatial/export_hitl_chunks.sh
 ```
 
+### Spine-panel cross-athlete export (race panel on ref_chainage_m)
+
+Use when verifying per-subject NTI/speed overlays on the Subject_A race spine (Subject_A + Subject_B race streams):
+
+```bash
+./04_Python_Scripts/spatial/export_hitl_chunks.sh --spine-panel \
+  --chunk-index 5 \
+  --output 06_Visualizations/sut43_hitl/chunk_05_km34-35_spine.png
+```
+
+Or `SPINE_PANEL=1 ./04_Python_Scripts/spatial/export_hitl_chunks.sh --chunk-index 5 --output ...`.
+
+Writes to `06_Visualizations/sut43_hitl_spine/` on bulk `--export-chunks`; single-chunk `--output` gets `_spine` suffix when `--spine-panel` is set.
+
 Or manually:
 
 ```bash
