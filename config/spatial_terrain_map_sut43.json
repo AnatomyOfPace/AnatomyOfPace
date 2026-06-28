@@ -79254,19 +79254,19 @@
         "course_km_start": 29.0,
         "course_km_end": 29.8,
         "surface_class": "S3",
-        "reason": "operator HITL (gramstad_band, upstream): easy dirt trail — S3 selected per surface_ontology (grass/dry slab/moderate friction; master plan classes 3–4). Natural compacted dirt tread with moderate stabilisation tax; not S2 hardpack gravel (reserved for easy gravel / hard-pack road overrides downstream). Demoted lock → guidance after Subject_B panel fix (18162306249) revealed high inter-athlete σ; prior NTI-consistent lock no longer supported; span overlaps variance gap from 29.282.",
+        "reason": "operator HITL (gramstad_band, upstream): easy dirt trail \u2014 S3 selected per surface_ontology (grass/dry slab/moderate friction; master plan classes 3\u20134). Natural compacted dirt tread with moderate stabilisation tax; not S2 hardpack gravel (reserved for easy gravel / hard-pack road overrides downstream). Demoted lock \u2192 guidance after Subject_B panel fix (18162306249) revealed high inter-athlete \u03c3; prior NTI-consistent lock no longer supported; span overlaps variance gap from 29.282.",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "inter-athlete NTI σ elevated (median σ ≥ threshold or >50% hot metres) — operator guidance deferred pending GPS revisit or second-athlete agreement"
+        "defer_reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement"
       },
       {
         "course_km_start": 30.5,
         "course_km_end": 30.7,
         "surface_class": "S4",
-        "reason": "operator HITL (gramstad_band): technical trail with rocks and roots — S4 per surface_ontology (technical rock / coarse stone; master plan classes 5–6). Rooty coarse footing and stone tread; not S3 moderate-friction dirt (upstream easy tread) and not S5 loose-scree dominated.",
+        "reason": "operator HITL (gramstad_band): technical trail with rocks and roots \u2014 S4 per surface_ontology (technical rock / coarse stone; master plan classes 5\u20136). Rooty coarse footing and stone tread; not S3 moderate-friction dirt (upstream easy tread) and not S5 loose-scree dominated.",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "inter-athlete NTI σ elevated (median σ ≥ threshold or >50% hot metres) — operator guidance deferred pending GPS revisit or second-athlete agreement"
+        "defer_reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement"
       },
       {
         "course_km_start": 34.3,
@@ -79275,7 +79275,7 @@
         "reason": "operator HITL: easy gravel trail",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "inter-athlete NTI σ elevated (median σ ≥ threshold or >50% hot metres) — operator guidance deferred pending GPS revisit or second-athlete agreement"
+        "defer_reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement"
       },
       {
         "course_km_start": 34.335,
@@ -79284,7 +79284,7 @@
         "reason": "operator HITL: easy gravel trail",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "inter-athlete NTI σ elevated (median σ ≥ threshold or >50% hot metres) — operator guidance deferred pending GPS revisit or second-athlete agreement"
+        "defer_reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement"
       },
       {
         "course_km_start": 35.0,
@@ -79293,25 +79293,25 @@
         "reason": "operator HITL: hard pack gravel road",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "superseded by operator gold km 34.6–36.30 Gramstad hard-pack gravel road (S2/F1); prior deferred guidance retained for audit only"
+        "defer_reason": "superseded by operator gold km 34.6\u201336.30 Gramstad hard-pack gravel road (S2/F1); prior deferred guidance retained for audit only"
       },
       {
         "course_km_start": 37.866,
         "course_km_end": 37.95,
         "surface_class": "S4",
-        "reason": "operator HITL: technical trail with mud, rocks, and roots — S4 selected (ontology: rooty/coarse stone technical footing; intermittent mud does not meet S6 deep-bog vacuum; not S5 loose-scree dominated)",
+        "reason": "operator HITL: technical trail with mud, rocks, and roots \u2014 S4 selected (ontology: rooty/coarse stone technical footing; intermittent mud does not meet S6 deep-bog vacuum; not S5 loose-scree dominated)",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "superseded by operator gold km 37.87–38.0 rocky-muddy descent S5/F4 (chunk_08 HITL lock); prior deferred guidance retained for audit only"
+        "defer_reason": "superseded by operator gold km 37.87\u201338.0 rocky-muddy descent S5/F4 (chunk_08 HITL lock); prior deferred guidance retained for audit only"
       },
       {
         "course_km_start": 37.7,
         "course_km_end": 37.866,
         "surface_class": "S4",
-        "reason": "operator HITL: technical trail with mud, rocks, and roots — S4 selected (ontology: rooty/coarse stone technical footing; intermittent mud does not meet S6 deep-bog vacuum; not S5 loose-scree dominated)",
+        "reason": "operator HITL: technical trail with mud, rocks, and roots \u2014 S4 selected (ontology: rooty/coarse stone technical footing; intermittent mud does not meet S6 deep-bog vacuum; not S5 loose-scree dominated)",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "superseded by operator gold km 37.41–37.87 Vassfjellet muddy trail S6/F4 (chunk_08 HITL lock); prior deferred guidance retained for audit only"
+        "defer_reason": "superseded by operator gold km 37.41\u201337.87 Vassfjellet muddy trail S6/F4 (chunk_08 HITL lock); prior deferred guidance retained for audit only"
       },
       {
         "course_km_start": 38.4,
@@ -79320,16 +79320,16 @@
         "reason": "operator HITL: rocky gravel road",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "superseded by operator gold km 38.4–38.9 rocky gravel road S2/F3 (chunk_09 HITL lock); prior deferred guidance retained for audit only"
+        "defer_reason": "superseded by operator gold km 38.4\u201338.9 rocky gravel road S2/F3 (chunk_09 HITL lock); prior deferred guidance retained for audit only"
       },
       {
         "course_km_start": 38.9,
         "course_km_end": 39.0,
         "surface_class": "S2",
-        "reason": "operator HITL: coarse gravel road (downstream tail). km 38.5–38.9 promoted to operator gold (rocky gravel road); prior lock demoted — downstream 100 m retained as deferred guidance pending asphalt transition QC (~39.7).",
+        "reason": "operator HITL: coarse gravel road (downstream tail). km 38.5\u201338.9 promoted to operator gold (rocky gravel road); prior lock demoted \u2014 downstream 100 m retained as deferred guidance pending asphalt transition QC (~39.7).",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "superseded by operator gold km 38.4–39.135 Paradisskaret gravel S2/F3 through stile + km 39.135–39.140 gravel flap + km 39.140–41.0 Loen-Alsvik asphalt S1/F0 (chunk_10); prior deferred guidance retained for audit only"
+        "defer_reason": "superseded by operator gold km 38.4\u201339.135 Paradisskaret gravel S2/F3 through stile + km 39.135\u201339.140 gravel flap + km 39.140\u201341.0 Loen-Alsvik asphalt S1/F0 (chunk_10); prior deferred guidance retained for audit only"
       },
       {
         "course_km_start": 39.3,
@@ -79338,7 +79338,7 @@
         "reason": "operator HITL: asphalt",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "superseded by operator gold km 38.4–39.135 Paradisskaret gravel S2/F3 through stile + km 39.135–39.140 gravel flap + km 39.140–41.0 Loen-Alsvik asphalt S1/F0 (chunk_10); prior deferred guidance retained for audit only"
+        "defer_reason": "superseded by operator gold km 38.4\u201339.135 Paradisskaret gravel S2/F3 through stile + km 39.135\u201339.140 gravel flap + km 39.140\u201341.0 Loen-Alsvik asphalt S1/F0 (chunk_10); prior deferred guidance retained for audit only"
       },
       {
         "course_km_start": 39.534,
@@ -79347,7 +79347,7 @@
         "reason": "operator HITL: asphalt",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "superseded by operator gold km 38.4–39.135 Paradisskaret gravel S2/F3 through stile + km 39.135–39.140 gravel flap + km 39.140–41.0 Loen-Alsvik asphalt S1/F0 (chunk_10); prior deferred guidance retained for audit only"
+        "defer_reason": "superseded by operator gold km 38.4\u201339.135 Paradisskaret gravel S2/F3 through stile + km 39.135\u201339.140 gravel flap + km 39.140\u201341.0 Loen-Alsvik asphalt S1/F0 (chunk_10); prior deferred guidance retained for audit only"
       },
       {
         "course_km_start": 39.835,
@@ -79356,7 +79356,7 @@
         "reason": "operator HITL: asphalt",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "superseded by operator gold km 38.4–39.135 Paradisskaret gravel S2/F3 through stile + km 39.135–39.140 gravel flap + km 39.140–41.0 Loen-Alsvik asphalt S1/F0 (chunk_10); prior deferred guidance retained for audit only"
+        "defer_reason": "superseded by operator gold km 38.4\u201339.135 Paradisskaret gravel S2/F3 through stile + km 39.135\u201339.140 gravel flap + km 39.140\u201341.0 Loen-Alsvik asphalt S1/F0 (chunk_10); prior deferred guidance retained for audit only"
       },
       {
         "course_km_start": 40.0,
@@ -79365,7 +79365,7 @@
         "reason": "operator HITL: asphalt",
         "mode": "guidance",
         "deferred": true,
-        "defer_reason": "superseded by operator gold km 40.0–41.0 Loen-Alsvik asphalt S1/F0 (chunk_11 HITL lock); guidance retained for audit only"
+        "defer_reason": "superseded by operator gold km 40.0\u201341.0 Loen-Alsvik asphalt S1/F0 (chunk_11 HITL lock); guidance retained for audit only"
       }
     ],
     "variance_gaps": [
@@ -79374,28 +79374,28 @@
         "course_km_end": 30.0,
         "median_sigma": 0.343,
         "pct_metres_high_variance": 57.7,
-        "reason": "inter-athlete NTI σ elevated (median σ ≥ threshold or >50% hot metres). Lower bound km 29.282 retained — km 29.0–29.282 excluded: operator gold chunk_00 lock post SUT43 race FIT GPS repositioning (S3/F2 easy dirt baseline + S4/F3 rocky pockets @ km 29.4–29.6 and 29.8–30.0 + S3/F3 plank/muddy pocket @ km 29.6–29.8; no gravel in window per operator field note). km 29.282–30.0 overlaps operator gold — gold authoritative. Upper bound trimmed at km 30.0 — km 30.0–31.0 excluded: chunk_01 operator gold HITL lock (S3/F2 easy descent Fjogstadnuten flank km 30.0–30.10 + S4/F3 technical rocky core km 30.10–30.35 + S3/F2 ease pre-CP km 30.35–30.55 with Gramstad food CP @ ~30.52 + S3/F2 dirt toward stile km 30.55–31.0; Subject_A SUT43_20260418 FIT validation). km 31.0–33.9 excluded: chunk_02 bedrock lock S4/F3 rocky trail with nested S3/F2 dirt pocket @ km 32.55–32.65; km 33.2–33.39 S5/F3 exposed granite; km 33.39–33.41 Paradisskaret gravel S2/F3 crossing; km 33.41–33.97 rocky high-friction trail S4/F3 (chunk_02–04 HITL lock)."
+        "reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres). Lower bound km 29.282 retained \u2014 km 29.0\u201329.282 excluded: operator gold chunk_00 lock post SUT43 race FIT GPS repositioning (S3/F2 easy dirt baseline + S4/F3 rocky pockets @ km 29.4\u201329.6 and 29.8\u201330.0 + S3/F3 plank/muddy pocket @ km 29.6\u201329.8; no gravel in window per operator field note). km 29.282\u201330.0 overlaps operator gold \u2014 gold authoritative. Upper bound trimmed at km 30.0 \u2014 km 30.0\u201331.0 excluded: chunk_01 operator gold HITL lock (S3/F2 easy descent Fjogstadnuten flank km 30.0\u201330.10 + S4/F3 technical rocky core km 30.10\u201330.35 + S3/F2 ease pre-CP km 30.35\u201330.55 with Gramstad food CP @ ~30.52 + S3/F2 dirt toward stile km 30.55\u201331.0; Subject_A SUT43_20260418 FIT validation). km 31.0\u201333.9 excluded: chunk_02 bedrock lock S4/F3 rocky trail with nested S3/F2 dirt pocket @ km 32.55\u201332.65; km 33.2\u201333.39 S5/F3 exposed granite; km 33.39\u201333.41 Paradisskaret gravel S2/F3 crossing; km 33.41\u201333.97 rocky high-friction trail S4/F3 (chunk_02\u201304 HITL lock)."
       },
       {
         "course_km_start": 36.6,
         "course_km_end": 36.72,
         "median_sigma": 0.343,
         "pct_metres_high_variance": 57.7,
-        "reason": "inter-athlete NTI σ elevated (median σ ≥ threshold or >50% hot metres) — operator guidance deferred pending GPS revisit or second-athlete agreement. Lower bound trimmed at km 36.6 — km 36.30–36.6 excluded: Vassfjellet traverse upstream tread under operator gold S3/F2 (chunk_07 HITL lock). Upper bound trimmed at km 36.72 — km 36.72–36.89 excluded: Vassfjellet approach bog under operator gold S6/F4 (norgeskart bog hatch + pin UTM-32 E 314569.35 N 6530043.56 + chunk_07 HITL lock)"
+        "reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement. Lower bound trimmed at km 36.6 \u2014 km 36.30\u201336.6 excluded: Vassfjellet traverse upstream tread under operator gold S3/F2 (chunk_07 HITL lock). Upper bound trimmed at km 36.72 \u2014 km 36.72\u201336.89 excluded: Vassfjellet approach bog under operator gold S6/F4 (norgeskart bog hatch + pin UTM-32 E 314569.35 N 6530043.56 + chunk_07 HITL lock)"
       },
       {
         "course_km_start": 36.89,
         "course_km_end": 37.0,
         "median_sigma": 0.343,
         "pct_metres_high_variance": 57.7,
-        "reason": "inter-athlete NTI σ elevated (median σ ≥ threshold or >50% hot metres) — operator guidance deferred pending GPS revisit or second-athlete agreement. Lower bound trimmed at km 36.89 — km 36.72–36.89 excluded: Vassfjellet approach bog under operator gold S6/F4. Upper bound trimmed at km 37.0 — km 37.0–38.0 excluded: operator gold contiguous lock post-bog forest climb S3/F3 + S6/F4 pocket + Vassfjellet muddy trail S6/F4 + rocky-muddy descent S5/F4 (chunk_08 HITL lock)."
+        "reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement. Lower bound trimmed at km 36.89 \u2014 km 36.72\u201336.89 excluded: Vassfjellet approach bog under operator gold S6/F4. Upper bound trimmed at km 37.0 \u2014 km 37.0\u201338.0 excluded: operator gold contiguous lock post-bog forest climb S3/F3 + S6/F4 pocket + Vassfjellet muddy trail S6/F4 + rocky-muddy descent S5/F4 (chunk_08 HITL lock)."
       },
       {
         "course_km_start": 38.0,
         "course_km_end": 39.135,
         "median_sigma": 0.343,
         "pct_metres_high_variance": 57.7,
-        "reason": "inter-athlete NTI σ elevated (median σ ≥ threshold or >50% hot metres) — operator guidance deferred pending GPS revisit or second-athlete agreement. Lower bound trimmed at km 38.0 — km 37.0–38.0 excluded: operator gold contiguous lock km 37.0–38.0 (chunk_08). Upper bound trimmed at km 39.135 — km 39.135–41.0 excluded: operator gold Paradisskaret gravel S2/F3 through stile + gravel→asphalt flap + Loen-Alsvik asphalt S1/F0 km 39.140–41.0 (chunk_10/chunk_11)."
+        "reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement. Lower bound trimmed at km 38.0 \u2014 km 37.0\u201338.0 excluded: operator gold contiguous lock km 37.0\u201338.0 (chunk_08). Upper bound trimmed at km 39.135 \u2014 km 39.135\u201341.0 excluded: operator gold Paradisskaret gravel S2/F3 through stile + gravel\u2192asphalt flap + Loen-Alsvik asphalt S1/F0 km 39.140\u201341.0 (chunk_10/chunk_11)."
       }
     ],
     "draft_preservation_spans": [
@@ -79412,7 +79412,7 @@
           "S4",
           "S5"
         ],
-        "reason": "operator HITL (gramstad_band): km 29.0–30.0 superseded by operator gold chunk_00 — S3/F2 easy dirt baseline + S4/F3 rocky pockets @ km 29.4–29.6 and 29.8–30.0 + S3/F3 plank/muddy pocket @ km 29.6–29.8. Post SUT43 race FIT GPS repositioning: whole section dirt trail, no gravel (operator field note 2026-06-28). draft-preservation retained for audit only; accept GMM draft S3/S6 where operator gold absent; S1/S2 unassigned. Non-overlapping boundary at km 30.0 before km 30.0–30.3 resume policy"
+        "reason": "operator HITL (gramstad_band): km 29.0\u201330.0 superseded by operator gold chunk_00 \u2014 S3/F2 easy dirt baseline + S4/F3 rocky pockets @ km 29.4\u201329.6 and 29.8\u201330.0 + S3/F3 plank/muddy pocket @ km 29.6\u201329.8. Post SUT43 race FIT GPS repositioning: whole section dirt trail, no gravel (operator field note 2026-06-28). draft-preservation retained for audit only; accept GMM draft S3/S6 where operator gold absent; S1/S2 unassigned. Non-overlapping boundary at km 30.0 before km 30.0\u201330.3 resume policy"
       },
       {
         "course_km_start": 30.0,
@@ -79427,7 +79427,7 @@
           "S1",
           "S2"
         ],
-        "reason": "operator HITL (gramstad_band): unified policy km 30.0–30.3 — accept GMM draft S3–S6 (assignment equals draft, solid accept-draft guidance); S1/S2 unassigned (no operator input, draft visible only). Downstream flank of km 29.0–30.0 no-S4/S5 window; upstream flank of km 30.3–30.7 three-way split; non-overlapping for validation_dashboard union merge"
+        "reason": "operator HITL (gramstad_band): unified policy km 30.0\u201330.3 \u2014 accept GMM draft S3\u2013S6 (assignment equals draft, solid accept-draft guidance); S1/S2 unassigned (no operator input, draft visible only). Downstream flank of km 29.0\u201330.0 no-S4/S5 window; upstream flank of km 30.3\u201330.7 three-way split; non-overlapping for validation_dashboard union merge"
       },
       {
         "course_km_start": 30.3,
@@ -79442,7 +79442,7 @@
           "S4",
           "S6"
         ],
-        "reason": "operator HITL (gramstad_band): km 30.3–30.4 upstream flank — retain prior S5-only accept-draft from split of km 30.3–30.7 window; S1–S4 and S6 unassigned. Non-overlapping boundary at km 30.4 before km 30.4–30.67 S3/S4/S5 core policy"
+        "reason": "operator HITL (gramstad_band): km 30.3\u201330.4 upstream flank \u2014 retain prior S5-only accept-draft from split of km 30.3\u201330.7 window; S1\u2013S4 and S6 unassigned. Non-overlapping boundary at km 30.4 before km 30.4\u201330.67 S3/S4/S5 core policy"
       },
       {
         "course_km_start": 30.4,
@@ -79457,7 +79457,7 @@
           "S2",
           "S6"
         ],
-        "reason": "operator HITL (gramstad_band): km 30.4–30.67 core policy — accept GMM draft when class is S3, S4, or S5 (assignment equals draft, solid accept-draft guidance); S1/S2/S6 unassigned (no operator input, draft visible only). Split from km 30.3–30.7 S5-only window to avoid accept/no_input union clash with flanking spans in validation_dashboard"
+        "reason": "operator HITL (gramstad_band): km 30.4\u201330.67 core policy \u2014 accept GMM draft when class is S3, S4, or S5 (assignment equals draft, solid accept-draft guidance); S1/S2/S6 unassigned (no operator input, draft visible only). Split from km 30.3\u201330.7 S5-only window to avoid accept/no_input union clash with flanking spans in validation_dashboard"
       },
       {
         "course_km_start": 30.67,
@@ -79472,7 +79472,7 @@
           "S4",
           "S6"
         ],
-        "reason": "operator HITL (gramstad_band): km 30.67–30.7 downstream flank — retain prior S5-only accept-draft from split of km 30.3–30.7 window; S1–S4 and S6 unassigned. Non-overlapping boundary at km 30.67 after km 30.4–30.67 S3/S4/S5 core policy"
+        "reason": "operator HITL (gramstad_band): km 30.67\u201330.7 downstream flank \u2014 retain prior S5-only accept-draft from split of km 30.3\u201330.7 window; S1\u2013S4 and S6 unassigned. Non-overlapping boundary at km 30.67 after km 30.4\u201330.67 S3/S4/S5 core policy"
       },
       {
         "course_km_start": 30.7,
@@ -79487,7 +79487,7 @@
           "S1",
           "S2"
         ],
-        "reason": "operator HITL (gramstad_band): unified policy km 30.7–31.0 — accept GMM draft S3–S6 (assignment equals draft, solid accept-draft guidance); S1/S2 unassigned (no operator input, draft visible only). Downstream flank of km 30.3–30.7 three-way split (S5-only flanks + km 30.4–30.67 S3/S4/S5 core); non-overlapping for validation_dashboard union merge"
+        "reason": "operator HITL (gramstad_band): unified policy km 30.7\u201331.0 \u2014 accept GMM draft S3\u2013S6 (assignment equals draft, solid accept-draft guidance); S1/S2 unassigned (no operator input, draft visible only). Downstream flank of km 30.3\u201330.7 three-way split (S5-only flanks + km 30.4\u201330.67 S3/S4/S5 core); non-overlapping for validation_dashboard union merge"
       },
       {
         "course_km_start": 36.6,
@@ -79502,7 +79502,7 @@
           "S1",
           "S6"
         ],
-        "reason": "operator HITL (gramstad_band): km 36.6–36.72 upstream flank — accept GMM draft S2–S5 after Vassfjellet traverse operator gold km 36.30–36.6; S1/S6 unassigned. Non-overlapping boundary at km 36.72 before Vassfjellet approach bog operator gold S6/F4 km 36.72–36.89 (norgeskart bog hatch + pin UTM-32 E 314569.35 N 6530043.56)"
+        "reason": "operator HITL (gramstad_band): km 36.6\u201336.72 upstream flank \u2014 accept GMM draft S2\u2013S5 after Vassfjellet traverse operator gold km 36.30\u201336.6; S1/S6 unassigned. Non-overlapping boundary at km 36.72 before Vassfjellet approach bog operator gold S6/F4 km 36.72\u201336.89 (norgeskart bog hatch + pin UTM-32 E 314569.35 N 6530043.56)"
       },
       {
         "course_km_start": 36.89,
@@ -79517,7 +79517,7 @@
           "S1",
           "S6"
         ],
-        "reason": "operator HITL (gramstad_band): km 36.89–37.0 downstream flank — accept GMM draft S2–S5 after Vassfjellet approach bog operator gold S6/F4 km 36.72–36.89; S1/S6 unassigned. Non-overlapping boundary at km 36.89 after bog gold (pin @ km 36.833); upstream flank ends at km 36.72"
+        "reason": "operator HITL (gramstad_band): km 36.89\u201337.0 downstream flank \u2014 accept GMM draft S2\u2013S5 after Vassfjellet approach bog operator gold S6/F4 km 36.72\u201336.89; S1/S6 unassigned. Non-overlapping boundary at km 36.89 after bog gold (pin @ km 36.833); upstream flank ends at km 36.72"
       },
       {
         "course_km_start": 38.0,
@@ -79532,7 +79532,7 @@
           "S1",
           "S2"
         ],
-        "reason": "operator HITL (gramstad_band): unified policy km 38.0–39.135 — accept GMM draft S3–S6 (assignment equals draft, solid accept-draft guidance); S1/S2 unassigned. Lower bound trimmed at km 38.0 — km 37.0–38.0 excluded: operator gold contiguous lock post-bog forest climb + Vassfjellet muddy trail + rocky-muddy descent (chunk_08). Downstream boundary at km 39.135 — Paradisskaret gravel S2/F3 through stile + gravel flap + Loen-Alsvik asphalt S1/F0 km 39.140–41.0 supersedes draft-preservation (chunk_10/chunk_11); km 40.0–41.0 outside draft-preservation window."
+        "reason": "operator HITL (gramstad_band): unified policy km 38.0\u201339.135 \u2014 accept GMM draft S3\u2013S6 (assignment equals draft, solid accept-draft guidance); S1/S2 unassigned. Lower bound trimmed at km 38.0 \u2014 km 37.0\u201338.0 excluded: operator gold contiguous lock post-bog forest climb + Vassfjellet muddy trail + rocky-muddy descent (chunk_08). Downstream boundary at km 39.135 \u2014 Paradisskaret gravel S2/F3 through stile + gravel flap + Loen-Alsvik asphalt S1/F0 km 39.140\u201341.0 supersedes draft-preservation (chunk_10/chunk_11); km 40.0\u201341.0 outside draft-preservation window."
       }
     ],
     "operator_gold_spans": [
@@ -79542,7 +79542,7 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: easy dirt trail baseline — whole km 29.0–30.0 is dirt trail (chunk_00). Post SUT43 race FIT GPS ground-truth repositioning: no gravel in window (prior S2 gravel @ km 29.0–29.1 removed). Mainly easy dirt tread S3/F2 per friction_index_spec and operator field note 2026-06-28."
+        "reason": "operator gold: easy dirt trail baseline \u2014 whole km 29.0\u201330.0 is dirt trail (chunk_00). Post SUT43 race FIT GPS ground-truth repositioning: no gravel in window (prior S2 gravel @ km 29.0\u201329.1 removed). Mainly easy dirt tread S3/F2 per friction_index_spec and operator field note 2026-06-28."
       },
       {
         "course_km_start": 29.4,
@@ -79550,7 +79550,7 @@
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: minor rocky interval — dirt trail with embedded rock / technical tread (chunk_00). S4/F3 per friction_index_spec; minor technical pocket within predominantly easy dirt band. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning."
+        "reason": "operator gold: minor rocky interval \u2014 dirt trail with embedded rock / technical tread (chunk_00). S4/F3 per friction_index_spec; minor technical pocket within predominantly easy dirt band. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning."
       },
       {
         "course_km_start": 29.6,
@@ -79558,7 +79558,7 @@
         "surface_class": "S3",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: plank/muddy nested pocket — dirt trail with plank (boardwalk) and muddy tread (chunk_00). S3/F3 per friction_index_spec; minor technical interval, not full rocky band. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning."
+        "reason": "operator gold: plank/muddy nested pocket \u2014 dirt trail with plank (boardwalk) and muddy tread (chunk_00). S3/F3 per friction_index_spec; minor technical interval, not full rocky band. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning."
       },
       {
         "course_km_start": 29.8,
@@ -79566,7 +79566,7 @@
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: rocky approach interval — dirt trail with rock-strewn tread approaching km 30.0 (chunk_00). S4/F3 per friction_index_spec; minor technical pocket before chunk_01 resume. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning."
+        "reason": "operator gold: rocky approach interval \u2014 dirt trail with rock-strewn tread approaching km 30.0 (chunk_00). S4/F3 per friction_index_spec; minor technical pocket before chunk_01 resume. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning."
       },
       {
         "course_km_start": 30.0,
@@ -79574,7 +79574,7 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: easy descent — Fjogstadnuten flank easy dirt tread (chunk_01). S3/F2 per friction_index_spec. Operator field memory 2026-06-28 + Subject_A SUT43_20260418 FIT phase boundary validation (easy descent km 30.0–30.10). Do not use Subject_B kinematics as terrain authority in this window — downstream food CP stop is behavioral (see km 30.35–30.55 span)."
+        "reason": "operator gold: easy descent \u2014 Fjogstadnuten flank easy dirt tread (chunk_01). S3/F2 per friction_index_spec. Operator field memory 2026-06-28 + Subject_A SUT43_20260418 FIT phase boundary validation (easy descent km 30.0\u201330.10). Do not use Subject_B kinematics as terrain authority in this window \u2014 downstream food CP stop is behavioral (see km 30.35\u201330.55 span)."
       },
       {
         "course_km_start": 30.1,
@@ -79582,7 +79582,7 @@
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: technical rocky core — steep-grade rocky tread, TI ~5.4 (chunk_01). S4/F3 per friction_index_spec. Operator field memory 2026-06-28 + Subject_A SUT43_20260418 FIT validation (technical core km 30.10–30.35). Subject_B FIT shows technical interval shifted later with no pre-CP ease flank — not terrain authority; Subject_B food CP stop downstream @ stream km 30.805–30.826 is behavioral TRF exclusion (not stile wait)."
+        "reason": "operator gold: technical rocky core \u2014 steep-grade rocky tread, TI ~5.4 (chunk_01). S4/F3 per friction_index_spec. Operator field memory 2026-06-28 + Subject_A SUT43_20260418 FIT validation (technical core km 30.10\u201330.35). Subject_B FIT shows technical interval shifted later with no pre-CP ease flank \u2014 not terrain authority; Subject_B food CP stop downstream @ stream km 30.805\u201330.826 is behavioral TRF exclusion (not stile wait)."
       },
       {
         "course_km_start": 30.35,
@@ -79590,7 +79590,7 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: ease before CP — runnable dirt tread downstream of rocky core (chunk_01). S3/F2 per friction_index_spec. Gramstad food CP corridor @ ~30.52 (atlas pin); CP stop excluded from friction tier. Operator field memory + Subject_A FIT validation (ease pre-CP km 30.35–30.50; span extended to km 30.55 for CP corridor contiguity). Subject_B food CP stop: panel ~30.52, Subject_B stream km 30.805–30.826 (~451 s) — behavioral TRF exclusion; not stile wait."
+        "reason": "operator gold: ease before CP \u2014 runnable dirt tread downstream of rocky core (chunk_01). S3/F2 per friction_index_spec. Gramstad food CP corridor @ ~30.52 (atlas pin); CP stop excluded from friction tier. Operator field memory + Subject_A FIT validation (ease pre-CP km 30.35\u201330.50; span extended to km 30.55 for CP corridor contiguity). Subject_B food CP stop: panel ~30.52, Subject_B stream km 30.805\u201330.826 (~451 s) \u2014 behavioral TRF exclusion; not stile wait."
       },
       {
         "course_km_start": 30.55,
@@ -79598,7 +79598,7 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: easy dirt toward stile — runnable dirt tread approaching chunk_02 bedrock lock @ km 31.0 (chunk_01). S3/F2 per friction_index_spec. Contiguity boundary @ km 31.0 before S4/F3 bedrock lock. Operator field memory 2026-06-28 + Subject_A FIT validation. Subject_B food CP stop upstream @ stream km 30.805–30.826 (~451 s) is behavioral only — co-runner stile wait downstream @ km 31.132+; both athletes stationary at/near stile (see chunk_02 bedrock lock reason)."
+        "reason": "operator gold: easy dirt toward stile \u2014 runnable dirt tread approaching chunk_02 bedrock lock @ km 31.0 (chunk_01). S3/F2 per friction_index_spec. Contiguity boundary @ km 31.0 before S4/F3 bedrock lock. Operator field memory 2026-06-28 + Subject_A FIT validation. Subject_B food CP stop upstream @ stream km 30.805\u201330.826 (~451 s) is behavioral only \u2014 co-runner stile wait downstream @ km 31.132+; both athletes stationary at/near stile (see chunk_02 bedrock lock reason)."
       },
       {
         "course_km_start": 31.0,
@@ -79606,7 +79606,7 @@
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: chunk_02 bedrock lock — rocky trail / technical bedrock tread (gramstad_band reverse traverse 2026-06-28). Contiguous S4/F3 operator-gold band km 31.0–33.2; boundary @ km 33.2 aligns with downstream S5/F3 exposed granite km 33.2–33.39 (not merged). Nested S3/F2 pure-dirt pocket @ km 32.55–32.65 retained. S4/F3 per friction_index_spec. Supersedes legacy chunk_03/04 micro-spans and deferred guidance in window. Co-runner stile wait (gjerdeklyver @ km 31.158): both athletes stationary — same bathroom-break event, ~79 s temporal overlap; not a downstream bedrock stop. Subject_A stationary at stile: norgeskart pin UTM-32 E 316408.72 N 6531320.04 elev 286.0 m (panel snap residual 1.9 m, elev Δ +0.7 m); SUT43_20260418 stop/wait cluster km 31.132–31.180 (48 m, 0 m/s). Subject_B stationary slightly downstream of stile: operator pin UTM-32 E 316435.62 N 6531327.88 elev 275.8 m (~15–28 m UTM from Subject_A stile pin); Subject_B stream km 31.440–31.476 (~79 s, 0 m/s) — ~300 m stream-km offset vs panel km 31.132–31.180 is FIT labeling artifact, not separate terrain. Distinct FIT/TI signatures across runs at crossing; not chunk_06 km ~35.15 (Gramstad gravel S2/F1 — separate inter-athlete cluster-rank divergence)."
+        "reason": "operator gold: chunk_02 bedrock lock \u2014 rocky trail / technical bedrock tread (gramstad_band reverse traverse 2026-06-28). Contiguous S4/F3 operator-gold band km 31.0\u201333.2; boundary @ km 33.2 aligns with downstream S5/F3 exposed granite km 33.2\u201333.39 (not merged). Nested S3/F2 pure-dirt pocket @ km 32.55\u201332.65 retained. S4/F3 per friction_index_spec. Supersedes legacy chunk_03/04 micro-spans and deferred guidance in window. Co-runner stile wait (gjerdeklyver @ km 31.158): both athletes stationary \u2014 same bathroom-break event, ~79 s temporal overlap; not a downstream bedrock stop. Subject_A stationary at stile: norgeskart pin UTM-32 E 316408.72 N 6531320.04 elev 286.0 m (panel snap residual 1.9 m, elev \u0394 +0.7 m); SUT43_20260418 stop/wait cluster km 31.132\u201331.180 (48 m, 0 m/s). Subject_B stationary slightly downstream of stile: operator pin UTM-32 E 316435.62 N 6531327.88 elev 275.8 m (~15\u201328 m UTM from Subject_A stile pin); Subject_B stream km 31.440\u201331.476 (~79 s, 0 m/s) \u2014 ~300 m stream-km offset vs panel km 31.132\u201331.180 is FIT labeling artifact, not separate terrain. Distinct FIT/TI signatures across runs at crossing; not chunk_06 km ~35.15 (Gramstad gravel S2/F1 \u2014 separate inter-athlete cluster-rank divergence)."
       },
       {
         "course_km_start": 32.55,
@@ -79614,7 +79614,7 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: nested dirt pocket — pure dirt within chunk_02 bedrock lock km 31.0–33.2 (S4/F3 parent). Only pure-dirt section in rocky/granite band; muddy when wet (dirt pocket, not full bog/marsh). S3/F2 per friction_index_spec. Operator confirmed reverse traverse 2026-06-28."
+        "reason": "operator gold: nested dirt pocket \u2014 pure dirt within chunk_02 bedrock lock km 31.0\u201333.2 (S4/F3 parent). Only pure-dirt section in rocky/granite band; muddy when wet (dirt pocket, not full bog/marsh). S3/F2 per friction_index_spec. Operator confirmed reverse traverse 2026-06-28."
       },
       {
         "course_km_start": 33.2,
@@ -79622,7 +79622,7 @@
         "surface_class": "S5",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: exposed granite bedrock — downstream of chunk_02 bedrock lock boundary @ km 33.2; tread transitions from rocky trail upstream to exposed granite on Rinna ridge descent ending at Paradisskaret gravel road crossing @ km 33.39. S5/F3 per friction_index_spec (difficult technical rock on exposed granite; F3 moderate friction on polished/slab granite). Split point @ km 33.2 per operator HITL; not merged into km 31.0–33.2 S4/F3 lock. Operator gold + norgeskart pin UTM-32 E 315754.57 N 6530524.97 elev 175.4 m (2026-06-28)."
+        "reason": "operator gold: exposed granite bedrock \u2014 downstream of chunk_02 bedrock lock boundary @ km 33.2; tread transitions from rocky trail upstream to exposed granite on Rinna ridge descent ending at Paradisskaret gravel road crossing @ km 33.39. S5/F3 per friction_index_spec (difficult technical rock on exposed granite; F3 moderate friction on polished/slab granite). Split point @ km 33.2 per operator HITL; not merged into km 31.0\u201333.2 S4/F3 lock. Operator gold + norgeskart pin UTM-32 E 315754.57 N 6530524.97 elev 175.4 m (2026-06-28)."
       },
       {
         "course_km_start": 33.39,
@@ -79630,7 +79630,7 @@
         "surface_class": "S2",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: Paradisskaret gravel road crossing — narrow coarse gravel road band @ km 33.39–33.41 immediately downstream of granite bedrock descent (Rinna ridge). S2/F3 per friction_index_spec (chunky coarse gravel crossing tread, not hard-pack F1/F2). Operator gold + norgeskart pin UTM-32 E 315754.57 N 6530524.97 elev 175.4 m; dashboard chunk_04 km 33.4 crossing visible. Downstream of granite @ km 33.39; upstream of rocky high-friction trail @ km 33.41."
+        "reason": "operator gold: Paradisskaret gravel road crossing \u2014 narrow coarse gravel road band @ km 33.39\u201333.41 immediately downstream of granite bedrock descent (Rinna ridge). S2/F3 per friction_index_spec (chunky coarse gravel crossing tread, not hard-pack F1/F2). Operator gold + norgeskart pin UTM-32 E 315754.57 N 6530524.97 elev 175.4 m; dashboard chunk_04 km 33.4 crossing visible. Downstream of granite @ km 33.39; upstream of rocky high-friction trail @ km 33.41."
       },
       {
         "course_km_start": 33.41,
@@ -79638,7 +79638,7 @@
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: high friction trail — rocky/rooty technical tread immediately downstream of Paradisskaret gravel road crossing @ km 33.41; extends to high→low friction transition @ km 33.97 (norgeskart pin UTM-32 E 315452.06 N 6530916.56 elev 165.4 m; SUT43 forward). S4/F3 per friction_index_spec (technical-runnable rock/rooty coarse footing). Operator gold post-crossing tread lock; dashboard HITL QC chunk_04. Adjacent F-tier calibration pair with km 33.97–34.60 low-friction S3/F2 runnable tread (chunk_05) before gravel road entry @ km 34.60. Distinct from upstream granite-ridge band km 31.0–33.39."
+        "reason": "operator gold: high friction trail \u2014 rocky/rooty technical tread immediately downstream of Paradisskaret gravel road crossing @ km 33.41; extends to high\u2192low friction transition @ km 33.97 (norgeskart pin UTM-32 E 315452.06 N 6530916.56 elev 165.4 m; SUT43 forward). S4/F3 per friction_index_spec (technical-runnable rock/rooty coarse footing). Operator gold post-crossing tread lock; dashboard HITL QC chunk_04. Adjacent F-tier calibration pair with km 33.97\u201334.60 low-friction S3/F2 runnable tread (chunk_05) before gravel road entry @ km 34.60. Distinct from upstream granite-ridge band km 31.0\u201333.39."
       },
       {
         "course_km_start": 33.97,
@@ -79646,13 +79646,13 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: low friction trail — compact dirt, runnable tread (km 33.97–34.60) downstream of high→low friction transition @ km 33.97 (norgeskart pin UTM-32 E 315452.06 N 6530916.56 elev 165.4 m); extends to low→gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax, full run). Dashboard HITL QC chunk_05. Operator anchors: km 34.2 low-friction trail (S3/F2); gate ~km 34.0–34.1; gate ~km 34.6; SUT43 drink CP km 34.6–34.7; km 34.7 on gravel road (SUT43 forward). Subject_A drink CP stop: panel ~34.64, Subject_A stream km 34.641–34.647 (~105 s, 0 m/s; stop centroid UTM-32 E 315494.2 N 6531475.5, pin residual 37.3 m) — behavioral TRF exclusion. Not S2 hard-pack gravel."
+        "reason": "operator gold: low friction trail \u2014 compact dirt, runnable tread (km 33.97\u201334.60) downstream of high\u2192low friction transition @ km 33.97 (norgeskart pin UTM-32 E 315452.06 N 6530916.56 elev 165.4 m); extends to low\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax, full run). Dashboard HITL QC chunk_05. Operator anchors: km 34.2 low-friction trail (S3/F2); gate ~km 34.0\u201334.1; gate ~km 34.6; SUT43 drink CP km 34.6\u201334.7; km 34.7 on gravel road (SUT43 forward). Subject_A drink CP stop: panel ~34.64, Subject_A stream km 34.641\u201334.647 (~105 s, 0 m/s; stop centroid UTM-32 E 315494.2 N 6531475.5, pin residual 37.3 m) \u2014 behavioral TRF exclusion. Not S2 hard-pack gravel."
       },
       {
         "surface_class": "S2",
         "friction_tier": "F1",
         "gold_source": "operator",
-        "reason": "operator gold: Gramstad area hard-pack gravel road / tractor road (dossier sector #2) — km 34.60–36.30 compact gravel corridor from trail→gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward) through gravel→trail transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m (Kubbetjørn / Kollirudla; dashed trail meets solid gravel road at end of Gramstad gravel band); SUT43 forward; panel snap raw 36.302 km, residual 5.1 m). S2/F1 hard-pack baseline per friction_index_spec. Operator anchors: km 34.2 low-friction trail (S3/F2); gate ~km 34.0–34.1; gate ~km 34.6; SUT43 drink CP km 34.6–34.7; km 34.7 on gravel road (SUT43 forward). Subject_B drink CP stop: panel ~34.97–35.01, Subject_B stream km 34.972–35.011 (~215 s cumulative zero-speed; primary halt UTM centroid Δ 1.1 m vs Subject_A drink stop @ stream km 34.641–34.647, geodesic 11.6 m full window, pin residual 38–47 m; stream-km offset ~330 m vs Subject_A — consistent with stile offset ~302 m) — behavioral TRF exclusion; same Gramstad drink CP as Subject_A, not impatient gravel wait downstream of drink CP. Dashboard HITL QC chunk_05/06.",
+        "reason": "operator gold: Gramstad area hard-pack gravel road / tractor road (dossier sector #2) \u2014 km 34.60\u201336.30 compact gravel corridor from trail\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward) through gravel\u2192trail transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m (Kubbetj\u00f8rn / Kollirudla; dashed trail meets solid gravel road at end of Gramstad gravel band); SUT43 forward; panel snap raw 36.302 km, residual 5.1 m). S2/F1 hard-pack baseline per friction_index_spec. Operator anchors: km 34.2 low-friction trail (S3/F2); gate ~km 34.0\u201334.1; gate ~km 34.6; SUT43 drink CP km 34.6\u201334.7; km 34.7 on gravel road (SUT43 forward). Subject_B drink CP stop: panel ~34.97\u201335.01, Subject_B stream km 34.972\u201335.011 (~215 s cumulative zero-speed; primary halt UTM centroid \u0394 1.1 m vs Subject_A drink stop @ stream km 34.641\u201334.647, geodesic 11.6 m full window, pin residual 38\u201347 m; stream-km offset ~330 m vs Subject_A \u2014 consistent with stile offset ~302 m) \u2014 behavioral TRF exclusion; same Gramstad drink CP as Subject_A, not impatient gravel wait downstream of drink CP. Dashboard HITL QC chunk_05/06.",
         "course_km_start": 34.6,
         "course_km_end": 36.3
       },
@@ -79660,7 +79660,7 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: Vassfjellet traverse upstream tread — hard dirt / grass trail corridor (not bog); trail begins @ km 36.30 immediately downstream of Gramstad gravel road S2/F1 exit. gravel→trail forward transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m (Kubbetjørn / Kollirudla; dashed trail meets solid gravel road at end of Gramstad gravel band); SUT43 forward; panel snap raw 36.302 km, residual 5.1 m). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax; not S4 technical rock, not S6 bog). Cross-ref sut_course_mileage_atlas vassfjellet_traverse @ ~36.4; dashboard HITL QC chunk_06/07.",
+        "reason": "operator gold: Vassfjellet traverse upstream tread \u2014 hard dirt / grass trail corridor (not bog); trail begins @ km 36.30 immediately downstream of Gramstad gravel road S2/F1 exit. gravel\u2192trail forward transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m (Kubbetj\u00f8rn / Kollirudla; dashed trail meets solid gravel road at end of Gramstad gravel band); SUT43 forward; panel snap raw 36.302 km, residual 5.1 m). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax; not S4 technical rock, not S6 bog). Cross-ref sut_course_mileage_atlas vassfjellet_traverse @ ~36.4; dashboard HITL QC chunk_06/07.",
         "course_km_start": 36.3,
         "course_km_end": 36.6
       },
@@ -79668,7 +79668,7 @@
         "surface_class": "S6",
         "friction_tier": "F4",
         "gold_source": "operator",
-        "reason": "operator gold: Vassfjellet approach bog — deep bog / marsh tread (S6/F4 per friction_index_spec). norgeskart bog/marsh cartography (blue-hatched bog on dashed trail; Kollirudla north; Vassfjellet approach hairpin) pinned @ km 36.833 (norgeskart pin UTM-32 E 314569.35 N 6530043.56 elev 213.0 m; panel snap raw 36.833 km, residual 14.1 m, elev Δ +3.2 m). Span km 36.72–36.89 encloses pin and GMM S6 hairpin cluster (36.719–36.888); upstream S3/F2 traverse tread ends @ km 36.60. Operator HITL chunk_07 confirmation; best in-band F4 calibration anchor on gramstad_band downstream of S3/F2 traverse tread.",
+        "reason": "operator gold: Vassfjellet approach bog \u2014 deep bog / marsh tread (S6/F4 per friction_index_spec). norgeskart bog/marsh cartography (blue-hatched bog on dashed trail; Kollirudla north; Vassfjellet approach hairpin) pinned @ km 36.833 (norgeskart pin UTM-32 E 314569.35 N 6530043.56 elev 213.0 m; panel snap raw 36.833 km, residual 14.1 m, elev \u0394 +3.2 m). Span km 36.72\u201336.89 encloses pin and GMM S6 hairpin cluster (36.719\u201336.888); upstream S3/F2 traverse tread ends @ km 36.60. Operator HITL chunk_07 confirmation; best in-band F4 calibration anchor on gramstad_band downstream of S3/F2 traverse tread.",
         "course_km_start": 36.72,
         "course_km_end": 36.89
       },
@@ -79678,7 +79678,7 @@
         "gold_source": "operator",
         "course_km_start": 37.0,
         "course_km_end": 37.072,
-        "reason": "operator gold: post-bog forest dirt climb — wet forest dirt tread immediately downstream of Vassfjellet approach bog S6/F4 km 36.72–36.89; typically wet with localized mud holes (high friction tax corridor, chunk_08). S3/F3 per friction_index_spec (rooty/muddy dirt trail, technical-runnable). GMM S3 cluster km 37.021–37.066 upstream of bog pocket."
+        "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt tread immediately downstream of Vassfjellet approach bog S6/F4 km 36.72\u201336.89; typically wet with localized mud holes (high friction tax corridor, chunk_08). S3/F3 per friction_index_spec (rooty/muddy dirt trail, technical-runnable). GMM S3 cluster km 37.021\u201337.066 upstream of bog pocket."
       },
       {
         "surface_class": "S6",
@@ -79686,7 +79686,7 @@
         "gold_source": "operator",
         "course_km_start": 37.072,
         "course_km_end": 37.13,
-        "reason": "operator gold: localized bog/mud pocket — deep mud hole within post-bog forest climb km 37.0–37.4; operator field note @ km 37.07–37.13, GMM S6 cluster km 37.072–37.130. Nested S6/F4 micro-span within S3/F3 parent corridor (chunk_08). S6/F4 per friction_index_spec (vacuum mud / bog extraction)."
+        "reason": "operator gold: localized bog/mud pocket \u2014 deep mud hole within post-bog forest climb km 37.0\u201337.4; operator field note @ km 37.07\u201337.13, GMM S6 cluster km 37.072\u201337.130. Nested S6/F4 micro-span within S3/F3 parent corridor (chunk_08). S6/F4 per friction_index_spec (vacuum mud / bog extraction)."
       },
       {
         "surface_class": "S3",
@@ -79694,7 +79694,7 @@
         "gold_source": "operator",
         "course_km_start": 37.13,
         "course_km_end": 37.41,
-        "reason": "operator gold: post-bog forest dirt climb — wet forest dirt trail with frequent localized mud holes; unpleasant high-friction tax corridor per operator field note (chunk_08). S3/F3 per friction_index_spec. GMM mixed S5/S6 pockets retained as draft overlay; operator baseline S3/F3 wet tread to km ~37.4 before Vassfjellet muddy trail band."
+        "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt trail with frequent localized mud holes; unpleasant high-friction tax corridor per operator field note (chunk_08). S3/F3 per friction_index_spec. GMM mixed S5/S6 pockets retained as draft overlay; operator baseline S3/F3 wet tread to km ~37.4 before Vassfjellet muddy trail band."
       },
       {
         "surface_class": "S6",
@@ -79702,7 +79702,7 @@
         "gold_source": "operator",
         "course_km_start": 37.41,
         "course_km_end": 37.87,
-        "reason": "operator gold: Vassfjellet muddy trail — wet forest dirt tread with frequent mud holes and bog-dominant footing; extended/merged from prior km 37.41–37.87 baseline (chunk_08). Operator field note: dirt trails in forest, typically wet, localized mud holes frequent, high friction tax corridor. S6/F4 per friction_index_spec (bog/mud dominant; GMM S6 clusters km 37.414–37.849). Supersedes open variance gap km 37.87–38.0 flank."
+        "reason": "operator gold: Vassfjellet muddy trail \u2014 wet forest dirt tread with frequent mud holes and bog-dominant footing; extended/merged from prior km 37.41\u201337.87 baseline (chunk_08). Operator field note: dirt trails in forest, typically wet, localized mud holes frequent, high friction tax corridor. S6/F4 per friction_index_spec (bog/mud dominant; GMM S6 clusters km 37.414\u201337.849). Supersedes open variance gap km 37.87\u201338.0 flank."
       },
       {
         "surface_class": "S5",
@@ -79710,13 +79710,13 @@
         "gold_source": "operator",
         "course_km_start": 37.87,
         "course_km_end": 38.0,
-        "reason": "operator gold: rocky muddy descent — technical rocky AND muddy tread at end of wet forest corridor near km 38 per operator field note (chunk_08 tail only). S5/F4 per friction_index_spec (severe friction: loose/rocky footing plus vacuum mud; walk/scramble tax). Transitions from upstream S6/F4 Vassfjellet muddy trail; descent ends @ km 38.0 — downstream km 38.0+ is accept-draft GMM corridor until rocky gravel road @ km 38.4 (chunk_09)."
+        "reason": "operator gold: rocky muddy descent \u2014 technical rocky AND muddy tread at end of wet forest corridor near km 38 per operator field note (chunk_08 tail only). S5/F4 per friction_index_spec (severe friction: loose/rocky footing plus vacuum mud; walk/scramble tax). Transitions from upstream S6/F4 Vassfjellet muddy trail; descent ends @ km 38.0 \u2014 downstream km 38.0+ is accept-draft GMM corridor until rocky gravel road @ km 38.4 (chunk_09)."
       },
       {
         "surface_class": "S2",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: Paradisskaret gravel road — coarse gravel road tread upstream through stile (gjerdeklyver) @ km 39.135 (chunk_10). Extends prior rocky gravel road toward Bjørndalsfjellet km 38.4–38.9 through Paradisskaret gravel corridor to stile boundary. S2/F3 per friction_index_spec (chunky coarse gravel; matches Paradisskaret gravel crossing @ km 33.39). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m; panel snap raw 39.135 km, residual 1.4 m (Subject_A race GPS), elev Δ +9.8 m vs pin cartography. Subject_A SUT43_20260418 race stop/wait cluster km 39.125–39.132 (7 m, 0 m/s; stile crossing). Dashboard HITL QC chunk_10.",
+        "reason": "operator gold: Paradisskaret gravel road \u2014 coarse gravel road tread upstream through stile (gjerdeklyver) @ km 39.135 (chunk_10). Extends prior rocky gravel road toward Bj\u00f8rndalsfjellet km 38.4\u201338.9 through Paradisskaret gravel corridor to stile boundary. S2/F3 per friction_index_spec (chunky coarse gravel; matches Paradisskaret gravel crossing @ km 33.39). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m; panel snap raw 39.135 km, residual 1.4 m (Subject_A race GPS), elev \u0394 +9.8 m vs pin cartography. Subject_A SUT43_20260418 race stop/wait cluster km 39.125\u201339.132 (7 m, 0 m/s; stile crossing). Dashboard HITL QC chunk_10.",
         "course_km_start": 38.4,
         "course_km_end": 39.135
       },
@@ -79726,13 +79726,13 @@
         "surface_class": "S2",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: Paradisskaret gravel→asphalt transition flap — ~5 m coarse gravel tread immediately downstream of stile (gjerdeklyver) @ km 39.135; asphalt begins @ km 39.140. S2/F3 per friction_index_spec (short gravel buffer before sealed road). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m; operator field note chunk_10."
+        "reason": "operator gold: Paradisskaret gravel\u2192asphalt transition flap \u2014 ~5 m coarse gravel tread immediately downstream of stile (gjerdeklyver) @ km 39.135; asphalt begins @ km 39.140. S2/F3 per friction_index_spec (short gravel buffer before sealed road). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m; operator field note chunk_10."
       },
       {
         "surface_class": "S1",
         "friction_tier": "F0",
         "gold_source": "operator",
-        "reason": "operator gold: Loen-Alsvik asphalt road (Alsvik asphalt tail, dossier sector #1) — sealed S1/F0 corridor km 39.140–40.0; begins ~5 m downstream of Paradisskaret stile @ km 39.135 after S2/F3 gravel transition flap km 39.135–39.140. Prior lock start @ km 39.7 pulled upstream per operator field note (gravel→asphalt transition QC chunk_10). Flat grade, low NTI confirmation; friction tier F0 per friction_index_spec; dashboard HITL QC chunk_10.",
+        "reason": "operator gold: Loen-Alsvik asphalt road (Alsvik asphalt tail, dossier sector #1) \u2014 sealed S1/F0 corridor km 39.140\u201340.0; begins ~5 m downstream of Paradisskaret stile @ km 39.135 after S2/F3 gravel transition flap km 39.135\u201339.140. Prior lock start @ km 39.7 pulled upstream per operator field note (gravel\u2192asphalt transition QC chunk_10). Flat grade, low NTI confirmation; friction tier F0 per friction_index_spec; dashboard HITL QC chunk_10.",
         "course_km_start": 39.14,
         "course_km_end": 40.0
       },
@@ -79740,9 +79740,104 @@
         "surface_class": "S1",
         "friction_tier": "F0",
         "gold_source": "operator",
-        "reason": "operator gold: Loen-Alsvik asphalt road (Alsvik asphalt tail, dossier sector #1) — pure sealed S1/F0 corridor km 40.0–41.0 per operator field confirmation (chunk_11). Continuous downstream of chunk_10 asphalt lock km 39.140–40.0; flat grade, low NTI; friction tier F0 per friction_index_spec; dashboard HITL QC chunk_11.",
+        "reason": "operator gold: Loen-Alsvik asphalt road (Alsvik asphalt tail, dossier sector #1) \u2014 pure sealed S1/F0 corridor km 40.0\u201341.0 per operator field confirmation (chunk_11). Continuous downstream of chunk_10 asphalt lock km 39.140\u201340.0; flat grade, low NTI; friction tier F0 per friction_index_spec; dashboard HITL QC chunk_11.",
         "course_km_start": 40.0,
         "course_km_end": 41.0
+      }
+    ],
+    "behavioral_stops": [
+      {
+        "anchor_id": "food_cp",
+        "course_km_start": 30.35,
+        "course_km_end": 30.85,
+        "tag": "cp_halt",
+        "subject_scope": "both",
+        "reason": "Gramstad food CP corridor \u2014 Subject_A dominant stop cluster on S3/F2 ease flank; Subject_B stream-km offset +298 m; behavioral halt, not terrain friction signal."
+      },
+      {
+        "anchor_id": "stile_31",
+        "course_km_start": 31.1,
+        "course_km_end": 31.5,
+        "tag": "co_wait",
+        "subject_scope": "both",
+        "reason": "STILE-31 co-wait \u2014 behavioral_exclusion_only anchor; both athletes stationary at/near gjerdeklyver; co-runner bathroom break, not chunk_02 bedrock tier signal."
+      },
+      {
+        "anchor_id": "drink_cp",
+        "course_km_start": 34.55,
+        "course_km_end": 35.05,
+        "tag": "cp_halt",
+        "subject_scope": "both",
+        "reason": "Gramstad drink CP corridor \u2014 both athletes halt on S2/F1 gravel band edge; UTM co-located post-spine despite stream-km label divergence."
+      },
+      {
+        "course_km_start": 30.38,
+        "course_km_end": 30.44,
+        "tag": "single_athlete_asymmetry",
+        "subject_scope": "Subject_A_only",
+        "reason": "Rocky core Subject_A-only stop (S4/F3) \u2014 Subject_B through-hiking; cross-athlete |\u0394TI| gap artifact, not terrain delta."
+      },
+      {
+        "course_km_start": 33.07,
+        "course_km_end": 33.12,
+        "tag": "single_athlete_asymmetry",
+        "subject_scope": "Subject_A_only",
+        "reason": "Granite transition Subject_A-only stop at S4/F3 band entry \u2014 Subject_B continues; behavioral asymmetry, not tier mismatch."
+      }
+    ],
+    "trf_exclusions": [
+      {
+        "course_km_start": 30.35,
+        "course_km_end": 30.85,
+        "exclusion_type": "cp_halt",
+        "subject_scope": "both",
+        "anchor_id": "food_cp",
+        "gold_source": "operator",
+        "sector_id": "gramstad_band",
+        "locked_at": "2026-06-28",
+        "reason": "Food CP corridor \u2014 Subject_A dominant stop cluster on S3/F2 ease flank; cross-athlete stop asymmetry >25%; exclude from paired TRF and cell aggregation."
+      },
+      {
+        "course_km_start": 31.1,
+        "course_km_end": 31.5,
+        "exclusion_type": "co_wait",
+        "subject_scope": "both",
+        "anchor_id": "stile_31",
+        "gold_source": "operator",
+        "sector_id": "gramstad_band",
+        "locked_at": "2026-06-28",
+        "reason": "STILE-31 co-wait window \u2014 behavioral_exclusion_only anchor; co-runner stationary overlap at gjerdeklyver; not interpretable as terrain-driven |\u0394TI| gap."
+      },
+      {
+        "course_km_start": 34.55,
+        "course_km_end": 35.05,
+        "exclusion_type": "cp_halt",
+        "subject_scope": "both",
+        "anchor_id": "drink_cp",
+        "gold_source": "operator",
+        "sector_id": "gramstad_band",
+        "locked_at": "2026-06-28",
+        "reason": "Drink CP corridor \u2014 both athletes halt on Gramstad gravel S2/F1 band edge; spine-aligned post-reprojection; exclude stop metres from cross-athlete TRF."
+      },
+      {
+        "course_km_start": 30.38,
+        "course_km_end": 30.44,
+        "exclusion_type": "single_athlete_asymmetry",
+        "subject_scope": "Subject_A_only",
+        "gold_source": "operator",
+        "sector_id": "gramstad_band",
+        "locked_at": "2026-06-28",
+        "reason": "Rocky core Subject_A-only stop (S4/F3) \u2014 Subject_B through-hiking; top-ranked |\u0394TI| hotspot is behavioral, not terrain."
+      },
+      {
+        "course_km_start": 33.07,
+        "course_km_end": 33.12,
+        "exclusion_type": "single_athlete_asymmetry",
+        "subject_scope": "Subject_A_only",
+        "gold_source": "operator",
+        "sector_id": "gramstad_band",
+        "locked_at": "2026-06-28",
+        "reason": "Granite transition Subject_A-only stop (S4/F3 at band entry) \u2014 Subject_B continues; exclude from cross-athlete paired TRF."
       }
     ]
   },

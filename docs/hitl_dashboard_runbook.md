@@ -124,6 +124,9 @@ Outputs: `reference_spine_1m.parquet`, `panel_race_1m_spine.parquet` (keyed on `
 | **Cross-athlete same-metre TRF** | `--cross-athlete` + `panel_race_1m_spine.parquet`; join on `ref_chainage_m` + `subject_id` |
 | **Validation dashboard** | `--panel panel_race_1m_spine.parquet` — per-subject NTI overlays on ref_chainage axis |
 | **Behavioral stop tags** | Anchor to geography (UTM / pin / Subject_A panel window) — not Subject_B stream km alone |
+| **TRF exclusions** | `hitl.trf_exclusions[]` on Subject_A `course_km` — `exclusion_type`, `subject_scope`, optional `anchor_id`; masked in `compute_training_residual.py` (cells + cross-athlete paired stats) |
+
+Each `trf_exclusions` entry: `course_km_start`, `course_km_end`, `exclusion_type` (`cp_halt` | `co_wait` | `single_athlete_asymmetry` | `behavioral_stop`), `subject_scope` (`both` | `Subject_A_only`), clinical `reason`. Companion tags live in `hitl.behavioral_stops[]`.
 
 ### Step 2 — spine-keyed consumers (available)
 
