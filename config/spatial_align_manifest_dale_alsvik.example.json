@@ -21,6 +21,18 @@
   ],
   "match_radius_m": 30.0,
   "panel_scope": "Template manifest \u2014 copy to spatial_align_manifest_dale_alsvik.local.json for production. Canonical working state uses two-athlete bridge panel only; Reference_Elite_D is deferred until .fit wash (not a blocker).",
+  "sut43_upstream_crosswalk": {
+    "sector_id": "dale_paradisskaret_upstream",
+    "sut43_km_window": [22.0, 29.0],
+    "sut160_bridge_km_window": [140.0, 147.5],
+    "registry": "config/spatial_terrain_sectors_sut43.json",
+    "anchor_crosswalk": [
+      {"anchor_id": "dale_coastal", "sut43_km": 23.5, "sut160_km": 141.47},
+      {"anchor_id": "dalsnuten_summit", "sut43_km": 25.0, "sut160_km": 142.96},
+      {"anchor_id": "gramstad_food_cp", "sut43_km": 30.52, "sut160_km": 147.5}
+    ],
+    "note": "SUT_43 stream-axis sector 2 (km 22–29) shares geography with the upstream portion of this SUT_160 bridge window. Ontology/HITL runs on SUT_43 axis via spatial_align_manifest_sut43.example.json — not on bridge panel."
+  },
   "canonical_working_manifest": "config/spatial_align_manifest_dale_alsvik.local.json",
   "activities": [
     {

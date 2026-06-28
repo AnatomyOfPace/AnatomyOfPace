@@ -3,6 +3,7 @@
   "race_id": "SUT_43",
   "experiment_sector_id": "gramstad_band",
   "experiment_sector_lock_version": "2026-06-26-sut43-gramstad-band",
+  "sector_registry": "config/spatial_terrain_sectors_sut43.json",
   "km_analysis_window": [
     29.0,
     41.0
@@ -11,7 +12,55 @@
     29.0,
     41.5
   ],
-  "panel_scope": "Subject_A + Subject_B SUT43 race-day streams on stream-distance course axis; Subject_A partial training tiles via GPX snap. SUT_160 dale_to_paradisskaret stress test deferred \u2014 see spatial_align_manifest.example.json.",
+  "sector_2_upstream": {
+    "sector_id": "dale_paradisskaret_upstream",
+    "status": "bootstrap",
+    "km_analysis_window": [22.0, 29.0],
+    "km_viewport_window": [21.5, 29.5],
+    "downstream_seam_km": 29.0,
+    "gps_bridge_overlap_km": [22.0, 34.2],
+    "sut160_bridge_crosswalk_km": [140.0, 147.5],
+    "expanded_panel_note": "Re-run corridor_multi_fit with km_analysis_window [22.0, 41.0] or [22.0, 29.0] for upstream-only panel after operator sign-off. Current panel/aligned outputs clip to km 29–41.",
+    "reference_spine_extension": {
+      "current_km_window": [29.0, 41.0],
+      "target_km_window": [22.0, 41.0],
+      "build_command": "python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json --km-start 22 --km-end 41",
+      "upstream_only_command": "python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json --km-start 22 --km-end 29"
+    },
+    "pending_activities": [
+      {
+        "donor_id": "Subject_A",
+        "activity_id": "SUT43_20260418",
+        "session_type": "race",
+        "note": "Race micro Parquet spans km 22–29 (~5.8k samples) — present but not in current aligned/panel outputs"
+      },
+      {
+        "donor_id": "Subject_B",
+        "activity_id": "19000570862",
+        "session_type": "race",
+        "note": "Race micro Parquet spans km 22–29 (~5.9k samples) — present but not in current aligned/panel outputs"
+      },
+      {
+        "donor_id": "Subject_A",
+        "activity_id": "Gramstad_runden_reverse_20250430",
+        "session_type": "training",
+        "align_mode": "gpx",
+        "direction": "reverse",
+        "status": "partial_overlap",
+        "overlap_km": [24.33, 29.0],
+        "note": "Partial upstream tail only — km 22–24.33 gap remains"
+      }
+    ],
+    "coverage_gaps": [
+      {
+        "course_km_start": 22.0,
+        "course_km_end": 24.33,
+        "status": "missing_training",
+        "reason": "No training tile on race tread upstream of Gramstad_runden overlap; race streams only"
+      }
+    ]
+  },
+  "panel_scope": "Subject_A + Subject_B SUT43 race-day streams on stream-distance course axis; Subject_A partial training tiles via GPX snap; Subject_B partial gramstad_band training via GPX snap (Strava streams until canonical `.fit` export). SUT_160 dale_to_paradisskaret stress test deferred \u2014 see spatial_align_manifest.example.json.",
   "default_align_mode": "stream",
   "default_direction": "auto",
   "activities": [
@@ -57,6 +106,33 @@
       "subject_id": "Subject_B",
       "align_mode": "stream",
       "note": "SUT43 2026-04-18 race-day (Strava 19000570862) \u2014 canonical FIT 02_Raw_Data/donors/Subject_B/SUT43_20260418.fit; full HR+cadence. Supersedes mis-wash activity_18162306249 (pace-only tile)."
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "17816796063",
+      "session_type": "training",
+      "subject_id": "Subject_B",
+      "align_mode": "gpx",
+      "direction": "auto",
+      "note": "SUT43 partial training 2026-03-22 (Strava streams; pace-only). GPX snap; spine QC ref_chainage km 29.547\u201339.149, cross_track_m median 2.1 m. Re-wash from canonical `.fit` when available."
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "17879707318",
+      "session_type": "training",
+      "subject_id": "Subject_B",
+      "align_mode": "gpx",
+      "direction": "auto",
+      "note": "SUT43 partial training 2026-03-27 rain/fog (Strava streams; pace-only). GPX snap; spine QC ref_chainage km 29.547\u201339.249, cross_track_m median 2.3 m."
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "18014018608",
+      "session_type": "training",
+      "subject_id": "Subject_B",
+      "align_mode": "gpx",
+      "direction": "auto",
+      "note": "SUT43 partial training 2026-04-07 upstream band (Strava streams; pace-only). GPX snap; spine QC ref_chainage km 29.001\u201334.654, cross_track_m median 2.1 m \u2014 fills early gramstad_band gap vs Subject_B downstream tiles."
     }
   ],
   "coverage_gaps": [
@@ -90,6 +166,39 @@
     }
   ],
   "pending_activities": [
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "17555025013",
+      "session_type": "training",
+      "subject_id": "Subject_B",
+      "align_mode": "gpx",
+      "direction": "auto",
+      "status": "awaiting_canonical_fit",
+      "strava_json_path": "02_Raw_Data/donors/Subject_B/activity_17555025013.strava.json",
+      "spine_qc_pre_screen": {
+        "ref_chainage_km": [32.877, 39.136],
+        "cross_track_m_median": 2.3,
+        "cross_track_threshold_m": 30,
+        "note": "Mattirudl\u00e5 hill-repeat sessions \u2014 on-corridor GPS but missing upstream km 29\u201333; Strava streams only"
+      },
+      "note": "Mattirudl\u00e5 3\u00d7 hill-repeat training 2026-02-28. Spine QC pass on km 32.9\u201339.1; promote after canonical `.fit` wash. Distinct modality from continuous traverse tiles."
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "17636633824",
+      "session_type": "training",
+      "subject_id": "Subject_B",
+      "align_mode": "gpx",
+      "direction": "auto",
+      "status": "awaiting_canonical_fit",
+      "strava_json_path": "02_Raw_Data/donors/Subject_B/activity_17636633824.strava.json",
+      "spine_qc_pre_screen": {
+        "ref_chainage_km": [32.874, 39.137],
+        "cross_track_m_median": 2.2,
+        "cross_track_threshold_m": 30
+      },
+      "note": "Mattirudl\u00e5 3\u00d7 repeat variant \u2014 same corridor band as 17555025013; awaiting `.fit`."
+    },
     {
       "donor_id": "Subject_A",
       "activity_id": "gramstad_band_full_traverse_20260628",
@@ -142,6 +251,16 @@
       "direction": "forward",
       "deferred_reason": "spine_qc_fail",
       "note": "EXCLUDED from training TRF (2026-06-28 QC): Gramstad\u2013Lifjell loop 2025-06-25 (~15 km); GPX snap km 13.6\u201333.4 yields only 236 source samples on gramstad_band km 29\u201333.4. cross_track_m median 172 m vs Subject_A race spine (other tiles 5\u201328 m). Root cause: partial Lifjell loop off SUT43 race corridor \u2014 GPS 180\u20131100 m lateral to spine at km 30\u201333 despite GPX course_km labels; only km 29.0\u201329.45 passes <30 m gate. Not wrong activity \u2014 wrong geometry for spine-aligned TRF. Re-include only if loop segment re-snapped to race tread."
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "17801895396",
+      "session_type": "training",
+      "subject_id": "Subject_B",
+      "align_mode": "gpx",
+      "direction": "auto",
+      "deferred_reason": "spine_qc_fail",
+      "note": "EXCLUDED (2026-06-28 QC): SUT43 partial Strava export 2026-03-21 ('partial SUT43 course'). Global cross_track_m median 1585 m; only 267 samples / 245 m ref_chainage span pass <30 m gate (km 29.0\u201329.25). Off-corridor geometry despite title \u2014 not eligible for spine TRF."
     }
   ],
   "full_course_stretch_goal": {
