@@ -12,7 +12,7 @@
     "n_segments": 378,
     "sigma_gate": false,
     "voter_eligibility": "all streams with telemetry at metre",
-    "generated_at": "2026-06-28T19:12:22.668928+00:00"
+    "generated_at": "2026-06-28T20:49:56.182892+00:00"
   },
   "majority_draft_segments": [
     {
