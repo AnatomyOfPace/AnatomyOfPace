@@ -1,6 +1,6 @@
 {
   "schema_version": "cross_athlete_trf_v0",
-  "generated_at": "2026-06-28T20:42:24Z",
+  "generated_at": "2026-06-28T21:11:52Z",
   "subjects": [
     "Subject_A",
     "Subject_B"
@@ -16,8 +16,8 @@
     "terrain_map": "config/spatial_terrain_map_sut43.json"
   },
   "paired_metres": 11998,
-  "paired_metres_trf_eligible": 10481,
-  "paired_metres_trf_excluded": 1517,
+  "paired_metres_trf_eligible": 10424,
+  "paired_metres_trf_excluded": 1574,
   "trf_exclusions": [
     {
       "course_km_start": 30.35,
@@ -63,41 +63,52 @@
       "reason": "Rocky core Subject_A-only stop (S4/F3) \u2014 Subject_B through-hiking; top-ranked |\u0394TI| hotspot is behavioral, not terrain."
     },
     {
-      "course_km_start": 33.07,
+      "course_km_start": 33.0,
       "course_km_end": 33.12,
       "exclusion_type": "single_athlete_asymmetry",
-      "subject_scope": "Subject_A_only",
+      "subject_scope": "both",
       "gold_source": "operator",
       "sector_id": "gramstad_band",
       "locked_at": "2026-06-28",
-      "reason": "Granite transition Subject_A-only stop (S4/F3 at band entry) \u2014 Subject_B continues; exclude from cross-athlete paired TRF."
+      "reason": "Granite band entry residual stop asymmetry (S4/F3) \u2014 Subject_B halt upstream km 33.00\u201333.05 (~46% stop asymmetry); Subject_A halt downstream km 33.07\u201333.12; exclude paired metres from cross-athlete TRF."
+    },
+    {
+      "course_km_start": 39.124,
+      "course_km_end": 39.135,
+      "exclusion_type": "stile_halt",
+      "subject_scope": "Subject_B_only",
+      "anchor_id": "paradisskaret_stile",
+      "gold_source": "operator",
+      "sector_id": "gramstad_band",
+      "locked_at": "2026-06-28",
+      "reason": "Paradisskaret stile Subject_B-only halt \u2014 sequential crossing anchor (Subject_B before Subject_A); exclude stop window from cross-athlete paired TRF on S2/F3 gravel."
     }
   ],
-  "mean_delta_ti_gap": 0.0516,
-  "median_delta_ti_gap": 0.0078,
-  "mean_abs_delta_ti_gap": 0.3816,
-  "mean_ti_gap": 0.0221,
-  "pct_metres_a_higher_delta": 34.53,
+  "mean_delta_ti_gap": 0.0549,
+  "median_delta_ti_gap": 0.0087,
+  "mean_abs_delta_ti_gap": 0.3748,
+  "mean_ti_gap": 0.0183,
+  "pct_metres_a_higher_delta": 34.65,
   "per_subject": {
     "Subject_A": {
       "n_metres": 12000,
-      "n_metres_trf_eligible": 10550,
-      "n_metres_trf_excluded": 1450,
-      "pct_friction_tier_assigned": 94.75,
-      "pct_variance_gap": 17.36,
-      "pct_trf_excluded": 12.08,
-      "pct_hike_mode": 83.18,
-      "mean_delta_ti": 0.1447
+      "n_metres_trf_eligible": 10469,
+      "n_metres_trf_excluded": 1531,
+      "pct_friction_tier_assigned": 100.0,
+      "pct_variance_gap": 0.0,
+      "pct_trf_excluded": 12.76,
+      "pct_hike_mode": 83.97,
+      "mean_delta_ti": 0.0982
     },
     "Subject_B": {
       "n_metres": 11998,
-      "n_metres_trf_eligible": 10547,
-      "n_metres_trf_excluded": 1451,
-      "pct_friction_tier_assigned": 94.58,
-      "pct_variance_gap": 17.53,
-      "pct_trf_excluded": 12.09,
-      "pct_hike_mode": 94.86,
-      "mean_delta_ti": 0.0979
+      "n_metres_trf_eligible": 10413,
+      "n_metres_trf_excluded": 1585,
+      "pct_friction_tier_assigned": 100.0,
+      "pct_variance_gap": 0.0,
+      "pct_trf_excluded": 13.21,
+      "pct_hike_mode": 94.92,
+      "mean_delta_ti": 0.0458
     }
   }
 }

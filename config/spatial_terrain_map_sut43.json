@@ -79740,11 +79740,11 @@
         "reason": "Rocky core Subject_A-only stop (S4/F3) \u2014 Subject_B through-hiking; cross-athlete |\u0394TI| gap artifact, not terrain delta."
       },
       {
-        "course_km_start": 33.07,
+        "course_km_start": 33.0,
         "course_km_end": 33.12,
         "tag": "single_athlete_asymmetry",
-        "subject_scope": "Subject_A_only",
-        "reason": "Granite transition Subject_A-only stop at S4/F3 band entry \u2014 Subject_B continues; behavioral asymmetry, not tier mismatch."
+        "subject_scope": "both",
+        "reason": "Granite band entry residual stop asymmetry (S4/F3) \u2014 Subject_B halt upstream km 33.00\u201333.05 (~46% stop asymmetry); Subject_A halt downstream km 33.07\u201333.12; paired |\u0394TI| artifact, not tier mismatch."
       },
       {
         "anchor_id": "paradisskaret_stile",
@@ -79800,14 +79800,14 @@
         "reason": "Rocky core Subject_A-only stop (S4/F3) \u2014 Subject_B through-hiking; top-ranked |\u0394TI| hotspot is behavioral, not terrain."
       },
       {
-        "course_km_start": 33.07,
+        "course_km_start": 33.0,
         "course_km_end": 33.12,
         "exclusion_type": "single_athlete_asymmetry",
-        "subject_scope": "Subject_A_only",
+        "subject_scope": "both",
         "gold_source": "operator",
         "sector_id": "gramstad_band",
         "locked_at": "2026-06-28",
-        "reason": "Granite transition Subject_A-only stop (S4/F3 at band entry) \u2014 Subject_B continues; exclude from cross-athlete paired TRF."
+        "reason": "Granite band entry residual stop asymmetry (S4/F3) \u2014 Subject_B halt upstream km 33.00\u201333.05 (~46% stop asymmetry); Subject_A halt downstream km 33.07\u201333.12; exclude paired metres from cross-athlete TRF."
       },
       {
         "course_km_start": 39.124,
