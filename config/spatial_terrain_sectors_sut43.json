@@ -1,0 +1,84 @@
+{
+  "schema_version": "spatial_terrain_sectors_v0",
+  "race_id": "SUT_43",
+  "course_axis": "stream_distance",
+  "gpx_reference": "02_Raw_Data/organiser_gpx/COURSE_SUT43_official_2027.gpx",
+  "finish_km": 43.0,
+  "sectors": [
+    {
+      "sector_id": "gramstad_band",
+      "sector_index": 1,
+      "status": "locked",
+      "sector_lock_version": "2026-06-26-sut43-gramstad-band",
+      "km_analysis_window": [29.0, 41.0],
+      "km_viewport_window": [29.0, 41.5],
+      "downstream_boundary_km": 41.0,
+      "upstream_boundary_km": 29.0,
+      "terrain_map": "config/spatial_terrain_map_sut43.json",
+      "align_manifest": "config/spatial_align_manifest_sut43.example.json",
+      "panel_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet",
+      "reference_spine_km_window": [29.0, 41.0],
+      "gps_bridge_overlap_km": [29.0, 34.2],
+      "sut160_bridge_crosswalk_km": [140.0, 152.0],
+      "hitl_chunk_plan": "chunk_00..chunk_11 (1 km, km 29–41)",
+      "notes": "Phase A–D complete — operator gold, spine, TRF exclusions, cross-athlete TRF. See docs/hitl_dashboard_runbook.md."
+    },
+    {
+      "sector_id": "dale_paradisskaret_upstream",
+      "sector_index": 2,
+      "status": "bootstrap",
+      "sector_lock_version": null,
+      "km_analysis_window": [22.0, 29.0],
+      "km_viewport_window": [21.5, 29.5],
+      "downstream_boundary_km": 29.0,
+      "upstream_boundary_km": 22.0,
+      "terrain_map": null,
+      "align_manifest": "config/spatial_align_manifest_sut43.example.json",
+      "panel_parquet": null,
+      "reference_spine_km_window": [22.0, 29.0],
+      "gps_bridge_overlap_km": [22.0, 29.0],
+      "sut160_bridge_crosswalk_km": [140.0, 147.5],
+      "hitl_chunk_plan": "chunk_u00..chunk_u06 (1 km, km 22–29)",
+      "geographic_anchors": [
+        {
+          "anchor_id": "dale_coastal",
+          "display_name": "Dale (coastal)",
+          "course_km": 23.5,
+          "sut160_crosswalk_km": 141.47,
+          "registry_ref": "race_corridors.json → SUT_43.sub_corridors.dale_coastal"
+        },
+        {
+          "anchor_id": "dalsnuten_summit",
+          "display_name": "Dalsnuten summit (geographic)",
+          "course_km": 25.0,
+          "sut160_crosswalk_km": 142.96,
+          "registry_ref": "race_corridors.json → SUT_43.sub_corridors.dalsnuten_summit"
+        },
+        {
+          "anchor_id": "gramstad_band_seam",
+          "display_name": "gramstad_band upstream seam (Revhol approach)",
+          "course_km": 29.0,
+          "role": "downstream_sector_boundary",
+          "notes": "Shared downstream boundary with gramstad_band sector 1. Operator gold from chunk_00 (km 29–30) applies downstream of this metre."
+        }
+      ],
+      "bootstrap_blockers": [
+        "Panel and aligned parquets clipped to km 29–41 — re-run corridor_multi_fit with expanded km_analysis_window",
+        "Reference spine built km 29–41 only — extend via build_reference_spine.py --km-start 22 --km-end 41",
+        "No terrain_map segments or HITL operator gold for km 22–29",
+        "No spatial_validation_flags upstream slice",
+        "Training tiles partial: Gramstad_runden_reverse from km 24.33; Lifjell loop fails spine QC"
+      ],
+      "notes": "Late-loop shared geography with SUT_160 Dale→Dalsnuten→Gramstad approach (memo 13 bridge km 22–34.2). Upstream of locked gramstad_band. Distinct from early-lap dalevatn_band (km 13–25, superseded ontology) and SUT_160 dale_to_paradisskaret stress test (140–155.58 km on 160 km axis)."
+    }
+  ],
+  "full_course_stretch_goal": {
+    "km_analysis_window": [0.5, 42.5],
+    "sector_rollout_order": [
+      "gramstad_band",
+      "dale_paradisskaret_upstream",
+      "leg_a_technical",
+      "dalevatn_band"
+    ]
+  }
+}

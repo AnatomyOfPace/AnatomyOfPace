@@ -151,6 +151,8 @@ python3 04_Python_Scripts/spatial/reproject_to_spine.py \\
 
 Outputs include `cross_athlete_trf_summary.json`, `panel_training_1m_spine.parquet`, per-activity `aligned_*_spine.parquet`.
 
+**Training spine coverage QC:** `python3 04_Python_Scripts/spatial/check_spine_coverage.py` — reports per-activity and union `ref_chainage_m` coverage on km 29–41. Full-band field protocol: `docs/fit_ingest_workflow.md` § Full-band training traverse protocol.
+
 ### Deferred (step 3+)
 
 **Related:** `docs/training_residual_framework.md` §6 (comparison modes, cross-athlete paired)
@@ -174,6 +176,35 @@ Outputs include `cross_athlete_trf_summary.json`, `panel_training_1m_spine.parqu
 Committed artifacts use **Subject_*** identifiers and **Dr. Anatomy Pace** laboratory framing only. No personal names or private training references in dashboard titles, stderr, or exported PNG metadata.
 
 **Related:** `docs/friction_index_spec.md` · `docs/training_residual_framework.md`
+
+---
+
+## Sector 2 bootstrap checklist — `dale_paradisskaret_upstream` (km 22–29)
+
+**Status (2026-06-28):** Bootstrap scaffold only. Sector 1 (`gramstad_band` km 29–41) remains the locked reference playbook.
+
+**Sector bounds:** Subject_A SUT43_20260418 stream axis **km 22.0–29.0** (upstream of gramstad_band seam @ km 29.0). Registry: `config/spatial_terrain_sectors_sut43.json`.
+
+| Step | Action | Artifact / command |
+|------|--------|-------------------|
+| 1 | Confirm sector bounds + anchor crosswalk | `config/spatial_terrain_sectors_sut43.json` · memo 13 bridge table |
+| 2 | Expand align window + rebuild panel | `corridor_multi_fit.py --manifest config/spatial_align_manifest_sut43.example.json` with `km_analysis_window: [22.0, 29.0]` (or `[22.0, 41.0]` combined) |
+| 3 | Extend reference spine | `python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json --km-start 22 --km-end 41` |
+| 4 | Reproject race + training to spine | `reproject_to_spine.py --manifest … --session-type all` |
+| 5 | Generate terrain map draft (ML clusters) | `terrain_map_gen.py` on expanded panel — **new** `spatial_terrain_map` or upstream slice; do not overwrite gramstad_band lock without operator sign-off |
+| 6 | Export first HITL chunk | `validation_dashboard.py --chunk-km 1 --chunk-index u01` (see chunk plan below) or manual `--chunk-km 2` window km 22–24 |
+| 7 | Operator gold + friction tiers | Append to `hitl.operator_gold_spans[]` in terrain map JSON |
+| 8 | TRF exclusions | Tag CP halts / co-wait on Subject_A `course_km` before cross-athlete TRF |
+| 9 | Cross-athlete TRF | `compute_training_residual.py --cross-athlete` on extended `panel_race_1m_spine.parquet` |
+| 10 | Update chunk priority | `ground_truth_review/chunk_priority_dale_upstream.csv` |
+
+**HITL chunk plan (1 km):** `chunk_u00` km 22–23 … `chunk_u06` km 28–29. Priority queue in `chunk_priority_dale_upstream.csv`.
+
+**Recommended first operator session:** **`chunk_u01` (km 23–24)** — geographic Dale coastal anchor @ km 23.5; bridge crosswalk to SUT_160 km ~141.5; race telemetry present on both athletes. Alternative entry: **`chunk_u00` (km 22–23)** for sector boundary at bridge window start (SUT_160 Dale aid @ SUT_43 km 22.43).
+
+**Training TRF caveat:** No continuous training tile covers km 22–24. `Gramstad_runden_reverse_20250430` begins @ km 24.33. Race-only panel OK for HITL; training TRF deferred until upstream training traverse recorded.
+
+**Not in scope for Sector 2 bootstrap:** SUT_160 bridge panel (`dale_to_paradisskaret_stress_test`) — separate axis; early-lap `dalevatn_band` km 13–25 (superseded ontology, different geography).
 
 ---
 
