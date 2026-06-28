@@ -84,6 +84,29 @@ Gold edits: append to `hitl.operator_gold_spans[]` with `surface_class`, `fricti
 
 ---
 
+## Cross-athlete alignment caveat
+
+Per-athlete FIT stream `course_km` can diverge by **~280–350 m** at the same geographic landmark (food CP, drink CP, stile) between Subject_A and Subject_B. UTM co-location confirms the same physical events (typically 1–12 m apart); only the stream km labels differ. Cross-athlete comparison on raw `course_km` does **not** achieve 1 m precision.
+
+### Interim policy (until `ref_chainage_m` spine)
+
+| Context | Rule |
+|---------|------|
+| **Canonical axis** | Subject_A `SUT43_20260418` race GPS for `gramstad_band` km 29–41 — HITL map track, operator gold |
+| **Operator gold / HITL** | Lock on Subject_A panel km + Norgeskart pins; where proven, note Subject_B stream km separately in `reason` text |
+| **Single-subject TRF** | OK on current panel |
+| **Cross-athlete same-metre TRF** | Defer or flag `residual_confidence: low` until spine reprojection |
+| **Behavioral stop tags** | Anchor to geography (UTM / pin / Subject_A panel window) — not Subject_B stream km alone |
+
+### Deferred (not implementing now)
+
+- **`reference_spine_1m`** from Subject_A race FIT → `ref_chainage_m` + `cross_track_m` for all activities
+- Re-key TRF and HITL to spine chainage once the spine is committed
+
+**Related:** `docs/training_residual_framework.md` §6 (comparison modes, cross-athlete paired)
+
+---
+
 ## Troubleshooting
 
 | Symptom | Likely cause | Action |
