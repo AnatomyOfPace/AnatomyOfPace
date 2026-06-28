@@ -1,15 +1,6 @@
 {
   "schema_version": "reproject_spine_v0",
-  "generated_at": "2026-06-28T20:05:43Z",
-  "qc_flags": [
-    {
-      "activity_id": "gramstad_lifjell_20250625",
-      "status": "exclude_from_training_trf",
-      "cross_track_m_median": 171.56,
-      "root_cause": "partial_lifjell_loop_off_corridor",
-      "detail": "236 GPX-snapped samples on km 29\u201333.4; GPS 180\u20131100 m lateral to Subject_A race spine at km 30\u201333 (only km 29.0\u201329.45 <30 m). Lifjell training loop diverges from SUT43 race tread \u2014 not a snap bug on correct route. Deferred in spatial_align_manifest_sut43.example.json 2026-06-28."
-    }
-  ],
+  "generated_at": "2026-06-28T20:19:57Z",
   "corridor_id": "sut43_terrain_ontology",
   "manifest": "config/spatial_align_manifest_sut43.example.json",
   "spine_path": "03_Processed_Data/spatial/sut43_terrain_ontology/reference_spine_1m.parquet",
@@ -71,19 +62,6 @@
       "output_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_A_gramstad_bedrock_rain_20260327_training_spine.parquet"
     },
     {
-      "donor_id": "Subject_A",
-      "activity_id": "gramstad_lifjell_20250625",
-      "subject_id": "Subject_A",
-      "session_type": "training",
-      "input_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_A_gramstad_lifjell_20250625_training.parquet",
-      "n_rows": 12001,
-      "ref_chainage_m_min": 29940.0,
-      "ref_chainage_m_max": 34654.0,
-      "cross_track_m_median": 171.56,
-      "canonical_spine_source": false,
-      "output_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_A_gramstad_lifjell_20250625_training_spine.parquet"
-    },
-    {
       "donor_id": "Subject_B",
       "activity_id": "19000570862",
       "subject_id": "Subject_B",
@@ -112,8 +90,8 @@
     "training": {
       "corridor_id": "sut43_terrain_ontology",
       "session_type": "training",
-      "n_rows": 48004,
-      "n_activities": 4,
+      "n_rows": 36003,
+      "n_activities": 3,
       "ref_chainage_m_range": [
         29936.0,
         39246.0
