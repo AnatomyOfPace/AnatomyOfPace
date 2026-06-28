@@ -1,0 +1,18 @@
+{
+  "parser_version": "wave2_v1",
+  "donor_id": "Subject_B",
+  "activity_id": "17879707318",
+  "race_id": "SUT_43",
+  "privacy_clip_m": 0,
+  "sample_rate_hz": null,
+  "has_hr": false,
+  "course_projected": true,
+  "ti_enriched": true,
+  "telemetry_source": "strava_json",
+  "ti_summary": {
+    "mean_ti": 1.0803071705450973,
+    "median_ti": 1.0803071705450973,
+    "n_gap_samples": 10572,
+    "anchor": "Stavanger_Halvmaraton.fit"
+  }
+}
