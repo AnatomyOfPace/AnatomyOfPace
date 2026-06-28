@@ -1,0 +1,138 @@
+{
+  "schema_version": "training_residual_v0",
+  "subject_id": "Subject_A",
+  "activity_id": "SUT43_sector_31-32_reverse_20260627",
+  "sector_id": "gramstad_band",
+  "baseline_mode": "cohort_median",
+  "summary": {
+    "n_metres": 12000,
+    "mean_delta_ti": 0.1038,
+    "mean_ti": 2.4956
+  },
+  "top_cells_by_impact": [
+    {
+      "segment_id": "sut43_gramstad_band_F4_flat_hike_km33.1_38.4",
+      "course_km_start": 33.1,
+      "course_km_end": 38.399,
+      "friction_tier": "F4",
+      "grade_band": "flat",
+      "locomotion_mode": "hike",
+      "sector_id": "gramstad_band",
+      "ti_mean": 2.0559,
+      "ti_expected": 1.8811,
+      "delta_ti_mean": 0.1748,
+      "delta_ti_median": -0.0,
+      "delta_ti_pctile_session": 0.651,
+      "metre_count": 1830,
+      "pct_of_session": 15.25,
+      "impact_score": 319.95,
+      "training_focus_tags": [
+        "bog_extraction",
+        "scree_balance",
+        "accept_hike_pacing"
+      ],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    },
+    {
+      "segment_id": "sut43_gramstad_band_unknown_flat_hike_km31.2_37.1",
+      "course_km_start": 31.248,
+      "course_km_end": 37.094,
+      "friction_tier": null,
+      "grade_band": "flat",
+      "locomotion_mode": "hike",
+      "sector_id": "gramstad_band",
+      "ti_mean": 2.8974,
+      "ti_expected": 2.3989,
+      "delta_ti_mean": 0.4985,
+      "delta_ti_median": 0.5898,
+      "delta_ti_pctile_session": 0.807,
+      "metre_count": 631,
+      "pct_of_session": 5.26,
+      "impact_score": 314.56,
+      "training_focus_tags": [],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    },
+    {
+      "segment_id": "sut43_gramstad_band_F2_downhill_hike_km30.1_31.7",
+      "course_km_start": 30.062,
+      "course_km_end": 31.655,
+      "friction_tier": "F2",
+      "grade_band": "downhill",
+      "locomotion_mode": "hike",
+      "sector_id": "gramstad_band",
+      "ti_mean": 4.3471,
+      "ti_expected": 3.9999,
+      "delta_ti_mean": 0.3472,
+      "delta_ti_median": 0.0,
+      "delta_ti_pctile_session": 0.741,
+      "metre_count": 229,
+      "pct_of_session": 1.91,
+      "impact_score": 79.51,
+      "training_focus_tags": [],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    },
+    {
+      "segment_id": "sut43_gramstad_band_F3_flat_hike_km29.5_34.3",
+      "course_km_start": 29.493,
+      "course_km_end": 34.299,
+      "friction_tier": "F3",
+      "grade_band": "flat",
+      "locomotion_mode": "hike",
+      "sector_id": "gramstad_band",
+      "ti_mean": 2.1497,
+      "ti_expected": 2.0924,
+      "delta_ti_mean": 0.0572,
+      "delta_ti_median": 0.0,
+      "delta_ti_pctile_session": 0.55,
+      "metre_count": 1364,
+      "pct_of_session": 11.37,
+      "impact_score": 78.08,
+      "training_focus_tags": [],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    },
+    {
+      "segment_id": "sut43_gramstad_band_unknown_downhill_hike_km31.3_37.2",
+      "course_km_start": 31.256,
+      "course_km_end": 37.179,
+      "friction_tier": null,
+      "grade_band": "downhill",
+      "locomotion_mode": "hike",
+      "sector_id": "gramstad_band",
+      "ti_mean": 4.5623,
+      "ti_expected": 4.39,
+      "delta_ti_mean": 0.1723,
+      "delta_ti_median": 0.3076,
+      "delta_ti_pctile_session": 0.65,
+      "metre_count": 426,
+      "pct_of_session": 3.55,
+      "impact_score": 73.41,
+      "training_focus_tags": [],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    }
+  ]
+}

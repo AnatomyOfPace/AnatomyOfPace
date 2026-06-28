@@ -1,0 +1,136 @@
+{
+  "schema_version": "training_residual_v0",
+  "subject_id": "Subject_A",
+  "activity_id": "Gramstad_runden_reverse_20250430",
+  "sector_id": "gramstad_band",
+  "baseline_mode": "cohort_median",
+  "summary": {
+    "n_metres": 12000,
+    "mean_delta_ti": 0.0416,
+    "mean_ti": 2.262
+  },
+  "top_cells_by_impact": [
+    {
+      "segment_id": "sut43_gramstad_band_unknown_flat_run_km31.4_39.3",
+      "course_km_start": 31.382,
+      "course_km_end": 39.299,
+      "friction_tier": null,
+      "grade_band": "flat",
+      "locomotion_mode": "run",
+      "sector_id": "gramstad_band",
+      "ti_mean": 2.6915,
+      "ti_expected": 2.2432,
+      "delta_ti_mean": 0.4483,
+      "delta_ti_median": 0.4643,
+      "delta_ti_pctile_session": 0.804,
+      "metre_count": 677,
+      "pct_of_session": 5.64,
+      "impact_score": 303.51,
+      "training_focus_tags": [],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    },
+    {
+      "segment_id": "sut43_gramstad_band_unknown_flat_hike_km31.2_37.0",
+      "course_km_start": 31.246,
+      "course_km_end": 36.973,
+      "friction_tier": null,
+      "grade_band": "flat",
+      "locomotion_mode": "hike",
+      "sector_id": "gramstad_band",
+      "ti_mean": 2.2994,
+      "ti_expected": 1.8787,
+      "delta_ti_mean": 0.4207,
+      "delta_ti_median": 0.3749,
+      "delta_ti_pctile_session": 0.798,
+      "metre_count": 517,
+      "pct_of_session": 4.31,
+      "impact_score": 217.49,
+      "training_focus_tags": [],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    },
+    {
+      "segment_id": "sut43_gramstad_band_F2_flat_hike_km29.1_36.6",
+      "course_km_start": 29.1,
+      "course_km_end": 36.589,
+      "friction_tier": "F2",
+      "grade_band": "flat",
+      "locomotion_mode": "hike",
+      "sector_id": "gramstad_band",
+      "ti_mean": 2.5164,
+      "ti_expected": 2.2648,
+      "delta_ti_mean": 0.2516,
+      "delta_ti_median": -0.0,
+      "delta_ti_pctile_session": 0.734,
+      "metre_count": 832,
+      "pct_of_session": 6.93,
+      "impact_score": 209.35,
+      "training_focus_tags": [],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    },
+    {
+      "segment_id": "sut43_gramstad_band_F3_downhill_hike_km29.4_34.3",
+      "course_km_start": 29.4,
+      "course_km_end": 34.291,
+      "friction_tier": "F3",
+      "grade_band": "downhill",
+      "locomotion_mode": "hike",
+      "sector_id": "gramstad_band",
+      "ti_mean": 3.7719,
+      "ti_expected": 4.264,
+      "delta_ti_mean": -0.4921,
+      "delta_ti_median": -0.0,
+      "delta_ti_pctile_session": 0.109,
+      "metre_count": 404,
+      "pct_of_session": 3.37,
+      "impact_score": 198.81,
+      "training_focus_tags": [
+        "efficiency_strength"
+      ],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    },
+    {
+      "segment_id": "sut43_gramstad_band_F4_flat_hike_km33.1_38.4",
+      "course_km_start": 33.1,
+      "course_km_end": 38.399,
+      "friction_tier": "F4",
+      "grade_band": "flat",
+      "locomotion_mode": "hike",
+      "sector_id": "gramstad_band",
+      "ti_mean": 1.733,
+      "ti_expected": 1.6355,
+      "delta_ti_mean": 0.0975,
+      "delta_ti_median": -0.0,
+      "delta_ti_pctile_session": 0.604,
+      "metre_count": 1830,
+      "pct_of_session": 15.25,
+      "impact_score": 178.36,
+      "training_focus_tags": [],
+      "overlay_tags": [
+        "residual_confidence_low"
+      ],
+      "residual_confidence": "low",
+      "tpr_segment": null,
+      "epr_vs_reference_elite_a": null
+    }
+  ]
+}

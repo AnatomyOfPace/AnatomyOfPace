@@ -88,20 +88,53 @@ Gold edits: append to `hitl.operator_gold_spans[]` with `surface_class`, `fricti
 
 Per-athlete FIT stream `course_km` can diverge by **~280–350 m** at the same geographic landmark (food CP, drink CP, stile) between Subject_A and Subject_B. UTM co-location confirms the same physical events (typically 1–12 m apart); only the stream km labels differ. Cross-athlete comparison on raw `course_km` does **not** achieve 1 m precision.
 
-### Interim policy (until `ref_chainage_m` spine)
+### Spine reprojection (step 1 — available)
+
+Build canonical axis, then reproject aligned activities:
+
+```bash
+python3 04_Python_Scripts/spatial/build_reference_spine.py \\
+  --manifest config/spatial_align_manifest_sut43.example.json
+
+python3 04_Python_Scripts/spatial/reproject_to_spine.py \\
+  --manifest config/spatial_align_manifest_sut43.example.json
+```
+
+Outputs: `reference_spine_1m.parquet`, `panel_race_1m_spine.parquet` (keyed on `ref_chainage_m`), per-activity `aligned_*_spine.parquet`, `reproject_spine_meta.json` with anchor validation.
 
 | Context | Rule |
 |---------|------|
-| **Canonical axis** | Subject_A `SUT43_20260418` race GPS for `gramstad_band` km 29–41 — HITL map track, operator gold |
-| **Operator gold / HITL** | Lock on Subject_A panel km + Norgeskart pins; where proven, note Subject_B stream km separately in `reason` text |
-| **Single-subject TRF** | OK on current panel |
-| **Cross-athlete same-metre TRF** | Defer or flag `residual_confidence: low` until spine reprojection |
+| **Canonical axis** | `ref_chainage_m` on Subject_A race spine — operator gold stays on Subject_A `activity_course_km` |
+| **Operator gold / HITL** | Lock on Subject_A panel km; **1:1 mapping** `ref_chainage_km == course_km` on spine (no span re-key required) |
+| **Single-subject TRF** | OK on legacy `panel_1m.parquet` or `panel_race_1m_spine.parquet` |
+| **Cross-athlete same-metre TRF** | `--cross-athlete` + `panel_race_1m_spine.parquet`; join on `ref_chainage_m` + `subject_id` |
+| **Validation dashboard** | `--panel panel_race_1m_spine.parquet` — per-subject NTI overlays on ref_chainage axis |
 | **Behavioral stop tags** | Anchor to geography (UTM / pin / Subject_A panel window) — not Subject_B stream km alone |
 
-### Deferred (not implementing now)
+### Step 2 — spine-keyed consumers (available)
 
-- **`reference_spine_1m`** from Subject_A race FIT → `ref_chainage_m` + `cross_track_m` for all activities
-- Re-key TRF and HITL to spine chainage once the spine is committed
+```bash
+# Cross-athlete TRF sanity check (gramstad_band km 29–41):
+python3 04_Python_Scripts/spatial/compute_training_residual.py \\
+  --cross-athlete \\
+  --panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet \\
+  --terrain-map config/spatial_terrain_map_sut43.json
+
+# HITL dashboard with cross-athlete profile overlays:
+python3 04_Python_Scripts/spatial/validation_dashboard.py \\
+  --terrain-map config/spatial_terrain_map_sut43.json \\
+  --panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet \\
+  --chunk-km 2 --chunk-index 1 --with-map --decision-mode
+
+# Training tiles onto spine:
+python3 04_Python_Scripts/spatial/reproject_to_spine.py \\
+  --manifest config/spatial_align_manifest_sut43.example.json \\
+  --session-type all
+```
+
+Outputs include `cross_athlete_trf_summary.json`, `panel_training_1m_spine.parquet`, per-activity `aligned_*_spine.parquet`.
+
+### Deferred (step 3+)
 
 **Related:** `docs/training_residual_framework.md` §6 (comparison modes, cross-athlete paired)
 

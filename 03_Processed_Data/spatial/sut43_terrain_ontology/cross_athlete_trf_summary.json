@@ -1,0 +1,40 @@
+{
+  "schema_version": "cross_athlete_trf_v0",
+  "generated_at": "2026-06-28T20:07:12Z",
+  "subjects": [
+    "Subject_A",
+    "Subject_B"
+  ],
+  "km_window": [
+    29.0,
+    41.0
+  ],
+  "baseline_mode": "cohort_median",
+  "axis": "ref_chainage_m",
+  "inputs": {
+    "panel": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet",
+    "terrain_map": "config/spatial_terrain_map_sut43.json"
+  },
+  "paired_metres": 11998,
+  "mean_delta_ti_gap": 0.0283,
+  "median_delta_ti_gap": 0.0,
+  "mean_abs_delta_ti_gap": 0.3853,
+  "mean_ti_gap": -0.0003,
+  "pct_metres_a_higher_delta": 31.97,
+  "per_subject": {
+    "Subject_A": {
+      "n_metres": 12000,
+      "pct_friction_tier_assigned": 94.75,
+      "pct_variance_gap": 17.36,
+      "pct_hike_mode": 82.47,
+      "mean_delta_ti": 0.1559
+    },
+    "Subject_B": {
+      "n_metres": 11998,
+      "pct_friction_tier_assigned": 94.58,
+      "pct_variance_gap": 17.53,
+      "pct_hike_mode": 94.65,
+      "mean_delta_ti": 0.1312
+    }
+  }
+}

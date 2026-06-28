@@ -1,0 +1,148 @@
+{
+  "corridor_id": "sut43_terrain_ontology",
+  "race_id": "SUT_43",
+  "experiment_sector_id": "gramstad_band",
+  "experiment_sector_lock_version": "2026-06-26-sut43-gramstad-band",
+  "km_analysis_window": [
+    29.0,
+    41.0
+  ],
+  "km_viewport_window": [
+    29.0,
+    41.5
+  ],
+  "panel_scope": "Subject_A + Subject_B SUT43 race-day streams on stream-distance course axis; Subject_A partial training tiles via GPX snap. SUT_160 dale_to_paradisskaret stress test deferred \u2014 see spatial_align_manifest.example.json.",
+  "default_align_mode": "stream",
+  "default_direction": "auto",
+  "activities": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "SUT43_20260418",
+      "session_type": "race",
+      "subject_id": "Subject_A",
+      "align_mode": "stream",
+      "note": "SUT43 2026-04-18 race \u2014 washed micro Parquet present"
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "SUT43_sector_31-32_reverse_20260627",
+      "session_type": "training",
+      "subject_id": "Subject_A",
+      "align_mode": "gpx",
+      "direction": "reverse",
+      "note": "Reverse gramstad_band sector 32\u219231 training tile 2026-06-27; GPX snap required for partial overlap"
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "Gramstad_runden_reverse_20250430",
+      "session_type": "training",
+      "subject_id": "Subject_A",
+      "align_mode": "gpx",
+      "direction": "reverse",
+      "note": "Gramstad loop reverse-direction training 2025-04-30 (~10.4 km); GPX snap to gramstad_band km 29\u201337; bidirectional loop — reverse tag for panel metadata"
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "gramstad_bedrock_rain_20260327",
+      "session_type": "training",
+      "subject_id": "Subject_A",
+      "align_mode": "gpx",
+      "direction": "reverse",
+      "note": "Rain-day Gramstad loop training 2026-03-27 (~14.8 km); GPX snap km 13.5\u201337.9; gramstad_band km 29.0\u201337.9 (~8.9 km); bedrock F3 km 31.0\u201332.0 full overlap (~1 km) \u2014 reverse traverse vs SUT43 race forward on same course metres; washed without privacy clip"
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "gramstad_lifjell_20250625",
+      "session_type": "training",
+      "subject_id": "Subject_A",
+      "align_mode": "gpx",
+      "direction": "forward",
+      "note": "Gramstad\u2013Lifjell training loop 2025-06-25 (~15 km); GPX snap km 13.6\u201333.4; gramstad_band upstream tile km 29.0\u201333.4 (~4.4 km aligned); excludes km 31\u201332 HITL sector; washed without privacy clip (tail clip removed gramstad overlap)"
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "19000570862",
+      "session_type": "race",
+      "subject_id": "Subject_B",
+      "align_mode": "stream",
+      "note": "SUT43 2026-04-18 race-day (Strava 19000570862) \u2014 canonical FIT 02_Raw_Data/donors/Subject_B/SUT43_20260418.fit; full HR+cadence. Supersedes mis-wash activity_18162306249 (pace-only tile)."
+    }
+  ],
+  "deferred_activities": [
+    {
+      "donor_id": "Reference_Elite_A",
+      "activity_id": "SUT43_race_placeholder",
+      "session_type": "race",
+      "subject_id": "Reference_Elite_A",
+      "note": "Optional third panel athlete for consensus NTI \u2014 add when SUT43 .fit arrives"
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "hommersak_storaberget_20250628",
+      "session_type": "training",
+      "subject_id": "Subject_A",
+      "align_mode": "gpx",
+      "direction": "forward",
+      "note": "Hommers\u00e5k\u2013Storaberget early-lap training 2025-06-28 (~6.5 km); GPX snap km 1.85\u20138.0 (leg_a_technical / start hills); washed micro Parquet present \u2014 Phase E full-course tile; zero gramstad_band overlap"
+    }
+  ],
+  "full_course_stretch_goal": {
+    "km_analysis_window": [
+      0.5,
+      42.5
+    ],
+    "note": "Phase E \u2014 meter-by-meter S1\u2013S6 on full SUT43 after gramstad_band sector lock validates clustering"
+  },
+  "reference_spine": {
+    "schema_version": "reference_spine_v0",
+    "source_donor_id": "Subject_A",
+    "source_activity_id": "SUT43_20260418",
+    "km_window": [29.0, 41.0],
+    "step_m": 1.0,
+    "output_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/reference_spine_1m.parquet",
+    "build_script": "04_Python_Scripts/spatial/build_reference_spine.py",
+    "reproject_script": "04_Python_Scripts/spatial/reproject_to_spine.py",
+    "reproject_usage": "python3 04_Python_Scripts/spatial/reproject_to_spine.py --manifest config/spatial_align_manifest_sut43.example.json",
+    "note": "Canonical ref_chainage_m axis for cross-athlete alignment. Operator gold and HITL lock on Subject_A panel km (1:1 ref_chainage_km == course_km on spine — no span re-key). Subject_B stream km differs ~280–390 m at validated pins. After build_reference_spine.py, run reproject_to_spine.py to emit panel_race_1m_spine.parquet and panel_training_1m_spine.parquet (--session-type all).",
+    "kinematic_anchors": [
+      {
+        "anchor_id": "food_cp",
+        "display_name": "Gramstad food CP",
+        "role": "crossing_order_knot",
+        "ref_chainage_km": 30.52,
+        "utm_epsg": 25832,
+        "utm_e": 316090.14,
+        "utm_n": 6531722.07
+      },
+      {
+        "anchor_id": "drink_cp",
+        "display_name": "Gramstad drink CP",
+        "role": "crossing_order_knot",
+        "ref_chainage_km": 34.64,
+        "utm_epsg": 25832,
+        "utm_e": 315494.2,
+        "utm_n": 6531475.5
+      },
+      {
+        "anchor_id": "paradisskaret_stile",
+        "display_name": "Paradisskaret stile (gjerdeklyver)",
+        "role": "crossing_order_knot",
+        "crossing_order": "Subject_B_before_Subject_A",
+        "ref_chainage_km": 39.135,
+        "utm_epsg": 25832,
+        "utm_e": 315959.62,
+        "utm_n": 6530127.48
+      },
+      {
+        "anchor_id": "stile_31",
+        "display_name": "STILE-31 (gramstad bedrock co-wait)",
+        "role": "behavioral_exclusion_only",
+        "ref_chainage_km": 31.16,
+        "utm_epsg": 25832,
+        "utm_e": 316408.72,
+        "utm_n": 6531320.04,
+        "note": "Behavioral TRF exclusion \u2014 not a crossing-order knot"
+      }
+    ]
+  }
+}
