@@ -1,0 +1,116 @@
+{
+  "corridor_id": "dale_to_paradisskaret_stress_test",
+  "race_id": "SUT_160",
+  "experiment_sector_id": "dale_to_paradisskaret",
+  "experiment_sector_lock_version": "2026-06-26-dale-to-paradisskaret",
+  "km_analysis_window": [
+    140.0,
+    155.58
+  ],
+  "km_viewport_window": [
+    140.0,
+    156.0
+  ],
+  "multi_fit": true,
+  "default_align_mode": "gpx",
+  "default_direction": "auto",
+  "bridge_target_race": "SUT_160",
+  "bridge_target_km": [
+    140.0,
+    152.0
+  ],
+  "match_radius_m": 30.0,
+  "panel_scope": "Template manifest \u2014 copy to spatial_align_manifest_dale_alsvik.local.json for production. Canonical working state uses two-athlete bridge panel only; Reference_Elite_D is deferred until .fit wash (not a blocker).",
+  "canonical_working_manifest": "config/spatial_align_manifest_dale_alsvik.local.json",
+  "activities": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "SUT43_20260418",
+      "session_type": "race",
+      "subject_id": "Subject_A",
+      "align_mode": "bridge",
+      "bridge_source_race": "SUT_43",
+      "target_km": [
+        140.0,
+        152.0
+      ],
+      "note": "SUT_43 full lap \u2014 GPS bridge onto SUT_160 Gramstad/Dale overlap; partial km 140\u2013152 only"
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "18162306249",
+      "session_type": "race",
+      "subject_id": "Subject_B",
+      "align_mode": "bridge",
+      "bridge_source_race": "SUT_43",
+      "target_km": [
+        140.0,
+        152.0
+      ],
+      "note": "SUT_43 race-day (activity 18162306249) \u2014 washed Parquet; bridge mode for Dale-band overlap onto SUT_160"
+    }
+  ],
+  "coverage_gaps": [
+    {
+      "course_km_start": 152.0,
+      "course_km_end": 155.58,
+      "status": "unavailable",
+      "reason": "Late finish band unavailable until Reference_Elite_D SUT_160 race .fit (18159079828) or late-corridor training .fit is washed. Bridge panel covers km 140\u2013~152 only."
+    }
+  ],
+  "deferred_activities": [
+    {
+      "donor_id": "Reference_Elite_D",
+      "activity_id": "18159079828",
+      "session_type": "race",
+      "subject_id": "Reference_Elite_D",
+      "align_mode": "gpx",
+      "status": "deferred",
+      "reason": "Awaiting .fit wash \u2014 Strava JSON interim exists but corridor_multi_fit ingests washed micro Parquet only. Add to activities[] when ready; do not block two-athlete panel work."
+    },
+    {
+      "donor_id": "Reference_Elite_D",
+      "activity_id": "18611057420",
+      "session_type": "training",
+      "align_mode": "gpx",
+      "status": "deferred",
+      "reason": "Candidate late-corridor training tile \u2014 register after wash; target_km ~149\u2013155.58 when GPX overlap confirmed"
+    },
+    {
+      "donor_id": "Reference_Elite_D",
+      "activity_id": "17862744649",
+      "session_type": "training",
+      "align_mode": "gpx",
+      "status": "deferred",
+      "reason": "Candidate Dale-band training tile \u2014 register after wash; bridge or GPX per overlap QC"
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "training_dale_band_01",
+      "session_type": "training",
+      "status": "deferred",
+      "reason": "Placeholder \u2014 register washed activity_id; bridge target_km 140\u2013152, direction auto for reverse laps"
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "training_paradisskaret_01",
+      "session_type": "training",
+      "status": "deferred",
+      "reason": "Placeholder \u2014 late-corridor training tile; bridge target_km 149\u2013155.58 after wash"
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "SUT160_race_placeholder",
+      "session_type": "race",
+      "align_mode": "gpx",
+      "status": "deferred",
+      "reason": "Future SUT_160 race wash \u2014 replaces bridge row when native GPX-axis Parquet exists"
+    }
+  ],
+  "operator_workflow": {
+    "discover": "python3 04_Python_Scripts/spatial/corridor_multi_fit.py --discover",
+    "wash": "python3 04_Python_Scripts/15_fit_micro_wash.py --donor Subject_A --activity <id> --fit <path> --race SUT_43 --project-course --enrich-ti",
+    "align": "python3 04_Python_Scripts/spatial/corridor_multi_fit.py --manifest config/spatial_align_manifest_dale_alsvik.local.json",
+    "add_activity": "Copy a washed activity row into activities[] with align_mode bridge|gpx|stream, session_type race|training, optional direction auto|forward|reverse"
+  }
+}
