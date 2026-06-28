@@ -79368,45 +79368,8 @@
         "defer_reason": "superseded by operator gold km 40.0\u201341.0 Loen-Alsvik asphalt S1/F0 (chunk_11 HITL lock); guidance retained for audit only"
       }
     ],
-    "variance_gaps": [
-      {
-        "course_km_start": 29.282,
-        "course_km_end": 30.0,
-        "median_sigma": 0.343,
-        "pct_metres_high_variance": 57.7,
-        "reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres). Lower bound km 29.282 retained \u2014 km 29.0\u201329.282 excluded: operator gold chunk_00 lock post SUT43 race FIT GPS repositioning (S3/F2 easy dirt baseline + S4/F3 rocky pockets @ km 29.4\u201329.6 and 29.8\u201330.0 + S3/F3 plank/muddy pocket @ km 29.6\u201329.8; no gravel in window per operator field note). km 29.282\u201330.0 overlaps operator gold \u2014 gold authoritative. Upper bound trimmed at km 30.0 \u2014 km 30.0\u201331.0 excluded: chunk_01 operator gold HITL lock (S3/F2 easy descent Fjogstadnuten flank km 30.0\u201330.10 + S4/F3 technical rocky core km 30.10\u201330.35 + S3/F2 ease pre-CP km 30.35\u201330.55 with Gramstad food CP @ ~30.52 + S3/F2 dirt toward stile km 30.55\u201331.0; Subject_A SUT43_20260418 FIT validation). km 31.0\u201333.9 excluded: chunk_02 bedrock lock S4/F3 rocky trail with nested S3/F2 dirt pocket @ km 32.55\u201332.65; km 33.2\u201333.39 S5/F3 exposed granite; km 33.39\u201333.41 Paradisskaret gravel S2/F3 crossing; km 33.41\u201333.97 rocky high-friction trail S4/F3 (chunk_02\u201304 HITL lock)."
-      },
-      {
-        "course_km_start": 36.6,
-        "course_km_end": 36.72,
-        "median_sigma": 0.343,
-        "pct_metres_high_variance": 57.7,
-        "reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement. Lower bound trimmed at km 36.6 \u2014 km 36.30\u201336.6 excluded: Vassfjellet traverse upstream tread under operator gold S3/F2 (chunk_07 HITL lock). Upper bound trimmed at km 36.72 \u2014 km 36.72\u201336.89 excluded: Vassfjellet approach bog under operator gold S6/F4 (norgeskart bog hatch + pin UTM-32 E 314569.35 N 6530043.56 + chunk_07 HITL lock)"
-      },
-      {
-        "course_km_start": 36.89,
-        "course_km_end": 37.0,
-        "median_sigma": 0.343,
-        "pct_metres_high_variance": 57.7,
-        "reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement. Lower bound trimmed at km 36.89 \u2014 km 36.72\u201336.89 excluded: Vassfjellet approach bog under operator gold S6/F4. Upper bound trimmed at km 37.0 \u2014 km 37.0\u201338.0 excluded: operator gold contiguous lock post-bog forest climb S3/F3 + S6/F4 pocket + Vassfjellet muddy trail S6/F4 + rocky-muddy descent S5/F4 (chunk_08 HITL lock)."
-      }
-    ],
+    "variance_gaps": [],
     "draft_preservation_spans": [
-      {
-        "course_km_start": 29.0,
-        "course_km_end": 30.0,
-        "accept_draft_classes": [
-          "S3",
-          "S6"
-        ],
-        "no_input_classes": [
-          "S1",
-          "S2",
-          "S4",
-          "S5"
-        ],
-        "reason": "operator HITL (gramstad_band): km 29.0\u201330.0 superseded by operator gold chunk_00 \u2014 S3/F2 easy dirt baseline + S4/F3 rocky pockets @ km 29.4\u201329.6 and 29.8\u201330.0 + S3/F3 plank/muddy pocket @ km 29.6\u201329.8. Post SUT43 race FIT GPS repositioning: whole section dirt trail, no gravel (operator field note 2026-06-28). draft-preservation retained for audit only; accept GMM draft S3/S6 where operator gold absent; S1/S2 unassigned. Non-overlapping boundary at km 30.0 before km 30.0\u201330.3 resume policy"
-      },
       {
         "course_km_start": 30.0,
         "course_km_end": 30.3,
@@ -79481,36 +79444,6 @@
           "S2"
         ],
         "reason": "operator HITL (gramstad_band): unified policy km 30.7\u201331.0 \u2014 accept GMM draft S3\u2013S6 (assignment equals draft, solid accept-draft guidance); S1/S2 unassigned (no operator input, draft visible only). Downstream flank of km 30.3\u201330.7 three-way split (S5-only flanks + km 30.4\u201330.67 S3/S4/S5 core); non-overlapping for validation_dashboard union merge"
-      },
-      {
-        "course_km_start": 36.6,
-        "course_km_end": 36.72,
-        "accept_draft_classes": [
-          "S2",
-          "S3",
-          "S4",
-          "S5"
-        ],
-        "no_input_classes": [
-          "S1",
-          "S6"
-        ],
-        "reason": "operator HITL (gramstad_band): km 36.6\u201336.72 upstream flank \u2014 accept GMM draft S2\u2013S5 after Vassfjellet traverse operator gold km 36.30\u201336.6; S1/S6 unassigned. Non-overlapping boundary at km 36.72 before Vassfjellet approach bog operator gold S6/F4 km 36.72\u201336.89 (norgeskart bog hatch + pin UTM-32 E 314569.35 N 6530043.56)"
-      },
-      {
-        "course_km_start": 36.89,
-        "course_km_end": 37.0,
-        "accept_draft_classes": [
-          "S2",
-          "S3",
-          "S4",
-          "S5"
-        ],
-        "no_input_classes": [
-          "S1",
-          "S6"
-        ],
-        "reason": "operator HITL (gramstad_band): km 36.89\u201337.0 downstream flank \u2014 accept GMM draft S2\u2013S5 after Vassfjellet approach bog operator gold S6/F4 km 36.72\u201336.89; S1/S6 unassigned. Non-overlapping boundary at km 36.89 after bog gold (pin @ km 36.833); upstream flank ends at km 36.72"
       }
     ],
     "operator_gold_spans": [
@@ -79520,7 +79453,8 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: easy dirt trail baseline \u2014 whole km 29.0\u201330.0 is dirt trail (chunk_00). Post SUT43 race FIT GPS ground-truth repositioning: no gravel in window (prior S2 gravel @ km 29.0\u201329.1 removed). Mainly easy dirt tread S3/F2 per friction_index_spec and operator field note 2026-06-28."
+        "reason": "operator gold: easy dirt trail baseline \u2014 whole km 29.0\u201330.0 is dirt trail (chunk_00). Post SUT43 race FIT GPS ground-truth repositioning: no gravel in window (prior S2 gravel @ km 29.0\u201329.1 removed). Mainly easy dirt tread S3/F2 per friction_index_spec and operator field note 2026-06-28; tier lock 2026-06-28.",
+        "locked_at": "2026-06-28"
       },
       {
         "course_km_start": 29.4,
@@ -79528,7 +79462,8 @@
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: minor rocky interval \u2014 dirt trail with embedded rock / technical tread (chunk_00). S4/F3 per friction_index_spec; minor technical pocket within predominantly easy dirt band. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning."
+        "reason": "operator gold: minor rocky interval \u2014 dirt trail with embedded rock / technical tread (chunk_00). S4/F3 per friction_index_spec; minor technical pocket within predominantly easy dirt band. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning; tier lock 2026-06-28.",
+        "locked_at": "2026-06-28"
       },
       {
         "course_km_start": 29.6,
@@ -79536,7 +79471,8 @@
         "surface_class": "S3",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: plank/muddy nested pocket \u2014 dirt trail with plank (boardwalk) and muddy tread (chunk_00). S3/F3 per friction_index_spec; minor technical interval, not full rocky band. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning."
+        "reason": "operator gold: plank/muddy nested pocket \u2014 dirt trail with plank (boardwalk) and muddy tread (chunk_00). S3/F3 per friction_index_spec; minor technical interval, not full rocky band. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning; tier lock 2026-06-28.",
+        "locked_at": "2026-06-28"
       },
       {
         "course_km_start": 29.8,
@@ -79544,7 +79480,8 @@
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: rocky approach interval \u2014 dirt trail with rock-strewn tread approaching km 30.0 (chunk_00). S4/F3 per friction_index_spec; minor technical pocket before chunk_01 resume. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning."
+        "reason": "operator gold: rocky approach interval \u2014 dirt trail with rock-strewn tread approaching km 30.0 (chunk_00). S4/F3 per friction_index_spec; minor technical pocket before chunk_01 resume. Operator field note 2026-06-28 + SUT43 race FIT GPS repositioning; tier lock 2026-06-28.",
+        "locked_at": "2026-06-28"
       },
       {
         "course_km_start": 30.0,
@@ -79641,6 +79578,24 @@
         "reason": "operator gold: Vassfjellet traverse upstream tread \u2014 hard dirt / grass trail corridor (not bog); trail begins @ km 36.30 immediately downstream of Gramstad gravel road S2/F1 exit. gravel\u2192trail forward transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m (Kubbetj\u00f8rn / Kollirudla; dashed trail meets solid gravel road at end of Gramstad gravel band); SUT43 forward; panel snap raw 36.302 km, residual 5.1 m). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax; not S4 technical rock, not S6 bog). Cross-ref sut_course_mileage_atlas vassfjellet_traverse @ ~36.4; dashboard HITL QC chunk_06/07.",
         "course_km_start": 36.3,
         "course_km_end": 36.6
+      },
+      {
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "locked_at": "2026-06-28",
+        "course_km_start": 36.6,
+        "course_km_end": 36.72,
+        "reason": "operator gold: Vassfjellet gravel\u2192trail transition tread \u2014 hard dirt / grass trail corridor downstream of traverse S3/F2 km 36.30\u201336.60; approach to Vassfjellet bog S6/F4 km 36.72\u201336.89 (chunk_07). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax; not S4 technical rock, not S6 bog). GMM S2/S3 clusters km 36.611\u201336.719; cross-athlete NTI \u03c3 elevated on variance-gap panel. Supersedes draft-preservation km 36.6\u201336.72; tier lock 2026-06-28."
+      },
+      {
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-28",
+        "course_km_start": 36.89,
+        "course_km_end": 37.0,
+        "reason": "operator gold: post-bog forest dirt transition \u2014 wet forest dirt tread immediately downstream of Vassfjellet approach bog S6/F4 km 36.72\u201336.89; upstream flank of post-bog forest climb S3/F3 km 37.0\u201337.072 before chunk_08 rocky-muddy descent. S3/F3 per friction_index_spec (rooty/muddy dirt trail). GMM S3 cluster km 36.888\u201337.0; NTI \u03c3 spike at bog exit on cross-athlete panel. Non-overlapping boundary @ km 37.0; tier lock 2026-06-28."
       },
       {
         "surface_class": "S6",
