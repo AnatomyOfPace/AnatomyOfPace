@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anatomy-of-pace.local/schemas/spatial_terrain_map_v0.json",
+  "title": "Spatial Terrain Map",
+  "description": "Per-corridor surface ontology (S1–S6) aligned to SUT_160 course km. Machine draft from terrain_map_gen.py; operator overrides via hitl.manual_overrides.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ontology_version",
+    "corridor",
+    "segments",
+    "hitl"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "spatial_terrain_map_v0"
+    },
+    "ontology_version": {
+      "type": "string",
+      "description": "S-class spec revision (e.g. s6_v0)"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "corridor": {
+      "type": "object",
+      "required": ["corridor_id", "race_id", "km_start", "km_end"],
+      "properties": {
+        "corridor_id": { "type": "string" },
+        "race_id": { "type": "string" },
+        "km_start": { "type": "number", "minimum": 0 },
+        "km_end": { "type": "number", "minimum": 0 },
+        "dale_aid_checkpoint_km": { "type": "number" },
+        "paradisskaret_downhill_end_km": { "type": "number" },
+        "finish_km": { "type": "number" }
+      },
+      "additionalProperties": true
+    },
+    "clustering": {
+      "type": "object",
+      "properties": {
+        "method": { "enum": ["gmm", "kmeans"] },
+        "n_clusters": { "type": "integer", "minimum": 2, "maximum": 12 },
+        "centroids": {
+          "type": "array",
+          "items": { "type": "number" }
+        },
+        "cluster_to_surface_class": {
+          "type": "object",
+          "additionalProperties": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6"] }
+        },
+        "consensus_method": { "type": "string" },
+        "feature_col": { "type": "string" },
+        "fallback": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "segments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["course_km_start", "course_km_end", "surface_class"],
+        "properties": {
+          "course_m_start": { "type": "number" },
+          "course_m_end": { "type": "number" },
+          "course_km_start": { "type": "number" },
+          "course_km_end": { "type": "number" },
+          "surface_class": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6"] },
+          "source": { "enum": ["cluster", "manual", "seed"] },
+          "label": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "operator_note": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "grid_summary": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "mechanical_kappa_profile": {
+      "type": "object",
+      "properties": {
+        "course_m": { "type": "array", "items": { "type": "number" } },
+        "kappa_median": { "type": "array", "items": { "type": "number" } }
+      }
+    },
+    "fatigue_delta_ti": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "biomechanical_decoupling": {
+      "type": "object",
+      "description": "Optional Phase C Structural Invoice summary embedded after decouple run",
+      "properties": {
+        "schema_version": { "const": "structural_invoice_v1" },
+        "formula": { "type": "string" },
+        "per_donor": { "type": "object", "additionalProperties": true },
+        "paradisskaret_sector_km": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "additionalProperties": true
+    },
+    "calibration_credibility_index": {
+      "type": "object",
+      "required": ["index"],
+      "properties": {
+        "index": { "type": "number", "minimum": 0, "maximum": 1 },
+        "components": { "type": "object" },
+        "n_athletes": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "hitl": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["draft", "review", "locked"] },
+        "reviewed_at": { "type": "string", "format": "date-time" },
+        "reviewer": {
+          "type": "string",
+          "description": "Operator role label only — no personal names in committed JSON"
+        },
+        "manual_overrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["course_km_start", "course_km_end", "surface_class"],
+            "properties": {
+              "course_km_start": { "type": "number" },
+              "course_km_end": { "type": "number" },
+              "surface_class": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6"] },
+              "reason": { "type": "string" },
+              "mode": {
+                "enum": ["guidance", "lock"],
+                "default": "guidance",
+                "description": "guidance = operator suggestion (annotation only); lock = replaces cluster draft in effective_segments after explicit QC sign-off"
+              },
+              "locked": {
+                "type": "boolean",
+                "deprecated": true,
+                "description": "Legacy alias: true → lock, false/absent → guidance. Prefer mode."
+              },
+              "deferred": {
+                "type": "boolean",
+                "description": "When true, guidance overlay suppressed — span overlaps hitl.variance_gaps[] or full-span high σ"
+              },
+              "defer_reason": { "type": "string" }
+            }
+          }
+        },
+        "variance_gaps": {
+          "type": "array",
+          "description": "Cross-athlete NTI σ elevated spans where operator guidance is deferred",
+          "items": {
+            "type": "object",
+            "required": ["course_km_start", "course_km_end", "reason"],
+            "properties": {
+              "course_km_start": { "type": "number" },
+              "course_km_end": { "type": "number" },
+              "median_sigma": { "type": "number" },
+              "pct_metres_high_variance": { "type": "number" },
+              "reason": { "type": "string" }
+            }
+          }
+        },
+        "draft_preservation_spans": {
+          "type": "array",
+          "description": "HITL span policies: accept-draft (operator assignment equals GMM draft) and no-input (operator abstains)",
+          "items": {
+            "type": "object",
+            "required": ["course_km_start", "course_km_end"],
+            "properties": {
+              "course_km_start": { "type": "number" },
+              "course_km_end": { "type": "number" },
+              "accept_draft_classes": {
+                "type": "array",
+                "items": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6"] },
+                "description": "Where GMM draft is in this set, operator assignment equals draft — dashboard renders solid accept-draft guidance"
+              },
+              "no_input_classes": {
+                "type": "array",
+                "items": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6"] },
+                "description": "Operator abstains — no guidance overlay; GMM draft remains visible; footer counts unassigned metres"
+              },
+              "preserve_when_draft_in": {
+                "type": "array",
+                "items": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6"] },
+                "deprecated": true,
+                "description": "Legacy alias for accept_draft_classes"
+              },
+              "draft_s2_policy": {
+                "enum": ["unassigned"],
+                "deprecated": true,
+                "description": "Legacy alias: unassigned → no_input_classes [S2]"
+              },
+              "reason": { "type": "string" }
+            }
+          }
+        },
+        "operator_gold_spans": {
+          "type": "array",
+          "description": "Operator-promoted ML-ready gold spans — agreement tier gold with gold_source operator regardless of v1/v2 match",
+          "items": {
+            "type": "object",
+            "required": ["course_km_start", "course_km_end", "surface_class"],
+            "properties": {
+              "course_km_start": { "type": "number" },
+              "course_km_end": { "type": "number" },
+              "surface_class": { "enum": ["S1", "S2", "S3", "S4", "S5", "S6"] },
+              "friction_tier": {
+                "enum": ["F0", "F1", "F2", "F3", "F4"],
+                "description": "Intrinsic friction authority per friction_index_spec — optional on operator_gold_spans during schema migration"
+              },
+              "reason": { "type": "string" },
+              "gold_source": {
+                "enum": ["operator"],
+                "default": "operator",
+                "description": "Promoted to agreement tier gold by operator QC — additive to manual_overrides"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

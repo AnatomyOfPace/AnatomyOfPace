@@ -1,0 +1,726 @@
+{
+  "schema_version": "hitl_agreement_v1",
+  "generated_at": "2026-06-28T09:15:52.275756+00:00",
+  "km_start": 38.5,
+  "km_end": 40.5,
+  "metrics": {
+    "n_metres": 2000,
+    "n_decided_v2": 2000,
+    "n_match": 2000,
+    "agreement_pct": 100.0,
+    "cohens_kappa": 0.0,
+    "tier_counts": {
+      "gold": 2000
+    },
+    "gold_metres": 2000,
+    "silver_metres": 0,
+    "bronze_metres": 0,
+    "review_metres": 0,
+    "abstain_metres": 0,
+    "ml_label_class_counts": {
+      "S1": 1360,
+      "S2": 640
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "unassigned"
+    ],
+    "counts": {
+      "S1": {
+        "S1": 786,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 1
+      },
+      "S2": {
+        "S1": 353,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 33
+      },
+      "S3": {
+        "S1": 120,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 83
+      },
+      "S4": {
+        "S1": 32,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 137
+      },
+      "S5": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 54
+      },
+      "S6": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 39
+      },
+      "unassigned": {
+        "S1": 360,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 2
+      }
+    }
+  },
+  "agreement_segments": [
+    {
+      "course_m_start": 38500.0,
+      "course_m_end": 38525.0,
+      "course_km_start": 38.5,
+      "course_km_end": 38.525,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38525.0,
+      "course_m_end": 38531.0,
+      "course_km_start": 38.525,
+      "course_km_end": 38.531,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38531.0,
+      "course_m_end": 38584.0,
+      "course_km_start": 38.531,
+      "course_km_end": 38.584,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38584.0,
+      "course_m_end": 38648.0,
+      "course_km_start": 38.584,
+      "course_km_end": 38.648,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38648.0,
+      "course_m_end": 38677.0,
+      "course_km_start": 38.648,
+      "course_km_end": 38.677,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38677.0,
+      "course_m_end": 38698.0,
+      "course_km_start": 38.677,
+      "course_km_end": 38.698,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38698.0,
+      "course_m_end": 38715.0,
+      "course_km_start": 38.698,
+      "course_km_end": 38.715,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38715.0,
+      "course_m_end": 38726.0,
+      "course_km_start": 38.715,
+      "course_km_end": 38.726,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38726.0,
+      "course_m_end": 38750.0,
+      "course_km_start": 38.726,
+      "course_km_end": 38.75,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38750.0,
+      "course_m_end": 38775.0,
+      "course_km_start": 38.75,
+      "course_km_end": 38.775,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38775.0,
+      "course_m_end": 38823.0,
+      "course_km_start": 38.775,
+      "course_km_end": 38.823,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38823.0,
+      "course_m_end": 38841.0,
+      "course_km_start": 38.823,
+      "course_km_end": 38.841,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38841.0,
+      "course_m_end": 39135.0,
+      "course_km_start": 38.841,
+      "course_km_end": 39.135,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39135.0,
+      "course_m_end": 39145.0,
+      "course_km_start": 39.135,
+      "course_km_end": 39.145,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39145.0,
+      "course_m_end": 39151.0,
+      "course_km_start": 39.145,
+      "course_km_end": 39.151,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39151.0,
+      "course_m_end": 39162.0,
+      "course_km_start": 39.151,
+      "course_km_end": 39.162,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39162.0,
+      "course_m_end": 39173.0,
+      "course_km_start": 39.162,
+      "course_km_end": 39.173,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39173.0,
+      "course_m_end": 39231.0,
+      "course_km_start": 39.173,
+      "course_km_end": 39.231,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39231.0,
+      "course_m_end": 39511.0,
+      "course_km_start": 39.231,
+      "course_km_end": 39.511,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39511.0,
+      "course_m_end": 39526.0,
+      "course_km_start": 39.511,
+      "course_km_end": 39.526,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39526.0,
+      "course_m_end": 39535.0,
+      "course_km_start": 39.526,
+      "course_km_end": 39.535,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39535.0,
+      "course_m_end": 39547.0,
+      "course_km_start": 39.535,
+      "course_km_end": 39.547,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39547.0,
+      "course_m_end": 39553.0,
+      "course_km_start": 39.547,
+      "course_km_end": 39.553,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39553.0,
+      "course_m_end": 39562.0,
+      "course_km_start": 39.553,
+      "course_km_end": 39.562,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39562.0,
+      "course_m_end": 39577.0,
+      "course_km_start": 39.562,
+      "course_km_end": 39.577,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39577.0,
+      "course_m_end": 39614.0,
+      "course_km_start": 39.577,
+      "course_km_end": 39.614,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39614.0,
+      "course_m_end": 39631.0,
+      "course_km_start": 39.614,
+      "course_km_end": 39.631,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39631.0,
+      "course_m_end": 39648.0,
+      "course_km_start": 39.631,
+      "course_km_end": 39.648,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39648.0,
+      "course_m_end": 39659.0,
+      "course_km_start": 39.648,
+      "course_km_end": 39.659,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39659.0,
+      "course_m_end": 39678.0,
+      "course_km_start": 39.659,
+      "course_km_end": 39.678,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39678.0,
+      "course_m_end": 39695.0,
+      "course_km_start": 39.678,
+      "course_km_end": 39.695,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39695.0,
+      "course_m_end": 39848.0,
+      "course_km_start": 39.695,
+      "course_km_end": 39.848,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39848.0,
+      "course_m_end": 39922.0,
+      "course_km_start": 39.848,
+      "course_km_end": 39.922,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39922.0,
+      "course_m_end": 39957.0,
+      "course_km_start": 39.922,
+      "course_km_end": 39.957,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39957.0,
+      "course_m_end": 39978.0,
+      "course_km_start": 39.957,
+      "course_km_end": 39.978,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39978.0,
+      "course_m_end": 39994.0,
+      "course_km_start": 39.978,
+      "course_km_end": 39.994,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39994.0,
+      "course_m_end": 40025.0,
+      "course_km_start": 39.994,
+      "course_km_end": 40.025,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 40025.0,
+      "course_m_end": 40031.0,
+      "course_km_start": 40.025,
+      "course_km_end": 40.031,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 40031.0,
+      "course_m_end": 40077.0,
+      "course_km_start": 40.031,
+      "course_km_end": 40.077,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 40077.0,
+      "course_m_end": 40124.0,
+      "course_km_start": 40.077,
+      "course_km_end": 40.124,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 40124.0,
+      "course_m_end": 40148.0,
+      "course_km_start": 40.124,
+      "course_km_end": 40.148,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 40148.0,
+      "course_m_end": 40230.0,
+      "course_km_start": 40.148,
+      "course_km_end": 40.23,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 40230.0,
+      "course_m_end": 40243.0,
+      "course_km_start": 40.23,
+      "course_km_end": 40.243,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 40243.0,
+      "course_m_end": 40265.0,
+      "course_km_start": 40.243,
+      "course_km_end": 40.265,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 40265.0,
+      "course_m_end": 40490.0,
+      "course_km_start": 40.265,
+      "course_km_end": 40.49,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 40490.0,
+      "course_m_end": 40500.0,
+      "course_km_start": 40.49,
+      "course_km_end": 40.5,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    }
+  ],
+  "disagreement_spans": [],
+  "tier_definitions": {
+    "gold": "match + n_voters\u22652 + unanimous or \u22652/3 vote strength; or hitl.operator_gold_spans[]",
+    "silver": "match + n_voters\u22652",
+    "bronze": "match + n_voters=1",
+    "review": "v1 vs v2 class mismatch or missing class",
+    "abstain": "v2 tie or no voters"
+  },
+  "operator_gold_spans": [
+    {
+      "surface_class": "S2",
+      "gold_source": "operator",
+      "reason": "operator gold: easy gravel road \u2014 hard-pack gravel road (chunk_00)",
+      "course_km_start": 29.0,
+      "course_km_end": 29.1
+    },
+    {
+      "surface_class": "S3",
+      "gold_source": "operator",
+      "reason": "operator gold: easy dirt trail \u2014 mainly dirt trail with some rocks, some muddy parts (chunk_00)",
+      "course_km_start": 29.1,
+      "course_km_end": 29.3
+    },
+    {
+      "surface_class": "S3",
+      "gold_source": "operator",
+      "reason": "operator gold: easy trail \u2014 dirt trail (chunk_00)",
+      "course_km_start": 29.3,
+      "course_km_end": 29.4
+    },
+    {
+      "surface_class": "S4",
+      "gold_source": "operator",
+      "reason": "operator gold: dirt trail with some rocks \u2014 dirt trail with rocks, some muddy parts (chunk_00/01)",
+      "course_km_start": 29.4,
+      "course_km_end": 30.0
+    },
+    {
+      "surface_class": "S3",
+      "gold_source": "operator",
+      "reason": "operator gold: medium technical trail \u2014 mainly dirt trail with some rocks, muddy parts, plank (klopper) sections (chunk_00)",
+      "course_km_start": 29.6,
+      "course_km_end": 29.8
+    },
+    {
+      "surface_class": "S3",
+      "gold_source": "operator",
+      "reason": "operator gold: medium technical trail \u2014 mainly dirt trail with rocks, muddy parts, plank (klopper) sections (chunk_01)",
+      "course_km_start": 30.0,
+      "course_km_end": 30.2
+    },
+    {
+      "surface_class": "S3",
+      "gold_source": "operator",
+      "reason": "operator gold: easy dirt trail \u2014 mainly dirt trail with some rocks, some muddy parts (chunk_01)",
+      "course_km_start": 30.2,
+      "course_km_end": 30.35
+    },
+    {
+      "surface_class": "S4",
+      "gold_source": "operator",
+      "reason": "operator gold: dirt trail \u2014 dirt trail with rocks (chunk_01)",
+      "course_km_start": 30.35,
+      "course_km_end": 30.6
+    },
+    {
+      "surface_class": "S3",
+      "gold_source": "operator",
+      "reason": "operator gold: medium technical trail \u2014 mainly dirt trail with rocks, muddy parts, plank (klopper) sections (chunk_01)",
+      "course_km_start": 30.6,
+      "course_km_end": 31.0
+    },
+    {
+      "course_km_start": 31.0,
+      "course_km_end": 33.2,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "gold_source": "operator",
+      "reason": "operator gold: chunk_02 bedrock lock \u2014 rocky trail / technical bedrock tread (gramstad_band reverse traverse 2026-06-28). Contiguous S4/F3 operator-gold band km 31.0\u201333.2; boundary @ km 33.2 aligns with downstream S5/F3 exposed granite km 33.2\u201333.39 (not merged). Nested S3/F2 pure-dirt pocket @ km 32.55\u201332.65 retained. S4/F3 per friction_index_spec. Supersedes legacy chunk_03/04 micro-spans and deferred guidance in window. Stile/fenceline crossing (gjerdeklyver) pinned @ km 31.158 (norgeskart pin UTM-32 E 316408.72 N 6531320.04 elev 286.0 m; panel snap residual 1.9 m, elev \u0394 +0.7 m). Subject_A SUT43_20260418 race stop/wait cluster km 31.132\u201331.180 (48 m, 0 m/s; co-runner bathroom break per operator field note). Subject_B race continuous traverse (no stop). Distinct FIT/TI signatures across runs at crossing; not chunk_06 km ~35.15 (Gramstad gravel S2/F1 \u2014 separate inter-athlete cluster-rank divergence)."
+    },
+    {
+      "course_km_start": 32.55,
+      "course_km_end": 32.65,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "gold_source": "operator",
+      "reason": "operator gold: nested dirt pocket \u2014 pure dirt within chunk_02 bedrock lock km 31.0\u201333.2 (S4/F3 parent). Only pure-dirt section in rocky/granite band; muddy when wet (dirt pocket, not full bog/marsh). S3/F2 per friction_index_spec. Operator confirmed reverse traverse 2026-06-28."
+    },
+    {
+      "course_km_start": 33.2,
+      "course_km_end": 33.39,
+      "surface_class": "S5",
+      "friction_tier": "F3",
+      "gold_source": "operator",
+      "reason": "operator gold: exposed granite bedrock \u2014 downstream of chunk_02 bedrock lock boundary @ km 33.2; tread transitions from rocky trail upstream to exposed granite on Rinna ridge descent ending at Paradisskaret gravel road crossing @ km 33.39. S5/F3 per friction_index_spec (difficult technical rock on exposed granite; F3 moderate friction on polished/slab granite). Split point @ km 33.2 per operator HITL; not merged into km 31.0\u201333.2 S4/F3 lock. Operator gold + norgeskart pin UTM-32 E 315754.57 N 6530524.97 elev 175.4 m (2026-06-28)."
+    },
+    {
+      "course_km_start": 33.39,
+      "course_km_end": 33.41,
+      "surface_class": "S2",
+      "friction_tier": "F3",
+      "gold_source": "operator",
+      "reason": "operator gold: Paradisskaret gravel road crossing \u2014 narrow coarse gravel road band @ km 33.39\u201333.41 immediately downstream of granite bedrock descent (Rinna ridge). S2/F3 per friction_index_spec (chunky coarse gravel crossing tread, not hard-pack F1/F2). Operator gold + norgeskart pin UTM-32 E 315754.57 N 6530524.97 elev 175.4 m; dashboard chunk_04 km 33.4 crossing visible. Downstream of granite @ km 33.39; upstream of rocky high-friction trail @ km 33.41."
+    },
+    {
+      "course_km_start": 33.41,
+      "course_km_end": 33.97,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "gold_source": "operator",
+      "reason": "operator gold: high friction trail \u2014 rocky/rooty technical tread immediately downstream of Paradisskaret gravel road crossing @ km 33.41; extends to high\u2192low friction transition @ km 33.97 (norgeskart pin UTM-32 E 315452.06 N 6530916.56 elev 165.4 m; SUT43 forward). S4/F3 per friction_index_spec (technical-runnable rock/rooty coarse footing). Operator gold post-crossing tread lock; dashboard HITL QC chunk_04. Adjacent F-tier calibration pair with km 33.97\u201334.60 low-friction S3/F2 runnable tread (chunk_05) before gravel road entry @ km 34.60. Distinct from upstream granite-ridge band km 31.0\u201333.39."
+    },
+    {
+      "course_km_start": 33.97,
+      "course_km_end": 34.6,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "gold_source": "operator",
+      "reason": "operator gold: low friction trail \u2014 compact dirt, runnable tread (km 33.97\u201334.60) downstream of high\u2192low friction transition @ km 33.97 (norgeskart pin UTM-32 E 315452.06 N 6530916.56 elev 165.4 m); extends to low\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax, full run). Dashboard HITL QC chunk_05. Operator anchors: km 34.2 low-friction trail (S3/F2); gate ~km 34.0\u201334.1; gate ~km 34.6; SUT43 drink CP km 34.6\u201334.7; km 34.7 on gravel road (SUT43 forward). Not S2 hard-pack gravel."
+    },
+    {
+      "surface_class": "S2",
+      "friction_tier": "F1",
+      "gold_source": "operator",
+      "reason": "operator gold: Gramstad area hard-pack gravel road / tractor road (dossier sector #2) \u2014 km 34.60\u201336.30 compact gravel corridor from trail\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward) through gravel\u2192trail transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m (Kubbetj\u00f8rn / Kollirudla; dashed trail meets solid gravel road at end of Gramstad gravel band); SUT43 forward; panel snap raw 36.302 km, residual 5.1 m). S2/F1 hard-pack baseline per friction_index_spec. Operator anchors: km 34.2 low-friction trail (S3/F2); gate ~km 34.0\u201334.1; gate ~km 34.6; SUT43 drink CP km 34.6\u201334.7; km 34.7 on gravel road (SUT43 forward). Dashboard HITL QC chunk_05/06.",
+      "course_km_start": 34.6,
+      "course_km_end": 36.3
+    },
+    {
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "gold_source": "operator",
+      "reason": "operator gold: Vassfjellet traverse upstream tread \u2014 hard dirt / grass trail corridor (not bog); trail begins @ km 36.30 immediately downstream of Gramstad gravel road S2/F1 exit. gravel\u2192trail forward transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m (Kubbetj\u00f8rn / Kollirudla; dashed trail meets solid gravel road at end of Gramstad gravel band); SUT43 forward; panel snap raw 36.302 km, residual 5.1 m). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax; not S4 technical rock, not S6 bog). Cross-ref sut_course_mileage_atlas vassfjellet_traverse @ ~36.4; dashboard HITL QC chunk_06/07.",
+      "course_km_start": 36.3,
+      "course_km_end": 36.6
+    },
+    {
+      "surface_class": "S6",
+      "friction_tier": "F4",
+      "gold_source": "operator",
+      "reason": "operator gold: Vassfjellet approach bog \u2014 deep bog / marsh tread (S6/F4 per friction_index_spec). norgeskart bog/marsh cartography (blue-hatched bog on dashed trail; Kollirudla north; Vassfjellet approach hairpin) pinned @ km 36.833 (norgeskart pin UTM-32 E 314569.35 N 6530043.56 elev 213.0 m; panel snap raw 36.833 km, residual 14.1 m, elev \u0394 +3.2 m). Span km 36.72\u201336.89 encloses pin and GMM S6 hairpin cluster (36.719\u201336.888); upstream S3/F2 traverse tread ends @ km 36.60. Operator HITL chunk_07 confirmation; best in-band F4 calibration anchor on gramstad_band downstream of S3/F2 traverse tread.",
+      "course_km_start": 36.72,
+      "course_km_end": 36.89
+    },
+    {
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "gold_source": "operator",
+      "course_km_start": 37.0,
+      "course_km_end": 37.072,
+      "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt tread immediately downstream of Vassfjellet approach bog S6/F4 km 36.72\u201336.89; typically wet with localized mud holes (high friction tax corridor, chunk_08). S3/F3 per friction_index_spec (rooty/muddy dirt trail, technical-runnable). GMM S3 cluster km 37.021\u201337.066 upstream of bog pocket."
+    },
+    {
+      "surface_class": "S6",
+      "friction_tier": "F4",
+      "gold_source": "operator",
+      "course_km_start": 37.072,
+      "course_km_end": 37.13,
+      "reason": "operator gold: localized bog/mud pocket \u2014 deep mud hole within post-bog forest climb km 37.0\u201337.4; operator field note @ km 37.07\u201337.13, GMM S6 cluster km 37.072\u201337.130. Nested S6/F4 micro-span within S3/F3 parent corridor (chunk_08). S6/F4 per friction_index_spec (vacuum mud / bog extraction)."
+    },
+    {
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "gold_source": "operator",
+      "course_km_start": 37.13,
+      "course_km_end": 37.41,
+      "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt trail with frequent localized mud holes; unpleasant high-friction tax corridor per operator field note (chunk_08). S3/F3 per friction_index_spec. GMM mixed S5/S6 pockets retained as draft overlay; operator baseline S3/F3 wet tread to km ~37.4 before Vassfjellet muddy trail band."
+    },
+    {
+      "surface_class": "S6",
+      "friction_tier": "F4",
+      "gold_source": "operator",
+      "course_km_start": 37.41,
+      "course_km_end": 37.87,
+      "reason": "operator gold: Vassfjellet muddy trail \u2014 wet forest dirt tread with frequent mud holes and bog-dominant footing; extended/merged from prior km 37.41\u201337.87 baseline (chunk_08). Operator field note: dirt trails in forest, typically wet, localized mud holes frequent, high friction tax corridor. S6/F4 per friction_index_spec (bog/mud dominant; GMM S6 clusters km 37.414\u201337.849). Supersedes open variance gap km 37.87\u201338.0 flank."
+    },
+    {
+      "surface_class": "S5",
+      "friction_tier": "F4",
+      "gold_source": "operator",
+      "course_km_start": 37.87,
+      "course_km_end": 38.0,
+      "reason": "operator gold: rocky muddy descent \u2014 technical rocky AND muddy tread at end of wet forest corridor near km 38 per operator field note (chunk_08 tail only). S5/F4 per friction_index_spec (severe friction: loose/rocky footing plus vacuum mud; walk/scramble tax). Transitions from upstream S6/F4 Vassfjellet muddy trail; descent ends @ km 38.0 \u2014 downstream km 38.0+ is accept-draft GMM corridor until rocky gravel road @ km 38.4 (chunk_09)."
+    },
+    {
+      "surface_class": "S2",
+      "friction_tier": "F3",
+      "gold_source": "operator",
+      "reason": "operator gold: Paradisskaret gravel road \u2014 coarse gravel road tread upstream through stile (gjerdeklyver) @ km 39.135 (chunk_10). Extends prior rocky gravel road toward Bj\u00f8rndalsfjellet km 38.4\u201338.9 through Paradisskaret gravel corridor to stile boundary. S2/F3 per friction_index_spec (chunky coarse gravel; matches Paradisskaret gravel crossing @ km 33.39). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m; panel snap raw 39.135 km, residual 1.4 m (Subject_A race GPS), elev \u0394 +9.8 m vs pin cartography. Subject_A SUT43_20260418 race stop/wait cluster km 39.125\u201339.132 (7 m, 0 m/s; stile crossing). Dashboard HITL QC chunk_10.",
+      "course_km_start": 38.4,
+      "course_km_end": 39.135
+    },
+    {
+      "course_km_start": 39.135,
+      "course_km_end": 39.14,
+      "surface_class": "S2",
+      "friction_tier": "F3",
+      "gold_source": "operator",
+      "reason": "operator gold: Paradisskaret gravel\u2192asphalt transition flap \u2014 ~5 m coarse gravel tread immediately downstream of stile (gjerdeklyver) @ km 39.135; asphalt begins @ km 39.140. S2/F3 per friction_index_spec (short gravel buffer before sealed road). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m; operator field note chunk_10."
+    },
+    {
+      "surface_class": "S1",
+      "friction_tier": "F0",
+      "gold_source": "operator",
+      "reason": "operator gold: Loen-Alsvik asphalt road (Alsvik asphalt tail, dossier sector #1) \u2014 pure sealed S1 corridor (km 39.140\u201341.0); begins ~5 m downstream of Paradisskaret stile @ km 39.135 after S2/F3 gravel transition flap km 39.135\u201339.140. Prior lock start @ km 39.7 pulled upstream per operator field note (gravel\u2192asphalt transition QC chunk_10). Flat grade, low NTI confirmation; friction tier F0 per friction_index_spec; dashboard HITL QC chunk_10/11.",
+      "course_km_start": 39.14,
+      "course_km_end": 41.0
+    }
+  ]
+}

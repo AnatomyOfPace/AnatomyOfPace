@@ -1,0 +1,133 @@
+{
+  "_notice": "Copy to sut_course_mileage_atlas.local.json (gitignored). Never commit the local file.",
+  "_schema_version": "1.0",
+  "_schema": {
+    "places": "One row per geographic feature, Garmin course marker, or organiser checkpoint. Use null for km columns when unknown or not applicable to that distance.",
+    "place_id": "Lowercase slug; stable across screenshots (e.g. froylandsvatnet, hogstad_checkpoint).",
+    "display_name": "Garmin Connect label or official organiser name (geographic proper nouns permitted).",
+    "km_sut_23": "Distance along SUT 23 km course axis (Garmin or FIT-calibrated).",
+    "km_sut_43": "Distance along SUT 43 km course axis.",
+    "km_sut_80": "Distance along SUT 80 km course axis.",
+    "km_sut_160": "Distance along SUT 160 km course axis (161 km official).",
+    "marker_number": "Integer Garmin Connect course marker when visible; null otherwise.",
+    "corridor_type": "One of: start, climb, descent, flat, checkpoint, landmark, lake.",
+    "source": "Provenance tag, e.g. garmin_connect_screenshot_2026-06-23, race_corridors.json, strava_segment_effort.",
+    "confidence": "One of: verified_screenshot, approximate, needs_confirm.",
+    "notes": "Operator context, cross-refs, disambiguation (checkpoint vs geographic feature)."
+  },
+  "course_meta": {
+    "SUT_43": {
+      "garmin_connect_distance_km": 43.28,
+      "official_distance_km": 43.0,
+      "elevation_gain_m": 2410,
+      "elevation_descent_m": 2375
+    }
+  },
+  "places": [
+    {
+      "place_id": "hommersak_stemmen_start",
+      "display_name": "Hommersåk / Stemmen",
+      "km_sut_23": null,
+      "km_sut_43": 0.0,
+      "km_sut_80": null,
+      "km_sut_160": null,
+      "marker_number": null,
+      "corridor_type": "start",
+      "source": "garmin_connect_screenshot_2026-06-23",
+      "confidence": "verified_screenshot",
+      "notes": "Green play-icon start on Garmin map. Shared SUT race start geography."
+    },
+    {
+      "place_id": "loen_alsvik_asphalt_road",
+      "display_name": "Loen-Alsvik asphalt road",
+      "km_sut_23": null,
+      "km_sut_43": 40.5,
+      "km_sut_80": null,
+      "km_sut_160": null,
+      "marker_number": null,
+      "corridor_type": "flat",
+      "source": "operator_clarification_2026-06-28",
+      "confidence": "approximate",
+      "notes": "Named geographic asphalt road on gramstad_band downstream tail; course km ~40.0–41.0 (operator gold extends upstream to 39.7). Cross-ref dossier sector #1 Alsvik asphalt tail; S1/F0 friction lock in spatial_terrain_map_sut43.json. Sealed road corridor — not trail tread."
+    },
+    {
+      "place_id": "paradisskaret_gravel_road",
+      "display_name": "Paradisskaret gravel road",
+      "km_sut_23": null,
+      "km_sut_43": 33.45,
+      "km_sut_80": null,
+      "km_sut_160": null,
+      "marker_number": null,
+      "corridor_type": "flat",
+      "source": "operator_clarification_2026-06-28",
+      "confidence": "approximate",
+      "notes": "Very coarse gravel road tread on gramstad_band upstream of high-friction trail; course km ~33.44–33.5 under operator gold S2/F3 in spatial_terrain_map_sut43.json. Few metres immediately downstream of exposed granite bedrock band end @ km 33.42. Distinct from Gramstad area hard-pack gravel road @ km 34.6+ (S2/F1) and Paradisskaret Downhill on SUT_160."
+    },
+    {
+      "place_id": "gramstad_food_cp",
+      "display_name": "Gramstad food CP (gramstad_1)",
+      "km_sut_23": null,
+      "km_sut_43": 30.52,
+      "km_sut_80": null,
+      "km_sut_160": 147.5,
+      "marker_number": null,
+      "corridor_type": "checkpoint",
+      "source": "operator_hitl_norgeskart_pin_2026-06-28",
+      "confidence": "verified_screenshot",
+      "notes": "Upstream Gramstad-area aid on SUT_43 gramstad_band — road/trail junction near Djupemyr pond and Stavstol (norgeskart pin UTM-32 E 316090.14 N 6531722.07 elev 209.4 m; panel stream_distance snap km 30.520, residual 3.8 m). Subject_A SUT43_20260418 race stop cluster km 30.515–30.546 (~438 s); Subject_B continuous traverse. Geographic cross-ref SUT_160 CP13 gramstad_1 @ course-road km 147.5 (~139 m lateral). Upstream of gramstad_drink_cp by ~4.11 km along SUT_43 forward axis."
+    },
+    {
+      "place_id": "gramstad_drink_cp",
+      "display_name": "Gramstad drink CP (gramstad_2)",
+      "km_sut_23": null,
+      "km_sut_43": 34.631,
+      "km_sut_80": null,
+      "km_sut_160": 151.0,
+      "marker_number": null,
+      "corridor_type": "checkpoint",
+      "source": "operator_hitl_2026-06-28",
+      "confidence": "verified_screenshot",
+      "notes": "Drink-only aid @ trail→F4504 gravel road transition (Gramstad farm sector). Operator window km 34.628–34.635; gravel-entry pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (panel snap km 34.603, residual 2.7 m). Subject_A full stop ~105 s @ km 34.641–34.647; Subject_B no stop. Geographic cross-ref SUT_160 CP14 gramstad_2 @ course-road km 151.0 (~170 m lateral). Downstream of gramstad_food_cp by ~4.11 km along SUT_43 forward axis."
+    },
+    {
+      "place_id": "gramstad_gravel_road",
+      "display_name": "Gramstad gravel road",
+      "km_sut_23": null,
+      "km_sut_43": 35.3,
+      "km_sut_80": null,
+      "km_sut_160": null,
+      "marker_number": null,
+      "corridor_type": "flat",
+      "source": "operator_clarification_2026-06-28",
+      "confidence": "approximate",
+      "notes": "Hard-pack tractor/gravel road in Gramstad area; course km ~34.6–36.30 (F1 operator gold). Upstream transition km 34.4–34.6 F2 chunky entry. Gravel→trail exit pinned @ km 36.30 (norgeskart pin Kubbetjørn). Cross-ref dossier sector #2; overlaps Gramstad_runden and sector-reverse training FITs."
+    },
+    {
+      "place_id": "vassfjellet_traverse",
+      "display_name": "Vassfjellet traverse",
+      "km_sut_23": null,
+      "km_sut_43": 36.4,
+      "km_sut_80": null,
+      "km_sut_160": null,
+      "marker_number": null,
+      "corridor_type": "flat",
+      "source": "operator_clarification_2026-06-28",
+      "confidence": "approximate",
+      "notes": "Upstream section of Vassfjellet traverse on gramstad_band; hard dirt / grass tread (not bog). Course km ~36.30–36.6 under operator gold S3/F2 in spatial_terrain_map_sut43.json. Gravel→trail transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m; Gramstad gravel road S2/F1 ends; Vassfjellet tread begins)."
+    },
+    {
+      "place_id": "vassfjellet_bog_pocket",
+      "display_name": "Vassfjellet bog pocket",
+      "km_sut_23": null,
+      "km_sut_43": 36.8,
+      "km_sut_80": null,
+      "km_sut_160": null,
+      "marker_number": null,
+      "corridor_type": "flat",
+      "source": "operator_clarification_2026-06-28",
+      "confidence": "approximate",
+      "notes": "Marsh/bog pocket on Vassfjellet traverse downstream of hard tread; course km ~36.72–36.89 under operator gold S6/F4. norgeskart.no bog/marsh symbol (light blue dashed lines) matches dashboard S6 highlight; operator HITL chunk_07 lock. Downstream of vassfjellet_traverse S3/F2 km 36.30–36.6."
+    }
+  ],
+  "_ingest_doc": "docs/outreach/sut_mileage_atlas_ingest.local.md"
+}
