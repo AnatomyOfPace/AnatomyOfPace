@@ -173,6 +173,82 @@ def _variance_gap_spans(terrain_map: dict[str, Any]) -> list[tuple[float, float]
     return out
 
 
+def _trf_exclusion_spans(terrain_map: dict[str, Any]) -> list[dict[str, Any]]:
+    hitl = terrain_map.get("hitl") or {}
+    return list(hitl.get("trf_exclusions") or [])
+
+
+def apply_trf_exclusions(
+    df: pd.DataFrame,
+    terrain_map: dict[str, Any],
+    *,
+    subject_id: str | None = None,
+) -> pd.DataFrame:
+    """
+    Flag metres excluded from TRF aggregation per hitl.trf_exclusions[].
+
+    subject_scope both: all subjects in window; Subject_A_only: Subject_A rows only.
+    """
+    work = df.copy()
+    work["in_trf_exclusion"] = False
+    work["trf_exclusion_type"] = pd.Series([None] * len(work), index=work.index, dtype="object")
+    work["trf_exclusion_scope"] = pd.Series([None] * len(work), index=work.index, dtype="object")
+    work["trf_exclusion_anchor_id"] = pd.Series([None] * len(work), index=work.index, dtype="object")
+
+    km = pd.to_numeric(work["course_km"], errors="coerce")
+    sid_col = "subject_id" if "subject_id" in work.columns else None
+
+    for span in _trf_exclusion_spans(terrain_map):
+        km0 = float(span["course_km_start"])
+        km1 = float(span["course_km_end"])
+        mask = (km >= km0) & (km < km1)
+        scope = str(span.get("subject_scope") or "both")
+        if scope == "Subject_A_only":
+            if subject_id is not None and subject_id != "Subject_A":
+                continue
+            if sid_col:
+                mask &= work[sid_col] == "Subject_A"
+        if not mask.any():
+            continue
+        work.loc[mask, "in_trf_exclusion"] = True
+        work.loc[mask, "trf_exclusion_type"] = span.get("exclusion_type")
+        work.loc[mask, "trf_exclusion_scope"] = scope
+        if span.get("anchor_id"):
+            work.loc[mask, "trf_exclusion_anchor_id"] = span["anchor_id"]
+
+    return work
+
+
+def cross_athlete_exclusion_mask(
+    paired: pd.DataFrame,
+    terrain_map: dict[str, Any],
+    *,
+    subjects: tuple[str, ...] = ("Subject_A", "Subject_B"),
+) -> pd.Series:
+    """
+    Metres to drop from paired cross-athlete TRF.
+
+    Excludes both-scope windows and Subject_A-only asymmetry windows (gap artifact).
+    """
+    km = pd.to_numeric(paired["course_km"], errors="coerce")
+    drop = pd.Series(False, index=paired.index)
+    for span in _trf_exclusion_spans(terrain_map):
+        km0 = float(span["course_km_start"])
+        km1 = float(span["course_km_end"])
+        in_window = (km >= km0) & (km < km1)
+        scope = str(span.get("subject_scope") or "both")
+        if scope in {"both", "Subject_A_only"}:
+            drop |= in_window
+    return drop
+
+
+def trf_analysis_frame(df: pd.DataFrame) -> pd.DataFrame:
+    """Metres eligible for TRF cell aggregation and summary stats."""
+    if "in_trf_exclusion" not in df.columns:
+        return df
+    return df.loc[~df["in_trf_exclusion"]].copy()
+
+
 def resolve_friction_tiers(
     df: pd.DataFrame,
     terrain_map: dict[str, Any],
@@ -485,6 +561,7 @@ def build_subject_residual(
     work["subject_id"] = subject_id
     work["sector_id"] = sector_id
     work["baseline_mode"] = baseline_mode
+    work = apply_trf_exclusions(work, terrain_map, subject_id=subject_id)
     return work
 
 
@@ -521,6 +598,10 @@ def export_outputs(
         "surface_class_gold",
         "residual_confidence",
         "in_variance_gap",
+        "in_trf_exclusion",
+        "trf_exclusion_type",
+        "trf_exclusion_scope",
+        "trf_exclusion_anchor_id",
         "cadence_spm",
         "speed_mps",
         "mechanical_kappa",
@@ -529,14 +610,16 @@ def export_outputs(
     present = [c for c in export_cols if c in df.columns]
     df[present].to_parquet(parquet_path, index=False)
 
+    analysis_df = trf_analysis_frame(df)
     cells = aggregate_residual_cells(
-        df,
+        analysis_df,
         subject_id=subject_id,
         sector_id=sector_id,
         delta_threshold=delta_threshold,
         baseline_mode=baseline_mode,
     )
     tier_locked = df["friction_tier"].notna().sum()
+    excluded = int(df["in_trf_exclusion"].sum()) if "in_trf_exclusion" in df.columns else 0
     report = {
         "schema_version": "training_residual_v0",
         "generated_at": _utc_now(),
@@ -550,10 +633,17 @@ def export_outputs(
         },
         "summary": {
             "n_metres": int(len(df)),
+            "n_metres_trf_eligible": int(len(analysis_df)),
+            "n_metres_trf_excluded": excluded,
             "pct_friction_tier_assigned": round(100.0 * tier_locked / len(df), 2),
             "pct_variance_gap": round(100.0 * df["in_variance_gap"].mean(), 2),
-            "pct_hike_mode": round(100.0 * (df["locomotion_mode"] == "hike").mean(), 2),
-            "mean_delta_ti": round(float(df["delta_ti"].mean()), 4),
+            "pct_trf_excluded": round(100.0 * excluded / len(df), 2) if len(df) else 0.0,
+            "pct_hike_mode": round(100.0 * (analysis_df["locomotion_mode"] == "hike").mean(), 2)
+            if len(analysis_df)
+            else 0.0,
+            "mean_delta_ti": round(float(analysis_df["delta_ti"].mean()), 4)
+            if len(analysis_df)
+            else None,
         },
         "cells": cells,
         "top_cells_by_impact": cells[:5],
@@ -651,8 +741,10 @@ def build_cross_athlete_summary(
     paired["delta_ti_gap"] = paired[f"delta_ti_{subjects[0]}"] - paired[f"delta_ti_{subjects[1]}"]
     paired["ti_gap"] = paired[f"ti_{subjects[0]}"] - paired[f"ti_{subjects[1]}"]
 
-    delta_gap = paired["delta_ti_gap"].dropna()
-    ti_gap = paired["ti_gap"].dropna()
+    exclusion_mask = cross_athlete_exclusion_mask(paired, terrain_map, subjects=subjects)
+    paired_eligible = paired.loc[~exclusion_mask]
+    delta_gap = paired_eligible["delta_ti_gap"].dropna()
+    ti_gap = paired_eligible["ti_gap"].dropna()
     summary = {
         "schema_version": "cross_athlete_trf_v0",
         "generated_at": _utc_now(),
@@ -665,6 +757,9 @@ def build_cross_athlete_summary(
             "terrain_map": str(terrain_map_path.relative_to(BASE_DIR)),
         },
         "paired_metres": int(len(paired)),
+        "paired_metres_trf_eligible": int(len(paired_eligible)),
+        "paired_metres_trf_excluded": int(exclusion_mask.sum()),
+        "trf_exclusions": _trf_exclusion_spans(terrain_map),
         "mean_delta_ti_gap": round(float(delta_gap.mean()), 4) if len(delta_gap) else None,
         "median_delta_ti_gap": round(float(delta_gap.median()), 4) if len(delta_gap) else None,
         "mean_abs_delta_ti_gap": round(float(delta_gap.abs().mean()), 4) if len(delta_gap) else None,
@@ -775,6 +870,8 @@ def main() -> None:
         )
         print("\n=== Cross-athlete same-metre TRF (ref_chainage_m) ===")
         print(f"  paired metres: {summary['paired_metres']}")
+        print(f"  TRF-eligible paired metres: {summary['paired_metres_trf_eligible']}")
+        print(f"  TRF-excluded paired metres: {summary['paired_metres_trf_excluded']}")
         print(f"  mean ΔTI gap (A−B): {summary['mean_delta_ti_gap']:+.4f}")
         print(f"  mean |ΔTI gap|: {summary['mean_abs_delta_ti_gap']:.4f}")
         print(f"  mean TI gap (A−B): {summary['mean_ti_gap']:+.4f}")

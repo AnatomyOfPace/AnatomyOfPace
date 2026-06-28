@@ -1,6 +1,6 @@
 {
   "schema_version": "cross_athlete_trf_v0",
-  "generated_at": "2026-06-28T20:07:12Z",
+  "generated_at": "2026-06-28T20:42:24Z",
   "subjects": [
     "Subject_A",
     "Subject_B"
@@ -16,25 +16,88 @@
     "terrain_map": "config/spatial_terrain_map_sut43.json"
   },
   "paired_metres": 11998,
-  "mean_delta_ti_gap": 0.0283,
-  "median_delta_ti_gap": 0.0,
-  "mean_abs_delta_ti_gap": 0.3853,
-  "mean_ti_gap": -0.0003,
-  "pct_metres_a_higher_delta": 31.97,
+  "paired_metres_trf_eligible": 10481,
+  "paired_metres_trf_excluded": 1517,
+  "trf_exclusions": [
+    {
+      "course_km_start": 30.35,
+      "course_km_end": 30.85,
+      "exclusion_type": "cp_halt",
+      "subject_scope": "both",
+      "anchor_id": "food_cp",
+      "gold_source": "operator",
+      "sector_id": "gramstad_band",
+      "locked_at": "2026-06-28",
+      "reason": "Food CP corridor \u2014 Subject_A dominant stop cluster on S3/F2 ease flank; cross-athlete stop asymmetry >25%; exclude from paired TRF and cell aggregation."
+    },
+    {
+      "course_km_start": 31.1,
+      "course_km_end": 31.5,
+      "exclusion_type": "co_wait",
+      "subject_scope": "both",
+      "anchor_id": "stile_31",
+      "gold_source": "operator",
+      "sector_id": "gramstad_band",
+      "locked_at": "2026-06-28",
+      "reason": "STILE-31 co-wait window \u2014 behavioral_exclusion_only anchor; co-runner stationary overlap at gjerdeklyver; not interpretable as terrain-driven |\u0394TI| gap."
+    },
+    {
+      "course_km_start": 34.55,
+      "course_km_end": 35.05,
+      "exclusion_type": "cp_halt",
+      "subject_scope": "both",
+      "anchor_id": "drink_cp",
+      "gold_source": "operator",
+      "sector_id": "gramstad_band",
+      "locked_at": "2026-06-28",
+      "reason": "Drink CP corridor \u2014 both athletes halt on Gramstad gravel S2/F1 band edge; spine-aligned post-reprojection; exclude stop metres from cross-athlete TRF."
+    },
+    {
+      "course_km_start": 30.38,
+      "course_km_end": 30.44,
+      "exclusion_type": "single_athlete_asymmetry",
+      "subject_scope": "Subject_A_only",
+      "gold_source": "operator",
+      "sector_id": "gramstad_band",
+      "locked_at": "2026-06-28",
+      "reason": "Rocky core Subject_A-only stop (S4/F3) \u2014 Subject_B through-hiking; top-ranked |\u0394TI| hotspot is behavioral, not terrain."
+    },
+    {
+      "course_km_start": 33.07,
+      "course_km_end": 33.12,
+      "exclusion_type": "single_athlete_asymmetry",
+      "subject_scope": "Subject_A_only",
+      "gold_source": "operator",
+      "sector_id": "gramstad_band",
+      "locked_at": "2026-06-28",
+      "reason": "Granite transition Subject_A-only stop (S4/F3 at band entry) \u2014 Subject_B continues; exclude from cross-athlete paired TRF."
+    }
+  ],
+  "mean_delta_ti_gap": 0.0516,
+  "median_delta_ti_gap": 0.0078,
+  "mean_abs_delta_ti_gap": 0.3816,
+  "mean_ti_gap": 0.0221,
+  "pct_metres_a_higher_delta": 34.53,
   "per_subject": {
     "Subject_A": {
       "n_metres": 12000,
+      "n_metres_trf_eligible": 10550,
+      "n_metres_trf_excluded": 1450,
       "pct_friction_tier_assigned": 94.75,
       "pct_variance_gap": 17.36,
-      "pct_hike_mode": 82.47,
-      "mean_delta_ti": 0.1559
+      "pct_trf_excluded": 12.08,
+      "pct_hike_mode": 83.18,
+      "mean_delta_ti": 0.1447
     },
     "Subject_B": {
       "n_metres": 11998,
+      "n_metres_trf_eligible": 10547,
+      "n_metres_trf_excluded": 1451,
       "pct_friction_tier_assigned": 94.58,
       "pct_variance_gap": 17.53,
-      "pct_hike_mode": 94.65,
-      "mean_delta_ti": 0.1312
+      "pct_trf_excluded": 12.09,
+      "pct_hike_mode": 94.86,
+      "mean_delta_ti": 0.0979
     }
   }
 }
