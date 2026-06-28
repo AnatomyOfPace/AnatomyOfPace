@@ -1,0 +1,109 @@
+{
+  "schema_version": "subject_b_training_qc_v0",
+  "generated_at": "2026-06-28T21:30:00Z",
+  "corridor_id": "sut43_terrain_ontology",
+  "sector_id": "gramstad_band",
+  "km_analysis_window": [29.0, 41.0],
+  "cross_track_threshold_m": 30,
+  "spine_reference": "03_Processed_Data/spatial/sut43_terrain_ontology/reference_spine_1m.parquet",
+  "inventory_washed_micro": [
+    {
+      "activity_id": "19000570862",
+      "session_type": "race",
+      "parquet": "03_Processed_Data/micro/Subject_B/activity_19000570862.parquet",
+      "note": "SUT43 race-day — already in manifest activities[]"
+    },
+    {
+      "activity_id": "18162306249",
+      "session_type": "race",
+      "parquet": "03_Processed_Data/micro/Subject_B/activity_18162306249.parquet",
+      "note": "Superseded pace-only race wash — do not use"
+    },
+    {
+      "activity_id": "SUT43_19000570862",
+      "session_type": "race",
+      "parquet": "03_Processed_Data/micro/Subject_B/activity_SUT43_19000570862.parquet",
+      "note": "Legacy alias of 19000570862"
+    }
+  ],
+  "candidates": [
+    {
+      "activity_id": "17816796063",
+      "status": "promoted",
+      "telemetry_source": "strava_json",
+      "spine_qc": {
+        "cross_track_m_median": 4.38,
+        "ref_chainage_km": [29.941, 39.141],
+        "covered_m": 4344,
+        "coverage_pct": 36.2
+      }
+    },
+    {
+      "activity_id": "17879707318",
+      "status": "promoted",
+      "telemetry_source": "strava_json",
+      "spine_qc": {
+        "cross_track_m_median": 4.74,
+        "ref_chainage_km": [29.937, 39.248],
+        "covered_m": 3708,
+        "coverage_pct": 30.9
+      }
+    },
+    {
+      "activity_id": "18014018608",
+      "status": "promoted",
+      "telemetry_source": "strava_json",
+      "spine_qc": {
+        "cross_track_m_median": 2.45,
+        "ref_chainage_km": [29.964, 34.653],
+        "covered_m": 2929,
+        "coverage_pct": 24.41
+      }
+    },
+    {
+      "activity_id": "17801895396",
+      "status": "deferred",
+      "deferred_reason": "spine_qc_fail",
+      "spine_qc_pre_screen": {
+        "cross_track_m_median_in_window": 6.2,
+        "ref_chainage_span_m": 245,
+        "n_samples_cross30": 267,
+        "note": "Off-corridor — global median 1585 m"
+      }
+    },
+    {
+      "activity_id": "17555025013",
+      "status": "pending",
+      "spine_qc_pre_screen": {
+        "cross_track_m_median": 2.3,
+        "ref_chainage_km": [32.877, 39.136],
+        "note": "Mattirudlå hill repeats — awaiting canonical .fit"
+      }
+    },
+    {
+      "activity_id": "17636633824",
+      "status": "pending",
+      "spine_qc_pre_screen": {
+        "cross_track_m_median": 2.2,
+        "ref_chainage_km": [32.874, 39.137]
+      }
+    }
+  ],
+  "coverage_delta": {
+    "before": {
+      "subject": "Subject_B",
+      "training_tiles_in_manifest": 0,
+      "union_coverage_pct": 0.0
+    },
+    "after": {
+      "subject": "Subject_B",
+      "training_tiles_in_manifest": 3,
+      "union_coverage_pct": 46.69,
+      "union_covered_m": 5603,
+      "window_len_m": 12000
+    },
+    "combined_training_union_pct": 50.08,
+    "subject_a_training_union_pct_unchanged": 42.81
+  },
+  "wash_requirement": "Partial training tiles require explicit organiser GPX (--gpx COURSE_SUT43_official_2027.gpx); --race SUT_43 alone uses stream distance and fails corridor crop."
+}

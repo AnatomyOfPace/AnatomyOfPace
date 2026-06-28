@@ -1,6 +1,6 @@
 {
   "schema_version": "reproject_spine_v0",
-  "generated_at": "2026-06-28T20:19:57Z",
+  "generated_at": "2026-06-28T21:28:16Z",
   "corridor_id": "sut43_terrain_ontology",
   "manifest": "config/spatial_align_manifest_sut43.example.json",
   "spine_path": "03_Processed_Data/spatial/sut43_terrain_ontology/reference_spine_1m.parquet",
@@ -73,6 +73,45 @@
       "cross_track_m_median": 1.09,
       "canonical_spine_source": false,
       "output_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_19000570862_race_spine.parquet"
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "17816796063",
+      "subject_id": "Subject_B",
+      "session_type": "training",
+      "input_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_17816796063_training.parquet",
+      "n_rows": 12001,
+      "ref_chainage_m_min": 29941.0,
+      "ref_chainage_m_max": 39141.0,
+      "cross_track_m_median": 4.38,
+      "canonical_spine_source": false,
+      "output_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_17816796063_training_spine.parquet"
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "17879707318",
+      "subject_id": "Subject_B",
+      "session_type": "training",
+      "input_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_17879707318_training.parquet",
+      "n_rows": 12001,
+      "ref_chainage_m_min": 29937.0,
+      "ref_chainage_m_max": 39248.0,
+      "cross_track_m_median": 4.74,
+      "canonical_spine_source": false,
+      "output_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_17879707318_training_spine.parquet"
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "18014018608",
+      "subject_id": "Subject_B",
+      "session_type": "training",
+      "input_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_18014018608_training.parquet",
+      "n_rows": 12001,
+      "ref_chainage_m_min": 29964.0,
+      "ref_chainage_m_max": 34653.0,
+      "cross_track_m_median": 2.45,
+      "canonical_spine_source": false,
+      "output_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_18014018608_training_spine.parquet"
     }
   ],
   "panels": {
@@ -90,11 +129,11 @@
     "training": {
       "corridor_id": "sut43_terrain_ontology",
       "session_type": "training",
-      "n_rows": 36003,
-      "n_activities": 3,
+      "n_rows": 72006,
+      "n_activities": 6,
       "ref_chainage_m_range": [
         29936.0,
-        39246.0
+        39248.0
       ],
       "panel_path": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_training_1m_spine.parquet"
     }
