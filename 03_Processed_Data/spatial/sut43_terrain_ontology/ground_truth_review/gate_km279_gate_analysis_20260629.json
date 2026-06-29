@@ -1,0 +1,145 @@
+{
+  "anchor_id": "revholstjorn_gate_km279",
+  "analysis_date": "2026-06-29",
+  "operator_field_note": "Gate before 28.0 (27.9–28.0 band): Subject_B passed before Subject_A — staggered gate passage, not simultaneous co-halt.",
+  "data_sources": {
+    "subject_a_micro": "03_Processed_Data/micro/Subject_A/activity_SUT43_20260418.parquet",
+    "subject_b_micro": "03_Processed_Data/micro/Subject_B/activity_SUT43_19000570862.parquet",
+    "panel_spine": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet",
+    "axis": "ref_chainage_m (Subject_A race spine)"
+  },
+  "analysis_window_km": [27.85, 28.05],
+  "wide_search_km": [26.6, 28.8],
+  "halt_threshold_mps": 0.5,
+  "verdict": "no_trf",
+  "verdict_detail": "Neither athlete exhibits FIT-confirmed halt (<0.5 m/s) at ref_chainage 27.85–28.05. Operator staggered-passage note reflects race-time offset (~237 s at km 28.0), not asymmetric co-located halts. No behavioral_stop or TRF exclusion warranted.",
+  "asymmetry_assessment": {
+    "pattern": "race_stagger_through_run",
+    "co_halt": false,
+    "staggered_gate_halt": false,
+    "race_time_gap_at_km_28_0_s": 237.0,
+    "interpretation": "Subject_B crossed km 28.0 ~237 s earlier in absolute race time than Subject_A at the same ref_chainage — consistent with sequential field passage at a course gate without telemetry stop signatures.",
+    "subject_a_decel_pocket": {
+      "ref_chainage_km": [27.907, 27.916],
+      "min_speed_mps": 1.07,
+      "duration_s": 9,
+      "subject_b_speed_at_overlap_mps": "1.57–2.12",
+      "classification": "terrain_power_shuffle",
+      "trf_warranted": false,
+      "note": "Subject_A brief grade-moderation slowdown on descending tread; min speed remains above halt threshold; Subject_B through-running at co-location."
+    }
+  },
+  "halt_windows": {
+    "focus_27_85_28_05": {
+      "Subject_A": [],
+      "Subject_B": []
+    },
+    "wide_26_6_28_8": {
+      "Subject_A": [
+        {
+          "ref_chainage_km_start": 28.662,
+          "ref_chainage_km_end": 28.666,
+          "width_m": 4.0,
+          "duration_s": 3.0,
+          "min_speed_mps": 0.0,
+          "note": "Downstream of gate band — now tagged revholstjorn_gravel_gate @ km 28.660–28.675 (chunk_u06 TRF co_wait locked 2026-06-29); not gate-related for km 27.9–28.0 analysis."
+        }
+      ],
+      "Subject_B": []
+    }
+  },
+  "passage_timeline": [
+    {
+      "ref_chainage_km": 27.85,
+      "Subject_A_elapsed_s": 22121,
+      "Subject_A_speed_mps": 1.49,
+      "Subject_B_elapsed_s": 21877,
+      "Subject_B_speed_mps": 1.9,
+      "race_gap_s": 244,
+      "note": "Both runnable entering gate search band"
+    },
+    {
+      "ref_chainage_km": 27.9,
+      "Subject_A_elapsed_s": 22149,
+      "Subject_A_speed_mps": 1.73,
+      "Subject_B_elapsed_s": 21904,
+      "Subject_B_speed_mps": 1.85,
+      "race_gap_s": 245,
+      "note": "Both runnable"
+    },
+    {
+      "ref_chainage_km": 27.908,
+      "Subject_A_elapsed_s": 22157,
+      "Subject_A_speed_mps": 1.07,
+      "Subject_B_elapsed_s": null,
+      "Subject_B_speed_mps": null,
+      "race_gap_s": null,
+      "note": "Subject_A min-speed pocket (decel only); Subject_B ~1.6+ m/s at co-location"
+    },
+    {
+      "ref_chainage_km": 27.95,
+      "Subject_A_elapsed_s": 22180,
+      "Subject_A_speed_mps": 1.85,
+      "Subject_B_elapsed_s": 21936,
+      "Subject_B_speed_mps": 1.69,
+      "race_gap_s": 244,
+      "note": "Both runnable"
+    },
+    {
+      "ref_chainage_km": 27.99,
+      "Subject_A_elapsed_s": 22195,
+      "Subject_A_speed_mps": 2.07,
+      "Subject_B_elapsed_s": 21960,
+      "Subject_B_speed_mps": 1.79,
+      "race_gap_s": 235,
+      "note": "S3/F2→S2/F2 tread seam; both runnable"
+    },
+    {
+      "ref_chainage_km": 28.0,
+      "Subject_A_elapsed_s": 22201,
+      "Subject_A_speed_mps": 1.83,
+      "Subject_B_elapsed_s": 21964,
+      "Subject_B_speed_mps": 1.3,
+      "race_gap_s": 237,
+      "note": "u05/u06 chunk seam; both through-run; Subject_B ~237 s ahead in race time"
+    },
+    {
+      "ref_chainage_km": 28.05,
+      "Subject_A_elapsed_s": 22233,
+      "Subject_A_speed_mps": 1.51,
+      "Subject_B_elapsed_s": 21993,
+      "Subject_B_speed_mps": 1.8,
+      "race_gap_s": 240,
+      "note": "Both runnable exiting gate search band"
+    }
+  ],
+  "terrain_cross_check": {
+    "u05_s2_gravel_27_99_28_0": {
+      "status": "confirmed_runnable",
+      "grade_inflection_km": 27.97,
+      "grade_range_pct": [-2.7, 10.9],
+      "both_athletes_at_28_0_mps": "1.83 (A) / 1.30 (B) per panel spine",
+      "note": "Narrow S2/F2 gravel band at chunk end; grade flips negative→positive; no halt signature at tread transition."
+    },
+    "u06_seam_28_0": {
+      "status": "confirmed_continuous_s2_f2",
+      "u05_end": "S2/F2 gravel @ 27.99–28.0",
+      "u06_start": "S2/F2 Revholstjørn gravel @ 28.0–28.75",
+      "telemetry_at_seam": "Both runnable @ km 28.0 (A 1.83 / B 1.30 m/s panel spine); no halt; seamless S2/F2 continuation per operator field correction.",
+      "map_json_edit": false,
+      "reason": "FIT supports existing draft guidance; no terrain map change required."
+    }
+  },
+  "recommendations": {
+    "behavioral_stop": "none",
+    "trf_exclusion": "none",
+    "rationale": "No FIT-tight halt window at ref_chainage 27.9–28.0 for either athlete. Staggered field passage is race-time offset, not co-located asymmetric stop. Subject_A decel pocket (1.07 m/s min) is terrain-driven and below TRF halt criteria.",
+    "declined_alternatives": {
+      "union_window_both_halts": "N/A — zero halt bands in focus window",
+      "subject_a_only_band": "Declined — min speed 1.07 m/s @ 27.907–27.916; not halt-tier",
+      "extended_window": "Declined — no downstream halt until km 28.662 (Subject_A only, chunk_u06 gramstad approach)"
+    }
+  },
+  "related_chunks": ["chunk_u05", "chunk_u06"],
+  "registry_action": "analysis_only — no spatial_terrain_map_sut43_upstream.json edit"
+}

@@ -1,0 +1,498 @@
+{
+  "chunk_id": "chunk_u06",
+  "course_km_window": [
+    28.0,
+    29.0
+  ],
+  "reviewed_at": "2026-06-29",
+  "status": "locked",
+  "locked_at": "2026-06-29",
+  "operator_statement": "Locked 2026-06-29: 2-span operator gold km 28.0–29.0 — S2/F2 Revholstjørn gravel road @ 28.0–28.751 (continuous from u05 draft S2/F2 @ 27.99–28.0), S3/F2 easy trail / gramstad approach @ 28.751–29.0 (seam @ 29.0 to gramstad_band). GMM S1 clusters in 28.0–28.751 overridden via S2/F2 parent lock; S4/S5 pockets in 28.751–29.0 via draft_preservation within S3/F2 parent. revholstjorn_gravel_gate TRF @ km 28.660–28.675 (co_wait; both athletes; FIT-tight co-halt @ 28.662–28.666 on S2/F2 gravel).",
+  "display_bugs_fixed": [
+    {
+      "id": "s3_draft_preservation_leak_gravel_band",
+      "claim": "Assigned strip shows green S3 ~28.6–28.65 inside S2/F2 gravel parent (28.0–28.75).",
+      "root_cause": "Stale hitl_v1_effective.parquet sidecar (km 28–29 still gmm_cluster from pre-u06 guidance build) combined with draft_preservation accept_draft_classes including S3 on S2/F2 parent — same class as u03 S3-in-S4 leak. Dashboard loads sidecar over inline v1; GMM S3/S1 fragments rendered as gmm_draft on Assigned strip.",
+      "fix": "Moved S3 from accept_draft to no_input on draft_preservation policy km 28.0–28.75; patched hitl_v1_effective.parquet km 28–29 from current upstream guidance; rebuilt hitl_agreement.parquet; re-exported chunk_u06_km28-29.png.",
+      "verified": "Assigned strip S2 only 28.000–28.751; S3 only 28.751–29.000; revholstjorn_gravel_gate TRF preserved @ 28.660–28.675."
+    }
+  ],
+  "display_bugs_not_found": [],
+  "km_bands": [
+    {
+      "km_band": "28.00–28.751",
+      "draft_s_f": "S2/F2 Revholstjørn gravel",
+      "png_operator_read": "S2 gravel band from chunk start through Revholstjørn sector; GMM S1 clusters 28.206–28.261, 28.299–28.354, 28.554–28.663 overridden under S2 parent",
+      "dashboard_assigned_after_fix": "S2/F2 operator gold",
+      "gmm_draft_dominant": "S2 majority early; S1 alternating bands 28.2–28.75 (largest 109 m @ 28.554–28.663)",
+      "draft_preservation": "override GMM S1 — no paved tread on field read; retain S2/F2 gravel parent; GMM S3 dirt micro-pockets overridden (no S3 in gravel parent; incl. ~28.6–28.65 leak band)",
+      "telemetry": "Grade −17% to +13% (med ~+4–5%); altitude ~158→~190 m; runnable ~1.51–2.39 m/s; TI med ~1.11–1.43; Subject_B TI peak 3.79 @ km 28.083; co-halt TRF @ km 28.660–28.675 (revholstjorn_gravel_gate; FIT-tight 28.662–28.666 both athletes on S2/F2 gravel)",
+      "mismatch_type": "operator_s2_parent_vs_gmm_s1",
+      "dispute_topics": [
+        "Seam @ km 28.0: confirm continuous S2/F2 from u05 narrow gravel @ 27.99–28.0",
+        "GMM S1 dominant bands 28.2–28.75 — cluster noise vs genuine forest-road asphalt",
+        "Gravel extent: operator field read through 28.75 vs prior draft transition @ 28.55"
+      ],
+      "operator_answer": "Confirmed: S2/F2 gravel @ 28.0–28.751; GMM S1 clusters overridden; continuous S2/F2 from u05 @ 28.0."
+    },
+    {
+      "km_band": "28.751–29.00",
+      "draft_s_f": "S3/F2 hard dirt gramstad approach",
+      "png_operator_read": "Green S3/F2 hard-dirt tread easing to gramstad_band seam; GMM S4/S5 pockets via draft_preservation",
+      "dashboard_assigned_after_fix": "S3/F2 operator gold",
+      "gmm_draft_dominant": "S3 majority 47% @ 28.9–29.0; S4 34%, S5 19%; S1/S2 overridden",
+      "draft_preservation": "accept S4/S5 pockets within S3/F2 parent; align seam @ 29.0 with gramstad_band S3/F2 gold",
+      "telemetry": "Grade −5% to +8% (med ~+1.2%); altitude ~188→191 m; runnable ~1.44–1.55 m/s; TI med ~1.87; Subject_A TI peak 3.86 @ km 28.751; Subject_A halt @ 28.882–28.893; Subject_B halt @ 28.926–28.934 (staggered, not co-halt)",
+      "mismatch_type": "upstream_seam_to_gramstad",
+      "dispute_topics": [
+        "Tread transition @ 28.75: S2/F2 gravel → S3/F2 hard dirt per operator field read",
+        "Seam @ km 29.0: S3/F2 continuous into gramstad_band operator gold — confirm no S2 gravel",
+        "GMM S4/S5 approach pockets 28.75–29.0 — minor rocky vs hard-dirt baseline"
+      ],
+      "operator_answer": "Confirmed: S3/F2 hard dirt @ 28.751–29.0; seam @ 29.0 S3/F2 continuous into gramstad_band gold."
+    }
+  ],
+  "draft_spans": {
+    "revholstjorn_gravel": [
+      28.0,
+      28.751
+    ],
+    "gramstad_approach": [
+      28.751,
+      29.0
+    ]
+  },
+  "alternation_pocket_list": {
+    "parent": "S3/F2",
+    "km_window": [
+      28.722,
+      29.0
+    ],
+    "model": "S4/S5 micro-pockets via draft_preservation within S3/F2 dirt parent — GMM-aligned",
+    "s4_pockets": [
+      {
+        "km": [
+          28.722,
+          28.733
+        ],
+        "gmm_m": 11,
+        "note": "early rocky roll cluster (now within S3 parent from 28.75)"
+      },
+      {
+        "km": [
+          28.738,
+          28.745
+        ],
+        "gmm_m": 7,
+        "note": "TI-rise flank"
+      },
+      {
+        "km": [
+          28.78,
+          28.787
+        ],
+        "gmm_m": 7,
+        "note": "rocky tread pocket"
+      },
+      {
+        "km": [
+          28.883,
+          28.904
+        ],
+        "gmm_m": 21,
+        "note": "approach rocky interval"
+      },
+      {
+        "km": [
+          28.908,
+          28.924
+        ],
+        "gmm_m": 16,
+        "note": "approach rocky band"
+      },
+      {
+        "km": [
+          28.934,
+          28.943
+        ],
+        "gmm_m": 9,
+        "note": "pre-seam rocky flicker"
+      }
+    ],
+    "s5_pockets": [
+      {
+        "km": [
+          28.733,
+          28.737
+        ],
+        "gmm_m": 4,
+        "note": "TI-rise S5 flicker"
+      },
+      {
+        "km": [
+          28.767,
+          28.771
+        ],
+        "gmm_m": 4,
+        "note": "rocky roll S5 band"
+      },
+      {
+        "km": [
+          28.778,
+          28.78
+        ],
+        "gmm_m": 2,
+        "note": "brief S5 flicker"
+      },
+      {
+        "km": [
+          28.924,
+          28.934
+        ],
+        "gmm_m": 10,
+        "note": "approach S5 pocket"
+      },
+      {
+        "km": [
+          28.991,
+          29.0
+        ],
+        "gmm_m": 9,
+        "note": "seam-adjacent S5 flicker"
+      }
+    ],
+    "s6_overridden": []
+  },
+  "revholstjorn_gramstad_seam": {
+    "draft_spans": {
+      "revholstjorn_gravel": [
+        28.0,
+        28.751
+      ],
+      "gramstad_approach": [
+        28.751,
+        29.0
+      ]
+    },
+    "geographic_anchors": {
+      "garmin_marker_28": "Revholstjørn sector (operator screenshot atlas)",
+      "gramstad_band_seam": "km 29.0 — dale_paradisskaret_upstream ends; gramstad_band operator gold begins",
+      "sut_160_crosswalk": "revhol_flat 145.0–145.5 (gentle Revholen traverse; race_corridors.json)",
+      "telemetric_altitude_gain_m": "158→191 (Subject_A consensus spine, km 28.0–29.0)",
+      "ti_peak_km": "28.751 (Subject_A 3.86) / 28.083 (Subject_B 3.79)",
+      "tread_seam_km": "28.0 (u05 S2→u06 S2); 28.751 (S2/F2 gravel → S3/F2 hard dirt); 29.0 (upstream S3/F2 → gramstad_band S3/F2)"
+    },
+    "chunk_u05_seam": {
+      "km": 28.0,
+      "chunk_u05_draft_end": "S2/F2 gravel road (27.99–28.0, draft_review)",
+      "chunk_u06_draft": "S2/F2 Revholstjørn gravel (28.0–28.751, operator gold locked 2026-06-29)",
+      "s_f_continuous": true,
+      "friction_continuous": true,
+      "telemetry_at_seam": "Subject_A: grade +6.4% @ 28.0, speed ~1.83 m/s, TI 1.25. Subject_B: grade +4.4% @ 28.0, speed ~1.30 m/s, TI 1.72 — both runnable, no halt. Gate analysis 2026-06-29 (gate_km279_gate_analysis_20260629.json): operator staggered-passage note @ 27.9–28.0 is race-time offset (~237 s), not co-located halt; no TRF.",
+      "note": "S/F class continuous S2/F2 across chunk boundary; Subject_B TI elevated @ 28.0 likely u05 descent carryover."
+    },
+    "gramstad_band_seam": {
+      "km": 29.0,
+      "chunk_u06_draft_end": "S3/F2 easy trail / gramstad approach (28.751–29.0, operator gold locked 2026-06-29)",
+      "gramstad_gold_start": "S3/F2 easy dirt trail baseline (29.0–29.4, operator gold locked 2026-06-28, chunk_00)",
+      "s_f_continuous": true,
+      "friction_continuous": true,
+      "continuity_requirements": [
+        "Upstream u06 must end S3/F2 at km 29.0 — no S2 gravel at sector boundary (gramstad chunk_00 explicitly removed prior S2 @ 29.0–29.1)",
+        "Friction tier F2 at seam — gramstad gold S3/F2 @ 29.0–29.4",
+        "Nested S4/F3 rocky pocket @ 29.4–29.6 is downstream gramstad gold — do not merge into u06",
+        "Altitude continuity: Subject_A ~191 m @ 29.0 aligns with gramstad easy dirt baseline"
+      ],
+      "telemetry_at_seam": "Subject_A: grade +4.9% @ 29.0, speed ~1.48 m/s, TI 1.70. Subject_B: grade −2.1% @ 29.0, speed ~1.54 m/s, TI 2.63 — both runnable, no halt.",
+      "note": "Sector handoff: dale_paradisskaret_upstream (draft) → gramstad_band (operator gold). u06 is last upstream HITL chunk before gramstad lock."
+    }
+  },
+  "revholstjorn_gravel_gate": {
+    "anchor_id": "revholstjorn_gravel_gate",
+    "gold_spans": {
+      "gate_co_halt": [
+        28.66,
+        28.675
+      ]
+    },
+    "gold_surface": "S2/F2 Revholstjørn gravel (operator gold locked 2026-06-29 @ 28.0–28.751)",
+    "behavioral_stops": {
+      "gate_halt": [
+        28.66,
+        28.675
+      ]
+    },
+    "fit_tight_co_halt_km": [
+      28.662,
+      28.666
+    ],
+    "trf_exclusion": {
+      "course_km_start": 28.66,
+      "course_km_end": 28.675,
+      "exclusion_type": "co_wait",
+      "subject_scope": "both",
+      "locked_at": "2026-06-29"
+    },
+    "telemetry_spine_co_halt": {
+      "Subject_A": {
+        "ref_chainage_km": [
+          28.662,
+          28.666
+        ],
+        "min_speed_mps": 0.0,
+        "duration_s": 4
+      },
+      "Subject_B": {
+        "ref_chainage_km": [
+          28.66,
+          28.669
+        ],
+        "min_speed_mps": 0.0,
+        "duration_s": 9
+      }
+    },
+    "operator_answers": {
+      "gate_vs_upstream_stagger": "Distinct from revholstjorn_gate_km279 @ 27.9–28.0 (staggered passage, no TRF). This gate is co-located co-halt on S2/F2 gravel.",
+      "trf_window": "Operator TRF window 28.660–28.675 envelopes FIT-tight 28.662–28.666 co-halt signature."
+    },
+    "artifact_ref": "ground_truth_review/gate_revholstjorn_gravel_gate_analysis_20260629.json"
+  },
+  "draft_preservation_zones": [
+    {
+      "km": [
+        28.0,
+        28.751
+      ],
+      "accept": [
+        "S1"
+      ],
+      "parent": "S2/F2",
+      "gmm_classes_present": [
+        "S2",
+        "S1",
+        "S3",
+        "S4"
+      ],
+      "open_question": null,
+      "operator_answer": "Override GMM S1 clusters; retain S2/F2 gravel parent through 28.751."
+    },
+    {
+      "km": [
+        28.751,
+        29.0
+      ],
+      "accept": [
+        "S4",
+        "S5"
+      ],
+      "parent": "S3/F2",
+      "gmm_classes_present": [
+        "S3",
+        "S1",
+        "S2",
+        "S4",
+        "S5"
+      ],
+      "open_question": null,
+      "operator_answer": "Accept S4/S5 micro-pockets within S3/F2 parent; seam @ 29.0 S3/F2 continuous."
+    }
+  ],
+  "telemetry_summary": {
+    "subject_a": {
+      "activity_id": "SUT43_20260418",
+      "grade_pct_range": [
+        -17.3,
+        13.0
+      ],
+      "speed_mps_median": 1.62,
+      "ti_median": 1.46,
+      "ti_peak": {
+        "km": 28.751,
+        "ti": 3.86
+      },
+      "altitude_start_end_m": [
+        158.5,
+        190.8
+      ],
+      "slow_halt_bands_lt_0_5_mps": [
+        [
+          28.66,
+          28.669
+        ],
+        [
+          28.882,
+          28.893
+        ]
+      ]
+    },
+    "subject_b": {
+      "activity_id": "19000570862",
+      "grade_pct_range": [
+        -19.7,
+        13.3
+      ],
+      "speed_mps_median": 1.6,
+      "ti_median": 1.69,
+      "ti_peak": {
+        "km": 28.083,
+        "ti": 3.79
+      },
+      "altitude_start_end_m": [
+        181.8,
+        193.7
+      ],
+      "slow_halt_bands_lt_0_5_mps": [
+        [
+          28.66,
+          28.669
+        ],
+        [
+          28.926,
+          28.934
+        ]
+      ]
+    },
+    "consensus_highlights": {
+      "gravel_band_km": "28.0–28.751",
+      "gravel_band_grade_pct": "med ~+4–5%",
+      "hard_dirt_approach_km": "28.751–29.0",
+      "hard_dirt_ti_peak": "Subject_A 3.86 @ km 28.751",
+      "altitude_gain_m": "158→191 (Subject_A spine)",
+      "ti_peak_km": "28.751 (Subject_A) / 28.083 (Subject_B)",
+      "tread_seams_km": "28.0 (u05 S2→u06 S2); 28.751 (S2→S3); 29.0 (upstream→gramstad)",
+      "co_halt_bands": "revholstjorn_gravel_gate @ 28.660–28.675 (FIT-tight 28.662–28.666 both athletes on S2/F2 gravel; TRF co_wait locked 2026-06-29); Subject_A staggered halt @ 28.882; Subject_B staggered halt @ 28.926"
+    }
+  },
+  "seam_reconciliation": {
+    "km_28_0": {
+      "u05_draft": "S2/F2 gravel road (27.99–28.0, draft_review)",
+      "u06_draft": "S2/F2 Revholstjørn gravel (28.0–28.751, operator gold locked 2026-06-29)",
+      "gmm_at_seam": "S2 majority from chunk start",
+      "status": "clean_s_f_continuous",
+      "mismatch": false,
+      "telemetry_note": "Both athletes runnable @ 28.0; Subject_B TI 2.63 elevated — likely u05 carryover"
+    },
+    "km_28_751": {
+      "u06_gravel_end": "S2/F2 Revholstjørn gravel (28.0–28.751, operator gold locked 2026-06-29)",
+      "u06_dirt_start": "S3/F2 easy trail / gramstad approach (28.751–29.0, operator gold locked 2026-06-29)",
+      "status": "confirmed_s2_f2_to_s3_f2_transition",
+      "mismatch": false,
+      "telemetry_note": "Operator field correction: tread transition @ 28.751; GMM S1 band 28.554–28.663 within S2 parent"
+    },
+    "km_29_0": {
+      "u06_draft_end": "S3/F2 easy trail / gramstad approach (28.751–29.0, operator gold locked 2026-06-29)",
+      "gramstad_gold": "S3/F2 easy dirt trail baseline (29.0–29.4, operator gold locked 2026-06-28)",
+      "status": "sector_boundary_s3_f2_continuous",
+      "mismatch": false,
+      "telemetry_note": "Runnable both athletes; no S2 gravel at seam per gramstad chunk_00 repositioning"
+    },
+    "internal_seams": [
+      {
+        "km": 28.751,
+        "boundary": "S2/F2 gravel → S3/F2 hard dirt",
+        "status": "confirmed_class_transition",
+        "telemetry_note": "Operator field correction 2026-06-29; replaces prior 28.55 transition"
+      }
+    ]
+  },
+  "recommended_revision_questions": [
+    {
+      "id": "Q1_seam_28_0_continuous",
+      "question": "Seam @ km 28.0: confirm continuous S2/F2 from u05 draft gravel @ 27.99–28.0 into u06 Revholstjørn gravel?",
+      "recommended_resolution": "Continuous S2/F2 across boundary @ 28.0–28.75; GMM S2 dominant aligns with u05 gravel tail.",
+      "status": "resolved",
+      "operator_answer": "Confirmed: continuous S2/F2 from u05 @ 28.0."
+    },
+    {
+      "id": "Q2_gravel_extent_28_75",
+      "question": "Gravel extent: confirm S2/F2 through km 28.75 (not prior draft transition @ 28.55)?",
+      "recommended_resolution": "Unified S2/F2 gravel band 28.0–28.75; GMM S1 clusters overridden.",
+      "status": "resolved",
+      "operator_answer": "Confirmed: S2/F2 gravel through 28.75."
+    },
+    {
+      "id": "Q3_s1_clusters_gravel_band",
+      "question": "GMM S1 asphalt clusters @ 28.206–28.663 — override within S2/F2 gravel parent?",
+      "recommended_resolution": "Override S1 — no paved tread on topo; retain S2/F2 gravel through 28.75.",
+      "status": "resolved",
+      "operator_answer": "Override GMM S1 clusters under S2/F2 parent."
+    },
+    {
+      "id": "Q4_tread_transition_28_75",
+      "question": "Tread transition @ km 28.75: S2/F2 gravel → S3/F2 hard dirt per operator field read?",
+      "recommended_resolution": "Confirmed class transition @ 28.75; S3/F2 through 29.0.",
+      "status": "resolved",
+      "operator_answer": "Confirmed: S3/F2 hard dirt @ 28.75–29.0."
+    },
+    {
+      "id": "Q5_s4_s5_pockets_dirt_parent",
+      "question": "GMM S4/S5 pockets @ 28.75–29.0 — accept via draft_preservation within S3/F2 parent?",
+      "recommended_resolution": "Accept S4/S5 micro-pockets within S3/F2 parent; defer S4/F3 promotion.",
+      "status": "resolved",
+      "operator_answer": "Accept S4/S5 pockets within S3/F2 parent."
+    },
+    {
+      "id": "Q6_seam_gramstad_s3_continuous",
+      "question": "Seam @ km 29.0: confirm S3/F2 continuous into gramstad_band operator gold — no S2 gravel at sector boundary?",
+      "recommended_resolution": "S3/F2 @ 28.75–29.0 must hand off to gramstad S3/F2 @ 29.0–29.4.",
+      "status": "resolved",
+      "operator_answer": "Confirmed: S3/F2 continuous at 29.0; no S2 at boundary."
+    },
+    {
+      "id": "Q7_dashboard_png_review",
+      "question": "Exported PNG: does Assigned strip show S2 @ 28.0–28.751, S3 @ 28.751–29.0, and clean seam to gramstad viewport?",
+      "recommended_resolution": "Operator visual sign-off complete; disagreement matrix elevated to locked.",
+      "status": "resolved",
+      "operator_answer": "Assigned strip shows S2/F2 operator gold @ 28.0–28.751, S3/F2 operator gold @ 28.751–29.0, revholstjorn_gravel_gate TRF @ 28.660–28.675, clean seam @ 29.0 to gramstad_band."
+    },
+    {
+      "id": "Q8_revholstjorn_gravel_gate_trf",
+      "question": "revholstjorn_gravel_gate: confirm co-halt TRF @ km 28.660–28.675 (co_wait; both athletes) on S2/F2 gravel?",
+      "recommended_resolution": "FIT-tight co-halt @ 28.662–28.666 on spine panel; operator window 28.660–28.675; distinct from km 27.9–28.0 staggered gate (no TRF).",
+      "status": "resolved",
+      "operator_answer": "Confirmed: revholstjorn_gravel_gate behavioral_stop + TRF exclusion km 28.660–28.675 locked 2026-06-29."
+    }
+  ],
+  "lock_readiness": {
+    "map_json_tier_lock": "chunk_u01–u04 and chunk_u06 locked 2026-06-29 (gold_source operator, locked_at 2026-06-29); chunk_u05 draft_review only",
+    "disagreement_matrix_status": "locked",
+    "gt_coverage_pct": 100.0,
+    "seams_clean": true,
+    "gmm_reconciled": true,
+    "blockers": [],
+    "recommendation": "chunk_u06 operator gold locked 2026-06-29. Proceed to chunk_u05 draft_review."
+  },
+  "gate_analysis": {
+    "anchor_id": "revholstjorn_gravel_gate",
+    "analyzed_at": "2026-06-29",
+    "ref_chainage_band_km": [
+      28.64,
+      28.7
+    ],
+    "operator_trf_window_km": [
+      28.66,
+      28.675
+    ],
+    "fit_tight_co_halt_km": [
+      28.662,
+      28.666
+    ],
+    "artifact_ref": "ground_truth_review/gate_revholstjorn_gravel_gate_analysis_20260629.json",
+    "verdict": "trf_locked",
+    "co_halt": true,
+    "exclusion_type": "co_wait",
+    "subject_scope": "both",
+    "surface_context": "S2/F2 Revholstjørn gravel @ 28.0–28.751 (operator gold locked 2026-06-29)",
+    "behavioral_stop_recommendation": "revholstjorn_gravel_gate @ 28.660–28.675 (gate_halt)",
+    "trf_exclusion_recommendation": "revholstjorn_gravel_gate @ 28.660–28.675 (co_wait)",
+    "upstream_gate_cross_ref": "revholstjorn_gate_km279 @ 27.9–28.0 — staggered passage, no TRF (gate_km279_gate_analysis_20260629.json)"
+  },
+  "reexport": {
+    "path": "06_Visualizations/sut43_hitl_upstream/chunk_u06_km28-29.png",
+    "trigger": "chunk_u06_operator_lock_2026-06-29",
+    "exported_at": "2026-06-29",
+    "verify_export": true,
+    "flagged_segments": 0,
+    "assigned_strip_verified": "S2/F2 operator gold @ 28.000–28.751; S3/F2 operator gold @ 28.751–29.000; revholstjorn_gravel_gate TRF @ 28.660–28.675; seam @ 28.0 continuous S2 from u05; seam @ 29.0 S3/F2 (no S2 at gramstad boundary); zero S3 before km 28.751"
+  }
+}

@@ -25,9 +25,9 @@ from spatial.validation_dashboard import (
     _class_is_accept_draft_on_span,
     _class_is_no_input_on_span,
     _segment_km_bounds,
-    active_manual_guidance,
     cluster_segments,
     draft_preservation_policies,
+    guidance_overrides as manual_guidance_overrides,
     load_terrain_map,
     manual_overrides_by_mode,
 )
@@ -83,7 +83,7 @@ def effective_class_at_km(
     guidance_overrides = (
         guidance_overrides
         if guidance_overrides is not None
-        else active_manual_guidance(terrain_map)
+        else manual_guidance_overrides(terrain_map)
     )
 
     lock_cls = _override_class_at_km(lock_overrides, km)
@@ -131,7 +131,7 @@ def build_hitl_v1_effective(
     segments = cluster_segments(terrain_map)
     policies = draft_preservation_policies(terrain_map)
     lock_ovs = manual_overrides_by_mode(terrain_map, "lock")
-    guidance_ovs = active_manual_guidance(terrain_map)
+    guidance_ovs = manual_guidance_overrides(terrain_map)
 
     classes: list[str | None] = []
     sources: list[str] = []

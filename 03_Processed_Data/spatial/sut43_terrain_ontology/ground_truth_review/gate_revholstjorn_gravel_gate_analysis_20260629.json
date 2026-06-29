@@ -1,0 +1,83 @@
+{
+  "anchor_id": "revholstjorn_gravel_gate",
+  "analysis_date": "2026-06-29",
+  "operator_field_note": "Revholstjørn gravel field gate co-halt — operator sign-off @ ref_chainage km 28.660–28.675 on S2/F2 gravel corridor.",
+  "data_sources": {
+    "subject_a_micro": "03_Processed_Data/micro/Subject_A/activity_SUT43_20260418.parquet",
+    "subject_b_micro": "03_Processed_Data/micro/Subject_B/activity_SUT43_19000570862.parquet",
+    "panel_spine": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet",
+    "axis": "ref_chainage_m (Subject_A race spine)"
+  },
+  "analysis_window_km": [28.64, 28.7],
+  "operator_trf_window_km": [28.66, 28.675],
+  "fit_tight_co_halt_km": [28.662, 28.666],
+  "halt_threshold_mps": 0.5,
+  "verdict": "trf_locked",
+  "verdict_detail": "FIT-confirmed co-located co-halt on S2/F2 Revholstjørn gravel @ ref_chainage 28.662–28.666 (both athletes <0.5 m/s at spine co-location). Operator TRF window 28.660–28.675 locked as co_wait behavioral_stop + trf_exclusion. Distinct from upstream revholstjorn_gate_km279 staggered-passage band @ 27.9–28.0 (no TRF).",
+  "asymmetry_assessment": {
+    "pattern": "co_located_gate_halt",
+    "co_halt": true,
+    "staggered_gate_halt": false,
+    "interpretation": "Both athletes stationary at spine co-location on S2/F2 gravel — field gate pause, not terrain friction signal.",
+    "upstream_gate_distinction": {
+      "anchor_id": "revholstjorn_gate_km279",
+      "band_km": [27.9, 28.0],
+      "verdict": "no_trf",
+      "note": "Staggered race-time passage (~237 s offset @ km 28.0); no FIT halt signature in focus window."
+    }
+  },
+  "halt_windows": {
+    "focus_28_64_28_70": {
+      "Subject_A": [
+        {
+          "ref_chainage_km_start": 28.662,
+          "ref_chainage_km_end": 28.666,
+          "width_m": 4.0,
+          "duration_s": 4.0,
+          "min_speed_mps": 0.0,
+          "note": "FIT-tight co-halt on S2/F2 gravel"
+        }
+      ],
+      "Subject_B": [
+        {
+          "ref_chainage_km_start": 28.66,
+          "ref_chainage_km_end": 28.669,
+          "width_m": 9.0,
+          "duration_s": 9.0,
+          "min_speed_mps": 0.0,
+          "note": "Co-located gate halt; spine overlap with Subject_A @ 28.662–28.666"
+        }
+      ]
+    }
+  },
+  "terrain_cross_check": {
+    "s2_f2_gravel_28_0_28_75": {
+      "status": "confirmed_gate_context",
+      "surface": "S2/F2 Revholstjørn gravel (chunk_u06 draft_review guidance)",
+      "grade_at_halt_pct": "~+4–5% med",
+      "note": "Co-halt occurs within operator S2/F2 gravel parent lock @ 28.0–28.75; not interpretable as terrain-driven friction delta."
+    }
+  },
+  "recommendations": {
+    "behavioral_stop": {
+      "anchor_id": "revholstjorn_gravel_gate",
+      "course_km_start": 28.66,
+      "course_km_end": 28.675,
+      "tag": "gate_halt",
+      "subject_scope": "both"
+    },
+    "trf_exclusion": {
+      "anchor_id": "revholstjorn_gravel_gate",
+      "course_km_start": 28.66,
+      "course_km_end": 28.675,
+      "exclusion_type": "co_wait",
+      "subject_scope": "both",
+      "sector_id": "dale_paradisskaret_upstream",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29"
+    },
+    "rationale": "Co-located simultaneous halt on gravel field gate; exclude from paired TRF and cell aggregation."
+  },
+  "related_chunks": ["chunk_u05", "chunk_u06"],
+  "registry_action": "spatial_terrain_map_sut43_upstream.json → hitl.behavioral_stops.revholstjorn_gravel_gate + hitl.trf_exclusions.revholstjorn_gravel_gate"
+}

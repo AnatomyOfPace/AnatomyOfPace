@@ -47180,6 +47180,42 @@
         "gold_source": "operator",
         "reason": "operator gold: hard-dirt main tread \u2014 Revhol traverse roll toward Gramstadtj\u00f8rn (Garmin marker 27); grade \u22122% to \u221214% (med ~\u22125% @ 26.85\u201327.0), altitude ~248\u2192212 m; runnable ~1.3\u20132.2 m/s; TI med ~1.8\u20132.8 declining (chunk_u04). S3/F2 per friction_index_spec. Seam @ 26.4: S4/F3 \u2192 S3/F2 tread change. GMM S2 gravel / S4 rocky micro-pockets accepted within S3/F2 parent; S5/S6 overridden. Boundary @ km 27.0 for chunk_u05 resume. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
+      },
+      {
+        "course_km_start": 27.0,
+        "course_km_end": 27.99,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: Gramstadtj\u00f8rn traverse / lakeshore \u2014 hard-dirt / rocky tread continuous from u04 locked S3/F2 @ km 27.0 through south rise, lakeshore descent, and post-lakeshore roll (Garmin marker 27); altitude ~206\u2192~160 m; grade \u221229% to +35% across behavioral sub-bands (chunk_u05). Entire band hard dirt / rocky tread \u2014 zero S1, zero S2 in km 27.0\u201327.8. S3/F2 per friction_index_spec. GMM S4/S5 micro-pockets via draft_preservation within S3/F2 parent; S1/S2 gravel-asphalt cluster noise overridden. Seam @ 27.0: continuous S3/F2 from chunk_u04. Locked 2026-06-29.",
+        "locked_at": "2026-06-29"
+      },
+      {
+        "course_km_start": 27.99,
+        "course_km_end": 28.0,
+        "surface_class": "S2",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: gravel road tail \u2014 narrow S2/F2 forest gravel tread @ km 27.99\u201328.0 easing toward Revholstj\u00f8rn loop; seam @ km 28.0 continuous S2/F2 into chunk_u06 operator gold. GMM S1 asphalt transition noise via draft_preservation within S2/F2 parent. revholstjorn_gate_km279 @ 27.9\u201328.0: staggered passage confirmed \u2014 no TRF (downstream revholstjorn_gravel_gate in u06). Locked 2026-06-29.",
+        "locked_at": "2026-06-29"
+      },
+      {
+        "course_km_start": 28.0,
+        "course_km_end": 28.751,
+        "surface_class": "S2",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: Revholstj\u00f8rn gravel road \u2014 forest gravel tread continuous from chunk_u05 operator gold S2/F2 @ 27.99\u201328.0 through Revholstj\u00f8rn sector (Garmin marker 28); grade med ~+4\u20135%; altitude ~158\u2192~190 m (chunk_u06). S2/F2 per friction_index_spec. Operator field correction 2026-06-29: unified gravel band km 28.0\u201328.751. GMM S1 asphalt clusters overridden (no paved tread on field read). GMM S3 dirt micro-pockets overridden. revholstjorn_gravel_gate TRF co_wait @ km 28.660\u201328.675 (both athletes). Seam @ 28.0: continuous S2/F2 from chunk_u05. Locked 2026-06-29.",
+        "locked_at": "2026-06-29"
+      },
+      {
+        "course_km_start": 28.751,
+        "course_km_end": 29.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: easy trail / gramstad approach \u2014 compacted hard-dirt tread easing toward gramstad_band operator gold S3/F2 @ km 29.0 (chunk_00). Operator field correction 2026-06-29: tread transition @ km 28.751 (S2/F2 gravel \u2192 S3/F2 hard dirt). TI peak Subject_A 3.86 @ km 28.751. GMM S4/S5 pockets via draft_preservation within S3/F2 parent. Seam @ 29.0: S3/F2 continuous into gramstad_band lock \u2014 no S2 gravel at sector boundary. Locked 2026-06-29.",
+        "locked_at": "2026-06-29"
       }
     ],
     "draft_preservation_spans": [
@@ -47299,6 +47335,77 @@
           "S6"
         ],
         "reason": "operator HITL (chunk_u04): S3/F2 main tread km 26.4\u201327.0 \u2014 accept GMM S2 gravel / S4 rocky micro-pockets within mainly-S3 parent lock; operator field read Revhol traverse roll toward Gramstadtj\u00f8rn. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 27.0,
+        "course_km_end": 27.99,
+        "accept_draft_classes": [
+          "S4",
+          "S5"
+        ],
+        "no_input_classes": [
+          "S1",
+          "S2",
+          "S6"
+        ],
+        "reason": "operator HITL (chunk_u05): S3/F2 parent lock km 27.0\u201327.99 \u2014 entire band hard dirt / rocky tread (not gravel or asphalt). Accept GMM S4/S5 micro-pockets only; override S1/S2 cluster noise; S6 bog overridden. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 27.213,
+        "course_km_end": 27.237,
+        "accept_draft_classes": [
+          "S5"
+        ],
+        "no_input_classes": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S6"
+        ],
+        "reason": "operator HITL (chunk_u05): S5 difficult-rock pocket on Gramstadtj\u00f8rn south rise flank \u2014 accept GMM S5 @ 27.213\u201327.237 within S3/F2 parent lock; no S1/S2. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 27.99,
+        "course_km_end": 28.0,
+        "accept_draft_classes": [
+          "S1"
+        ],
+        "no_input_classes": [
+          "S3",
+          "S4",
+          "S5",
+          "S6"
+        ],
+        "reason": "operator HITL (chunk_u05): S2/F2 gravel road @ 27.99\u201328.0 \u2014 accept GMM S1 asphalt transition noise within S2/F2 parent; narrow gravel band at chunk end. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 28.0,
+        "course_km_end": 28.751,
+        "accept_draft_classes": [
+          "S1"
+        ],
+        "no_input_classes": [
+          "S3",
+          "S4",
+          "S5",
+          "S6"
+        ],
+        "reason": "operator HITL (chunk_u06): S2/F2 gravel parent lock km 28.0\u201328.751 \u2014 override GMM S1 asphalt cluster noise (incl. 28.554\u201328.663 band) and GMM S3 dirt micro-pockets (incl. ~28.6\u201328.65); accept GMM S1 transition noise within S2/F2 parent only. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 28.751,
+        "course_km_end": 29.0,
+        "accept_draft_classes": [
+          "S4",
+          "S5"
+        ],
+        "no_input_classes": [
+          "S1",
+          "S2",
+          "S6"
+        ],
+        "reason": "operator HITL (chunk_u06): S3/F2 hard-dirt parent lock km 28.751\u201329.0 \u2014 accept GMM S4/S5 rocky micro-pockets within S3/F2 gramstad approach; override S1/S2 cluster noise. Seam @ 29.0 aligns with gramstad_band S3/F2 gold. Locked 2026-06-29."
       }
     ],
     "behavioral_stops": [
@@ -47325,6 +47432,14 @@
         "tag": "fall_event",
         "subject_scope": "Subject_A_only",
         "reason": "Technical coastal descent fall \u2014 operator sign-off 2026-06-29: Subject_A fall on S4/F3 rocky descent band. Race FIT halt @ ref_chainage km 23.123\u201323.135 (~15 s, 0 m/s, cadence 0); Subject_B continues ~1.2\u20131.7 m/s at spine co-location (<2 m UTM offset). FIT-tight behavioral_stop window (supersedes rounded 23.12\u201323.14 tag). Single-athlete asymmetry, not terrain friction signal."
+      },
+      {
+        "anchor_id": "revholstjorn_gravel_gate",
+        "course_km_start": 28.66,
+        "course_km_end": 28.675,
+        "tag": "gate_halt",
+        "subject_scope": "both",
+        "reason": "Revholstj\u00f8rn gravel field gate co-halt \u2014 operator sign-off 2026-06-29: FIT-confirmed simultaneous halt on S2/F2 Revholstj\u00f8rn gravel corridor @ ref_chainage km 28.662\u201328.666 (both athletes <0.5 m/s at spine co-location). Operator TRF window km 28.660\u201328.675 envelopes FIT-tight band. Co-located gate pause, not terrain friction signal. Distinct from upstream revholstjorn_gate_km279 staggered-passage band @ 27.9\u201328.0 (no TRF)."
       }
     ],
     "trf_exclusions": [
@@ -47349,11 +47464,22 @@
         "sector_id": "dale_paradisskaret_upstream",
         "locked_at": "2026-06-29",
         "reason": "Technical coastal descent fall \u2014 operator sign-off 2026-06-29: Subject_A-only halt @ ref_chainage km 23.123\u201323.135 (~15 s, 0 m/s, cadence 0) within S4/F3 operator gold band; Subject_B through-running at spine co-location. FIT-tight TRF exclusion (supersedes rounded 23.12\u201323.14 window). Exclude Subject_A halt metres from paired TRF and cell aggregation."
+      },
+      {
+        "course_km_start": 28.66,
+        "course_km_end": 28.675,
+        "exclusion_type": "co_wait",
+        "subject_scope": "both",
+        "anchor_id": "revholstjorn_gravel_gate",
+        "gold_source": "operator",
+        "sector_id": "dale_paradisskaret_upstream",
+        "locked_at": "2026-06-29",
+        "reason": "Revholstj\u00f8rn gravel field gate co-halt \u2014 operator sign-off 2026-06-29: both athletes FIT halt @ ref_chainage km 28.660\u201328.675 on S2/F2 gravel @ km 28.0\u201328.75. FIT-tight co-halt @ 28.662\u201328.666; exclude halt metres from paired TRF and cell aggregation. Distinct from km 27.9\u201328.0 staggered gate (revholstjorn_gate_km279, no TRF)."
       }
     ],
     "friction_spans": [],
     "authority": "operator_gold_partial",
-    "notes": "Partial operator gold: chunk_u01 km 23.0\u201324.0 locked 2026-06-29 (7 spans); chunk_u02 km 24.0\u201325.0 locked 2026-06-29 (4 spans: S1/F1 asphalt 24.0\u201324.35, S3/F2 mid 24.35\u201324.55, S3/F2 steep 24.55\u201324.72, S4/F3 summit 24.72\u201325.0); chunk_u03 km 25.0\u201326.0 locked 2026-06-29 (6 spans: S4/F3 post-summit crest 25.0\u201325.15, S4/F3 traverse 25.15\u201325.40, S4/F3 plateau 25.40\u201325.475, S5/F4 stone steps 25.475\u201325.565, S4/F3 upper flank 25.565\u201325.80, S4/F3 descent onset 25.80\u201326.0; no S1/S2/S3/S6); chunk_u04 km 26.0\u201327.0 locked 2026-06-29 (3 spans: S4/F3 technical descent alternation 26.0\u201326.3, S4/F3 transition 26.3\u201326.4, S3/F2 main tread 26.4\u201327.0; S4/F3\u2192S3/F2 seam @ 26.4). Coastal descent fall: coastal_descent_fall behavioral_stop + TRF exclusion km 23.123\u201323.135 (FIT-tight; Subject_A_only). Dale CP: dale_cp TRF exclusion km 23.48\u201323.67 on S2/F2 gravel corridor. S4/F3\u2192S3/F2 tread seam @ km 23.17; gravel\u2192asphalt seam @ km 23.8; continuous asphalt u01+u02 through km 24.35; asphalt\u2192dirt seam @ km 24.35; S4/F3 seam @ km 25.0 continuous through chunk_u03; S4/F3 seam @ km 26.0 continuous from chunk_u03 into chunk_u04. Remaining km 22\u201323 and 27\u201329 remain GMM draft. Seam @ km 29.0 defers to gramstad_band lock in spatial_terrain_map_sut43.json."
+    "notes": "Partial operator gold: chunk_u01 km 23.0\u201324.0 locked 2026-06-29 (7 spans); chunk_u02 km 24.0\u201325.0 locked 2026-06-29 (4 spans: S1/F1 asphalt 24.0\u201324.35, S3/F2 mid 24.35\u201324.55, S3/F2 steep 24.55\u201324.72, S4/F3 summit 24.72\u201325.0); chunk_u03 km 25.0\u201326.0 locked 2026-06-29 (6 spans: S4/F3 post-summit crest 25.0\u201325.15, S4/F3 traverse 25.15\u201325.40, S4/F3 plateau 25.40\u201325.475, S5/F4 stone steps 25.475\u201325.565, S4/F3 upper flank 25.565\u201325.80, S4/F3 descent onset 25.80\u201326.0; no S1/S2/S3/S6); chunk_u04 km 26.0\u201327.0 locked 2026-06-29 (3 spans: S4/F3 technical descent alternation 26.0\u201326.3, S4/F3 transition 26.3\u201326.4, S3/F2 main tread 26.4\u201327.0; S4/F3\u2192S3/F2 seam @ 26.4). Coastal descent fall: coastal_descent_fall behavioral_stop + TRF exclusion km 23.123\u201323.135 (FIT-tight; Subject_A_only). Dale CP: dale_cp TRF exclusion km 23.48\u201323.67 on S2/F2 gravel corridor. Revholstj\u00f8rn gravel gate: revholstjorn_gravel_gate behavioral_stop + TRF exclusion km 28.660\u201328.675 (co_wait; both athletes; FIT-tight @ 28.662\u201328.666 on S2/F2 gravel). Upstream revholstjorn_gate_km279 @ 27.9\u201328.0: staggered passage, no TRF. S4/F3\u2192S3/F2 tread seam @ km 23.17; gravel\u2192asphalt seam @ km 23.8; continuous asphalt u01+u02 through km 24.35; asphalt\u2192dirt seam @ km 24.35; S4/F3 seam @ km 25.0 continuous through chunk_u03; S4/F3 seam @ km 26.0 continuous from chunk_u03 into chunk_u04. Remaining km 22\u201323 remain GMM draft; chunk_u05 km 27.0\u201328.0 locked 2026-06-29 (2 spans: S3/F2 Gramstadtj\u00f8rn traverse/lakeshore 27.0\u201327.99, S2/F2 gravel road tail 27.99\u201328.0; revholstjorn_gate_km279 staggered passage @ 27.9\u201328.0 \u2014 no TRF); chunk_u06 km 28.0\u201329.0 locked 2026-06-29 (2 spans: S2/F2 Revholstj\u00f8rn gravel 28.0\u201328.751, S3/F2 gramstad approach 28.751\u201329.0). Seam @ km 29.0 defers to gramstad_band lock in spatial_terrain_map_sut43.json."
   },
   "ti_draft_segments": [
     {
