@@ -1,0 +1,60 @@
+{
+  "corridor_id": "dale_to_paradisskaret_stress_test",
+  "race_id": "SUT_160",
+  "experiment_sector_id": "dale_to_paradisskaret",
+  "experiment_sector_lock_version": "2026-06-26-dale-to-paradisskaret",
+  "experiment_sector_map_png": "docs/outreach/plots/sut2026_race/00_course_map_sector_dale_to_paradisskaret.png",
+  "km_analysis_window": [140.0, 155.58],
+  "km_viewport_window": [140.0, 156.0],
+  "panel_scope": "Legacy single-donor template — superseded for Dale work by config/spatial_align_manifest_dale_alsvik.local.json (two-athlete canonical panel). Reference_Elite_D race .fit is deferred, not blocked.",
+  "canonical_working_manifest": "config/spatial_align_manifest_dale_alsvik.local.json",
+  "activities": [],
+  "deferred_activities": [
+    {
+      "donor_id": "Reference_Elite_D",
+      "activity_id": "18159079828",
+      "session_type": "race",
+      "subject_id": "Reference_Elite_D",
+      "align_mode": "gpx",
+      "status": "deferred",
+      "reason": "Awaiting .fit wash — Strava JSON interim (pace-only) does not substitute for washed micro Parquet. Two-athlete bridge panel is the active corridor state."
+    },
+    {
+      "donor_id": "Reference_Elite_D",
+      "activity_id": "training_tile_mattirudla_01",
+      "session_type": "training",
+      "subject_id": "Reference_Elite_D",
+      "status": "deferred",
+      "reason": "Placeholder — register real activity_id after wash; overlaps Mattirudlå descent band (~149 km)"
+    },
+    {
+      "donor_id": "Reference_Elite_D",
+      "activity_id": "training_tile_paradisskaret_01",
+      "session_type": "training",
+      "subject_id": "Reference_Elite_D",
+      "status": "deferred",
+      "reason": "Placeholder — register after wash; overlaps Paradisskaret coarse gravel band (~154.95–155.58 km)"
+    },
+    {
+      "donor_id": "Reference_Elite_A",
+      "activity_id": "SUT160_race_placeholder",
+      "session_type": "race",
+      "subject_id": "Reference_Elite_A",
+      "note": "Second panel athlete — add when SUT_160 race .fit arrives; enables cross-elite consensus NTI"
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "SUT160_race_placeholder",
+      "session_type": "race",
+      "subject_id": "Subject_A",
+      "note": "Deferred — Subject_A has SUT43 .fit only; add after future SUT_160 race wash (not substitutable for SUT43)"
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "SUT160_race_placeholder",
+      "session_type": "race",
+      "subject_id": "Subject_B",
+      "note": "Deferred — Subject_B has SUT43 .fit only; add after future SUT_160 race wash"
+    }
+  ]
+}
