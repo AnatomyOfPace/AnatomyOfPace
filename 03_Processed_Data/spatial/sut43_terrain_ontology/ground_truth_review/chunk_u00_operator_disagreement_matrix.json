@@ -1,0 +1,334 @@
+{
+  "chunk_id": "chunk_u00",
+  "course_km_window": [
+    22.0,
+    23.0
+  ],
+  "reviewed_at": "2026-06-29",
+  "status": "locked",
+  "locked_at": "2026-06-29",
+  "operator_statement": "Locked 2026-06-29: 3-span operator gold km 22.0–23.0 — S4/F3 technical coastal tread @ 22.0–22.5 (incl. SUT_160 Dale aid bridge crosswalk @ km 22.43), S3/F2 rocky/dirt coastal roll @ 22.5–22.9, S4/F3 technical descent approach @ 22.9–23.0 (seam into locked u01 @ 23.0). S3/S4-only corridor (zero S1/S2/S5/S6).",
+  "display_bugs_fixed": [],
+  "display_bugs_not_found": [],
+  "km_bands": [
+    {
+      "km_band": "22.00–22.50",
+      "gold_s_f": "S4/F3 technical coastal tread",
+      "png_operator_read": "Sector entry roll, steep technical descent core, bridge crosswalk @ 22.43 — unified S4/F3 parent",
+      "dashboard_assigned_after_fix": "S4/F3",
+      "gmm_draft_dominant": "S4/S5/S6 chaotic micro-segments; S5/S6 pockets 22.013–22.080 suppressed",
+      "draft_preservation": "S3/S4-only parent lock km 22.0–23.0; no_input S1/S2/S5/S6",
+      "telemetry": "Grade med ~+10% (22.0–22.1) → steep negative descent (22.2–22.3); altitude ~32→70 m; TI peak ~5.0–6.0 @ 22.2–22.3; bridge crosswalk @ 22.43; Subject_B halt @ 22.438–22.447 (open Q4)",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "5-span → 3-span simplification: merge sector entry + descent core at km 22.5 boundary",
+        "Bridge crosswalk @ 22.43 absorbed into S4/F3 parent (Q3 resolved)",
+        "Subject_B-only halt @ 22.438 — behavioral tag pending (Q4 open)"
+      ],
+      "operator_answer": "Unified S4/F3 from km 22.0 through km 22.5; zero S1/S2 in corridor."
+    },
+    {
+      "km_band": "22.50–22.90",
+      "gold_s_f": "S3/F2 rocky/dirt coastal roll",
+      "png_operator_read": "Post-bridge low-TI runnable band through hard-dirt roll; GMM S3/S4/S5/S6 mix overridden",
+      "dashboard_assigned_after_fix": "S3/F2",
+      "gmm_draft_dominant": "S3/S4/S5 alternation; S6 bog band 22.784–22.801 suppressed; TI-band S1 22.467–22.745 overridden",
+      "draft_preservation": "S3/S4-only parent lock; no_input S1/S2/S5/S6",
+      "telemetry": "TI med ~1.2–3.6; grade +16% med @ 22.5–22.6 then mild descent; altitude ~70→65 m; speed ~0.9–1.5 m/s; both athletes runnable",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "5-span → 3-span simplification: merge rocky/dirt roll + hard-dirt roll at km 22.5 boundary",
+        "TI-band S1 dominant 22.467–22.745 — override to S3/F2 (Q5 resolved)",
+        "GMM S6 bog pocket 22.784–22.801 — suppressed via no_input (Q6 resolved)"
+      ],
+      "operator_answer": "S3/F2 continuous from km 22.5–22.9; zero S1/S2/S5/S6."
+    },
+    {
+      "km_band": "22.90–23.00",
+      "gold_s_f": "S4/F3 technical coastal descent approach",
+      "png_operator_read": "Steep negative grade into locked u01; GMM S4 terminal; TI-band S1 flicker overridden",
+      "dashboard_assigned_after_fix": "S4/F3",
+      "gmm_draft_dominant": "S4 majority approaching chunk end; S3/S5 micro-pockets suppressed",
+      "draft_preservation": "S3/S4-only parent lock; no_input S1/S2/S5/S6; continuous seam into u01",
+      "telemetry": "Grade med ~−15%; altitude ~59 m; speed ~1.5–1.7 m/s; TI med ~3.9 rising toward u01 band",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Chunk seam @ km 23.0: u00 S4/F3 → u01 locked S4/F3 @ 23.0–23.17 (Q8 resolved)",
+        "TI-band S1 @ 22.980–23.001 — reject paved end-cap (Q5 resolved)"
+      ],
+      "operator_answer": "Q8 OK: continuous S4/F3 across boundary into locked u01."
+    }
+  ],
+  "draft_spans": {
+    "technical_coastal_tread": [
+      22.0,
+      22.5
+    ],
+    "rocky_dirt_coastal_roll": [
+      22.5,
+      22.9
+    ],
+    "technical_descent_approach_u01": [
+      22.9,
+      23.0
+    ]
+  },
+  "draft_span_table": [
+    {
+      "course_km_start": 22.0,
+      "course_km_end": 22.5,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "reason": "operator gold: S4/F3 technical coastal tread — sector entry, steep descent core, bridge crosswalk @ km 22.43 absorbed. S3/S4-only parent lock; zero S1/S2/S5/S6. Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 22.5,
+      "course_km_end": 22.9,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "mode": "operator_gold",
+      "reason": "operator gold: S3/F2 rocky/dirt coastal roll — post-bridge climb and hard-dirt roll; overrides TI-band S1 and GMM S1/S2/S5/S6 via draft_preservation. Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 22.9,
+      "course_km_end": 23.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "reason": "operator gold: S4/F3 technical coastal descent approach — intentional seam @ km 23.0 into locked u01 S4/F3 @ 23.0–23.17. Locked 2026-06-29."
+    }
+  ],
+  "sut160_bridge_crosswalk": {
+    "sut43_km": 22.43,
+    "sut160_km_approx": 141.0,
+    "ti_draft_window": {
+      "deferred": [
+        22.423,
+        22.433
+      ],
+      "s1_band": [
+        22.433,
+        22.449
+      ]
+    },
+    "gmm_at_crosswalk": "S5/S4 micro-pockets 22.419–22.467",
+    "telemetry_subject_b_halt_km": [
+      22.438,
+      22.447
+    ],
+    "telemetry_subject_a": "through-running min spd 0.80 — no co-halt",
+    "open_questions": [
+      "Tag Subject_B-only halt as behavioral_stop + TRF exclusion (single_athlete_asymmetry)?"
+    ],
+    "operator_answer": "Q3 resolved: bridge absorbed into S4/F3 technical parent (within 22.0–22.5 span); no paved/gravel tread at crosswalk."
+  },
+  "draft_preservation_zones": [
+    {
+      "km": [
+        22.0,
+        23.0
+      ],
+      "accept": [],
+      "no_input": [
+        "S1",
+        "S2",
+        "S5",
+        "S6"
+      ],
+      "parent": "S3/S4-only",
+      "gmm_classes_present": [
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S1",
+        "S2"
+      ],
+      "open_question": "Q2_s5_s6_micro_pockets_descent",
+      "operator_answer": "S3/S4-only parent lock km 22.0–23.0; no_input S1/S2/S5/S6; no accept S5/S6 pockets."
+    }
+  ],
+  "telemetry_summary": {
+    "subject_a": {
+      "activity_id": "SUT43_20260418",
+      "grade_pct_range": [
+        -42.3,
+        45.0
+      ],
+      "speed_mps_median": 1.15,
+      "ti_median": 2.54,
+      "ti_peak": {
+        "km": 22.265,
+        "ti": 5.94
+      },
+      "altitude_start_end_m": [
+        32.0,
+        59.4
+      ],
+      "halt_bands_spd_lt_0_3": [
+        [
+          22.021,
+          22.026
+        ],
+        [
+          22.065,
+          22.072
+        ],
+        [
+          22.244,
+          22.252
+        ]
+      ]
+    },
+    "subject_b": {
+      "activity_id": "19000570862",
+      "grade_pct_range": [
+        -43.5,
+        44.8
+      ],
+      "speed_mps_median": 1.13,
+      "ti_median": 2.54,
+      "ti_peak": {
+        "km": 22.879,
+        "ti": 6.01
+      },
+      "altitude_start_end_m": [
+        14.2,
+        58.0
+      ],
+      "halt_bands_spd_lt_0_3": [
+        [
+          22.438,
+          22.447
+        ]
+      ]
+    },
+    "consensus_highlights": {
+      "technical_coastal_tread_km": "22.0–22.5",
+      "descent_core_grade_pct": "med ~−23% @ 22.2–22.3",
+      "bridge_crosswalk_km": "22.43",
+      "rocky_dirt_roll_km": "22.5–22.9",
+      "rocky_dirt_roll_ti_med": "~1.2–3.6",
+      "u01_approach_km": "22.9–23.0",
+      "u01_approach_grade_pct": "med ~−15%",
+      "u01_approach_ti_med": "~3.9",
+      "co_halt_bands": "none — Subject_B-only halt @ 22.438–22.447"
+    }
+  },
+  "seam_reconciliation": {
+    "km_23_0": {
+      "u00_draft_end": "S4/F3 technical coastal descent approach (22.9–23.0, operator gold locked 2026-06-29)",
+      "u01_locked_start": "S4/F3 technical coastal descent (23.0–23.17, operator gold locked 2026-06-29)",
+      "gmm_at_seam": "S4 terminal 22.994–23.024",
+      "status": "continuous_s_f",
+      "mismatch": false,
+      "telemetry_note": "Both athletes runnable steep descent @ 22.95–23.0; grade −18% (Subject_A) / −22% (Subject_B); TI med ~3.9 rising toward u01 ~3.9–4.5 band."
+    },
+    "internal_seams": [
+      {
+        "km": 22.5,
+        "boundary": "S4/F3 technical coastal tread → S3/F2 rocky/dirt roll",
+        "status": "class_transition",
+        "telemetry_note": "TI drops ~5.0→~1.2 post-bridge; grade flips positive +28% @ 22.4–22.5"
+      },
+      {
+        "km": 22.9,
+        "boundary": "S3/F2 dirt roll → S4/F3 technical descent approach",
+        "status": "class_transition",
+        "telemetry_note": "Grade steepens negative ~−10%→−15%; TI rises ~3.6→~3.9"
+      }
+    ]
+  },
+  "recommended_revision_questions": [
+    {
+      "id": "Q1_sector_entry_class",
+      "question": "Sector entry km 22.0–22.22: unify as S4/F3 technical coastal parent vs split TI-band S3 pockets @ 22.001–22.013?",
+      "recommended_resolution": "Unify S4/F3 from km 22.0 — sector bootstrap should match downstream u01 technical coastal ontology.",
+      "status": "resolved",
+      "operator_answer": "Unify S4/F3 from km 22.0; zero S1/S2 in corridor."
+    },
+    {
+      "id": "Q2_s5_s6_micro_pockets_descent",
+      "question": "GMM S5/S6 micro-pockets km 22.0–22.44 — accept via draft_preservation within S4/F3 parent (mirror u01 policy) or promote bog/difficult-rock spans?",
+      "recommended_resolution": "S3/S4-only corridor — no accept S5/S6 pockets; no_input S1/S2/S5/S6 on unified parent lock km 22.0–23.0.",
+      "status": "resolved",
+      "operator_answer": "S3/S4-only parent lock; no_input S1/S2/S5/S6; no accept S5/S6 pockets."
+    },
+    {
+      "id": "Q3_bridge_crosswalk_tread",
+      "question": "SUT_160 Dale aid bridge crosswalk @ km 22.43: TI-band S1/F1 paved (22.433–22.449) vs proposed S2/F2 gravel vs retain S4/F3 technical parent through bridge?",
+      "recommended_resolution": "Field confirm tread at bridge — if paved/local road, narrow S1/F1 band @ 22.43±0.02; else absorb into S2/F2 gravel roll or S4/F3 descent.",
+      "status": "resolved",
+      "operator_answer": "Retain S4/F3 technical parent through bridge; no paved/gravel tread at crosswalk (zero S1/S2 in km 22–23)."
+    },
+    {
+      "id": "Q4_subject_b_bridge_halt",
+      "question": "Subject_B-only halt @ km 22.438–22.447 — tag behavioral_stop + TRF exclusion (single_athlete_asymmetry) or dismiss as terrain-driven technical pause?",
+      "recommended_resolution": "Pending field read — if bridge/aid pause, tag Subject_B_only behavioral_stop; if terrain step, no TRF.",
+      "status": "open"
+    },
+    {
+      "id": "Q5_ti_s1_override_gravel_roll",
+      "question": "TI-band S1 dominant km 22.467–22.745 — accept paved/gravel TI signal vs override to S3/F2 rocky/dirt coastal roll (no S1/S2 in km 22–23)?",
+      "recommended_resolution": "Override TI-band S1 to S3/F2 rocky/dirt parent; reject proposed S2/F2 gravel.",
+      "status": "resolved",
+      "operator_answer": "Reclassified S3/F2 rocky/dirt coastal roll; override TI-band S1 and GMM S1/S2 via draft_preservation parent lock."
+    },
+    {
+      "id": "Q6_s6_bog_pocket_22_784",
+      "question": "GMM S6 bog band @ km 22.784–22.801 — promote S6/F4 wet-mud vs draft_preservation micro-pocket within S3/F2 parent?",
+      "recommended_resolution": "S3/S4-only corridor — suppress S6 via no_input on parent lock; do not promote bog band.",
+      "status": "resolved",
+      "operator_answer": "Suppress S6 bog pocket; S3/S4-only parent lock km 22.0–23.0."
+    },
+    {
+      "id": "Q7_span_simplification",
+      "question": "5-span draft → 3-span operator gold: merge at km 22.5 (S4/F3 entry+descent) and km 22.5 (S3/F2 roll bands)?",
+      "recommended_resolution": "Adopt 3-span gold: S4/F3 22.0–22.5, S3/F2 22.5–22.9, S4/F3 22.9–23.0.",
+      "status": "resolved",
+      "operator_answer": "3-span simplification applied 2026-06-29; behavioral sub-bands retained in telemetry notes only."
+    },
+    {
+      "id": "Q8_seam_23_0_continuous",
+      "question": "Chunk seam @ km 23.0: u00 S4/F3 draft end → u01 locked S4/F3 @ 23.0–23.17 — confirm continuous technical coastal descent tread?",
+      "recommended_resolution": "Continuous S4/F3 across boundary; u00 span 22.9–23.0 is approach band to locked u01 core.",
+      "status": "resolved",
+      "operator_answer": "Continuous S4/F3 across boundary into locked u01."
+    },
+    {
+      "id": "Q9_subject_a_isolated_halts",
+      "question": "Subject_A isolated halts @ km 22.021–22.026, 22.065–22.072, 22.244–22.252 — any TRF tagging or dismiss as terrain-driven?",
+      "recommended_resolution": "Dismiss unless field confirms aid/behavioral event — no co-runner halt, no CP anchor in window.",
+      "status": "open"
+    }
+  ],
+  "lock_readiness": {
+    "map_json_tier_lock": "chunk_u00–u06 locked 2026-06-29 (gold_source operator, locked_at 2026-06-29)",
+    "disagreement_matrix_status": "locked",
+    "gt_coverage_pct": 100.0,
+    "seams_clean": true,
+    "gmm_reconciled": true,
+    "blockers": [],
+    "recommendation": "chunk_u00 operator gold locked 2026-06-29. Upstream HITL km 22–29 corridor 100% operator gold."
+  },
+  "reexport": {
+    "path": "06_Visualizations/sut43_hitl_upstream/chunk_u00_km22-23.png",
+    "trigger": "chunk_u00_operator_lock_2026-06-29",
+    "chunk_index": 0,
+    "chunk_km": 1,
+    "km_window": [
+      22,
+      23
+    ],
+    "exported_at": "2026-06-29",
+    "verify_export": true,
+    "assigned_strip_verified": "S4/F3 operator gold @ 22.000–22.500; S3/F2 operator gold @ 22.500–22.900; S4/F3 operator gold @ 22.900–23.000; seam @ 23.0 continuous S4/F3 into locked u01; zero S1/S2/S5/S6 in corridor"
+  },
+  "downstream_context": {
+    "locked_corridor": "chunk_u00–u06 operator gold km 22.0–29.0 locked 2026-06-29",
+    "u01_first_span": "S4/F3 technical coastal descent @ 23.0–23.17",
+    "u01_fall_trf": "coastal_descent_fall @ 23.123–23.135 (Subject_A_only) — outside u00 window",
+    "recommendation": "Upstream dale_paradisskaret_upstream corridor complete. Open telemetry tags only: Q4 bridge halt, Q9 isolated halts (behavioral, no map edit)."
+  }
+}
