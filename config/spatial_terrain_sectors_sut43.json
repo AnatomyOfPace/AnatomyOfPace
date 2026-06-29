@@ -99,14 +99,22 @@
           "course_km": 29.0,
           "role": "downstream_sector_boundary",
           "notes": "Shared downstream boundary with gramstad_band sector 1. Operator gold from chunk_00 (km 29–30) applies downstream of this metre."
+        },
+        {
+          "anchor_id": "revholstjorn_gravel_gate",
+          "display_name": "Revholstjørn gravel field gate",
+          "course_km": 28.668,
+          "role": "behavioral_exclusion_only",
+          "registry_ref": "spatial_terrain_map_sut43_upstream.json → hitl.behavioral_stops.revholstjorn_gravel_gate",
+          "notes": "Co-located co-halt on S2/F2 gravel @ km 28.660–28.675 (FIT-tight 28.662–28.666); TRF co_wait locked 2026-06-29. Distinct from revholstjorn_gate_km279 staggered passage @ 27.9–28.0 (no TRF)."
         }
       ],
       "bootstrap_blockers": [
-        "Partial operator gold: chunk_u01 km 23.0–24.0, chunk_u02 km 24.0–25.0, chunk_u03 km 25.0–26.0, and chunk_u04 km 26.0–27.0 locked 2026-06-29; km 22–23 and 27–29 remain GMM draft",
+        "Partial operator gold: chunk_u01 km 23.0–24.0, chunk_u02 km 24.0–25.0, chunk_u03 km 25.0–26.0, chunk_u04 km 26.0–27.0, chunk_u05 km 27.0–28.0, and chunk_u06 km 28.0–29.0 locked 2026-06-29; km 22–23 remain GMM draft",
         "Training tiles partial: Gramstad_runden_reverse from km 24.33; Lifjell loop fails spine QC",
         "Training TRF deferred until upstream training traverse recorded"
       ],
-      "notes": "Late-loop shared geography with SUT_160 Dale→Dalsnuten→Gramstad approach (memo 13 bridge km 22–34.2). Upstream of locked gramstad_band. chunk_u01 (dale_coastal km 23–24) operator gold locked 2026-06-29; chunk_u02 (Dalsnuten climb km 24–25) operator gold locked 2026-06-29 — S1/F1 asphalt through km 24.35, S3/F2 mid/steep, S4/F3 summit @ 25.0; chunk_u03 (post-summit traverse km 25–26) operator gold locked 2026-06-29 — S4/F3 rocky traverse + S5/F4 stone steps @ 25.475–25.565, telemetric crest @ 25.801, descent onset @ 25.80–26.0 (terrain only, no TRF); chunk_u04 (Dalsnuten descent / Revhol traverse km 26–27) operator gold locked 2026-06-29 — S4/F3 technical descent alternation @ 26.0–26.3, S4/F3 transition @ 26.3–26.4, S3/F2 main tread @ 26.4–27.0 (S4/F3→S3/F2 seam @ 26.4). Distinct from early-lap dalevatn_band (km 13–25, superseded ontology) and SUT_160 dale_to_paradisskaret stress test (140–155.58 km on 160 km axis)."
+      "notes": "Late-loop shared geography with SUT_160 Dale→Dalsnuten→Gramstad approach (memo 13 bridge km 22–34.2). Upstream of locked gramstad_band. chunk_u01 (dale_coastal km 23–24) operator gold locked 2026-06-29; chunk_u02 (Dalsnuten climb km 24–25) operator gold locked 2026-06-29 — S1/F1 asphalt through km 24.35, S3/F2 mid/steep, S4/F3 summit @ 25.0; chunk_u03 (post-summit traverse km 25–26) operator gold locked 2026-06-29 — S4/F3 rocky traverse + S5/F4 stone steps @ 25.475–25.565, telemetric crest @ 25.801, descent onset @ 25.80–26.0 (terrain only, no TRF); chunk_u04 (Dalsnuten descent / Revhol traverse km 26–27) operator gold locked 2026-06-29 — S4/F3 technical descent alternation @ 26.0–26.3, S4/F3 transition @ 26.3–26.4, S3/F2 main tread @ 26.4–27.0 (S4/F3→S3/F2 seam @ 26.4); chunk_u05 (Gramstadtjørn traverse / lakeshore km 27–28) operator gold locked 2026-06-29 — S3/F2 hard-dirt / rocky tread @ 27.0–27.99 (no S1/S2 in 27.0–27.8), S2/F2 gravel road tail @ 27.99–28.0 (seam @ 28.0 to u06 S2/F2); chunk_u06 (Revholstjørn gravel / gramstad approach km 28–29) operator gold locked 2026-06-29 — S2/F2 Revholstjørn gravel road @ 28.0–28.751, S3/F2 easy trail / gramstad approach @ 28.751–29.0 (seam @ 29.0 to gramstad_band S3/F2 gold). revholstjorn_gravel_gate TRF @ km 28.660–28.675 (co_wait; both athletes; S2/F2 gravel) locked 2026-06-29; upstream revholstjorn_gate_km279 @ 27.9–28.0 staggered passage — no TRF. Distinct from early-lap dalevatn_band (km 13–25, superseded ontology) and SUT_160 dale_to_paradisskaret stress test (140–155.58 km on 160 km axis)."
     }
   ],
   "full_course_stretch_goal": {
