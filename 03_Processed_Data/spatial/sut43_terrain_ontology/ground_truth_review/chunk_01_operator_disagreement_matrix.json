@@ -1,0 +1,408 @@
+{
+  "chunk_id": "chunk_01",
+  "sector_id": "gramstad_band",
+  "course_km_window": [
+    30.0,
+    31.0
+  ],
+  "reviewed_at": "2026-06-29",
+  "status": "locked",
+  "locked_at": "2026-06-29",
+  "operator_statement": "Locked 2026-06-29: 4-span operator gold km 30.0–31.0 — S3/F2 easy descent @ 30.0–30.1, S4/F3 technical rocky core @ 30.1–30.35, S3/F2 ease before CP @ 30.35–30.55, S3/F2 easy dirt toward stile @ 30.55–31.0. Seam @ 30.0 from chunk_00 S4/F3; TRF @ 30.38–30.44 deferred; food CP TRF deferred.",
+  "display_bugs_fixed": [],
+  "display_bugs_not_found": [],
+  "km_bands": [
+    {
+      "km_band": "30.00–30.10",
+      "draft_s_f": "S3/F2 easy descent Fjogstadnuten flank",
+      "png_operator_read": "Green S3/F2 easy dirt descent opening chunk; GMM S5/S4 micro-alternation vs unified S3/F2 parent",
+      "dashboard_assigned_after_fix": "S3/F2 operator gold",
+      "gmm_draft_dominant": "S3 40 m, S5 29 m, S4 22 m, S6 6 m, S2 3 m — rocky/easy alternation at descent onset",
+      "draft_preservation": "accept S3–S6 km 30.0–30.3 unified policy — may visually conflict with operator gold parent",
+      "telemetry": "Grade −34% to +26%; altitude ~275→302 m (Subject_A) / ~275→309 m (Subject_B); runnable ~1.43–1.49 m/s; Subject_A TI peak 5.34 @ 30.099",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Seam @ km 30.0: chunk_00 S4/F3 rocky cap → S3/F2 easy descent — tread ease intentional?",
+        "GMM S5/S4 pockets @ 30.0–30.1 — override under S3/F2 parent?",
+        "Subject_B low TI (~1.09) vs Subject_A — skill spread, not terrain authority per map reason"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S3/F2 span.",
+      "gold_s_f": "S3/F2 easy descent Fjogstadnuten flank"
+    },
+    {
+      "km_band": "30.10–30.35",
+      "draft_s_f": "S4/F3 technical rocky core",
+      "png_operator_read": "Amber S4/F3 steep rocky tread; GMM S5-dominant chaos vs operator S4/F3 parent",
+      "dashboard_assigned_after_fix": "S4/F3 operator gold",
+      "gmm_draft_dominant": "S5 126 m, S6 56 m, S4 38 m, S3 24 m, S2 6 m — GMM favors S5/S6 over operator S4/F3",
+      "draft_preservation": "accept S3/S4/S5 km 30.4–30.67 core policy overlaps tail — operator gold wins on Assigned strip",
+      "telemetry": "Grade −45% to +45%; altitude ~234→303 m (Subject_A steep descent); TI peak ~5.36 @ 30.115 (Subject_A); Subject_A slow cluster 30.123–30.16",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Confirm S4/F3 technical core vs promote GMM S5/S6 majority",
+        "Subject_A-only rocky stop @ 30.38–30.44 (behavioral_stops) — TRF exclusion, not S-class promotion",
+        "Subject_B technical interval shifted later — not terrain authority for span boundaries"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S4/F3 span.",
+      "gold_s_f": "S4/F3 technical rocky core"
+    },
+    {
+      "km_band": "30.35–30.55",
+      "draft_s_f": "S3/F2 ease before CP",
+      "png_operator_read": "Green S3/F2 runnable dirt downstream of rocky core; food CP corridor @ ~30.52",
+      "dashboard_assigned_after_fix": "S3/F2 operator gold",
+      "gmm_draft_dominant": "S5 70 m, S2 54 m, S3 50 m, S4 15 m, S6 11 m — mixed draft vs unified S3/F2 ease flank",
+      "draft_preservation": "accept S3/S4/S5 km 30.4–30.67 core + S5-only flanks 30.3–30.4 / 30.67–30.7",
+      "telemetry": "Grade −45% to +11%; altitude ~209→350 m; Subject_A extended slow band 30.358–30.547 (CP approach); Subject_B halt @ stream km 30.805–30.826 (~451 s) — behavioral TRF exclusion",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Confirm S3/F2 ease flank vs GMM S5/S2 pockets",
+        "Food CP @ ~30.52 — TRF exclusion 30.35–30.85; friction tier unchanged on halt",
+        "Span end @ 30.55 for CP corridor contiguity — confirm vs field pin"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S3/F2 span.",
+      "gold_s_f": "S3/F2 ease before CP"
+    },
+    {
+      "km_band": "30.55–31.00",
+      "draft_s_f": "S3/F2 easy dirt toward stile",
+      "png_operator_read": "Green S3/F2 runnable dirt approaching chunk_02 bedrock lock @ 31.0; GMM S2/S5/S4 mix",
+      "dashboard_assigned_after_fix": "S3/F2 operator gold",
+      "gmm_draft_dominant": "S2 141 m, S5 104 m, S3 96 m, S4 79 m, S6 19 m, S1 11 m — chaotic GMM vs unified S3/F2 parent",
+      "draft_preservation": "accept S3–S6 km 30.7–31.0 downstream flank policy",
+      "telemetry": "Grade −32% to +45%; altitude ~211→369 m; runnable ~1.12–1.27 m/s; Subject_A TI peak 4.06 @ 30.811; Subject_B food CP halt upstream (behavioral only)",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Seam @ km 31.0: S3/F2 easy dirt → chunk_02 S4/F3 bedrock lock — tread change at stile approach",
+        "GMM S2 gravel pockets — override under S3/F2 parent (no S2 promotion)",
+        "Co-runner stile wait downstream @ km 31.132+ — behavioral only, not bedrock tier signal"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S3/F2 span.",
+      "gold_s_f": "S3/F2 easy dirt toward stile"
+    }
+  ],
+  "draft_spans": {
+    "easy_descent_fjogstadnuten": [
+      30.0,
+      30.1
+    ],
+    "technical_rocky_core": [
+      30.1,
+      30.35
+    ],
+    "ease_before_cp": [
+      30.35,
+      30.55
+    ],
+    "easy_dirt_toward_stile": [
+      30.55,
+      31.0
+    ]
+  },
+  "draft_span_table": [
+    {
+      "course_km_start": 30.0,
+      "course_km_end": 30.1,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: easy descent Fjogstadnuten flank (chunk_01). Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 30.1,
+      "course_km_end": 30.35,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: technical rocky core (chunk_01). Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 30.35,
+      "course_km_end": 30.55,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: ease before CP (chunk_01). Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 30.55,
+      "course_km_end": 31.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: easy dirt toward stile (chunk_01). Locked 2026-06-29."
+    }
+  ],
+  "upstream_chunk_00_seam": {
+    "km": 30.0,
+    "chunk_00_gold_end": "S4/F3 rocky approach (29.8–30.0, accepted draft_review 2026-06-29)",
+    "chunk_01_gold_start": "S3/F2 easy descent Fjogstadnuten flank (30.0–30.1)",
+    "s_f_transition": "S4/F3 → S3/F2 tread ease at km 30.0",
+    "friction_transition": "F3 → F2",
+    "continuity_requirements": [
+      "chunk_00 accepted S4/F3 rocky cap ends @ 30.0 — no extension into chunk_01 easy descent",
+      "chunk_01 S3/F2 @ 30.0–30.1 is intentional tread ease after rocky approach",
+      "Altitude continuity: Subject_A ~301 m @ 30.0 panel aligns with descent onset"
+    ],
+    "telemetry_at_seam": "Subject_A @ 30.0: runnable ~1.43 m/s, TI ~2.5; Subject_B @ 30.0: ~1.49 m/s, TI ~1.09 — both through-running at seam metre.",
+    "cross_reference": "chunk_00_operator_disagreement_matrix.json → downstream_chunk_01_seam Q5; chunk_00 walkthrough accepted all defaults (lock deferred)"
+  },
+  "downstream_chunk_02_seam": {
+    "km": 31.0,
+    "chunk_01_gold_end": "S3/F2 easy dirt toward stile (30.55–31.0)",
+    "chunk_02_gold_start": "S4/F3 bedrock lock (31.0–33.2, operator gold)",
+    "s_f_transition": "S3/F2 → S4/F3 technical bedrock at km 31.0",
+    "friction_transition": "F2 → F3",
+    "note": "Contiguity boundary before stile co-wait @ km 31.132+; bedrock tier not driven by bathroom break."
+  },
+  "geographic_anchors": {
+    "fjogstadnuten_flank": "km 30.0–30.1 — easy descent opening gramstad_band Fjogstadnuten sector",
+    "gramstad_food_cp": "km ~30.52 — atlas pin; TRF exclusion 30.35–30.85",
+    "stile_31": "km 31.132+ — co-wait behavioral anchor (chunk_02)",
+    "downstream_target": "chunk_02 bedrock lock km 31.0–33.2"
+  },
+  "behavioral_anchors": {
+    "food_cp": {
+      "panel_km": "~30.52",
+      "trf_exclusion": [
+        30.35,
+        30.85
+      ],
+      "subject_b_stream_km": "30.805–30.826 (~451 s halt)",
+      "note": "Behavioral halt — exclude from paired TRF; do not promote S-class from stop signature"
+    },
+    "rocky_core_subject_a_stop": {
+      "km": [
+        30.38,
+        30.44
+      ],
+      "tag": "single_athlete_asymmetry",
+      "note": "Subject_A-only stop in S4/F3 core — TRF artifact, not terrain promotion"
+    }
+  },
+  "open_questions": [
+    {
+      "id": "Q1_seam_30_0_chunk_00",
+      "question": "Seam @ km 30.0: chunk_00 accepted S4/F3 rocky cap → chunk_01 S3/F2 easy descent @ 30.0–30.1?",
+      "recommended_resolution": "Confirm tread ease on PNG; F3→F2 friction step intentional (chunk_00 walkthrough accepted this default).",
+      "status": "likely_resolved_pending_png",
+      "operator_answer": null
+    },
+    {
+      "id": "Q2_gmm_s5_technical_core",
+      "question": "GMM S5/S6 majority @ 30.1–30.35 — override under S4/F3 operator gold parent?",
+      "recommended_resolution": "Override GMM S5/S6 — retain S4/F3 technical rocky core per field memory + Subject_A FIT validation.",
+      "status": "resolved",
+      "operator_answer": "Override GMM S5/S6 — retain S4/F3 technical rocky core per field memory + Subject_A FIT validation."
+    },
+    {
+      "id": "Q3_food_cp_trf",
+      "question": "Food CP corridor @ ~30.52 — confirm S3/F2 ease flank 30.35–30.55 unchanged despite halt signatures?",
+      "recommended_resolution": "Retain S3/F2; TRF exclusion 30.35–30.85 masks behavioral halt; no friction tier change on CP.",
+      "status": "resolved",
+      "operator_answer": "Retain S3/F2; TRF exclusion 30.35–30.85 masks behavioral halt; no friction tier change on CP."
+    },
+    {
+      "id": "Q4_draft_preservation_overlap",
+      "question": "draft_preservation accept-draft policies (30.0–31.0) overlap operator gold — does Assigned strip show operator gold exclusively?",
+      "recommended_resolution": "Operator gold wins on Assigned strip after sidecar refresh; verify PNG.",
+      "status": "resolved",
+      "operator_answer": "Operator gold wins on Assigned strip after sidecar refresh; verify PNG."
+    },
+    {
+      "id": "Q5_seam_31_0_chunk_02",
+      "question": "Seam @ km 31.0: S3/F2 easy dirt → chunk_02 S4/F3 bedrock lock?",
+      "recommended_resolution": "Confirm tread transition on PNG; F2→F3 step intentional before stile.",
+      "status": "resolved",
+      "operator_answer": "Confirm tread transition on PNG; F2→F3 step intentional before stile."
+    },
+    {
+      "id": "Q6_dashboard_png_review",
+      "question": "Exported PNG: does Assigned strip show 4-span gold and clean seams @ 30.0 and 31.0?",
+      "recommended_resolution": "Operator visual sign-off required before lock elevation.",
+      "status": "resolved",
+      "operator_answer": "Operator visual sign-off required before lock elevation."
+    }
+  ],
+  "lock_readiness": {
+    "map_json_tier_lock": "chunk_01 locked 2026-06-29 (gold_source operator, locked_at 2026-06-29)",
+    "disagreement_matrix_status": "locked",
+    "gt_coverage_pct": 100.0,
+    "seams_clean": true,
+    "gmm_reconciled": true,
+    "blockers": [],
+    "recommendation": "chunk_01 operator gold locked 2026-06-29."
+  },
+  "priority_queue": {
+    "chunk_id": "chunk_01",
+    "queue_position": 2,
+    "sector": "gramstad_band",
+    "direction": "downstream toward late_braking (Dalevatn-like km 33–34)",
+    "chunks_remaining_in_direction": 10,
+    "chunk_plan": "chunk_01..chunk_11 (km 30–41); late_braking anchor @ chunks 04–05"
+  },
+  "interval_review_queue": {
+    "chunk_id": "chunk_01",
+    "sector_id": "gramstad_band",
+    "km_window": [
+      30.0,
+      31.0
+    ],
+    "N": 4,
+    "direction": "west_to_east (km ascending)",
+    "pre_check": {
+      "type": "pre_check",
+      "label": "Upstream seam @ km 30.0 (chunk_00 → chunk_01)",
+      "km": 30.0,
+      "upstream_accepted": "S4/F3 rocky approach (29.8–30.0, chunk_00 draft_review accepted)",
+      "downstream_draft": "S3/F2 easy descent (30.0–30.1, chunk_01 operator gold)",
+      "input_needed": [
+        "seam"
+      ],
+      "open_questions": [
+        "Q1_seam_30_0_chunk_00"
+      ],
+      "telemetry": "Subject_A @ 30.0: ~1.43 m/s, TI ~2.5; Subject_B @ 30.0: ~1.49 m/s, TI ~1.09. Both runnable — no halt at seam metre.",
+      "recommended_default_if_silent": "Confirm S4/F3 → S3/F2 tread ease at km 30.0 (F3→F2); chunk_00 walkthrough accepted this default — no rocky cap extension into easy descent"
+    },
+    "queue": [
+      {
+        "order": 1,
+        "km_start": 30.0,
+        "km_end": 30.1,
+        "label": "easy descent Fjogstadnuten flank",
+        "current_draft": {
+          "surface": "S3",
+          "friction": "F2"
+        },
+        "mode": "operator_gold",
+        "locked_at": null,
+        "input_needed": [
+          "confirm"
+        ],
+        "input_detail": "Confirm S3/F2 easy descent opening; override GMM S5/S4 micro-pockets under parent",
+        "gmm_disagreement": "S3 40 m, S5 29 m, S4 22 m, S6 6 m, S2 3 m — rocky/easy alternation at descent onset",
+        "ti_disagreement": "Subject_A TI peak 5.34 @ 30.099 — localized spike; retain within S3/F2 parent unless tread promotes S4",
+        "telemetry": "Grade −34% to +26%; alt ~275→302 m; runnable ~1.43–1.49 m/s; no halt at band start",
+        "trf_notes": null,
+        "open_questions": [],
+        "recommended_default_if_silent": "Keep S3/F2; override GMM S5/S4/S6 micro-pockets"
+      },
+      {
+        "order": 2,
+        "km_start": 30.1,
+        "km_end": 30.35,
+        "label": "technical rocky core",
+        "current_draft": {
+          "surface": "S4",
+          "friction": "F3"
+        },
+        "mode": "operator_gold",
+        "locked_at": null,
+        "input_needed": [
+          "confirm",
+          "TRF"
+        ],
+        "input_detail": "Confirm S4/F3 technical core; GMM S5/S6 majority overridden; Subject_A-only stop @ 30.38–30.44 is TRF exclusion not S-promotion",
+        "gmm_disagreement": "S5 126 m, S6 56 m, S4 38 m, S3 24 m — GMM favors S5/S6 over operator S4/F3",
+        "ti_disagreement": "Subject_A TI peak ~5.36 @ 30.115 — aligned with S4/F3; Subject_B low TI — skill spread, not terrain authority",
+        "telemetry": "Grade −45% to +45%; steep descent; Subject_A slow cluster 30.123–30.16",
+        "trf_notes": "behavioral_stops single_athlete_asymmetry @ 30.38–30.44 (Subject_A_only)",
+        "open_questions": [
+          "Q2_gmm_s5_technical_core"
+        ],
+        "recommended_default_if_silent": "Keep S4/F3; override GMM S5/S6; do not promote from Subject_A stop signature"
+      },
+      {
+        "order": 3,
+        "km_start": 30.35,
+        "km_end": 30.55,
+        "label": "ease before CP",
+        "current_draft": {
+          "surface": "S3",
+          "friction": "F2"
+        },
+        "mode": "operator_gold",
+        "locked_at": null,
+        "input_needed": [
+          "confirm",
+          "TRF"
+        ],
+        "input_detail": "Confirm S3/F2 ease flank downstream of rocky core; food CP @ ~30.52 — friction tier unchanged on halt",
+        "gmm_disagreement": "S5 70 m, S2 54 m, S3 50 m — mixed draft vs unified S3/F2 ease flank",
+        "ti_disagreement": "Subject_A extended slow band 30.358–30.547 (CP approach) — behavioral, not S-class signal",
+        "telemetry": "Grade −45% to +11%; alt ~209→350 m; Subject_B halt @ stream km 30.805–30.826 behavioral only",
+        "trf_notes": "trf_exclusions food_cp 30.35–30.85 (both athletes)",
+        "open_questions": [
+          "Q3_food_cp_trf"
+        ],
+        "recommended_default_if_silent": "Keep S3/F2 through CP corridor; TRF exclusion masks halt; span end @ 30.55 for CP contiguity"
+      },
+      {
+        "order": 4,
+        "km_start": 30.55,
+        "km_end": 31.0,
+        "label": "easy dirt toward stile → chunk_02 seam",
+        "current_draft": {
+          "surface": "S3",
+          "friction": "F2"
+        },
+        "mode": "operator_gold",
+        "locked_at": null,
+        "input_needed": [
+          "confirm",
+          "seam"
+        ],
+        "input_detail": "Confirm S3/F2 runnable dirt; seam @ 31.0 → chunk_02 S4/F3 bedrock lock; override GMM S2 gravel pockets",
+        "gmm_disagreement": "S2 141 m, S5 104 m, S3 96 m, S4 79 m — chaotic GMM vs unified S3/F2 parent",
+        "ti_disagreement": "Subject_A TI peak 4.06 @ 30.811 — moderate; stile co-wait downstream @ 31.132+ is behavioral",
+        "telemetry": "Grade −32% to +45%; runnable ~1.12–1.27 m/s; no bedrock tread before km 31.0",
+        "trf_notes": null,
+        "open_questions": [
+          "Q5_seam_31_0_chunk_02"
+        ],
+        "recommended_default_if_silent": "Keep S3/F2; override GMM S2/S5 pockets; accept S3/F2 → S4/F3 seam @ 31.0"
+      }
+    ],
+    "post_check": {
+      "type": "post_check",
+      "label": "Dashboard PNG + lock readiness",
+      "png": "06_Visualizations/sut43_hitl/chunk_01_km30-31.png",
+      "input_needed": [
+        "confirm"
+      ],
+      "open_questions": [
+        "Q6_dashboard_png_review",
+        "Q4_draft_preservation_overlap"
+      ],
+      "sidecar_note": "hitl_agreement.parquet refreshed km 30–31 — operator_gold_class 1000/1000 m; verify Assigned strip shows 4-span gold + clean seams @ 30.0 and 31.0",
+      "lock_blockers": [
+        "Operator PNG sign-off (Q6)",
+        "GMM S5/S6 technical core unreconciled (Q2)",
+        "chunk_00 lock deferred upstream"
+      ],
+      "recommended_default_if_silent": "Accept PNG if Assigned strip shows 4 gold spans; defer lock elevation without explicit approval"
+    }
+  },
+  "reexport": {
+    "path": "06_Visualizations/sut43_hitl/chunk_01_km30-31.png",
+    "trigger": "chunk_01_operator_lock_20260629",
+    "chunk_index": 1,
+    "chunk_km": 1,
+    "km_window": [
+      30,
+      31
+    ],
+    "exported_at": "2026-06-29",
+    "verify_export": true,
+    "assigned_strip_verified": "S3/F2 operator gold @ 30.000–30.100; S4/F3 operator gold @ 30.100–30.350; S3/F2 operator gold @ 30.350–30.550; S3/F2 operator gold @ 30.550–31.000"
+  }
+}

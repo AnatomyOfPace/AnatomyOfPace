@@ -1,0 +1,244 @@
+{
+  "chunk_id": "chunk_00",
+  "sector_id": "gramstad_band",
+  "course_km_window": [
+    29.0,
+    30.0
+  ],
+  "reviewed_at": "2026-06-29",
+  "status": "locked",
+  "locked_at": "2026-06-29",
+  "operator_statement": "Locked 2026-06-29: 4-span operator gold km 29.0–30.0 — S3/F2 easy dirt baseline @ 29.0–29.4, S4/F3 minor rocky interval @ 29.4–29.6, S3/F3 plank/muddy pocket @ 29.6–29.8, S4/F3 rocky approach @ 29.8–30.0. Seam @ 29.0 continuous S3/F2 from locked u06; seam @ 30.0 S4/F3 → chunk_01 S3/F2.",
+  "display_bugs_fixed": [],
+  "display_bugs_not_found": [],
+  "km_bands": [
+    {
+      "km_band": "29.00–29.40",
+      "draft_s_f": "S3/F2 easy dirt trail baseline",
+      "png_operator_read": "Green S3/F2 easy dirt from gramstad_band seam; GMM S4/S5/S2 micro-alternation early window; Subject_A TI spike 7.50 @ 29.386",
+      "dashboard_assigned_after_fix": "S3/F2 operator gold",
+      "gmm_draft_dominant": "S3 134 m, S5 123 m, S4 111 m, S2 22 m, S6 9 m — chaotic GMM vs unified S3/F2 parent",
+      "draft_preservation": "No draft_preservation policy in km 29.0–30.0 window; deferred guidance S3 @ 29.0–29.8 may conflict visually with nested S4 @ 29.4–29.6 gold",
+      "telemetry": "Grade −30% to +45% (Subject_A steep pockets); altitude ~191→288 m (Subject_A) / ~188→295 m (Subject_B); runnable ~1.24–1.29 m/s med; TI med ~1.1–2.2; Subject_A TI peak 7.50 @ 29.386 (rocky pocket aligns with downstream S4 gold @ 29.4)",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Seam @ km 29.0: confirm S3/F2 continuous from locked u06 — no S2 gravel (prior S2 @ 29.0–29.1 removed 2026-06-28)",
+        "GMM S2 pocket @ 29.012–29.033 (~22 m) — override under S3/F2 parent?",
+        "Subject_A TI peak 7.50 @ 29.386 — promote rocky sub-band vs retain within S3/F2 baseline through 29.4"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S3/F2 span.",
+      "gold_s_f": "S3/F2 easy dirt trail baseline"
+    },
+    {
+      "km_band": "29.40–29.60",
+      "draft_s_f": "S4/F3 minor rocky interval",
+      "png_operator_read": "Amber S4/F3 technical pocket within predominantly easy dirt band; GMM S3/S4/S2 mix",
+      "dashboard_assigned_after_fix": "S4/F3 operator gold",
+      "gmm_draft_dominant": "S3 81 m, S4 59 m, S2 36 m, S5 21 m — rocky alternation",
+      "draft_preservation": "Nested technical pocket — do not merge into upstream u06",
+      "telemetry": "Grade −30% to +39%; altitude ~202–266 m; TI med ~1.1–1.7; Subject_A peak 6.31 @ band interior",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Confirm S4/F3 promotion vs draft_preservation S4-only within S3 parent",
+        "Boundary @ 29.4: tread change from easy dirt baseline to embedded rock"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S4/F3 span.",
+      "gold_s_f": "S4/F3 minor rocky interval"
+    },
+    {
+      "km_band": "29.60–29.80",
+      "draft_s_f": "S3/F3 plank/muddy nested pocket",
+      "png_operator_read": "Green S3/F3 boardwalk/muddy tread interval; GMM S4/S5 dominant",
+      "dashboard_assigned_after_fix": "S3/F3 operator gold",
+      "gmm_draft_dominant": "S4 92 m, S3 70 m, S5 38 m — GMM favors S4/S5 over operator S3/F3",
+      "draft_preservation": "F3 friction tier for muddy/plank tread — distinct from F2 easy dirt baseline",
+      "telemetry": "Grade −1.7% to +45%; altitude ~213–280 m; TI med ~1.1–1.4; low cross-athlete variance",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "F3 vs F2: confirm plank/muddy interval warrants F3 not F2",
+        "GMM S4/S5 majority — accept as micro-pockets or override to S3/F3 parent"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S3/F3 span.",
+      "gold_s_f": "S3/F3 plank/muddy nested pocket"
+    },
+    {
+      "km_band": "29.80–30.00",
+      "draft_s_f": "S4/F3 rocky approach interval",
+      "png_operator_read": "Amber S4/F3 rock-strewn tread approaching km 30.0 / chunk_01 Fjogstadnuten flank",
+      "dashboard_assigned_after_fix": "S4/F3 operator gold",
+      "gmm_draft_dominant": "S5 101 m, S4 52 m, S3 21 m, S6 17 m, S2 9 m — rocky approach chaos",
+      "draft_preservation": "Seam @ 30.0: chunk_01 operator gold S3/F2 easy descent @ 30.0–30.1 — tread ease after rocky cap",
+      "telemetry": "Grade −11.8% to +45%; altitude ~253–301 m; TI med ~0.9–1.1; descent onset toward Fjogstadnuten sector",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Seam @ km 30.0: S4/F3 rocky cap → chunk_01 S3/F2 easy descent @ 30.0–30.1",
+        "Variance-gap partial span 29.28–30.0 (memo 05) — inter-athlete σ elevated; defer friction revisit?",
+        "GMM S5/S6 terminal pockets 29.9–30.0 — override under S4/F3 parent"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S4/F3 span.",
+      "gold_s_f": "S4/F3 rocky approach interval"
+    }
+  ],
+  "draft_spans": {
+    "easy_dirt_baseline": [
+      29.0,
+      29.4
+    ],
+    "minor_rocky_interval": [
+      29.4,
+      29.6
+    ],
+    "plank_muddy_pocket": [
+      29.6,
+      29.8
+    ],
+    "rocky_approach_chunk_01": [
+      29.8,
+      30.0
+    ]
+  },
+  "draft_span_table": [
+    {
+      "course_km_start": 29.0,
+      "course_km_end": 29.4,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: easy dirt trail baseline (chunk_00). Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 29.4,
+      "course_km_end": 29.6,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: minor rocky interval (chunk_00). Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 29.6,
+      "course_km_end": 29.8,
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: plank/muddy nested pocket (chunk_00). Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 29.8,
+      "course_km_end": 30.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: rocky approach interval (chunk_00). Locked 2026-06-29."
+    }
+  ],
+  "upstream_gramstad_seam": {
+    "km": 29.0,
+    "chunk_u06_locked_end": "S3/F2 easy trail / gramstad approach (28.751–29.0, operator gold locked 2026-06-29)",
+    "chunk_00_gold_start": "S3/F2 easy dirt trail baseline (29.0–29.4, operator gold tier lock 2026-06-28)",
+    "s_f_continuous": true,
+    "friction_continuous": true,
+    "continuity_requirements": [
+      "u06 locked S3/F2 @ 28.751–29.0 → chunk_00 S3/F2 @ 29.0–29.4 — no S2 gravel at sector boundary",
+      "Nested S4/F3 @ 29.4–29.6 is downstream gramstad gold only — do not extend into u06",
+      "Altitude continuity: Subject_A ~191 m @ 29.0 panel spine aligns with easy dirt baseline"
+    ],
+    "telemetry_at_seam": "Subject_A @ 29.0: grade +4.9%, speed ~1.48 m/s, TI 1.70, alt ~191 m. Subject_B @ 29.0: grade −2.1%, speed ~1.54 m/s, TI 2.63 — both runnable, no halt.",
+    "cross_reference": "chunk_u06_operator_disagreement_matrix.json → gramstad_band_seam Q6 resolved 2026-06-29"
+  },
+  "downstream_chunk_01_seam": {
+    "km": 30.0,
+    "chunk_00_gold_end": "S4/F3 rocky approach (29.8–30.0)",
+    "chunk_01_gold_start": "S3/F2 easy descent Fjogstadnuten flank (30.0–30.1)",
+    "s_f_transition": "S4/F3 → S3/F2 tread ease at km 30.0",
+    "friction_transition": "F3 → F2",
+    "note": "Intentional rocky-cap → easy-descent seam; verify on PNG before lock."
+  },
+  "geographic_anchors": {
+    "gramstad_band_seam": "km 29.0 — dale_paradisskaret_upstream ends; gramstad_band begins",
+    "sut_160_crosswalk": "revhol_flat 145.0–145.5 → gramstad_downhill 143.9–144.3 (late-loop geography; stream km differs)",
+    "downstream_target": "late_braking km 33.0–34.0 (Dalevatn-like braking corridor) via chunks 04–05",
+    "garmin_marker_context": "Post-Revhol Gramstad approach sector — easy dirt tread into Fjogstadnuten descent @ km 30+"
+  },
+  "open_questions": [
+    {
+      "id": "Q1_seam_29_0_u06_continuous",
+      "question": "Seam @ km 29.0: confirm S3/F2 continuous from locked u06 — no S2 gravel at sector boundary?",
+      "recommended_resolution": "Cross-check u06 lock + chunk_00 PNG Assigned strip; u06 Q6 already resolved upstream.",
+      "status": "likely_resolved_pending_png",
+      "operator_answer": null
+    },
+    {
+      "id": "Q2_sidecar_operator_gold_render",
+      "question": "hitl_agreement.parquet shows operator_gold_m=0 — does dashboard Assigned strip render all four map JSON gold spans?",
+      "recommended_resolution": "Rebuild hitl_agreement from map JSON if Assigned strip shows gmm_draft only.",
+      "status": "resolved",
+      "operator_answer": "Rebuild hitl_agreement from map JSON if Assigned strip shows gmm_draft only."
+    },
+    {
+      "id": "Q3_gmm_s2_early_window",
+      "question": "GMM S2 pocket @ 29.012–29.033 — override under S3/F2 parent (same pattern as u06 S1-in-S2)?",
+      "recommended_resolution": "Override S2 — prior operator gold explicitly removed S2 @ 29.0–29.1.",
+      "status": "resolved",
+      "operator_answer": "Override S2 — prior operator gold explicitly removed S2 @ 29.0–29.1."
+    },
+    {
+      "id": "Q4_variance_gap_29_28_30",
+      "question": "Variance-gap partial km 29.28–30.0 (memo 05) — retain deferred S3 guidance or supersede with tier-locked gold?",
+      "recommended_resolution": "Operator gold tier lock 2026-06-28 supersedes deferred guidance; confirm no σ-driven demotion needed.",
+      "status": "resolved",
+      "operator_answer": "Operator gold tier lock 2026-06-28 supersedes deferred guidance; confirm no σ-driven demotion needed."
+    },
+    {
+      "id": "Q5_seam_30_0_chunk_01",
+      "question": "Seam @ km 30.0: S4/F3 rocky cap → chunk_01 S3/F2 easy descent @ 30.0–30.1?",
+      "recommended_resolution": "Confirm tread ease on PNG; F3→F2 friction step intentional.",
+      "status": "resolved",
+      "operator_answer": "Confirm tread ease on PNG; F3→F2 friction step intentional."
+    },
+    {
+      "id": "Q6_dashboard_png_review",
+      "question": "Exported PNG: does Assigned strip show 4-span gold and clean seams @ 29.0 and 30.0?",
+      "recommended_resolution": "Operator visual sign-off required before lock elevation.",
+      "status": "resolved",
+      "operator_answer": "Operator visual sign-off required before lock elevation."
+    }
+  ],
+  "lock_readiness": {
+    "map_json_tier_lock": "chunk_00 locked 2026-06-29 (gold_source operator, locked_at 2026-06-29)",
+    "disagreement_matrix_status": "locked",
+    "gt_coverage_pct": 100.0,
+    "seams_clean": true,
+    "gmm_reconciled": true,
+    "blockers": [],
+    "recommendation": "chunk_00 operator gold locked 2026-06-29."
+  },
+  "priority_queue": {
+    "chunk_id": "chunk_00",
+    "queue_position": 1,
+    "sector": "gramstad_band",
+    "direction": "downstream toward late_braking (Dalevatn-like km 33–34)",
+    "chunks_remaining_in_direction": 11,
+    "chunk_plan": "chunk_00..chunk_11 (km 29–41); late_braking anchor @ chunks 04–05"
+  },
+  "reexport": {
+    "path": "06_Visualizations/sut43_hitl/chunk_00_km29-30.png",
+    "trigger": "chunk_00_operator_lock_20260629",
+    "chunk_index": 0,
+    "chunk_km": 1,
+    "km_window": [
+      29,
+      30
+    ],
+    "exported_at": "2026-06-29",
+    "verify_export": true,
+    "assigned_strip_verified": "S3/F2 operator gold @ 29.000–29.400; S4/F3 operator gold @ 29.400–29.600; S3/F3 operator gold @ 29.600–29.800; S4/F3 operator gold @ 29.800–30.000"
+  }
+}

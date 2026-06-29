@@ -1,0 +1,13 @@
+chunk_id,km_start,km_end,total_m,operator_gold_m,agreement_gold_m,draft_preservation_m,unset_m,gt_coverage_pct,current_tier_gold_m,abstain_m,review_m,notes
+chunk_00,29,30,1000,1000,1000,152,26,100.0,1000,0,0,operator gold locked 2026-06-29 — gramstad approach km 29.0-30.0 (4 spans S3/F2 + S4/F3 + S3/F3 + S4/F3); seam @ 29.0 S3/F2 from locked u06; seam @ 30.0 S4/F3 into chunk_01 S3/F2
+chunk_01,30,31,1000,1000,1000,380,215,100.0,1000,0,0,operator gold locked 2026-06-29 — Fjogstadnuten flank km 30.0-31.0 (4 spans S3/F2 + S4/F3 + S3/F2 + S3/F2); seam @ 30.0 from chunk_00; TRF @ 30.38-30.44 deferred; food CP TRF deferred; seam @ 31.0 into chunk_02 bedrock
+chunk_02,31,32,1000,0,1,742,257,74.3,1,769,230,
+chunk_03,32,33,1000,0,3,886,111,88.9,3,887,110,
+chunk_04,33,34,1000,0,0,932,68,93.2,0,932,68,
+chunk_05,34,35,1000,700,1,166,133,86.7,701,197,102,
+chunk_06,35,36,1000,700,0,61,239,76.1,700,125,175,
+chunk_07,36,37,1000,0,0,797,203,79.7,0,942,58,
+chunk_08,37,38,1000,460,1,458,81,91.9,461,458,81,
+chunk_09,38,39,1000,0,3,409,588,41.2,3,707,290,
+chunk_10,39,40,1000,300,0,120,580,42.0,300,268,432,
+chunk_11,40,41,1000,1000,0,0,0,100.0,1000,0,0,
