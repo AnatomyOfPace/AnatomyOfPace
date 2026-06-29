@@ -4203,6 +4203,18 @@ def main() -> None:
         help="0-based chunk index (requires --chunk-km); scopes dashboard to that window",
     )
     parser.add_argument(
+        "--km-start",
+        type=float,
+        default=None,
+        help="Chunk export window start km (default: gramstad_band 29.0; upstream dale_paradisskaret_upstream 22.0)",
+    )
+    parser.add_argument(
+        "--km-end",
+        type=float,
+        default=None,
+        help="Chunk export window end km (default: gramstad_band 41.0; upstream dale_paradisskaret_upstream 29.0)",
+    )
+    parser.add_argument(
         "--export-chunks",
         action="store_true",
         help="Export all chunk PNGs (requires --chunk-km); writes to --output-dir",
@@ -4494,13 +4506,15 @@ def main() -> None:
             verify_export=verify_export,
         )
 
-    if args.export_chunks:
-        km_start = SUT43_PRIMARY_KM_START
-        km_end = SUT43_PRIMARY_KM_END
+    def _chunk_export_bounds() -> tuple[float, float]:
+        km_start = SUT43_PRIMARY_KM_START if args.km_start is None else float(args.km_start)
+        km_end = SUT43_PRIMARY_KM_END if args.km_end is None else float(args.km_end)
         work = panel.sort_values("course_m")
         p_lo, p_hi = float(work["course_km"].min()), float(work["course_km"].max())
-        km_start = max(km_start, p_lo)
-        km_end = min(km_end, p_hi)
+        return max(km_start, p_lo), min(km_end, p_hi)
+
+    if args.export_chunks:
+        km_start, km_end = _chunk_export_bounds()
         chunks = iter_review_chunks(km_start, km_end, chunk_km=float(args.chunk_km))
         out_dir.mkdir(parents=True, exist_ok=True)
         paths: list[Path] = []
@@ -4527,12 +4541,7 @@ def main() -> None:
             for idx, name, w, h, nbytes in verify_rows:
                 print(f"  chunk_{idx:02d} {name} {w}x{h} {nbytes} B PIL=OK")
     elif args.chunk_index is not None:
-        km_start = SUT43_PRIMARY_KM_START
-        km_end = SUT43_PRIMARY_KM_END
-        work = panel.sort_values("course_m")
-        p_lo, p_hi = float(work["course_km"].min()), float(work["course_km"].max())
-        km_start = max(km_start, p_lo)
-        km_end = min(km_end, p_hi)
+        km_start, km_end = _chunk_export_bounds()
         chunks = iter_review_chunks(km_start, km_end, chunk_km=float(args.chunk_km))
         by_idx = {i: (lo, hi) for i, lo, hi in chunks}
         if args.chunk_index not in by_idx:
