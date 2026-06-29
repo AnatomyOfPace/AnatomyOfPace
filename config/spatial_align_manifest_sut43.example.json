@@ -5,11 +5,11 @@
   "experiment_sector_lock_version": "2026-06-26-sut43-gramstad-band",
   "sector_registry": "config/spatial_terrain_sectors_sut43.json",
   "km_analysis_window": [
-    29.0,
+    22.0,
     41.0
   ],
   "km_viewport_window": [
-    29.0,
+    21.5,
     41.5
   ],
   "sector_2_upstream": {
@@ -315,7 +315,7 @@
     "source_donor_id": "Subject_A",
     "source_activity_id": "SUT43_20260418",
     "km_window": [
-      29.0,
+      22.0,
       41.0
     ],
     "step_m": 1.0,
