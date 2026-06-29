@@ -79397,6 +79397,32 @@
           "S2"
         ],
         "reason": "operator HITL (chunk_01): S3/S4 parent lock km 30.0–31.0 — 4-span operator gold (S3/F2 30.0–30.1, S4/F3 30.1–30.35, S3/F2 30.35–30.55, S3/F2 30.55–31.0); accept GMM S4/S5/S6 micro-pockets within parent; override S1/S2 noise. TRF @ 30.38–30.44 and food CP TRF deferred. Seam @ 30.0 from chunk_00 S4/F3; seam @ 31.0 into chunk_02 bedrock lock. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 31.0,
+        "course_km_end": 32.0,
+        "accept_draft_classes": [
+          "S5",
+          "S6"
+        ],
+        "no_input_classes": [
+          "S5",
+          "S6"
+        ],
+        "reason": "operator HITL (chunk_02): S4/F3 parent lock km 31.0–32.0 — 4-span operator gold (S4/F3 31.0–31.15, 31.15–31.5, 31.5–31.75, 31.75–32.0); absorb GMM S5/S6 micro-pockets within parent; override S1/S2/S3 noise. STILE-31 TRF @ 31.1–31.5 deferred. Seam @ 31.0 from chunk_01 S3/F2 (F2→F3); seam @ 32.0 continuous S4/F3 into chunk_03. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 32.0,
+        "course_km_end": 33.0,
+        "accept_draft_classes": [
+          "S5",
+          "S6"
+        ],
+        "no_input_classes": [
+          "S5",
+          "S6"
+        ],
+        "reason": "operator HITL (chunk_03): S4/F3 parent lock km 32.0–33.0 — 4-span operator gold (S4/F3 32.0–32.25, 32.25–32.55, S3/F2 nested 32.55–32.65, S4/F3 32.65–33.0); absorb GMM S5/S6 micro-pockets within parent; override S1/S2/S3 noise except nested S3/F2 dirt pocket. Seam @ 32.0 continuous S4/F3 from chunk_02; seam @ 33.0 S4/F3 through 33.0 (S5/F3 granite split deferred to km 33.2). Locked 2026-06-29."
       }
     ],
     "operator_gold_spans": [
@@ -79474,11 +79500,57 @@
       },
       {
         "course_km_start": 31.0,
-        "course_km_end": 33.2,
+        "course_km_end": 31.15,
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: chunk_02 bedrock lock — rocky trail / technical bedrock tread (gramstad_band reverse traverse 2026-06-28). Contiguous S4/F3 operator-gold band km 31.0–33.2; boundary @ km 33.2 aligns with downstream S5/F3 exposed granite km 33.2–33.39 (not merged). Nested S3/F2 pure-dirt pocket @ km 32.55–32.65 retained. S4/F3 per friction_index_spec. Supersedes legacy chunk_03/04 micro-spans and deferred guidance in window. Co-runner stile wait (gjerdeklyver @ km 31.158): both athletes stationary — same bathroom-break event, ~79 s temporal overlap; not a downstream bedrock stop. Subject_A stationary at stile: norgeskart pin UTM-32 E 316408.72 N 6531320.04 elev 286.0 m (panel snap residual 1.9 m, elev Δ +0.7 m); SUT43_20260418 stop/wait cluster km 31.132–31.180 (48 m, 0 m/s). Subject_B stationary slightly downstream of stile: operator pin UTM-32 E 316435.62 N 6531327.88 elev 275.8 m (~15–28 m UTM from Subject_A stile pin); Subject_B stream km 31.440–31.476 (~79 s, 0 m/s) — ~300 m stream-km offset vs panel km 31.132–31.180 is FIT labeling artifact, not separate terrain. Distinct FIT/TI signatures across runs at crossing; not chunk_06 km ~35.15 (Gramstad gravel S2/F1 — separate inter-athlete cluster-rank divergence)."
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: bedrock lock onset @ seam (chunk_02). S4/F3 per friction_index_spec. F2→F3 tread step from chunk_01 S3/F2 @ km 31.0. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 31.15,
+        "course_km_end": 31.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: stile / gjerdeklyver corridor (chunk_02). S4/F3 per friction_index_spec. STILE-31 co-wait TRF exclusion 31.1–31.5; friction tier unchanged on behavioral halt. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 31.5,
+        "course_km_end": 31.75,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: mid bedrock climb band (chunk_02). S4/F3 per friction_index_spec. GMM S5/S6 micro-pockets absorbed under parent. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 31.75,
+        "course_km_end": 32.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: downstream bedrock toward Dalevatn / Fjogstadnuten corridor (chunk_02). S4/F3 per friction_index_spec. Seam @ km 32.0 continuous S4/F3 into chunk_03. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 32.0,
+        "course_km_end": 32.25,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: upstream bedrock continuation @ seam (chunk_03). S4/F3 per friction_index_spec. Seamless from chunk_02 @ km 32.0; override GMM S6/S5 majority. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 32.25,
+        "course_km_end": 32.55,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: mid bedrock roll toward nested dirt pocket (chunk_03). S4/F3 per friction_index_spec. GMM S6/S5 micro-pockets absorbed under parent. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
       },
       {
         "course_km_start": 32.55,
@@ -79486,7 +79558,25 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: nested dirt pocket — pure dirt within chunk_02 bedrock lock km 31.0–33.2 (S4/F3 parent). Only pure-dirt section in rocky/granite band; muddy when wet (dirt pocket, not full bog/marsh). S3/F2 per friction_index_spec. Operator confirmed reverse traverse 2026-06-28."
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: nested pure-dirt pocket within S4/F3 parent lock km 31.0–33.2 (chunk_03). Only pure-dirt section in rocky/granite band; muddy when wet (dirt pocket, not full bog/marsh). S3/F2 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 32.65,
+        "course_km_end": 33.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: downstream bedrock toward Rinna ridge (chunk_03). S4/F3 per friction_index_spec. Resume S4/F3 after nested pocket; parent lock continues to km 33.2. Seam @ km 33.0 continuous S4/F3 into chunk_04. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
+      },
+      {
+        "course_km_start": 33.0,
+        "course_km_end": 33.2,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: bedrock lock parent continuation km 33.0–33.2 — rocky trail / technical bedrock tread toward Rinna ridge (gramstad_band reverse traverse 2026-06-28). S4/F3 per friction_index_spec. Boundary @ km 33.2 aligns with downstream S5/F3 exposed granite km 33.2–33.39 (not merged). chunk_03 locked through km 33.0; chunk_04 seam deferred."
       },
       {
         "course_km_start": 33.2,

@@ -1,0 +1,406 @@
+{
+  "chunk_id": "chunk_02",
+  "sector_id": "gramstad_band",
+  "course_km_window": [
+    31.0,
+    32.0
+  ],
+  "reviewed_at": "2026-06-29",
+  "status": "locked",
+  "locked_at": "2026-06-29",
+  "operator_statement": "Locked 2026-06-29: 4-span operator gold km 31.0–32.0 — S4/F3 bedrock lock onset @ 31.0–31.15, S4/F3 stile/gjerdeklyver @ 31.15–31.5, S4/F3 mid climb @ 31.5–31.75, S4/F3 downstream bedrock @ 31.75–32.0. Unified S4/F3 parent lock extends to ~33.2. Seam @ 31.0 from locked chunk_01 S3/F2 (F2→F3); seam @ 32.0 continuous into chunk_03. STILE-31 TRF @ 31.1–31.5 deferred. GMM S5/S6 absorbed under S4/F3 parent.",
+  "display_bugs_fixed": [],
+  "display_bugs_not_found": [],
+  "km_bands": [
+    {
+      "km_band": "31.00–31.15",
+      "draft_s_f": "S4/F3 bedrock lock onset @ seam",
+      "png_operator_read": "Amber S4/F3 bedrock tread opening chunk; GMM S3/S2/S4 mix at seam vs unified S4/F3 parent",
+      "dashboard_assigned_after_fix": "S4/F3 operator gold",
+      "gmm_draft_dominant": "S3 46 m, S2 44 m, S4 24 m, S5 20 m, S6 16 m — GMM favors easy/gravel at seam onset",
+      "draft_preservation": "Parent S4/F3 bedrock lock km 31.0–33.2; override GMM S3/S2 at seam — no tread ease extension from chunk_01",
+      "telemetry": "Grade −45% to +39%; altitude ~290→314 m (Subject_A) / ~233→324 m (Subject_B); runnable ~1.41–1.50 m/s; Subject_A TI peak 5.56 @ 31.108",
+      "mismatch_type": "gmm_s3_s2_noise_on_s4_parent",
+      "dispute_topics": [
+        "Seam @ km 31.0: chunk_01 locked S3/F2 easy dirt → chunk_02 S4/F3 bedrock lock — F2→F3 tread step intentional?",
+        "GMM S3/S2 pockets @ 31.0–31.15 — override under S4/F3 parent?",
+        "Subject_A early halt cluster @ 31.005+ — pre-stile movement vs co-wait (TRF window starts @ 31.1)"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S4/F3 span.",
+      "gold_s_f": "S4/F3 bedrock lock onset @ seam"
+    },
+    {
+      "km_band": "31.15–31.50",
+      "draft_s_f": "S4/F3 stile / gjerdeklyver corridor",
+      "png_operator_read": "Amber S4/F3 technical bedrock through STILE-31 anchor; GMM S4/S5-dominant vs operator S4/F3 parent",
+      "dashboard_assigned_after_fix": "S4/F3 operator gold",
+      "gmm_draft_dominant": "S4 120 m, S5 106 m, S3 89 m, S6 35 m — GMM S5 majority pockets vs operator S4/F3 parent",
+      "draft_preservation": "Accept S5/S6 micro-pockets within S4/F3 parent; TRF exclusion 31.1–31.5 masks co-wait halt",
+      "telemetry": "Grade −45% to +45%; altitude ~278→339 m; Subject_A TI peak 5.97 @ 31.320; Subject_B TI peak 6.21 @ 31.466 (stile co-wait)",
+      "mismatch_type": "gmm_s5_pockets_on_s4_parent",
+      "dispute_topics": [
+        "STILE-31 co-wait @ km 31.132+ (Subject_A) / ~31.44 (Subject_B stream) — TRF exclusion, not S-class promotion",
+        "GMM S5/S6 majority pockets — override under S4/F3 bedrock parent?",
+        "Confirm bedrock tread unchanged through co-wait window (behavioral only)"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S4/F3 span; TRF exclusion 31.1–31.5 masks co-wait.",
+      "gold_s_f": "S4/F3 stile / gjerdeklyver corridor"
+    },
+    {
+      "km_band": "31.50–31.75",
+      "draft_s_f": "S4/F3 mid bedrock climb band",
+      "png_operator_read": "Amber S4/F3 rocky climb; GMM S4/S3/S5 mix; altitude gain toward Fjogstadnuten flank",
+      "dashboard_assigned_after_fix": "S4/F3 operator gold",
+      "gmm_draft_dominant": "S4 71 m, S3 68 m, S5 43 m, S2 34 m, S6 28 m, S1 7 m — chaotic GMM vs unified S4/F3 parent",
+      "draft_preservation": "Accept S5/S6 micro-pockets within S4/F3 parent; override S1/S2/S3 noise",
+      "telemetry": "Grade −45% to +45%; altitude ~312→363 m (Subject_A); runnable ~1.20–1.25 m/s; Subject_A TI peak 4.64 @ 31.719",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Confirm S4/F3 mid climb vs promote GMM S5/S6 majority",
+        "Subject_A extended slow metres — partial co-wait tail vs terrain-driven TI",
+        "Band boundary @ 31.75 — telemetric crest deferred to downstream band"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S4/F3 span.",
+      "gold_s_f": "S4/F3 mid bedrock climb band"
+    },
+    {
+      "km_band": "31.75–32.00",
+      "draft_s_f": "S4/F3 downstream bedrock toward Dalevatn corridor",
+      "png_operator_read": "Amber S4/F3 bedrock roll; GMM S5/S6-dominant chaos vs operator S4/F3 parent; chunk_03 seam @ 32.0",
+      "dashboard_assigned_after_fix": "S4/F3 operator gold",
+      "gmm_draft_dominant": "S5 93 m, S4 73 m, S6 62 m, S3 21 m — GMM favors S5/S6 over operator S4/F3",
+      "draft_preservation": "Accept S5/S6 micro-pockets within S4/F3 parent; nested S3/F2 dirt pocket begins downstream @ 32.55 (not in chunk)",
+      "telemetry": "Grade −45% to +7%; altitude ~256→362 m; Subject_A TI peak 6.94 @ 31.863; runnable med ~0.92 m/s (halt-influenced metres)",
+      "mismatch_type": "gmm_s5_s6_majority_on_s4_parent",
+      "dispute_topics": [
+        "GMM S5/S6 majority @ 31.75–32.0 — override under S4/F3 bedrock parent?",
+        "Seam @ km 32.0: contiguous S4/F3 bedrock lock continues into chunk_03 — confirm no split",
+        "Subject_A slow cluster — TRF vs terrain authority for TI peak @ 31.863"
+      ],
+      "operator_answer": "Locked 2026-06-29: retain S4/F3 span; continuous seam @ 32.0 into chunk_03.",
+      "gold_s_f": "S4/F3 downstream bedrock toward Dalevatn corridor"
+    }
+  ],
+  "draft_spans": {
+    "bedrock_lock_onset_seam": [
+      31.0,
+      31.15
+    ],
+    "stile_gjerdeklyver_corridor": [
+      31.15,
+      31.5
+    ],
+    "mid_bedrock_climb": [
+      31.5,
+      31.75
+    ],
+    "downstream_bedrock_dalevatn": [
+      31.75,
+      32.0
+    ]
+  },
+  "draft_span_table": [
+    {
+      "course_km_start": 31.0,
+      "course_km_end": 31.15,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: bedrock lock onset @ seam (chunk_02 walkthrough band within km 31.0–33.2 parent lock). Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 31.15,
+      "course_km_end": 31.5,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: stile / gjerdeklyver corridor (chunk_02 walkthrough band). STILE-31 co-wait TRF exclusion 31.1–31.5. Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 31.5,
+      "course_km_end": 31.75,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: mid bedrock climb band (chunk_02 walkthrough band within km 31.0–33.2 parent lock). Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 31.75,
+      "course_km_end": 32.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "mode": "operator_gold",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: downstream bedrock toward Dalevatn / Fjogstadnuten corridor (chunk_02 walkthrough band). Locked 2026-06-29."
+    }
+  ],
+  "upstream_chunk_01_seam": {
+    "km": 31.0,
+    "chunk_01_gold_end": "S3/F2 easy dirt toward stile (30.55–31.0, operator gold locked 2026-06-29)",
+    "chunk_02_gold_start": "S4/F3 bedrock lock (31.0–33.2, operator gold locked 2026-06-29 through km 32.0)",
+    "s_f_transition": "S3/F2 → S4/F3 technical bedrock at km 31.0",
+    "friction_transition": "F2 → F3",
+    "continuity_requirements": [
+      "chunk_01 locked S3/F2 @ 30.55–31.0 ends @ 31.0 — no easy-dirt extension into chunk_02 bedrock lock",
+      "chunk_02 S4/F3 @ 31.0–31.15 is intentional tread step at stile approach / bedrock onset",
+      "Altitude continuity: Subject_A ~296 m @ 31.0 panel aligns with bedrock band onset"
+    ],
+    "telemetry_at_seam": "Subject_A @ 31.0: runnable ~1.07 m/s, TI ~1.11, grade +23.7%; Subject_B @ 31.0: ~0.94 m/s, TI ~1.04, grade +27.1% — both through-running at seam metre (no halt @ 31.0).",
+    "cross_reference": "chunk_01_operator_disagreement_matrix.json → downstream_chunk_02_seam Q5 resolved at chunk_01 lock; chunk_02 pre-check confirms on PNG"
+  },
+  "downstream_chunk_03_seam": {
+    "km": 32.0,
+    "chunk_02_gold_end": "S4/F3 bedrock lock (31.75–32.0 walkthrough band; parent lock continues to km 33.2)",
+    "chunk_03_gold_start": "S4/F3 bedrock lock continuation (31.0–33.2 parent — no tread change @ 32.0)",
+    "s_f_transition": "S4/F3 continuous — chunk boundary only",
+    "friction_transition": "F3 continuous",
+    "note": "Nested S3/F2 pure-dirt pocket @ km 32.55–32.65 is downstream in chunk_03 window."
+  },
+  "geographic_anchors": {
+    "stile_31": "km 31.132+ — gjerdeklyver co-wait behavioral anchor (STILE-31)",
+    "fjogstadnuten_bedrock_band": "km 31.0–33.2 — rocky trail / technical bedrock tread toward Fjogstadnuten / Dalevatn corridor",
+    "dalevatn_corridor_target": "downstream late_braking anchor @ chunks 04–05 (km 33–34)",
+    "nested_dirt_pocket": "km 32.55–32.65 S3/F2 pure-dirt pocket within bedrock parent (chunk_03 concern)"
+  },
+  "behavioral_anchors": {
+    "stile_co_wait": {
+      "anchor_id": "stile_31",
+      "panel_km": "31.132–31.180 (Subject_A) / ~31.44 (Subject_B stream)",
+      "trf_exclusion": [
+        31.1,
+        31.5
+      ],
+      "subject_scope": "both",
+      "note": "Co-runner bathroom break at gjerdeklyver — behavioral halt; exclude from paired TRF; do not promote S-class from stop signature"
+    }
+  },
+  "open_questions": [
+    {
+      "id": "Q1_seam_31_0_chunk_01",
+      "question": "Seam @ km 31.0: chunk_01 locked S3/F2 easy dirt → chunk_02 S4/F3 bedrock lock?",
+      "recommended_resolution": "Confirm tread transition on PNG; F2→F3 step intentional before stile / bedrock band.",
+      "status": "resolved",
+      "operator_answer": "Confirm tread transition on PNG; F2→F3 step intentional before stile / bedrock band."
+    },
+    {
+      "id": "Q2_gmm_s3_s2_seam_onset",
+      "question": "GMM S3/S2 majority @ 31.0–31.15 — override under S4/F3 bedrock parent?",
+      "recommended_resolution": "Override GMM S3/S2 — retain S4/F3 bedrock lock onset; no tread ease from chunk_01.",
+      "status": "resolved",
+      "operator_answer": "Override GMM S3/S2 — retain S4/F3 bedrock lock onset; no tread ease from chunk_01."
+    },
+    {
+      "id": "Q3_stile_trf",
+      "question": "STILE-31 co-wait @ 31.1–31.5 — confirm S4/F3 bedrock tier unchanged despite halt signatures?",
+      "recommended_resolution": "Retain S4/F3; TRF exclusion 31.1–31.5 masks co-wait; friction tier not driven by bathroom break.",
+      "status": "deferred",
+      "operator_answer": "Retain S4/F3; TRF exclusion 31.1–31.5 masks co-wait; friction tier not driven by bathroom break."
+    },
+    {
+      "id": "Q4_gmm_s5_s6_mid_downstream",
+      "question": "GMM S5/S6 majority @ 31.5–32.0 — override under S4/F3 operator gold parent?",
+      "recommended_resolution": "Override GMM S5/S6 — retain S4/F3 bedrock lock per field memory + reverse-traverse validation.",
+      "status": "resolved",
+      "operator_answer": "Override GMM S5/S6 — retain S4/F3 bedrock lock per field memory + reverse-traverse validation."
+    },
+    {
+      "id": "Q5_draft_preservation_overlap",
+      "question": "No draft_preservation span yet for km 31–32 — add S5/S6 accept policy within S4/F3 parent before lock?",
+      "recommended_resolution": "Recommend draft_preservation km 31.0–32.0 accept S5/S6, override S1/S2/S3 — operator sign-off at lock.",
+      "status": "resolved",
+      "operator_answer": "draft_preservation km 31.0–32.0 added; S5/S6 no_input under S4/F3 parent."
+    },
+    {
+      "id": "Q6_dashboard_png_review",
+      "question": "Exported PNG: does Assigned strip show unified S4/F3 gold and clean seam @ 31.0 from chunk_01?",
+      "recommended_resolution": "Operator visual sign-off required before lock elevation.",
+      "status": "resolved",
+      "operator_answer": "Assigned strip verified unified S4/F3 gold @ km 31.0–32.0; clean seam @ 31.0 from chunk_01 S3/F2."
+    }
+  ],
+  "lock_readiness": {
+    "map_json_tier_lock": "chunk_02 locked 2026-06-29 (gold_source operator, locked_at 2026-06-29)",
+    "disagreement_matrix_status": "locked",
+    "gt_coverage_pct": 100.0,
+    "seams_clean": true,
+    "gmm_reconciled": true,
+    "blockers": [],
+    "recommendation": "chunk_02 operator gold locked 2026-06-29."
+  },
+  "priority_queue": {
+    "chunk_id": "chunk_02",
+    "queue_position": 3,
+    "sector": "gramstad_band",
+    "direction": "downstream toward late_braking (Dalevatn-like km 33–34)",
+    "chunks_remaining_in_direction": 9,
+    "chunk_plan": "chunk_02..chunk_11 (km 31–41); late_braking anchor @ chunks 04–05"
+  },
+  "interval_review_queue": {
+    "chunk_id": "chunk_02",
+    "sector_id": "gramstad_band",
+    "km_window": [
+      31.0,
+      32.0
+    ],
+    "N": 4,
+    "direction": "west_to_east (km ascending)",
+    "pre_check": {
+      "type": "pre_check",
+      "label": "Upstream seam @ km 31.0 (chunk_01 → chunk_02)",
+      "km": 31.0,
+      "upstream_locked": "S3/F2 easy dirt toward stile (30.55–31.0, chunk_01 operator gold locked 2026-06-29)",
+      "downstream_draft": "S4/F3 bedrock lock onset (31.0–31.15, chunk_02 operator gold draft_review)",
+      "input_needed": [
+        "seam"
+      ],
+      "open_questions": [
+        "Q1_seam_31_0_chunk_01"
+      ],
+      "telemetry": "Subject_A @ 31.0: ~1.07 m/s, TI ~1.11, grade +23.7%; Subject_B @ 31.0: ~0.94 m/s, TI ~1.04, grade +27.1%. Both runnable — no halt at seam metre.",
+      "recommended_default_if_silent": "Confirm S3/F2 → S4/F3 tread step at km 31.0 (F2→F3); chunk_01 lock accepted this seam — no easy-dirt extension into bedrock lock"
+    },
+    "queue": [
+      {
+        "order": 1,
+        "km_start": 31.0,
+        "km_end": 31.15,
+        "label": "bedrock lock onset @ seam",
+        "current_draft": {
+          "surface": "S4",
+          "friction": "F3"
+        },
+        "mode": "operator_gold",
+        "locked_at": null,
+        "input_needed": [
+          "confirm",
+          "seam"
+        ],
+        "input_detail": "Confirm S4/F3 bedrock lock opening; override GMM S3/S2 pockets at seam; F2→F3 step from chunk_01",
+        "gmm_disagreement": "S3 46 m, S2 44 m, S4 24 m, S5 20 m, S6 16 m — GMM favors easy/gravel at seam onset",
+        "ti_disagreement": "Subject_A TI peak 5.56 @ 31.108 — localized spike within S4/F3 parent unless tread promotes S5",
+        "telemetry": "Grade −45% to +39%; alt ~290→314 m; runnable ~1.41–1.50 m/s; through-running at km 31.0",
+        "trf_notes": null,
+        "open_questions": [
+          "Q1_seam_31_0_chunk_01",
+          "Q2_gmm_s3_s2_seam_onset"
+        ],
+        "recommended_default_if_silent": "Keep S4/F3; override GMM S3/S2/S5 micro-pockets; accept F2→F3 seam @ 31.0"
+      },
+      {
+        "order": 2,
+        "km_start": 31.15,
+        "km_end": 31.5,
+        "label": "stile / gjerdeklyver corridor",
+        "current_draft": {
+          "surface": "S4",
+          "friction": "F3"
+        },
+        "mode": "operator_gold",
+        "locked_at": null,
+        "input_needed": [
+          "confirm",
+          "TRF"
+        ],
+        "input_detail": "Confirm S4/F3 bedrock through STILE-31; GMM S5/S6 pockets overridden; co-wait TRF exclusion 31.1–31.5",
+        "gmm_disagreement": "S4 120 m, S5 106 m, S3 89 m, S6 35 m — GMM S5 majority vs operator S4/F3 parent",
+        "ti_disagreement": "Subject_B TI peak 6.21 @ 31.466 — co-wait behavioral; Subject_A peak 5.97 @ 31.320",
+        "telemetry": "Grade −45% to +45%; alt ~278→339 m; STILE-31 anchor @ km 31.132+",
+        "trf_notes": "trf_exclusions co_wait stile_31 31.1–31.5 (both athletes)",
+        "open_questions": [
+          "Q3_stile_trf"
+        ],
+        "recommended_default_if_silent": "Keep S4/F3 through stile corridor; TRF exclusion masks halt; no friction tier change on co-wait"
+      },
+      {
+        "order": 3,
+        "km_start": 31.5,
+        "km_end": 31.75,
+        "label": "mid bedrock climb band",
+        "current_draft": {
+          "surface": "S4",
+          "friction": "F3"
+        },
+        "mode": "operator_gold",
+        "locked_at": null,
+        "input_needed": [
+          "confirm"
+        ],
+        "input_detail": "Confirm S4/F3 mid climb; override GMM S5/S6/S3 pockets; altitude gain toward Fjogstadnuten flank",
+        "gmm_disagreement": "S4 71 m, S3 68 m, S5 43 m, S2 34 m, S6 28 m — chaotic GMM vs unified S4/F3 parent",
+        "ti_disagreement": "Subject_A TI peak 4.64 @ 31.719 — aligned with S4/F3 climb; Subject_B low TI — skill spread",
+        "telemetry": "Grade −45% to +45%; alt ~312→363 m; runnable ~1.20–1.25 m/s",
+        "trf_notes": null,
+        "open_questions": [
+          "Q4_gmm_s5_s6_mid_downstream"
+        ],
+        "recommended_default_if_silent": "Keep S4/F3; override GMM S5/S6/S3 noise; band end @ 31.75 for telemetric crest handoff"
+      },
+      {
+        "order": 4,
+        "km_start": 31.75,
+        "km_end": 32.0,
+        "label": "downstream bedrock → chunk_03 seam",
+        "current_draft": {
+          "surface": "S4",
+          "friction": "F3"
+        },
+        "mode": "operator_gold",
+        "locked_at": null,
+        "input_needed": [
+          "confirm",
+          "seam"
+        ],
+        "input_detail": "Confirm S4/F3 bedrock roll toward Dalevatn corridor; seam @ 32.0 continuous parent lock; override GMM S5/S6 majority",
+        "gmm_disagreement": "S5 93 m, S4 73 m, S6 62 m, S3 21 m — GMM favors S5/S6 over operator S4/F3",
+        "ti_disagreement": "Subject_A TI peak 6.94 @ 31.863 — halt-influenced metres possible; retain S4/F3 unless tread promotes S5",
+        "telemetry": "Grade −45% to +7%; alt ~256→362 m; parent lock continues past km 32.0 to 33.2",
+        "trf_notes": null,
+        "open_questions": [
+          "Q4_gmm_s5_s6_mid_downstream"
+        ],
+        "recommended_default_if_silent": "Keep S4/F3; override GMM S5/S6; accept S4/F3 continuous seam @ 32.0 into chunk_03"
+      }
+    ],
+    "post_check": {
+      "type": "post_check",
+      "label": "Dashboard PNG + lock readiness",
+      "png": "06_Visualizations/sut43_hitl/chunk_02_km31-32.png",
+      "input_needed": [
+        "confirm"
+      ],
+      "open_questions": [
+        "Q6_dashboard_png_review",
+        "Q5_draft_preservation_overlap"
+      ],
+      "sidecar_note": "hitl_agreement.parquet refreshed km 29–41 — operator_gold_class S4 1000/1000 m @ km 31–32; verify Assigned strip shows unified S4/F3 + clean seam @ 31.0 from chunk_01 S3/F2",
+      "lock_blockers": [
+        "Operator PNG sign-off (Q6)",
+        "GMM S5/S6 pockets unreconciled (Q4)",
+        "draft_preservation policy for km 31–32 not in map JSON (Q5)",
+        "STILE-31 TRF confirmation (Q3)"
+      ],
+      "recommended_default_if_silent": "Accept PNG if Assigned strip shows unified S4/F3 gold; defer lock elevation without explicit approval"
+    }
+  },
+  "reexport": {
+    "path": "06_Visualizations/sut43_hitl/chunk_02_km31-32.png",
+    "trigger": "chunk_02_operator_lock_20260629",
+    "chunk_index": 2,
+    "chunk_km": 1,
+    "km_window": [
+      31,
+      32
+    ],
+    "exported_at": "2026-06-29",
+    "verify_export": true,
+    "assigned_strip_verified": "S4/F3 operator gold @ 31.000–31.150; S4/F3 operator gold @ 31.150–31.500; S4/F3 operator gold @ 31.500–31.750; S4/F3 operator gold @ 31.750–32.000",
+    "note": "Use --chunk-index 2 without --km-start/--km-end (km window flags narrow chunk enumeration to index 0 only)"
+  }
+}
