@@ -1,10 +1,10 @@
 {
   "schema_version": "reference_spine_v0",
-  "generated_at": "2026-06-28T19:58:20Z",
+  "generated_at": "2026-06-29T05:56:28Z",
   "corridor_id": "sut43_terrain_ontology",
   "sector_id": "gramstad_band",
   "km_window": [
-    29.0,
+    22.0,
     41.0
   ],
   "step_m": 1.0,
@@ -13,7 +13,7 @@
     "activity_id": "SUT43_20260418",
     "session_type": "race"
   },
-  "n_metres": 12001,
+  "n_metres": 19001,
   "output_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/reference_spine_1m.parquet",
   "kinematic_anchors": [
     {
@@ -121,15 +121,15 @@
       "activity_id": "SUT43_20260418",
       "cross_track_m_median": 0.0,
       "cross_track_m_p95": 0.0,
-      "n_samples": 12001,
+      "n_samples": 19001,
       "note": "canonical spine source"
     },
     {
       "subject_id": "Subject_B",
       "activity_id": "19000570862",
       "cross_track_m_median": 1.1,
-      "cross_track_m_p95": 4.4,
-      "n_samples": 10199
+      "cross_track_m_p95": 4.2,
+      "n_samples": 16074
     }
   ],
   "usage": "Join activities on ref_chainage_m after reprojecting stream samples. Use kinematic_anchors.stream_km for per-athlete km labels at validated pins. Defer cross-athlete same-metre TRF until all panel rows carry ref_chainage_m."
