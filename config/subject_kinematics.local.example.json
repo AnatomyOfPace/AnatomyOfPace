@@ -1,0 +1,29 @@
+{
+  "_notice": "Copy to config/subject_kinematics.local.json (gitignored). Clinical IDs only.",
+  "_schema": "subject_kinematics_v1",
+  "_doc": "Locomotion four-gate thresholds per TRF §3.3 and Strategic Command memo 2026-06-29.",
+  "Subject_A": {
+    "run_cadence_min": 145,
+    "hike_cadence_max": 130,
+    "grey_zone_uphill": {
+      "grade_threshold_pct": 5.0,
+      "speed_max_ms": 1.5
+    },
+    "grey_zone_downhill": {
+      "grade_threshold_pct": -5.0,
+      "speed_max_ms": 1.8
+    }
+  },
+  "Subject_B": {
+    "run_cadence_min": 140,
+    "hike_cadence_max": 125,
+    "grey_zone_uphill": {
+      "grade_threshold_pct": 5.0,
+      "speed_max_ms": 1.4
+    },
+    "grey_zone_downhill": {
+      "grade_threshold_pct": -5.0,
+      "speed_max_ms": 1.7
+    }
+  }
+}

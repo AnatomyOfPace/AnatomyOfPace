@@ -3,6 +3,7 @@
 .env.*
 !.env.example
 config/subject_registry.local.json
+config/subject_kinematics.local.json
 config/subject_biomechanical_priors.local.json
 config/seed_matrix.local.json
 config/strava_tokens.local.json

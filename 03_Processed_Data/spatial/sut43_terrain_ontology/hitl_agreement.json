@@ -1,25 +1,29 @@
 {
   "schema_version": "hitl_agreement_v1",
-  "generated_at": "2026-06-29T17:38:56.824897+00:00",
+  "generated_at": "2026-06-29T18:23:45.211904+00:00",
   "km_start": 29.0,
-  "km_end": 33.0,
+  "km_end": 41.0,
   "metrics": {
-    "n_metres": 4000,
-    "n_decided_v2": 4000,
-    "n_match": 4000,
+    "n_metres": 12000,
+    "n_decided_v2": 12000,
+    "n_match": 12000,
     "agreement_pct": 100.0,
-    "cohens_kappa": -0.0529,
+    "cohens_kappa": 0.0247,
     "tier_counts": {
-      "gold": 4000
+      "gold": 12000
     },
-    "gold_metres": 4000,
+    "gold_metres": 12000,
     "silver_metres": 0,
     "bronze_metres": 0,
     "review_metres": 0,
     "abstain_metres": 0,
     "ml_label_class_counts": {
-      "S4": 2550,
-      "S3": 1450
+      "S3": 3382,
+      "S4": 3150,
+      "S2": 2440,
+      "S1": 1860,
+      "S6": 738,
+      "S5": 430
     }
   },
   "confusion_matrix": {
@@ -34,67 +38,67 @@
     ],
     "counts": {
       "S1": {
-        "S1": 6,
+        "S1": 1996,
         "S2": 0,
         "S3": 0,
         "S4": 0,
         "S5": 0,
         "S6": 0,
-        "unassigned": 1
+        "unassigned": 136
       },
       "S2": {
-        "S1": 87,
+        "S1": 1771,
         "S2": 0,
         "S3": 1,
         "S4": 0,
         "S5": 0,
         "S6": 0,
-        "unassigned": 0
+        "unassigned": 56
       },
       "S3": {
-        "S1": 862,
+        "S1": 1669,
         "S2": 0,
         "S3": 54,
         "S4": 0,
         "S5": 0,
         "S6": 0,
-        "unassigned": 503
+        "unassigned": 702
       },
       "S4": {
-        "S1": 136,
+        "S1": 322,
         "S2": 0,
-        "S3": 38,
-        "S4": 0,
+        "S3": 89,
+        "S4": 17,
         "S5": 0,
         "S6": 0,
-        "unassigned": 673
+        "unassigned": 1602
       },
       "S5": {
-        "S1": 7,
+        "S1": 21,
         "S2": 0,
-        "S3": 55,
-        "S4": 0,
+        "S3": 182,
+        "S4": 1,
         "S5": 0,
         "S6": 0,
-        "unassigned": 250
+        "unassigned": 653
       },
       "S6": {
-        "S1": 3,
+        "S1": 7,
         "S2": 0,
-        "S3": 10,
-        "S4": 0,
-        "S5": 0,
+        "S3": 93,
+        "S4": 29,
+        "S5": 19,
         "S6": 0,
-        "unassigned": 54
+        "unassigned": 552
       },
       "unassigned": {
-        "S1": 233,
+        "S1": 234,
         "S2": 0,
-        "S3": 211,
-        "S4": 31,
+        "S3": 328,
+        "S4": 60,
         "S5": 0,
         "S6": 0,
-        "unassigned": 785
+        "unassigned": 1406
       }
     }
   },
@@ -1595,11 +1599,2135 @@
     },
     {
       "course_m_start": 32993.0,
-      "course_m_end": 33000.0,
+      "course_m_end": 33052.0,
       "course_km_start": 32.993,
-      "course_km_end": 33.0,
+      "course_km_end": 33.052,
       "agreement_tier": "gold",
       "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33052.0,
+      "course_m_end": 33139.0,
+      "course_km_start": 33.052,
+      "course_km_end": 33.139,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33139.0,
+      "course_m_end": 33183.0,
+      "course_km_start": 33.139,
+      "course_km_end": 33.183,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 33183.0,
+      "course_m_end": 33192.0,
+      "course_km_start": 33.183,
+      "course_km_end": 33.192,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33192.0,
+      "course_m_end": 33213.0,
+      "course_km_start": 33.192,
+      "course_km_end": 33.213,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33213.0,
+      "course_m_end": 33222.0,
+      "course_km_start": 33.213,
+      "course_km_end": 33.222,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33222.0,
+      "course_m_end": 33270.0,
+      "course_km_start": 33.222,
+      "course_km_end": 33.27,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33270.0,
+      "course_m_end": 33278.0,
+      "course_km_start": 33.27,
+      "course_km_end": 33.278,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33278.0,
+      "course_m_end": 33324.0,
+      "course_km_start": 33.278,
+      "course_km_end": 33.324,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33324.0,
+      "course_m_end": 33337.0,
+      "course_km_start": 33.324,
+      "course_km_end": 33.337,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33337.0,
+      "course_m_end": 33349.0,
+      "course_km_start": 33.337,
+      "course_km_end": 33.349,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33349.0,
+      "course_m_end": 33381.0,
+      "course_km_start": 33.349,
+      "course_km_end": 33.381,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 33381.0,
+      "course_m_end": 33406.0,
+      "course_km_start": 33.381,
+      "course_km_end": 33.406,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33406.0,
+      "course_m_end": 33423.0,
+      "course_km_start": 33.406,
+      "course_km_end": 33.423,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33423.0,
+      "course_m_end": 33480.0,
+      "course_km_start": 33.423,
+      "course_km_end": 33.48,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33480.0,
+      "course_m_end": 33492.0,
+      "course_km_start": 33.48,
+      "course_km_end": 33.492,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33492.0,
+      "course_m_end": 33518.0,
+      "course_km_start": 33.492,
+      "course_km_end": 33.518,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33518.0,
+      "course_m_end": 33533.0,
+      "course_km_start": 33.518,
+      "course_km_end": 33.533,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 33533.0,
+      "course_m_end": 33603.0,
+      "course_km_start": 33.533,
+      "course_km_end": 33.603,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33603.0,
+      "course_m_end": 33695.0,
+      "course_km_start": 33.603,
+      "course_km_end": 33.695,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33695.0,
+      "course_m_end": 33706.0,
+      "course_km_start": 33.695,
+      "course_km_end": 33.706,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33706.0,
+      "course_m_end": 33981.0,
+      "course_km_start": 33.706,
+      "course_km_end": 33.981,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 33981.0,
+      "course_m_end": 33988.0,
+      "course_km_start": 33.981,
+      "course_km_end": 33.988,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 33988.0,
+      "course_m_end": 34000.0,
+      "course_km_start": 33.988,
+      "course_km_end": 34.0,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34000.0,
+      "course_m_end": 34010.0,
+      "course_km_start": 34.0,
+      "course_km_end": 34.01,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34010.0,
+      "course_m_end": 34020.0,
+      "course_km_start": 34.01,
+      "course_km_end": 34.02,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34020.0,
+      "course_m_end": 34025.0,
+      "course_km_start": 34.02,
+      "course_km_end": 34.025,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34025.0,
+      "course_m_end": 34055.0,
+      "course_km_start": 34.025,
+      "course_km_end": 34.055,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34055.0,
+      "course_m_end": 34079.0,
+      "course_km_start": 34.055,
+      "course_km_end": 34.079,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34079.0,
+      "course_m_end": 34090.0,
+      "course_km_start": 34.079,
+      "course_km_end": 34.09,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34090.0,
+      "course_m_end": 34104.0,
+      "course_km_start": 34.09,
+      "course_km_end": 34.104,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34104.0,
+      "course_m_end": 34127.0,
+      "course_km_start": 34.104,
+      "course_km_end": 34.127,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34127.0,
+      "course_m_end": 34136.0,
+      "course_km_start": 34.127,
+      "course_km_end": 34.136,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34136.0,
+      "course_m_end": 34146.0,
+      "course_km_start": 34.136,
+      "course_km_end": 34.146,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34146.0,
+      "course_m_end": 34161.0,
+      "course_km_start": 34.146,
+      "course_km_end": 34.161,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34161.0,
+      "course_m_end": 34167.0,
+      "course_km_start": 34.161,
+      "course_km_end": 34.167,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34167.0,
+      "course_m_end": 34179.0,
+      "course_km_start": 34.167,
+      "course_km_end": 34.179,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34179.0,
+      "course_m_end": 34193.0,
+      "course_km_start": 34.179,
+      "course_km_end": 34.193,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34193.0,
+      "course_m_end": 34218.0,
+      "course_km_start": 34.193,
+      "course_km_end": 34.218,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34218.0,
+      "course_m_end": 34224.0,
+      "course_km_start": 34.218,
+      "course_km_end": 34.224,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34224.0,
+      "course_m_end": 34235.0,
+      "course_km_start": 34.224,
+      "course_km_end": 34.235,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34235.0,
+      "course_m_end": 34242.0,
+      "course_km_start": 34.235,
+      "course_km_end": 34.242,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34242.0,
+      "course_m_end": 34251.0,
+      "course_km_start": 34.242,
+      "course_km_end": 34.251,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34251.0,
+      "course_m_end": 34257.0,
+      "course_km_start": 34.251,
+      "course_km_end": 34.257,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34257.0,
+      "course_m_end": 34263.0,
+      "course_km_start": 34.257,
+      "course_km_end": 34.263,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34263.0,
+      "course_m_end": 34272.0,
+      "course_km_start": 34.263,
+      "course_km_end": 34.272,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34272.0,
+      "course_m_end": 34284.0,
+      "course_km_start": 34.272,
+      "course_km_end": 34.284,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34284.0,
+      "course_m_end": 34413.0,
+      "course_km_start": 34.284,
+      "course_km_end": 34.413,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34413.0,
+      "course_m_end": 34418.0,
+      "course_km_start": 34.413,
+      "course_km_end": 34.418,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34418.0,
+      "course_m_end": 34453.0,
+      "course_km_start": 34.418,
+      "course_km_end": 34.453,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34453.0,
+      "course_m_end": 34461.0,
+      "course_km_start": 34.453,
+      "course_km_end": 34.461,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34461.0,
+      "course_m_end": 34480.0,
+      "course_km_start": 34.461,
+      "course_km_end": 34.48,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34480.0,
+      "course_m_end": 34495.0,
+      "course_km_start": 34.48,
+      "course_km_end": 34.495,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34495.0,
+      "course_m_end": 34507.0,
+      "course_km_start": 34.495,
+      "course_km_end": 34.507,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34507.0,
+      "course_m_end": 34527.0,
+      "course_km_start": 34.507,
+      "course_km_end": 34.527,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34527.0,
+      "course_m_end": 34537.0,
+      "course_km_start": 34.527,
+      "course_km_end": 34.537,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34537.0,
+      "course_m_end": 34546.0,
+      "course_km_start": 34.537,
+      "course_km_end": 34.546,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34546.0,
+      "course_m_end": 34558.0,
+      "course_km_start": 34.546,
+      "course_km_end": 34.558,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34558.0,
+      "course_m_end": 34565.0,
+      "course_km_start": 34.558,
+      "course_km_end": 34.565,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34565.0,
+      "course_m_end": 34570.0,
+      "course_km_start": 34.565,
+      "course_km_end": 34.57,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34570.0,
+      "course_m_end": 34577.0,
+      "course_km_start": 34.57,
+      "course_km_end": 34.577,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34577.0,
+      "course_m_end": 34584.0,
+      "course_km_start": 34.577,
+      "course_km_end": 34.584,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34584.0,
+      "course_m_end": 34652.0,
+      "course_km_start": 34.584,
+      "course_km_end": 34.652,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34652.0,
+      "course_m_end": 34657.0,
+      "course_km_start": 34.652,
+      "course_km_end": 34.657,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34657.0,
+      "course_m_end": 34676.0,
+      "course_km_start": 34.657,
+      "course_km_end": 34.676,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34676.0,
+      "course_m_end": 34681.0,
+      "course_km_start": 34.676,
+      "course_km_end": 34.681,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34681.0,
+      "course_m_end": 34694.0,
+      "course_km_start": 34.681,
+      "course_km_end": 34.694,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34694.0,
+      "course_m_end": 34703.0,
+      "course_km_start": 34.694,
+      "course_km_end": 34.703,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34703.0,
+      "course_m_end": 34713.0,
+      "course_km_start": 34.703,
+      "course_km_end": 34.713,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34713.0,
+      "course_m_end": 34731.0,
+      "course_km_start": 34.713,
+      "course_km_end": 34.731,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34731.0,
+      "course_m_end": 34748.0,
+      "course_km_start": 34.731,
+      "course_km_end": 34.748,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34748.0,
+      "course_m_end": 34787.0,
+      "course_km_start": 34.748,
+      "course_km_end": 34.787,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34787.0,
+      "course_m_end": 34805.0,
+      "course_km_start": 34.787,
+      "course_km_end": 34.805,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34805.0,
+      "course_m_end": 34857.0,
+      "course_km_start": 34.805,
+      "course_km_end": 34.857,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34857.0,
+      "course_m_end": 34866.0,
+      "course_km_start": 34.857,
+      "course_km_end": 34.866,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34866.0,
+      "course_m_end": 34876.0,
+      "course_km_start": 34.866,
+      "course_km_end": 34.876,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34876.0,
+      "course_m_end": 34882.0,
+      "course_km_start": 34.876,
+      "course_km_end": 34.882,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34882.0,
+      "course_m_end": 34889.0,
+      "course_km_start": 34.882,
+      "course_km_end": 34.889,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34889.0,
+      "course_m_end": 34894.0,
+      "course_km_start": 34.889,
+      "course_km_end": 34.894,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34894.0,
+      "course_m_end": 34923.0,
+      "course_km_start": 34.894,
+      "course_km_end": 34.923,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34923.0,
+      "course_m_end": 34979.0,
+      "course_km_start": 34.923,
+      "course_km_end": 34.979,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 34979.0,
+      "course_m_end": 34989.0,
+      "course_km_start": 34.979,
+      "course_km_end": 34.989,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 34989.0,
+      "course_m_end": 35000.0,
+      "course_km_start": 34.989,
+      "course_km_end": 35.0,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 35000.0,
+      "course_m_end": 35801.0,
+      "course_km_start": 35.0,
+      "course_km_end": 35.801,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 35801.0,
+      "course_m_end": 35830.0,
+      "course_km_start": 35.801,
+      "course_km_end": 35.83,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 35830.0,
+      "course_m_end": 35850.0,
+      "course_km_start": 35.83,
+      "course_km_end": 35.85,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 35850.0,
+      "course_m_end": 35899.0,
+      "course_km_start": 35.85,
+      "course_km_end": 35.899,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 35899.0,
+      "course_m_end": 35959.0,
+      "course_km_start": 35.899,
+      "course_km_end": 35.959,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 35959.0,
+      "course_m_end": 36021.0,
+      "course_km_start": 35.959,
+      "course_km_end": 36.021,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36021.0,
+      "course_m_end": 36033.0,
+      "course_km_start": 36.021,
+      "course_km_end": 36.033,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36033.0,
+      "course_m_end": 36051.0,
+      "course_km_start": 36.033,
+      "course_km_end": 36.051,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36051.0,
+      "course_m_end": 36063.0,
+      "course_km_start": 36.051,
+      "course_km_end": 36.063,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36063.0,
+      "course_m_end": 36112.0,
+      "course_km_start": 36.063,
+      "course_km_end": 36.112,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36112.0,
+      "course_m_end": 36173.0,
+      "course_km_start": 36.112,
+      "course_km_end": 36.173,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36173.0,
+      "course_m_end": 36183.0,
+      "course_km_start": 36.173,
+      "course_km_end": 36.183,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36183.0,
+      "course_m_end": 36189.0,
+      "course_km_start": 36.183,
+      "course_km_end": 36.189,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36189.0,
+      "course_m_end": 36200.0,
+      "course_km_start": 36.189,
+      "course_km_end": 36.2,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36200.0,
+      "course_m_end": 36207.0,
+      "course_km_start": 36.2,
+      "course_km_end": 36.207,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36207.0,
+      "course_m_end": 36239.0,
+      "course_km_start": 36.207,
+      "course_km_end": 36.239,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36239.0,
+      "course_m_end": 36275.0,
+      "course_km_start": 36.239,
+      "course_km_end": 36.275,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36275.0,
+      "course_m_end": 36285.0,
+      "course_km_start": 36.275,
+      "course_km_end": 36.285,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36285.0,
+      "course_m_end": 36298.0,
+      "course_km_start": 36.285,
+      "course_km_end": 36.298,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36298.0,
+      "course_m_end": 36327.0,
+      "course_km_start": 36.298,
+      "course_km_end": 36.327,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36327.0,
+      "course_m_end": 36332.0,
+      "course_km_start": 36.327,
+      "course_km_end": 36.332,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36332.0,
+      "course_m_end": 36348.0,
+      "course_km_start": 36.332,
+      "course_km_end": 36.348,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36348.0,
+      "course_m_end": 36356.0,
+      "course_km_start": 36.348,
+      "course_km_end": 36.356,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36356.0,
+      "course_m_end": 36362.0,
+      "course_km_start": 36.356,
+      "course_km_end": 36.362,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36362.0,
+      "course_m_end": 36385.0,
+      "course_km_start": 36.362,
+      "course_km_end": 36.385,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36385.0,
+      "course_m_end": 36390.0,
+      "course_km_start": 36.385,
+      "course_km_end": 36.39,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36390.0,
+      "course_m_end": 36422.0,
+      "course_km_start": 36.39,
+      "course_km_end": 36.422,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36422.0,
+      "course_m_end": 36447.0,
+      "course_km_start": 36.422,
+      "course_km_end": 36.447,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36447.0,
+      "course_m_end": 36486.0,
+      "course_km_start": 36.447,
+      "course_km_end": 36.486,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36486.0,
+      "course_m_end": 36510.0,
+      "course_km_start": 36.486,
+      "course_km_end": 36.51,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36510.0,
+      "course_m_end": 36529.0,
+      "course_km_start": 36.51,
+      "course_km_end": 36.529,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36529.0,
+      "course_m_end": 36545.0,
+      "course_km_start": 36.529,
+      "course_km_end": 36.545,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36545.0,
+      "course_m_end": 36582.0,
+      "course_km_start": 36.545,
+      "course_km_end": 36.582,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36582.0,
+      "course_m_end": 36587.0,
+      "course_km_start": 36.582,
+      "course_km_end": 36.587,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36587.0,
+      "course_m_end": 36612.0,
+      "course_km_start": 36.587,
+      "course_km_end": 36.612,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36612.0,
+      "course_m_end": 36627.0,
+      "course_km_start": 36.612,
+      "course_km_end": 36.627,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36627.0,
+      "course_m_end": 36639.0,
+      "course_km_start": 36.627,
+      "course_km_end": 36.639,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36639.0,
+      "course_m_end": 36649.0,
+      "course_km_start": 36.639,
+      "course_km_end": 36.649,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36649.0,
+      "course_m_end": 36697.0,
+      "course_km_start": 36.649,
+      "course_km_end": 36.697,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36697.0,
+      "course_m_end": 36720.0,
+      "course_km_start": 36.697,
+      "course_km_end": 36.72,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36720.0,
+      "course_m_end": 36786.0,
+      "course_km_start": 36.72,
+      "course_km_end": 36.786,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36786.0,
+      "course_m_end": 36796.0,
+      "course_km_start": 36.786,
+      "course_km_end": 36.796,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36796.0,
+      "course_m_end": 36808.0,
+      "course_km_start": 36.796,
+      "course_km_end": 36.808,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36808.0,
+      "course_m_end": 36823.0,
+      "course_km_start": 36.808,
+      "course_km_end": 36.823,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36823.0,
+      "course_m_end": 36830.0,
+      "course_km_start": 36.823,
+      "course_km_end": 36.83,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36830.0,
+      "course_m_end": 36849.0,
+      "course_km_start": 36.83,
+      "course_km_end": 36.849,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36849.0,
+      "course_m_end": 36861.0,
+      "course_km_start": 36.849,
+      "course_km_end": 36.861,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36861.0,
+      "course_m_end": 36889.0,
+      "course_km_start": 36.861,
+      "course_km_end": 36.889,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36889.0,
+      "course_m_end": 36895.0,
+      "course_km_start": 36.889,
+      "course_km_end": 36.895,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36895.0,
+      "course_m_end": 36900.0,
+      "course_km_start": 36.895,
+      "course_km_end": 36.9,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36900.0,
+      "course_m_end": 36915.0,
+      "course_km_start": 36.9,
+      "course_km_end": 36.915,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36915.0,
+      "course_m_end": 36933.0,
+      "course_km_start": 36.915,
+      "course_km_end": 36.933,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36933.0,
+      "course_m_end": 36966.0,
+      "course_km_start": 36.933,
+      "course_km_end": 36.966,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36966.0,
+      "course_m_end": 36980.0,
+      "course_km_start": 36.966,
+      "course_km_end": 36.98,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 36980.0,
+      "course_m_end": 36987.0,
+      "course_km_start": 36.98,
+      "course_km_end": 36.987,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36987.0,
+      "course_m_end": 36992.0,
+      "course_km_start": 36.987,
+      "course_km_end": 36.992,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 36992.0,
+      "course_m_end": 37022.0,
+      "course_km_start": 36.992,
+      "course_km_end": 37.022,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37022.0,
+      "course_m_end": 37067.0,
+      "course_km_start": 37.022,
+      "course_km_end": 37.067,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37067.0,
+      "course_m_end": 37073.0,
+      "course_km_start": 37.067,
+      "course_km_end": 37.073,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37073.0,
+      "course_m_end": 37134.0,
+      "course_km_start": 37.073,
+      "course_km_end": 37.134,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 37134.0,
+      "course_m_end": 37141.0,
+      "course_km_start": 37.134,
+      "course_km_end": 37.141,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37141.0,
+      "course_m_end": 37146.0,
+      "course_km_start": 37.141,
+      "course_km_end": 37.146,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37146.0,
+      "course_m_end": 37178.0,
+      "course_km_start": 37.146,
+      "course_km_end": 37.178,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37178.0,
+      "course_m_end": 37202.0,
+      "course_km_start": 37.178,
+      "course_km_end": 37.202,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37202.0,
+      "course_m_end": 37220.0,
+      "course_km_start": 37.202,
+      "course_km_end": 37.22,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37220.0,
+      "course_m_end": 37237.0,
+      "course_km_start": 37.22,
+      "course_km_end": 37.237,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 37237.0,
+      "course_m_end": 37261.0,
+      "course_km_start": 37.237,
+      "course_km_end": 37.261,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 37261.0,
+      "course_m_end": 37267.0,
+      "course_km_start": 37.261,
+      "course_km_end": 37.267,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37267.0,
+      "course_m_end": 37274.0,
+      "course_km_start": 37.267,
+      "course_km_end": 37.274,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37274.0,
+      "course_m_end": 37280.0,
+      "course_km_start": 37.274,
+      "course_km_end": 37.28,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37280.0,
+      "course_m_end": 37291.0,
+      "course_km_start": 37.28,
+      "course_km_end": 37.291,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37291.0,
+      "course_m_end": 37314.0,
+      "course_km_start": 37.291,
+      "course_km_end": 37.314,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37314.0,
+      "course_m_end": 37338.0,
+      "course_km_start": 37.314,
+      "course_km_end": 37.338,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37338.0,
+      "course_m_end": 37348.0,
+      "course_km_start": 37.338,
+      "course_km_end": 37.348,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37348.0,
+      "course_m_end": 37354.0,
+      "course_km_start": 37.348,
+      "course_km_end": 37.354,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37354.0,
+      "course_m_end": 37368.0,
+      "course_km_start": 37.354,
+      "course_km_end": 37.368,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37368.0,
+      "course_m_end": 37375.0,
+      "course_km_start": 37.368,
+      "course_km_end": 37.375,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37375.0,
+      "course_m_end": 37405.0,
+      "course_km_start": 37.375,
+      "course_km_end": 37.405,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37405.0,
+      "course_m_end": 37410.0,
+      "course_km_start": 37.405,
+      "course_km_end": 37.41,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37410.0,
+      "course_m_end": 37415.0,
+      "course_km_start": 37.41,
+      "course_km_end": 37.415,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37415.0,
+      "course_m_end": 37474.0,
+      "course_km_start": 37.415,
+      "course_km_end": 37.474,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37474.0,
+      "course_m_end": 37506.0,
+      "course_km_start": 37.474,
+      "course_km_end": 37.506,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37506.0,
+      "course_m_end": 37511.0,
+      "course_km_start": 37.506,
+      "course_km_end": 37.511,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37511.0,
+      "course_m_end": 37530.0,
+      "course_km_start": 37.511,
+      "course_km_end": 37.53,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37530.0,
+      "course_m_end": 37537.0,
+      "course_km_start": 37.53,
+      "course_km_end": 37.537,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 37537.0,
+      "course_m_end": 37571.0,
+      "course_km_start": 37.537,
+      "course_km_end": 37.571,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37571.0,
+      "course_m_end": 37579.0,
+      "course_km_start": 37.571,
+      "course_km_end": 37.579,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37579.0,
+      "course_m_end": 37593.0,
+      "course_km_start": 37.579,
+      "course_km_end": 37.593,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37593.0,
+      "course_m_end": 37615.0,
+      "course_km_start": 37.593,
+      "course_km_end": 37.615,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37615.0,
+      "course_m_end": 37622.0,
+      "course_km_start": 37.615,
+      "course_km_end": 37.622,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 37622.0,
+      "course_m_end": 37629.0,
+      "course_km_start": 37.622,
+      "course_km_end": 37.629,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37629.0,
+      "course_m_end": 37639.0,
+      "course_km_start": 37.629,
+      "course_km_end": 37.639,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37639.0,
+      "course_m_end": 37645.0,
+      "course_km_start": 37.639,
+      "course_km_end": 37.645,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37645.0,
+      "course_m_end": 37660.0,
+      "course_km_start": 37.645,
+      "course_km_end": 37.66,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37660.0,
+      "course_m_end": 37675.0,
+      "course_km_start": 37.66,
+      "course_km_end": 37.675,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37675.0,
+      "course_m_end": 37681.0,
+      "course_km_start": 37.675,
+      "course_km_end": 37.681,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37681.0,
+      "course_m_end": 37694.0,
+      "course_km_start": 37.681,
+      "course_km_end": 37.694,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37694.0,
+      "course_m_end": 37700.0,
+      "course_km_start": 37.694,
+      "course_km_end": 37.7,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37700.0,
+      "course_m_end": 37951.0,
+      "course_km_start": 37.7,
+      "course_km_end": 37.951,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 37951.0,
+      "course_m_end": 37976.0,
+      "course_km_start": 37.951,
+      "course_km_end": 37.976,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 37976.0,
+      "course_m_end": 37995.0,
+      "course_km_start": 37.976,
+      "course_km_end": 37.995,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 37995.0,
+      "course_m_end": 38001.0,
+      "course_km_start": 37.995,
+      "course_km_end": 38.001,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38001.0,
+      "course_m_end": 38026.0,
+      "course_km_start": 38.001,
+      "course_km_end": 38.026,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38026.0,
+      "course_m_end": 38036.0,
+      "course_km_start": 38.026,
+      "course_km_end": 38.036,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 38036.0,
+      "course_m_end": 38055.0,
+      "course_km_start": 38.036,
+      "course_km_end": 38.055,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38055.0,
+      "course_m_end": 38063.0,
+      "course_km_start": 38.055,
+      "course_km_end": 38.063,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38063.0,
+      "course_m_end": 38073.0,
+      "course_km_start": 38.063,
+      "course_km_end": 38.073,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38073.0,
+      "course_m_end": 38087.0,
+      "course_km_start": 38.073,
+      "course_km_end": 38.087,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38087.0,
+      "course_m_end": 38109.0,
+      "course_km_start": 38.087,
+      "course_km_end": 38.109,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38109.0,
+      "course_m_end": 38150.0,
+      "course_km_start": 38.109,
+      "course_km_end": 38.15,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38150.0,
+      "course_m_end": 38161.0,
+      "course_km_start": 38.15,
+      "course_km_end": 38.161,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38161.0,
+      "course_m_end": 38176.0,
+      "course_km_start": 38.161,
+      "course_km_end": 38.176,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38176.0,
+      "course_m_end": 38199.0,
+      "course_km_start": 38.176,
+      "course_km_end": 38.199,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38199.0,
+      "course_m_end": 38204.0,
+      "course_km_start": 38.199,
+      "course_km_end": 38.204,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38204.0,
+      "course_m_end": 38213.0,
+      "course_km_start": 38.204,
+      "course_km_end": 38.213,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38213.0,
+      "course_m_end": 38219.0,
+      "course_km_start": 38.213,
+      "course_km_end": 38.219,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38219.0,
+      "course_m_end": 38225.0,
+      "course_km_start": 38.219,
+      "course_km_end": 38.225,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38225.0,
+      "course_m_end": 38230.0,
+      "course_km_start": 38.225,
+      "course_km_end": 38.23,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38230.0,
+      "course_m_end": 38246.0,
+      "course_km_start": 38.23,
+      "course_km_end": 38.246,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38246.0,
+      "course_m_end": 38255.0,
+      "course_km_start": 38.246,
+      "course_km_end": 38.255,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38255.0,
+      "course_m_end": 38265.0,
+      "course_km_start": 38.255,
+      "course_km_end": 38.265,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38265.0,
+      "course_m_end": 38289.0,
+      "course_km_start": 38.265,
+      "course_km_end": 38.289,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38289.0,
+      "course_m_end": 38308.0,
+      "course_km_start": 38.289,
+      "course_km_end": 38.308,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38308.0,
+      "course_m_end": 38334.0,
+      "course_km_start": 38.308,
+      "course_km_end": 38.334,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": "S4"
+    },
+    {
+      "course_m_start": 38334.0,
+      "course_m_end": 38347.0,
+      "course_km_start": 38.334,
+      "course_km_end": 38.347,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38347.0,
+      "course_m_end": 38352.0,
+      "course_km_start": 38.347,
+      "course_km_end": 38.352,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38352.0,
+      "course_m_end": 38372.0,
+      "course_km_start": 38.352,
+      "course_km_end": 38.372,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38372.0,
+      "course_m_end": 38381.0,
+      "course_km_start": 38.372,
+      "course_km_end": 38.381,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38381.0,
+      "course_m_end": 38397.0,
+      "course_km_start": 38.381,
+      "course_km_end": 38.397,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38397.0,
+      "course_m_end": 38501.0,
+      "course_km_start": 38.397,
+      "course_km_end": 38.501,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38501.0,
+      "course_m_end": 38525.0,
+      "course_km_start": 38.501,
+      "course_km_end": 38.525,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38525.0,
+      "course_m_end": 38531.0,
+      "course_km_start": 38.525,
+      "course_km_end": 38.531,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38531.0,
+      "course_m_end": 38584.0,
+      "course_km_start": 38.531,
+      "course_km_end": 38.584,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38584.0,
+      "course_m_end": 38648.0,
+      "course_km_start": 38.584,
+      "course_km_end": 38.648,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38648.0,
+      "course_m_end": 38677.0,
+      "course_km_start": 38.648,
+      "course_km_end": 38.677,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38677.0,
+      "course_m_end": 38698.0,
+      "course_km_start": 38.677,
+      "course_km_end": 38.698,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38698.0,
+      "course_m_end": 38715.0,
+      "course_km_start": 38.698,
+      "course_km_end": 38.715,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38715.0,
+      "course_m_end": 38726.0,
+      "course_km_start": 38.715,
+      "course_km_end": 38.726,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 38726.0,
+      "course_m_end": 38750.0,
+      "course_km_start": 38.726,
+      "course_km_end": 38.75,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38750.0,
+      "course_m_end": 38775.0,
+      "course_km_start": 38.75,
+      "course_km_end": 38.775,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38775.0,
+      "course_m_end": 38823.0,
+      "course_km_start": 38.775,
+      "course_km_end": 38.823,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38823.0,
+      "course_m_end": 38841.0,
+      "course_km_start": 38.823,
+      "course_km_end": 38.841,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38841.0,
+      "course_m_end": 38861.0,
+      "course_km_start": 38.841,
+      "course_km_end": 38.861,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38861.0,
+      "course_m_end": 38891.0,
+      "course_km_start": 38.861,
+      "course_km_end": 38.891,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38891.0,
+      "course_m_end": 38900.0,
+      "course_km_start": 38.891,
+      "course_km_end": 38.9,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 38900.0,
+      "course_m_end": 39056.0,
+      "course_km_start": 38.9,
+      "course_km_end": 39.056,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39056.0,
+      "course_m_end": 39124.0,
+      "course_km_start": 39.056,
+      "course_km_end": 39.124,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39124.0,
+      "course_m_end": 39130.0,
+      "course_km_start": 39.124,
+      "course_km_end": 39.13,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39130.0,
+      "course_m_end": 39145.0,
+      "course_km_start": 39.13,
+      "course_km_end": 39.145,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39145.0,
+      "course_m_end": 39151.0,
+      "course_km_start": 39.145,
+      "course_km_end": 39.151,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39151.0,
+      "course_m_end": 39162.0,
+      "course_km_start": 39.151,
+      "course_km_end": 39.162,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39162.0,
+      "course_m_end": 39173.0,
+      "course_km_start": 39.162,
+      "course_km_end": 39.173,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 39173.0,
+      "course_m_end": 39231.0,
+      "course_km_start": 39.173,
+      "course_km_end": 39.231,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 39231.0,
+      "course_m_end": 41000.0,
+      "course_km_start": 39.231,
+      "course_km_end": 41.0,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
       "majority_class": null
     }
   ],
@@ -1759,42 +3887,37 @@
     {
       "course_km_start": 33.0,
       "course_km_end": 33.2,
-      "surface_class": "S4",
-      "friction_tier": "F3",
+      "surface_class": "S3",
+      "friction_tier": "F2",
       "gold_source": "operator",
-      "reason": "operator gold: bedrock lock parent continuation km 33.0\u201333.2 \u2014 rocky trail / technical bedrock tread toward Rinna ridge (gramstad_band reverse traverse 2026-06-28). S4/F3 per friction_index_spec. Boundary @ km 33.2 aligns with downstream S5/F3 exposed granite km 33.2\u201333.39 (not merged). chunk_03 locked through km 33.0; chunk_04 seam deferred."
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: easy dirt/trail entry to late_braking corridor (chunk_04 Strategic Command 3-span). S3/F2 per friction_index_spec. Seam @ km 33.0 from locked chunk_03 S4/F3 (F3\u2192F2 tread step); granite-entry TRF exclusion @ 33.00\u201333.12 retained. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
     },
     {
       "course_km_start": 33.2,
-      "course_km_end": 33.39,
-      "surface_class": "S5",
-      "friction_tier": "F3",
-      "gold_source": "operator",
-      "reason": "operator gold: exposed granite bedrock \u2014 downstream of chunk_02 bedrock lock boundary @ km 33.2; tread transitions from rocky trail upstream to exposed granite on Rinna ridge descent ending at Paradisskaret gravel road crossing @ km 33.39. S5/F3 per friction_index_spec (difficult technical rock on exposed granite; F3 moderate friction on polished/slab granite). Split point @ km 33.2 per operator HITL; not merged into km 31.0\u201333.2 S4/F3 lock. Operator gold + norgeskart pin UTM-32 E 315754.57 N 6530524.97 elev 175.4 m (2026-06-28)."
-    },
-    {
-      "course_km_start": 33.39,
-      "course_km_end": 33.41,
-      "surface_class": "S2",
-      "friction_tier": "F3",
-      "gold_source": "operator",
-      "reason": "operator gold: Paradisskaret gravel road crossing \u2014 narrow coarse gravel road band @ km 33.39\u201333.41 immediately downstream of granite bedrock descent (Rinna ridge). S2/F3 per friction_index_spec (chunky coarse gravel crossing tread, not hard-pack F1/F2). Operator gold + norgeskart pin UTM-32 E 315754.57 N 6530524.97 elev 175.4 m; dashboard chunk_04 km 33.4 crossing visible. Downstream of granite @ km 33.39; upstream of rocky high-friction trail @ km 33.41."
-    },
-    {
-      "course_km_start": 33.41,
-      "course_km_end": 33.97,
+      "course_km_end": 33.8,
       "surface_class": "S4",
       "friction_tier": "F3",
       "gold_source": "operator",
-      "reason": "operator gold: high friction trail \u2014 rocky/rooty technical tread immediately downstream of Paradisskaret gravel road crossing @ km 33.41; extends to high\u2192low friction transition @ km 33.97 (norgeskart pin UTM-32 E 315452.06 N 6530916.56 elev 165.4 m; SUT43 forward). S4/F3 per friction_index_spec (technical-runnable rock/rooty coarse footing). Operator gold post-crossing tread lock; dashboard HITL QC chunk_04. Adjacent F-tier calibration pair with km 33.97\u201334.60 low-friction S3/F2 runnable tread (chunk_05) before gravel road entry @ km 34.60. Distinct from upstream granite-ridge band km 31.0\u201333.39."
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: late_braking core \u2014 technical bedrock/granite band (chunk_04 Strategic Command 3-span). S4/F3 per friction_index_spec. Supersedes 5-span draft (S5/F3 granite, S2/F3 Paradisskaret crossing, S4/F3 post-crossing) \u2014 unified S4/F3 parent absorbs GMM S5/S6 micro-pockets. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
     },
     {
-      "course_km_start": 33.97,
+      "course_km_start": 33.8,
+      "course_km_end": 34.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "gold_source": "operator",
+      "locked_at": "2026-06-29",
+      "reason": "operator gold: ease band toward chunk_05 (chunk_04 Strategic Command 3-span). S3/F2 per friction_index_spec. High\u2192low friction transition pulled upstream from 5-span draft @ 33.97; seam @ km 34.0 continuous S3/F2 into chunk_05. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29."
+    },
+    {
+      "course_km_start": 34.0,
       "course_km_end": 34.6,
       "surface_class": "S3",
       "friction_tier": "F2",
       "gold_source": "operator",
-      "reason": "operator gold: low friction trail \u2014 compact dirt, runnable tread (km 33.97\u201334.60) downstream of high\u2192low friction transition @ km 33.97 (norgeskart pin UTM-32 E 315452.06 N 6530916.56 elev 165.4 m); extends to low\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax, full run). Dashboard HITL QC chunk_05. Operator anchors: km 34.2 low-friction trail (S3/F2); gate ~km 34.0\u201334.1; gate ~km 34.6; SUT43 drink CP km 34.6\u201334.7; km 34.7 on gravel road (SUT43 forward). Subject_A drink CP stop: panel ~34.64, Subject_A stream km 34.641\u201334.647 (~105 s, 0 m/s; stop centroid UTM-32 E 315494.2 N 6531475.5, pin residual 37.3 m) \u2014 behavioral TRF exclusion. Not S2 hard-pack gravel."
+      "reason": "operator gold: low friction trail \u2014 compact dirt, runnable tread (km 34.0\u201334.60) downstream of chunk_04 S3/F2 ease band @ 33.8\u201334.0 (Strategic Command 3-span lock 2026-06-29); extends to low\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward). S3/F2 per friction_index_spec. Dashboard HITL QC chunk_05. Subject_A drink CP stop behavioral TRF exclusion. Not S2 hard-pack gravel."
     },
     {
       "surface_class": "S2",
