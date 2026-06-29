@@ -1,0 +1,289 @@
+{
+  "chunk_id": "chunk_u01",
+  "course_km_window": [
+    23.0,
+    24.0
+  ],
+  "reviewed_at": "2026-06-29",
+  "operator_statement": "Locked 2026-06-29: 7-span operator gold km 23.0–24.0. Fall TRF 23.123–23.135 (Subject_A_only); dale_cp TRF 23.48–23.67. Gravel S2/F2 through km 23.8; asphalt S1/F1 km 23.8–24.0.",
+  "display_bugs_fixed": [
+    {
+      "id": "seam_upstream_bias",
+      "file": "04_Python_Scripts/spatial/validation_dashboard.py",
+      "symptom": "Interior span seams (23.17, 23.29, 23.48, 23.75) resolved to upstream class for 1 m samples; merged Assigned strip extended S4/S3/S2 by ~1 m and delayed S3 start at 23.75.",
+      "fix": "_operator_gold_span_at_km uses half-open [start, end) with downstream preference at interior seams.",
+      "status": "fixed_2026-06-29"
+    },
+    {
+      "id": "f3_edge_s5_fill_collision",
+      "file": "04_Python_Scripts/spatial/validation_dashboard.py",
+      "symptom": "F3 friction edge (#FF7043) identical to S5 fill (#ff7043); S4/F3 operator gold read as S5 on Assigned strip.",
+      "fix": "F3 edge recolored to #D84315 (distinct deep orange).",
+      "status": "fixed_2026-06-29"
+    }
+  ],
+  "display_bugs_not_found": [
+    {
+      "id": "draft_preservation_leak",
+      "claim": "Assigned strip shows GMM S5 from draft_preservation instead of operator S4.",
+      "finding": "resolve_assigned_display_at_km prioritizes operator_gold_spans; km 23.0–23.17 resolves S4/F3. Light-blue fill is S4 (#87CEEB), not S5 (#ff7043)."
+    }
+  ],
+  "km_bands": [
+    {
+      "km_band": "23.00–23.17",
+      "gold_s_f": "S4/F3",
+      "png_operator_read": "Light blue block; misread as S5 (color/edge confusion)",
+      "dashboard_assigned_after_fix": "S4/F3",
+      "gmm_draft_dominant": "S4/S5/S6 micro-pockets (S5 @ 23.024–23.061, 23.140–23.150; S6 @ 23.123–23.140)",
+      "draft_preservation": "accept S5/S6 within S4/F3 parent lock",
+      "telemetry": "Consensus TI peak ~4.6–7.0; Subject_A halt 23.123–23.134 (fall); Subject_B through-running 1.0–1.5 m/s",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Parent lock S4/F3 vs promote GMM S5/S6 micro-pockets (bog vs difficult rock)",
+        "Fall TRF window width: tagged 23.12–23.14 vs FIT halt 23.123–23.135"
+      ],
+      "operator_answer": "Q1 accepted: narrow coastal_descent_fall behavioral_stop + TRF exclusion to 23.123–23.135 (FIT-tight halt window). Retain parent S4/F3; no S-class promotion from fall."
+    },
+    {
+      "km_band": "23.17–23.29",
+      "gold_s_f": "S3/F2",
+      "png_operator_read": "Green S3 ~23.17–23.30",
+      "dashboard_assigned_after_fix": "S3/F2",
+      "gmm_draft_dominant": "S3 with S2 pockets 23.186–23.200, 23.217–23.239",
+      "draft_preservation": null,
+      "telemetry": "TI declining ~3.4→2.7; runnable descent both athletes",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Seam @ 23.17: technical S4/F3 vs transition S3/F2 — field confirm tread change point"
+      ],
+      "operator_answer": "Q4 OK: retain S4/F3 → S3/F2 tread change at km 23.17 as-is."
+    },
+    {
+      "km_band": "23.29–23.48",
+      "gold_s_f": "S2/F2 gravel path",
+      "png_operator_read": "Grey S2 ~23.30–23.55 (visual merge with downstream S1)",
+      "dashboard_assigned_after_fix": "S2/F2",
+      "gmm_draft_dominant": "Mixed S1/S2/S3 (GMM asphalt misclass 23.408–23.526)",
+      "draft_preservation": null,
+      "telemetry": "Runnable 2.0–2.7 m/s; elev min ~16 m @ 23.38; Subject_A decel into CP begins ~23.516",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Gravel end km: gold 23.48 vs operator visual ~23.55?",
+        "Pre-CP gravel vs GMM asphalt pockets — confirm no paved tread before Dale compound"
+      ],
+      "operator_answer": "Gravel end @ 23.48 authoritative; Dale compound is gravel in field — no paved tread before or through CP corridor."
+    },
+    {
+      "km_band": "23.48–23.55",
+      "gold_s_f": "S2/F2 Dale CP halt (gravel)",
+      "png_operator_read": "Grey S2 gravel through CP compound",
+      "dashboard_assigned_after_fix": "S2/F2",
+      "gmm_draft_dominant": "S1/S2 oscillation",
+      "draft_preservation": null,
+      "telemetry": "Subject_A slow 23.516–23.575 into CP; co-stop both athletes",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "CP halt start: gold 23.48 vs telemetry decel ~23.516",
+        "Asphalt confined to CP compound vs GMM S1 bleed upstream"
+      ],
+      "operator_answer": "Reclassified S2/F2 gravel (field correction 2026-06-29f); CP halt start @ 23.48 retained; GMM S1 pockets are misclass."
+    },
+    {
+      "km_band": "23.55–23.68",
+      "gold_s_f": "S2/F2 walk-out (gravel)",
+      "png_operator_read": "Grey S2 gravel climb",
+      "dashboard_assigned_after_fix": "S2/F2",
+      "gmm_draft_dominant": "S1 with S2/S3 noise",
+      "draft_preservation": null,
+      "telemetry": "Subject_A walk bands 23.533–23.574, 23.601–23.623, 23.644–23.673; speed 1.06–1.50 m/s",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Walk-out end: gold 23.68 vs TRF exclusion 23.67 — align to 23.684 telemetry?"
+      ],
+      "operator_answer": "Reclassified S2/F2 gravel walk-out (field correction 2026-06-29f); gold span end 23.68; TRF exclusion end 23.67 preserved."
+    },
+    {
+      "km_band": "23.68–23.80",
+      "gold_s_f": "S2/F2 coastal gravel climb",
+      "png_operator_read": "Grey S2 gravel through asphalt seam",
+      "dashboard_assigned_after_fix": "S2/F2",
+      "gmm_draft_dominant": "S1",
+      "draft_preservation": null,
+      "telemetry": "Post walk-out runnable ~2.1–2.6 m/s; grade >+10% from 23.55; gravel→asphalt seam @ 23.8",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Prior S3/F2 dirt onset @ 23.75–23.8 rejected on PNG re-review (Q10)"
+      ],
+      "operator_answer": "Gravel S2/F2 extended through km 23.8; no S3 immediately upstream of asphalt band (field correction 2026-06-29g)."
+    },
+    {
+      "km_band": "23.80–24.00",
+      "gold_s_f": "S1/F1 coastal asphalt road",
+      "png_operator_read": "White/grey S1 asphalt through chunk end",
+      "dashboard_assigned_after_fix": "S1/F1",
+      "gmm_draft_dominant": "S1 clusters 23.785–23.899; S2/S3/S4 noise downstream",
+      "draft_preservation": null,
+      "telemetry": "Runnable ~2.0 m/s; TI ~1.2–1.3; intentional asphalt→dirt seam @ 24.0 into chunk_u02",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "Asphalt extent: pocket @ 23.785–23.808 vs continuous from 23.8",
+        "Chunk seam @ 24.0 — asphalt end vs chunk_u02 dirt start"
+      ],
+      "operator_answer": "asphalt_23.8_downstream operator: S1/F1 from km 23.8 through 24.0 (chunk_u01 end); supersedes pocket + dirt resume split."
+    }
+  ],
+  "fall_event": {
+    "tagged_km": [
+      23.123,
+      23.135
+    ],
+    "trf_exclusion_km": [
+      23.123,
+      23.135
+    ],
+    "subject_a_halt_km": [
+      23.123,
+      23.134
+    ],
+    "subject_a_halt_duration_samples": 10,
+    "subject_b_behavior": "through-running 1.0–1.54 m/s, no halt",
+    "nti_spike_km": 23.135,
+    "open_questions": [
+      "Does fall location argue for S5/S6 micro-pocket promotion at 23.123–23.140 (GMM S6)?"
+    ],
+    "operator_answer": "Q1 accepted: narrow fall tag + TRF exclusion to 23.123–23.135 (FIT signature). No S-class promotion from fall event."
+  },
+  "dale_cp": {
+    "gold_spans": {
+      "gravel_approach": [
+        23.29,
+        23.48
+      ],
+      "cp_halt": [
+        23.48,
+        23.55
+      ],
+      "walk_out": [
+        23.55,
+        23.68
+      ],
+      "climb_resume": [
+        23.68,
+        23.8
+      ]
+    },
+    "gold_surface": "S2/F2 gravel (field correction 2026-06-29f — entire Dale corridor, not asphalt)",
+    "behavioral_stops": {
+      "cp_halt": [
+        23.48,
+        23.55
+      ],
+      "walk_out": [
+        23.55,
+        23.67
+      ]
+    },
+    "telemetry_subject_a_slow_bands": [
+      [
+        23.516,
+        23.575
+      ],
+      [
+        23.585,
+        23.629
+      ],
+      [
+        23.644,
+        23.684
+      ]
+    ],
+    "open_questions": [],
+    "operator_answers": {
+      "gravel_vs_asphalt": "Entire Dale corridor km 23.29–23.8 is gravel S2/F2 in field; no asphalt through CP compound, walk-out, or climb resume.",
+      "gravel_end_boundary": "Gravel approach end @ 23.48 retained; Dale compound gravel continues through 23.8 (asphalt seam).",
+      "cp_halt_start": "23.48 authoritative (telemetry decel onset ~23.516 is FIT signature, not tread boundary).",
+      "walk_out_trf_end": "TRF exclusion end 23.67 preserved; gold walk-out span end 23.68 unchanged.",
+      "dale_anchor": "Geographic Dale anchor @ 23.5 accepted."
+    }
+  },
+  "dalsnuten_approach": {
+    "gold_spans": {
+      "gravel_climb": [
+        23.68,
+        23.8
+      ],
+      "asphalt_road": [
+        23.8,
+        24.0
+      ]
+    },
+    "chunk_u02_seam": {
+      "km": 24.0,
+      "chunk_u01_end": "S1/F1 asphalt",
+      "chunk_u02_start": "S3/F2 dirt",
+      "intentional": true,
+      "note": "Asphalt road ends at chunk_u01 boundary; Dalsnuten dirt climb resumes in chunk_u02."
+    },
+    "operator_answers": {
+      "asphalt_23.8_downstream": "S1/F1 asphalt from km 23.8 through 24.0 (sign-off 2026-06-29g; gravel S2/F2 through 23.8; no S3 upstream of asphalt band)."
+    }
+  },
+  "recommended_revision_questions": [
+    {
+      "id": "Q1_fall_window",
+      "question": "Fall km window: keep 23.12–23.14 tag or narrow to FIT halt 23.123–23.135?",
+      "operator_answer": "Accepted proposal: narrow to 23.123–23.135.",
+      "status": "closed_2026-06-29"
+    },
+    {
+      "id": "Q2_technical_descent_tier",
+      "question": "Technical descent tier: retain parent S4/F3 for 23.0–23.17 or split S5/S6 micro-pockets from draft_preservation?",
+      "operator_answer": "Retain parent S4/F3; defer S5/S6 split.",
+      "status": "closed_2026-06-29f"
+    },
+    {
+      "id": "Q3_gravel_approach_end",
+      "question": "Gravel approach end: confirm 23.48 vs field estimate ~23.52–23.55 before Dale asphalt.",
+      "operator_answer": "23.48; Dale corridor is gravel through 23.8 (no asphalt; asphalt seam @ 23.8).",
+      "status": "closed_2026-06-29f"
+    },
+    {
+      "id": "Q4_seam_23_17",
+      "question": "Seam @ 23.17: retain S4/F3 → S3/F2 tread change or shift boundary?",
+      "operator_answer": "OK — retain at km 23.17 as-is.",
+      "status": "closed_2026-06-29"
+    },
+    {
+      "id": "Q5_dale_cp_halt_start",
+      "question": "Dale CP halt start: 23.48 (gold) vs 23.516 (Subject_A decel) — which is authoritative?",
+      "operator_answer": "23.48 gold span start.",
+      "status": "closed_2026-06-29f"
+    },
+    {
+      "id": "Q6_walk_out_trf_end",
+      "question": "Walk-out TRF end: 23.67 vs telemetry 23.684 — harmonize?",
+      "operator_answer": "Preserve TRF end 23.67; gold walk-out span end 23.68.",
+      "status": "closed_2026-06-29f"
+    },
+    {
+      "id": "Q7_asphalt_23_8_downstream",
+      "question": "Dalsnuten approach: asphalt pocket @ ~23.8 only, or continuous asphalt from 23.8 through chunk end?",
+      "operator_answer": "Operator: S1/F1 asphalt from km 23.8 through 24.0; gravel S2/F2 upstream through 23.8 (no S3 dirt band).",
+      "status": "closed_2026-06-29g"
+    },
+    {
+      "id": "Q10_dashboard_reexport",
+      "question": "Dashboard: re-review re-exported PNG after sign-off — does Assigned strip match intent?",
+      "operator_answer": "Rejected prior S3/F2 @ 23.75–23.8 on Assigned strip; gold corrected to gravel-through-23.8 + asphalt from 23.8. No dashboard bug — S3 was operator_gold_spans, not draft_preservation leak.",
+      "status": "closed_2026-06-29g"
+    }
+  ],
+  "reexport": {
+    "path": "06_Visualizations/sut43_hitl_upstream/chunk_u01_km23-24.png",
+    "trigger": "chunk_u01_operator_lock_2026-06-29",
+    "exported_at": "2026-06-29"
+  },
+  "status": "locked",
+  "locked_at": "2026-06-29"
+}

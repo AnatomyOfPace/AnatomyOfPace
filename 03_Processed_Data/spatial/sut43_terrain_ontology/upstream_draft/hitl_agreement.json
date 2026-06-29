@@ -1,0 +1,493 @@
+{
+  "schema_version": "hitl_agreement_v1",
+  "generated_at": "2026-06-29T06:19:13.045655+00:00",
+  "km_start": 23.0,
+  "km_end": 24.0,
+  "metrics": {
+    "n_metres": 1000,
+    "n_decided_v2": 1000,
+    "n_match": 1000,
+    "agreement_pct": 100.0,
+    "cohens_kappa": 0.0299,
+    "tier_counts": {
+      "gold": 1000
+    },
+    "gold_metres": 1000,
+    "silver_metres": 0,
+    "bronze_metres": 0,
+    "review_metres": 0,
+    "abstain_metres": 0,
+    "ml_label_class_counts": {
+      "S3": 370,
+      "S1": 350,
+      "S4": 170,
+      "S2": 110
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "unassigned"
+    ],
+    "counts": {
+      "S1": {
+        "S1": 209,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 3
+      },
+      "S2": {
+        "S1": 190,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 7
+      },
+      "S3": {
+        "S1": 70,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 81
+      },
+      "S4": {
+        "S1": 4,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 47
+      },
+      "S5": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 16,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 30
+      },
+      "S6": {
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "S4": 11,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 6
+      },
+      "unassigned": {
+        "S1": 151,
+        "S2": 0,
+        "S3": 4,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "unassigned": 171
+      }
+    }
+  },
+  "agreement_segments": [
+    {
+      "course_m_start": 23000.0,
+      "course_m_end": 23025.0,
+      "course_km_start": 23.0,
+      "course_km_end": 23.025,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23025.0,
+      "course_m_end": 23044.0,
+      "course_km_start": 23.025,
+      "course_km_end": 23.044,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 23044.0,
+      "course_m_end": 23062.0,
+      "course_km_start": 23.044,
+      "course_km_end": 23.062,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23062.0,
+      "course_m_end": 23079.0,
+      "course_km_start": 23.062,
+      "course_km_end": 23.079,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": "S3"
+    },
+    {
+      "course_m_start": 23079.0,
+      "course_m_end": 23124.0,
+      "course_km_start": 23.079,
+      "course_km_end": 23.124,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23124.0,
+      "course_m_end": 23141.0,
+      "course_km_start": 23.124,
+      "course_km_end": 23.141,
+      "agreement_tier": "gold",
+      "effective_class": "S6",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23141.0,
+      "course_m_end": 23151.0,
+      "course_km_start": 23.141,
+      "course_km_end": 23.151,
+      "agreement_tier": "gold",
+      "effective_class": "S5",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23151.0,
+      "course_m_end": 23172.0,
+      "course_km_start": 23.151,
+      "course_km_end": 23.172,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23172.0,
+      "course_m_end": 23187.0,
+      "course_km_start": 23.172,
+      "course_km_end": 23.187,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23187.0,
+      "course_m_end": 23204.0,
+      "course_km_start": 23.187,
+      "course_km_end": 23.204,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23204.0,
+      "course_m_end": 23218.0,
+      "course_km_start": 23.204,
+      "course_km_end": 23.218,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23218.0,
+      "course_m_end": 23240.0,
+      "course_km_start": 23.218,
+      "course_km_end": 23.24,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23240.0,
+      "course_m_end": 23262.0,
+      "course_km_start": 23.24,
+      "course_km_end": 23.262,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23262.0,
+      "course_m_end": 23276.0,
+      "course_km_start": 23.262,
+      "course_km_end": 23.276,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23276.0,
+      "course_m_end": 23294.0,
+      "course_km_start": 23.276,
+      "course_km_end": 23.294,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23294.0,
+      "course_m_end": 23350.0,
+      "course_km_start": 23.294,
+      "course_km_end": 23.35,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23350.0,
+      "course_m_end": 23358.0,
+      "course_km_start": 23.35,
+      "course_km_end": 23.358,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23358.0,
+      "course_m_end": 23365.0,
+      "course_km_start": 23.358,
+      "course_km_end": 23.365,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23365.0,
+      "course_m_end": 23400.0,
+      "course_km_start": 23.365,
+      "course_km_end": 23.4,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23400.0,
+      "course_m_end": 23409.0,
+      "course_km_start": 23.4,
+      "course_km_end": 23.409,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23409.0,
+      "course_m_end": 23427.0,
+      "course_km_start": 23.409,
+      "course_km_end": 23.427,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23427.0,
+      "course_m_end": 23527.0,
+      "course_km_start": 23.427,
+      "course_km_end": 23.527,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23527.0,
+      "course_m_end": 23552.0,
+      "course_km_start": 23.527,
+      "course_km_end": 23.552,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23552.0,
+      "course_m_end": 23574.0,
+      "course_km_start": 23.552,
+      "course_km_end": 23.574,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23574.0,
+      "course_m_end": 23587.0,
+      "course_km_start": 23.574,
+      "course_km_end": 23.587,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23587.0,
+      "course_m_end": 23610.0,
+      "course_km_start": 23.587,
+      "course_km_end": 23.61,
+      "agreement_tier": "gold",
+      "effective_class": "S3",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23610.0,
+      "course_m_end": 23657.0,
+      "course_km_start": 23.61,
+      "course_km_end": 23.657,
+      "agreement_tier": "gold",
+      "effective_class": "S2",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23657.0,
+      "course_m_end": 23750.0,
+      "course_km_start": 23.657,
+      "course_km_end": 23.75,
+      "agreement_tier": "gold",
+      "effective_class": "S1",
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23750.0,
+      "course_m_end": 23828.0,
+      "course_km_start": 23.75,
+      "course_km_end": 23.828,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23828.0,
+      "course_m_end": 23865.0,
+      "course_km_start": 23.828,
+      "course_km_end": 23.865,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": "S1"
+    },
+    {
+      "course_m_start": 23865.0,
+      "course_m_end": 23879.0,
+      "course_km_start": 23.865,
+      "course_km_end": 23.879,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23879.0,
+      "course_m_end": 23889.0,
+      "course_km_start": 23.879,
+      "course_km_end": 23.889,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23889.0,
+      "course_m_end": 23896.0,
+      "course_km_start": 23.889,
+      "course_km_end": 23.896,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23896.0,
+      "course_m_end": 23911.0,
+      "course_km_start": 23.896,
+      "course_km_end": 23.911,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23911.0,
+      "course_m_end": 23917.0,
+      "course_km_start": 23.911,
+      "course_km_end": 23.917,
+      "agreement_tier": "gold",
+      "effective_class": "S4",
+      "majority_class": null
+    },
+    {
+      "course_m_start": 23917.0,
+      "course_m_end": 24000.0,
+      "course_km_start": 23.917,
+      "course_km_end": 24.0,
+      "agreement_tier": "gold",
+      "effective_class": null,
+      "majority_class": "S1"
+    }
+  ],
+  "disagreement_spans": [],
+  "tier_definitions": {
+    "gold": "match + n_voters\u22652 + unanimous or \u22652/3 vote strength; or hitl.operator_gold_spans[]",
+    "silver": "match + n_voters\u22652",
+    "bronze": "match + n_voters=1",
+    "review": "v1 vs v2 class mismatch or missing class",
+    "abstain": "v2 tie or no voters"
+  },
+  "operator_gold_spans": [
+    {
+      "course_km_start": 23.0,
+      "course_km_end": 23.17,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "gold_source": "operator",
+      "reason": "operator gold: technical coastal trail descent \u2014 rocky/rooty tread on steep negative-grade approach to Dale (chunk_u01). Consensus TI median ~3.9\u20134.5, grade \u221213% to \u221217%; S4/F3 per friction_index_spec. SUT_160 bridge crosswalk: late-loop coastal approach band upstream of Dale aid (~km 141). GMM S5/S6 micro-pockets @ km 23.02\u201323.14 retained as draft_preservation only \u2014 high nti_std; operator defers bog/rock split pending field QC. Tier lock 2026-06-29.",
+      "locked_at": "2026-06-29"
+    },
+    {
+      "course_km_start": 23.17,
+      "course_km_end": 23.29,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "gold_source": "operator",
+      "reason": "operator gold: coastal dirt trail descent \u2014 compacted hard-dirt tread, TI declining ~3.4\u21922.7 (chunk_u01). S3/F2 per friction_index_spec. Transition band between technical coastal descent and gravel approach to Dale village. Tier lock 2026-06-29.",
+      "locked_at": "2026-06-29"
+    },
+    {
+      "course_km_start": 23.29,
+      "course_km_end": 23.4,
+      "surface_class": "S2",
+      "friction_tier": "F2",
+      "gold_source": "operator",
+      "reason": "operator gold: gravel approach to Dale village \u2014 hard-pack gravel connectors on coastal descent toe (chunk_u01). Elev minimum ~16 m @ km 23.38; S2/F2 per friction_index_spec (compacted gravel, not coarse F3). Upstream of Dale coastal asphalt band. Tier lock 2026-06-29.",
+      "locked_at": "2026-06-29"
+    },
+    {
+      "course_km_start": 23.4,
+      "course_km_end": 23.55,
+      "surface_class": "S1",
+      "friction_tier": "F1",
+      "gold_source": "operator",
+      "reason": "operator gold: Dale coastal village asphalt \u2014 paved local road through geographic Dale @ km 23.5 (race_corridors.json dale_coastal; Garmin marker 24). Consensus TI ~1.16, low grade; S1/F1 per friction_index_spec. SUT_160 crosswalk ~km 141.47. Distinct from organiser timing Dale CP (~8.1 km) and SUT_160 Dale aid (~140 km). Tier lock 2026-06-29.",
+      "locked_at": "2026-06-29"
+    },
+    {
+      "course_km_start": 23.55,
+      "course_km_end": 23.75,
+      "surface_class": "S1",
+      "friction_tier": "F1",
+      "gold_source": "operator",
+      "reason": "operator gold: coastal road climb from Dale \u2014 asphalt road climbing from Dale village toward Dalsnuten foot (chunk_u01). Grade inflection >+10% from km 23.55; TI ~1.3 runnable; S1/F1 per friction_index_spec. Subject_A brief 0 m/s window @ km 23.83\u201323.86 (~24 m) on steep step \u2014 not tagged TRF (no co-runner halt, no CP). Tier lock 2026-06-29.",
+      "locked_at": "2026-06-29"
+    },
+    {
+      "course_km_start": 23.75,
+      "course_km_end": 24.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "gold_source": "operator",
+      "reason": "operator gold: Dalsnuten approach dirt trail \u2014 runnable hard-dirt tread on moderate climb toward geographic Dalsnuten summit @ km 25.0 (chunk_u01). S3/F2 per friction_index_spec. GMM S4 micro-pocket @ km 23.86\u201323.88 deferred \u2014 draft_preservation; boundary @ km 24.0 for chunk_u02 resume. Tier lock 2026-06-29.",
+      "locked_at": "2026-06-29"
+    }
+  ]
+}
