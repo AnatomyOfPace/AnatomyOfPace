@@ -1,0 +1,461 @@
+{
+  "chunk_id": "chunk_u03",
+  "course_km_window": [
+    25.0,
+    26.0
+  ],
+  "reviewed_at": "2026-06-29",
+  "operator_statement": "Operator field correction 2026-06-29 (rev 2): entire km 25.0–26.0 is rocky/technical terrain only — no S1, S2, S3, or S6. Six-span guidance: post-summit crest @ 25.0–25.15, traverse climb @ 25.15–25.40, plateau roll @ 25.40–25.475, stone steps (sherpa) S5/F4 @ 25.475–25.565 (~25.5), upper flank @ 25.565–25.80 (telemetric crest @ 25.801), descent onset @ 25.80–26.0. Seam @ 25.0: continuous S4/F3 from chunk_u02 (locked). S5 loose-rock micro-pockets retained via draft_preservation only (crest + crest-to-descent). Not locked.",
+  "display_bugs_fixed": [],
+  "display_bugs_not_found": [
+    {
+      "id": "summit_marker_vs_crest",
+      "claim": "Assigned strip places geographic summit @ km 25.0 at span boundary rather than telemetric crest @ km 25.801.",
+      "finding": "Intentional: Garmin marker 25 / race_corridors dalsnuten_summit @ km 25.0 is geographic anchor; telemetric max-altitude crest @ km 25.798–25.801 is within upper-flank S4/F3 span 25.565–25.80. No dashboard bug."
+    },
+    {
+      "id": "gmm_s3_majority_upper_flank",
+      "claim": "GMM draft strip shows S3 green majority on upper flank where operator assigns S4/F3.",
+      "finding": "GMM S1/S2/S3/S6 misclass overridden by operator rocky classification; Assigned strip resolves S4/F3 parent. S5 micro-pockets only via draft_preservation (2 policies: crest + crest-to-descent)."
+    }
+  ],
+  "km_bands": [
+    {
+      "km_band": "25.00–25.15",
+      "gold_s_f": "S4/F3 post-summit crest",
+      "png_operator_read": "Light blue S4/F3 continuation from u02 summit seam @ km 25.0",
+      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "gmm_draft_dominant": "S4 majority (74 m); S1/S2/S3 noise overridden",
+      "draft_preservation": "accept S5 @ 25.060–25.110 within S4/F3 parent only",
+      "telemetry": "Grade +17–45% (med ~+26.6%); altitude ~150→185 m; both athletes brief 0 m/s power-hike @ km 25.02–25.11; TI med ~1.30; not TRF (terrain-driven hike, no CP)",
+      "mismatch_type": "operator_corrected_gmm_misclass",
+      "dispute_topics": [
+        "Geographic summit marker @ km 25.0 vs telemetric crest @ km 25.801 — confirm span boundary placement",
+        "GMM S1 asphalt micro-pocket @ km 25.006–25.033 — overridden; no paved connector on topo"
+      ],
+      "operator_answer": "Confirmed: S4/F3 rocky crest @ 25.0–25.15; continuous from u02 locked seam. No S1/S2/S3/S6 anywhere in km 25.0–26.0."
+    },
+    {
+      "km_band": "25.15–25.40",
+      "gold_s_f": "S4/F3 traverse climb (reclassified from S3/F2 draft)",
+      "png_operator_read": "Light blue S4/F3 rocky traverse climb",
+      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "gmm_draft_dominant": "S4 majority — aligned with operator rocky classification",
+      "draft_preservation": null,
+      "telemetry": "Grade +10–20% (med ~+14.7%); altitude ~185→221 m; runnable ~0.8–1.3 m/s both athletes; TI med ~1.53",
+      "mismatch_type": "operator_corrected_s3_draft",
+      "dispute_topics": [
+        "Former S3/F2 draft demotion @ km 25.15 — operator field correction: rocky/technical only, reclassified to S4/F3",
+        "GMM S4 rocky pockets (115 m majority) now aligned with operator parent"
+      ],
+      "operator_answer": "Reclassified: S4/F3 rocky traverse @ 25.15–25.40 (was S3/F2 draft). No S1/S2/S3/S6 in chunk."
+    },
+    {
+      "km_band": "25.40–25.475",
+      "gold_s_f": "S4/F3 plateau roll (reclassified from S3/F2 draft)",
+      "png_operator_read": "Light blue S4/F3; brief grade dip near km 25.40; runnable tread before stone steps",
+      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "gmm_draft_dominant": "S3/S2 micro-pockets overridden",
+      "draft_preservation": null,
+      "telemetry": "Grade inflection near 0% @ km 25.403 (min ~−2.3%); altitude ~219→233 m; runnable ~0.9–1.3 m/s; TI med ~1.19",
+      "mismatch_type": "operator_corrected_s3_draft",
+      "dispute_topics": [
+        "Former S3/F2 plateau roll — operator field correction: rocky tread, reclassified to S4/F3",
+        "Plateau boundary: gold split @ 25.40 vs grade inflection @ km 25.403 — same S4/F3 class both sides",
+        "Ends upstream of stone steps (sherpa) @ km 25.475 — prior ~25.4 placement rejected"
+      ],
+      "operator_answer": "Reclassified: S4/F3 rocky plateau roll @ 25.40–25.475 (was S3/F2 draft). Stone steps relocated downstream to ~25.5. No S1/S2/S3/S6 in chunk."
+    },
+    {
+      "km_band": "25.475–25.565",
+      "gold_s_f": "S5/F4 stone steps (sherpa steps)",
+      "png_operator_read": "S5/F4 stepped tread band centered ~km 25.5",
+      "dashboard_assigned_after_fix": "S5/F4 (operator field correction guidance)",
+      "gmm_draft_dominant": "S3/S2/S4 overridden; S5/F4 promoted from operator relocation",
+      "draft_preservation": null,
+      "telemetry": "Grade +37–44% (med ~+39%); Subject_A extended 0 m/s power-hike @ km 25.475–25.564; Subject_B runnable ~1.0 m/s (staggered, not simultaneous co-halt); TI med ~1.06 (Subject_A) / ~1.65 (Subject_B); altitude ~233→262 m",
+      "mismatch_type": "operator_relocated_stone_steps",
+      "dispute_topics": [
+        "Operator correction rev 2: stone steps further downstream @ ~25.5 — NOT @ ~25.4 (prior placement rejected)",
+        "Telemetry window ~90 m (25.475–25.565): grade spike + Subject_A speed-decay co-halt on step risers",
+        "S5/F4 stepped tread vs surrounding S4/F3 runnable technical flanks"
+      ],
+      "operator_answer": "Confirmed: S5/F4 stone steps (sherpa) @ 25.475–25.565 centered ~25.5. Relocated from erroneous ~25.4 placement. No S1/S2/S3/S6 in chunk."
+    },
+    {
+      "km_band": "25.565–25.80",
+      "gold_s_f": "S4/F3 upper Dalsnuten flank",
+      "png_operator_read": "Light blue S4/F3 steep rocky climb; telemetric crest within band",
+      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "gmm_draft_dominant": "S3 majority (94 m) overridden; S5 loose-rock pockets via draft_preservation",
+      "draft_preservation": "accept S5 @ 25.794–25.814 within S4/F3 parent; GMM S1/S2/S3/S6 overridden",
+      "telemetry": "Grade +30–43% (med ~+31.8%); altitude ~262→328 m; telemetric crest @ km 25.798 @ 328 m; extended co-power-hike Subject_A @ 25.606–25.762, Subject_B @ 25.645–25.756; TI med ~1.06",
+      "mismatch_type": "operator_corrected_gmm_misclass",
+      "dispute_topics": [
+        "GMM S3 majority on steep rocky tread — overridden; operator retains S4/F3",
+        "Telemetric crest @ km 25.801 vs Garmin marker @ km 25.0 — anchor semantics",
+        "Co-power-hike on steep flank — terrain-driven only, no TRF"
+      ],
+      "operator_answer": "Confirmed: S4/F3 upper flank @ 25.565–25.80; GMM S1/S2/S3/S6 overridden. S5 loose-rock micro-pockets only via draft_preservation @ crest-to-descent."
+    },
+    {
+      "km_band": "25.80–26.00",
+      "gold_s_f": "S4/F3 post-crest technical descent",
+      "png_operator_read": "Light blue S4/F3; TI spike visible on telemetry panel",
+      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "gmm_draft_dominant": "S3 majority (117 m) overridden; S1 asphalt pocket overridden",
+      "draft_preservation": null,
+      "telemetry": "Grade flip negative @ km 25.804; TI spike ~3.0–4.5 (peak 5.47 @ km 25.847; Subject_B peak ~4.50); speed recovery ~1.3–2.1 m/s; altitude ~299→327 m",
+      "mismatch_type": "operator_corrected_gmm_ti_disagreement",
+      "dispute_topics": [
+        "GMM S3 majority vs TI signal ~3.0–4.5 — operator retains S4/F3 runnable technical (not F4 scramble)",
+        "Descent boundary @ km 26.0 for chunk_u04 resume",
+        "GMM S5/S6 @ crest-to-descent — S6 overridden; S5 only via draft_preservation @ 25.794–25.814"
+      ],
+      "operator_answer": "Confirmed: S4/F3 runnable technical descent @ 25.80–26.0; GMM S1/S2/S3/S6 overridden. No S1/S2/S3/S6 in chunk."
+    }
+  ],
+  "dalsnuten_post_summit": {
+    "gold_spans": {
+      "post_summit_crest": [
+        25.0,
+        25.15
+      ],
+      "traverse_climb": [
+        25.15,
+        25.4
+      ],
+      "plateau_roll": [
+        25.4,
+        25.475
+      ],
+      "stone_steps": [
+        25.475,
+        25.565
+      ],
+      "upper_flank": [
+        25.565,
+        25.8
+      ],
+      "descent_onset": [
+        25.8,
+        26.0
+      ]
+    },
+    "geographic_anchors": {
+      "garmin_summit_marker_km": 25.0,
+      "telemetric_crest_km": 25.801,
+      "telemetric_crest_altitude_m": 328,
+      "grade_flip_negative_km": 25.804,
+      "sut_160_crosswalk": "post-summit traverse band upstream of dalsnuten_descent"
+    },
+    "chunk_u02_seam": {
+      "km": 25.0,
+      "chunk_u02_end": "S4/F3 summit approach (locked 2026-06-29)",
+      "chunk_u03_start": "S4/F3 post-summit crest (operator field correction guidance)",
+      "s_f_continuous": true,
+      "friction_continuous": true,
+      "telemetry_at_seam": "Grade +17–27%; both athletes slowing into crest; Subject_A extended 0 m/s @ 25.02–25.11; TI ~1.2–1.3",
+      "note": "S/F class continuous S4/F3 across chunk boundary; u03 spans operator field corrected, not locked."
+    },
+    "chunk_u04_seam": {
+      "km": 26.0,
+      "chunk_u03_end": "S4/F3 descent onset (operator field correction)",
+      "chunk_u04_start": "GMM draft (not yet reviewed)",
+      "note": "Boundary @ km 26.0 for chunk_u04 resume."
+    }
+  },
+  "draft_preservation_zones": [
+    {
+      "km": [
+        25.06,
+        25.11
+      ],
+      "accept": [
+        "S5"
+      ],
+      "parent": "S4/F3",
+      "gmm_classes_present": [
+        "S5"
+      ],
+      "open_question": "Loose-rock vs runnable-rock split — S5 pocket only; S1/S2/S3/S6 overridden."
+    },
+    {
+      "km": [
+        25.794,
+        25.814
+      ],
+      "accept": [
+        "S5"
+      ],
+      "parent": "S4/F3",
+      "gmm_classes_present": [
+        "S5"
+      ],
+      "open_question": "Crest-to-descent loose-rock pocket — S5 only; S6 overridden."
+    }
+  ],
+  "telemetry_summary": {
+    "subject_a": {
+      "grade_pct_range": [
+        -34.8,
+        45.0
+      ],
+      "speed_mps_median": 1.08,
+      "ti_median": 1.31,
+      "slow_halt_bands_lt_0_5_mps": [
+        [
+          25.023,
+          25.061
+        ],
+        [
+          25.082,
+          25.112
+        ],
+        [
+          25.116,
+          25.14
+        ],
+        [
+          25.475,
+          25.564
+        ],
+        [
+          25.606,
+          25.653
+        ],
+        [
+          25.705,
+          25.762
+        ]
+      ]
+    },
+    "subject_b": {
+      "grade_pct_range": [
+        -29.9,
+        45.0
+      ],
+      "speed_mps_median": 0.97,
+      "ti_median": 1.48,
+      "slow_halt_bands_lt_0_5_mps": [
+        [
+          25.044,
+          25.066
+        ],
+        [
+          25.123,
+          25.139
+        ],
+        [
+          25.489,
+          25.645
+        ],
+        [
+          25.691,
+          25.756
+        ]
+      ]
+    },
+    "consensus_highlights": {
+      "post_summit_crest_km": "25.0–25.15",
+      "post_summit_grade_pct": "med ~+26.6%",
+      "traverse_climb_km": "25.15–25.40",
+      "traverse_speed_mps": "~0.8–1.3",
+      "plateau_roll_km": "25.40–25.475",
+      "plateau_dip_km": "~25.403",
+      "plateau_min_grade_pct": "~−2.3%",
+      "stone_steps_km": "25.475–25.565",
+      "stone_steps_center_km": "~25.52",
+      "stone_steps_grade_pct": "med ~+39%",
+      "stone_steps_ti_med": "~1.06 (Subject_A) / ~1.65 (Subject_B)",
+      "upper_flank_onset_km": "25.565",
+      "upper_flank_grade_pct": "med ~+31.8%",
+      "telemetric_crest_km": 25.801,
+      "telemetric_crest_altitude_m": 328,
+      "co_power_hike_km": "25.565–25.76 (both athletes extended slow bands post stone steps; not simultaneous co-halt)",
+      "grade_flip_negative_km": 25.804,
+      "descent_ti_peak_km": 25.847,
+      "descent_ti_peak": 5.47,
+      "altitude_gain_m": "150→328 (consensus spine)"
+    }
+  },
+  "seam_reconciliation": {
+    "km_25_0": {
+      "u02_gold": "S4/F3 summit approach (24.72–25.0, locked 2026-06-29)",
+      "u03_draft": "S4/F3 post-summit crest (25.0–25.15, operator field correction)",
+      "gmm_at_seam": "S4 majority; S1/S2/S3 noise overridden",
+      "status": "clean_s_f_continuous; u03_not_locked",
+      "mismatch": false
+    },
+    "km_25_15": {
+      "u03_crest_end": "S4/F3 post-summit crest (25.0–25.15)",
+      "u03_traverse_start": "S4/F3 traverse climb (25.15–25.40)",
+      "gmm_at_seam": "S4/S3 mix — S3 overridden",
+      "status": "same_class_continuous_s4_f3",
+      "mismatch": false,
+      "telemetry_note": "Rocky traverse climb; grade moderates to +10–20%; operator field correction removed S3/F2 draft split"
+    },
+    "km_25_40": {
+      "u03_traverse_end": "S4/F3 traverse climb (25.15–25.40)",
+      "u03_plateau_start": "S4/F3 plateau roll (25.40–25.475)",
+      "status": "same_class_grade_inflection_only",
+      "telemetry_note": "Grade dip near 0% @ km 25.403 before stone steps; continuous S4/F3"
+    },
+    "km_25_475": {
+      "u03_plateau_end": "S4/F3 plateau roll (25.40–25.475)",
+      "u03_stone_steps_start": "S5/F4 stone steps (sherpa steps) (25.475–25.565)",
+      "status": "s4_f3_to_s5_f4_class_transition",
+      "telemetry_note": "Grade spike +37–44%; Subject_A speed decay onset @ km 25.475; operator relocation from ~25.4"
+    },
+    "km_25_565": {
+      "u03_stone_steps_end": "S5/F4 stone steps (25.475–25.565)",
+      "u03_flank_start": "S4/F3 upper flank (25.565–25.80)",
+      "status": "s5_f4_to_s4_f3_class_transition",
+      "telemetry_note": "Subject_A speed recovery @ km 25.57; steep rocky climb continues to telemetric crest"
+    },
+    "km_25_80": {
+      "u03_flank_end": "S4/F3 upper flank (25.565–25.80)",
+      "u03_descent_start": "S4/F3 descent onset (25.80–26.0)",
+      "status": "same_class_crest_to_descent",
+      "telemetry_note": "Telemetric crest @ km 25.801 within flank span; grade flip @ km 25.804"
+    },
+    "km_26_0": {
+      "u03_draft_end": "S4/F3 descent onset (25.80–26.0)",
+      "u04_draft": "GMM draft (not reviewed)",
+      "status": "chunk_boundary_deferred",
+      "mismatch": false
+    },
+    "internal_seams": [
+      {
+        "km": 25.15,
+        "boundary": "crest → traverse (both S4/F3)",
+        "status": "same_class_behavioral_split_only",
+        "telemetry_note": "Operator field correction: continuous rocky S4/F3; former S3/F2 draft removed"
+      },
+      {
+        "km": 25.4,
+        "boundary": "traverse → plateau (both S4/F3)",
+        "status": "same_class_grade_inflection_only",
+        "telemetry_note": "Brief grade dip @ km 25.403"
+      },
+      {
+        "km": 25.475,
+        "boundary": "plateau → stone steps (S4/F3 → S5/F4)",
+        "status": "class_transition_operator_relocation",
+        "telemetry_note": "Grade spike +37–44%; Subject_A 0 m/s power-hike onset; stone steps @ ~25.5 (not ~25.4)"
+      },
+      {
+        "km": 25.565,
+        "boundary": "stone steps → upper flank (S5/F4 → S4/F3)",
+        "status": "class_transition_operator_relocation",
+        "telemetry_note": "Subject_A speed recovery; steep rocky climb to telemetric crest"
+      },
+      {
+        "km": 25.8,
+        "boundary": "upper flank → descent onset (both S4/F3)",
+        "status": "same_class_grade_flip_only",
+        "telemetry_note": "Grade flip negative @ km 25.804; TI spike follows"
+      }
+    ]
+  },
+  "recommended_revision_questions": [
+    {
+      "id": "Q1_garmin_vs_telemetric_crest",
+      "question": "Summit anchor semantics: retain geographic Garmin marker @ km 25.0 as span boundary, or re-anchor telemetric crest @ km 25.801 as summit?",
+      "recommended_resolution": "Retain km 25.0 geographic marker for chunk seam continuity with u02; telemetric crest @ km 25.801 remains within upper-flank S4/F3 span 25.565–25.80.",
+      "status": "resolved",
+      "operator_answer": "Retain km 25.0 geographic marker; telemetric crest within upper-flank span."
+    },
+    {
+      "id": "Q2_s4_to_s3_demotion_25_15",
+      "question": "Tread change @ km 25.15: confirm S4/F3 → S3/F2 demotion for runnable traverse climb, or retain S4/F3 through km 25.40?",
+      "recommended_resolution": "Operator field correction: retain S4/F3 through km 25.40 — entire chunk rocky/technical only.",
+      "status": "resolved",
+      "operator_answer": "Rejected S3/F2 draft; reclassified traverse @ 25.15–25.40 to S4/F3. No S1/S2/S3/S6 in chunk."
+    },
+    {
+      "id": "Q3_gmm_s4_traverse_pockets",
+      "question": "Traverse climb GMM S4 majority (115 m) within former S3/F2 parent @ km 25.15–25.40: promote rocky pockets or retain parent via draft_preservation?",
+      "recommended_resolution": "Operator field correction: S4/F3 parent aligns with GMM S4 majority; no draft_preservation needed.",
+      "status": "resolved",
+      "operator_answer": "S4/F3 parent now aligns with GMM; S1/S2/S3/S6 overridden."
+    },
+    {
+      "id": "Q4_plateau_boundary_25_40",
+      "question": "Plateau roll boundary: keep gold split @ km 25.40 vs grade inflection @ km 25.403?",
+      "recommended_resolution": "Retain 25.40 — same S4/F3 class both sides; boundary marks behavioral grade tier only.",
+      "status": "resolved",
+      "operator_answer": "Retain 25.40 boundary; both sides S4/F3 after field correction."
+    },
+    {
+      "id": "Q5_upper_flank_promotion_25_50",
+      "question": "S3/F2 → S4/F3 promotion @ km 25.50: confirm vs earlier rocky onset on traverse GMM S4 pockets?",
+      "recommended_resolution": "Continuous S4/F3 from km 25.0; 25.50 boundary is grade-tier split only.",
+      "status": "resolved",
+      "operator_answer": "Continuous S4/F3; 25.50 is behavioral grade boundary within same rocky class."
+    },
+    {
+      "id": "Q6_co_power_hike_trf",
+      "question": "Extended slow/power-hike bands @ km 25.47–25.76 (both athletes, staggered not simultaneous): tag TRF exclusion or terrain-driven only?",
+      "recommended_resolution": "No TRF — terrain-driven power-hike on steep rocky flank.",
+      "status": "resolved",
+      "operator_answer": "Terrain-driven only; no TRF tag."
+    },
+    {
+      "id": "Q7_gmm_s3_descent_ti",
+      "question": "Descent onset @ km 25.80: GMM S3 majority vs TI spike ~3.0–4.5 — retain S4/F3 runnable technical or promote to F4 scramble?",
+      "recommended_resolution": "Retain S4/F3 — runnable technical braking descent, not F4 scramble.",
+      "status": "resolved",
+      "operator_answer": "Retain S4/F3; GMM S1/S2/S3/S6 overridden."
+    },
+    {
+      "id": "Q8_bog_vs_rock_crest_transition",
+      "question": "Crest-to-descent transition GMM S5/S6 @ km 25.794–25.814: bog/marsh tread vs technical rock?",
+      "recommended_resolution": "S5 loose-rock micro-pocket only via draft_preservation; S6 overridden.",
+      "status": "resolved",
+      "operator_answer": "S5 pocket only; S6 overridden per rocky-only rule."
+    },
+    {
+      "id": "Q10_stone_steps_sherpa_25_5",
+      "question": "Operator correction rev 2: stone steps (sherpa steps) further downstream @ ~km 25.5 — confirm S5/F4 band bounds and reject prior ~25.4 placement?",
+      "recommended_resolution": "Relocate S5/F4 span to km 25.475–25.565 (~90 m, center ~25.52): telemetry grade +37–44%, Subject_A extended 0 m/s power-hike @ 25.475–25.564. Restore S4/F3 plateau roll @ 25.40–25.475; upper flank starts @ 25.565.",
+      "status": "resolved",
+      "operator_answer": "Confirmed: S5/F4 stone steps (sherpa) @ 25.475–25.565 centered ~25.5. Prior ~25.4 placement rejected. No S1/S2/S3/S6 in chunk."
+    },
+    {
+      "id": "Q9_dashboard_png_review",
+      "question": "Re-exported PNG: does Assigned strip show continuous S4/F3 with no S1/S2/S3/S6 in km 25–26?",
+      "recommended_resolution": "Operator visual sign-off required before lock.",
+      "status": "open"
+    }
+  ],
+  "lock_readiness": {
+    "map_json_tier_lock": "chunk_u01 locked 2026-06-29; chunk_u02 locked 2026-06-29; chunk_u03 operator field correction 2026-06-29 rev 2 (6 spans: S4/F3 + S5/F4 stone steps @ 25.475–25.565, not locked)",
+    "disagreement_matrix_status": "operator_field_correction",
+    "gt_coverage_pct": 100.0,
+    "seams_clean": true,
+    "gmm_reconciled": true,
+    "blockers": [
+      "operator_png_sign_off_pending",
+      "Q9_dashboard_png_review"
+    ],
+    "recommendation": "chunk_u03 operator field correction rev 2 applied (S5/F4 stone steps relocated to 25.475–25.565 ~25.5; 2 S5-only draft_preservation policies on crest + crest-to-descent). Re-export PNG for visual sign-off before lock."
+  },
+  "reexport": {
+    "path": "06_Visualizations/sut43_hitl_upstream/chunk_u03_km25-26.png",
+    "trigger": "chunk_u03_stone_steps_relocation_25_5_2026-06-29",
+    "exported_at": "2026-06-29",
+    "verify_export": true,
+    "flagged_segments": 0
+  },
+  "status": "operator_field_correction",
+  "locked_at": null,
+  "operator_rocky_only_rule": {
+    "statement": "Entire km 25.0–26.0 is rocky/technical terrain only — no S1, S2, S3, or S6.",
+    "allowed_classes": [
+      "S4",
+      "S5"
+    ],
+    "applied_at": "2026-06-29"
+  }
+}

@@ -27,7 +27,7 @@
     "course_axis": "stream_distance",
     "gpx_reference": "COURSE_SUT43_official_2027.gpx",
     "downstream_sector_boundary_km": 29.0,
-    "notes": "Machine draft for dale_paradisskaret_upstream (km 22–29). Operator gold for gramstad_band km 29–41 remains in spatial_terrain_map_sut43.json."
+    "notes": "Machine draft for dale_paradisskaret_upstream (km 22\u201329). Operator gold for gramstad_band km 29\u201341 remains in spatial_terrain_map_sut43.json."
   },
   "clustering": {
     "method": "gmm",
@@ -47006,34 +47006,43 @@
         "friction_tier": "F3",
         "gold_source": "draft_review",
         "mode": "guidance",
-        "reason": "draft_review (dale_paradisskaret_upstream chunk_u03): post-summit crest continuation from operator gold S4/F3 seam @ km 25.0 — rocky tread on steep positive grade (+20–31%), altitude ~151→185 m. Both athletes brief 0 m/s power-hike @ km 25.02–25.11; not tagged TRF (terrain-driven hike, no CP). GMM S4 majority; S1 micro-pocket @ km 25.006–25.033 deferred. S4/F3 per friction_index_spec. Pending operator sign-off."
+        "reason": "operator field correction (dale_paradisskaret_upstream chunk_u03): post-summit crest continuation from operator gold S4/F3 seam @ km 25.0 \u2014 rocky tread on steep positive grade (+20\u201331%), altitude ~151\u2192185 m. Both athletes brief 0 m/s power-hike @ km 25.02\u201325.11; not tagged TRF (terrain-driven hike, no CP). Entire km 25.0\u201326.0 rocky/technical only (S4/S5); GMM S1/S2/S3/S6 misclass overridden. S4/F3 per friction_index_spec."
       },
       {
         "course_km_start": 25.15,
         "course_km_end": 25.4,
-        "surface_class": "S3",
-        "friction_tier": "F2",
+        "surface_class": "S4",
+        "friction_tier": "F3",
         "gold_source": "draft_review",
         "mode": "guidance",
-        "reason": "draft_review (chunk_u03): post-summit traverse climb — runnable hard-dirt tread, grade +10–20%, altitude ~185→221 m. Subject_A/B TI ~1.2–1.9, speed ~0.8–1.3 m/s with scattered power-hike windows. S3/F2 per friction_index_spec. GMM S3/S4 mix; rocky micro-pockets deferred via draft_preservation. Pending operator sign-off."
+        "reason": "operator field correction (chunk_u03): post-summit traverse climb \u2014 rocky/technical tread, grade +10\u201320%, altitude ~185\u2192221 m. Subject_A/B TI ~1.2\u20131.9, speed ~0.8\u20131.3 m/s with scattered power-hike windows. Ends upstream of stone steps (sherpa steps) band @ km 25.475. Reclassified from S3/F2 draft \u2014 no S1/S2/S3/S6 in km 25.0\u201326.0. S4/F3 per friction_index_spec; GMM S3/S2 misclass overridden."
       },
       {
         "course_km_start": 25.4,
-        "course_km_end": 25.5,
-        "surface_class": "S3",
-        "friction_tier": "F2",
+        "course_km_end": 25.475,
+        "surface_class": "S4",
+        "friction_tier": "F3",
         "gold_source": "draft_review",
         "mode": "guidance",
-        "reason": "draft_review (chunk_u03): traverse roll / plateau dip — brief grade inflection near 0% @ km 25.40, altitude ~220 m before upper flank push. Runnable dirt tread; S3/F2 per friction_index_spec. GMM S2/S3 mix. Pending operator sign-off."
+        "reason": "operator field correction (chunk_u03): rocky plateau roll before stone steps \u2014 brief grade inflection near 0% @ km 25.403 (min ~\u22122.3%), altitude ~219\u2192233 m; runnable tread ~0.9\u20131.3 m/s before sherpa-step onset. S4/F3 per friction_index_spec; GMM S2/S3 misclass overridden. No S1/S2/S3/S6 in km 25.0\u201326.0."
       },
       {
-        "course_km_start": 25.5,
+        "course_km_start": 25.475,
+        "course_km_end": 25.565,
+        "surface_class": "S5",
+        "friction_tier": "F4",
+        "gold_source": "draft_review",
+        "mode": "guidance",
+        "reason": "operator field correction (chunk_u03): stone steps (sherpa steps) @ km ~25.5 \u2014 technical stepped tread on rocky Dalsnuten flank (operator relocation from erroneous ~25.4 placement). Telemetry window km 25.475\u201325.565 (~90 m): grade +37\u201344% (med ~+39%); Subject_A extended 0 m/s power-hike @ km 25.475\u201325.564 on steep step risers; Subject_B runnable ~1.0 m/s (staggered, not simultaneous co-halt). TI med ~1.06 (Subject_A) / ~1.65 (Subject_B). S5/F4 per friction_index_spec (technical rock difficult / stepped tread). GMM S1/S2/S3/S6 misclass overridden. No S1/S2/S3/S6 in km 25.0\u201326.0."
+      },
+      {
+        "course_km_start": 25.565,
         "course_km_end": 25.8,
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "draft_review",
         "mode": "guidance",
-        "reason": "draft_review (chunk_u03): upper Dalsnuten flank — sustained steep rocky climb (+30–43%), altitude ~244→326 m; telemetric crest @ km 25.801 (distinct from Garmin marker @ km 25.0). Both athletes extended co-power-hike @ km 25.47–25.76 — terrain-driven, not TRF. S4/F3 per friction_index_spec. GMM S1/S2/S3 misclass on steep tread deferred. SUT_160 crosswalk: post-summit traverse band upstream of dalsnuten_descent. Pending operator sign-off."
+        "reason": "operator field correction (chunk_u03): upper Dalsnuten flank \u2014 sustained steep rocky climb (+30\u201343%), altitude ~262\u2192326 m; telemetric crest @ km 25.801 (distinct from Garmin marker @ km 25.0). Both athletes extended co-power-hike @ km 25.565\u201325.76 \u2014 terrain-driven, not TRF. S4/F3 per friction_index_spec; GMM S1/S2/S3/S6 misclass overridden. S5 loose-rock micro-pockets retained via draft_preservation only. SUT_160 crosswalk: post-summit traverse band upstream of dalsnuten_descent."
       },
       {
         "course_km_start": 25.8,
@@ -47042,7 +47051,7 @@
         "friction_tier": "F3",
         "gold_source": "draft_review",
         "mode": "guidance",
-        "reason": "draft_review (chunk_u03): post-crest technical descent onset — grade flip negative @ km 25.804, TI spike ~3.0–4.5 (Subject_B peak 4.50 @ km 25.8–25.9), speed recovery ~1.3–2.1 m/s. Technical rocky braking descent toward Revhol traverse. S4/F3 per friction_index_spec (runnable technical; not F4 scramble). GMM S3/S1 majority disagrees with TI signal. Boundary @ km 26.0 for chunk_u04 resume. Pending operator sign-off."
+        "reason": "operator field correction (chunk_u03): post-crest technical descent onset \u2014 grade flip negative @ km 25.804, TI spike ~3.0\u20134.5 (Subject_B peak 4.50 @ km 25.8\u201325.9), speed recovery ~1.3\u20132.1 m/s. Technical rocky braking descent toward Revhol traverse. S4/F3 per friction_index_spec (runnable technical; not F4 scramble). GMM S1/S2/S3/S6 misclass overridden. Boundary @ km 26.0 for chunk_u04 resume."
       }
     ],
     "sector_id": "dale_paradisskaret_upstream",
@@ -47053,7 +47062,7 @@
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: technical coastal descent — rocky/rooty tread on steep negative-grade approach to Dale (chunk_u01). Consensus TI median ~3.9–4.5, grade −13% to −17%; S4/F3 per friction_index_spec. SUT_160 bridge crosswalk: late-loop coastal approach band upstream of Dale aid (~km 141). GMM S5/S6 micro-pockets @ km 23.02–23.14 retained under draft_preservation within S4/F3 parent lock. Subject_A fall behavioral_stop + TRF exclusion @ km 23.123–23.135 (FIT-tight; Subject_A_only); Subject_B through-running at spine co-location. Locked 2026-06-29.",
+        "reason": "operator gold: technical coastal descent \u2014 rocky/rooty tread on steep negative-grade approach to Dale (chunk_u01). Consensus TI median ~3.9\u20134.5, grade \u221213% to \u221217%; S4/F3 per friction_index_spec. SUT_160 bridge crosswalk: late-loop coastal approach band upstream of Dale aid (~km 141). GMM S5/S6 micro-pockets @ km 23.02\u201323.14 retained under draft_preservation within S4/F3 parent lock. Subject_A fall behavioral_stop + TRF exclusion @ km 23.123\u201323.135 (FIT-tight; Subject_A_only); Subject_B through-running at spine co-location. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47062,7 +47071,7 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: coastal dirt trail descent — compacted hard-dirt tread, TI declining ~3.4→2.7 (chunk_u01). S3/F2 per friction_index_spec. Transition band between technical coastal descent and gravel approach to Dale village. Locked 2026-06-29.",
+        "reason": "operator gold: coastal dirt trail descent \u2014 compacted hard-dirt tread, TI declining ~3.4\u21922.7 (chunk_u01). S3/F2 per friction_index_spec. Transition band between technical coastal descent and gravel approach to Dale village. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47071,7 +47080,7 @@
         "surface_class": "S2",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: gravel approach to Dale — hard-pack gravel tread on descent toe upstream of CP compound (chunk_u01). S2/F2 per friction_index_spec. Runnable ~2.0–2.7 m/s both athletes; Subject_A TI ~1.16–1.18; elev minimum ~16 m @ km 23.38. Locked 2026-06-29.",
+        "reason": "operator gold: gravel approach to Dale \u2014 hard-pack gravel tread on descent toe upstream of CP compound (chunk_u01). S2/F2 per friction_index_spec. Runnable ~2.0\u20132.7 m/s both athletes; Subject_A TI ~1.16\u20131.18; elev minimum ~16 m @ km 23.38. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47080,7 +47089,7 @@
         "surface_class": "S2",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: Dale CP halt (gravel) — hard-pack gravel path through geographic Dale @ km 23.5 (race_corridors.json dale_coastal; Garmin marker 24). S2/F2 per friction_index_spec. Co-stop at Dale aid; behavioral_stops/trf_exclusions (anchor dale_cp). Distinct from organiser timing Dale index (~8.1 km). SUT_160 bridge: Dale aid ~km 141.0. Locked 2026-06-29.",
+        "reason": "operator gold: Dale CP halt (gravel) \u2014 hard-pack gravel path through geographic Dale @ km 23.5 (race_corridors.json dale_coastal; Garmin marker 24). S2/F2 per friction_index_spec. Co-stop at Dale aid; behavioral_stops/trf_exclusions (anchor dale_cp). Distinct from organiser timing Dale index (~8.1 km). SUT_160 bridge: Dale aid ~km 141.0. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47089,7 +47098,7 @@
         "surface_class": "S2",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: Dale CP walk-out (gravel) — gravel path climb exiting Dale aid compound (chunk_u01). S2/F2 per friction_index_spec. Subject_A race FIT sustained low speed ~1.06–1.50 m/s; behavioral walk excluded from paired TRF (dale_cp). Grade inflection >+10% from km 23.55. Locked 2026-06-29.",
+        "reason": "operator gold: Dale CP walk-out (gravel) \u2014 gravel path climb exiting Dale aid compound (chunk_u01). S2/F2 per friction_index_spec. Subject_A race FIT sustained low speed ~1.06\u20131.50 m/s; behavioral walk excluded from paired TRF (dale_cp). Grade inflection >+10% from km 23.55. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47098,7 +47107,7 @@
         "surface_class": "S2",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: coastal gravel climb resume — hard-pack gravel path from Dale through Dalsnuten foot approach (chunk_u01). Runnable ~2.1–2.6 m/s both athletes post walk-out; TI ~1.3; S2/F2 per friction_index_spec. Gravel→asphalt seam @ km 23.8. Locked 2026-06-29.",
+        "reason": "operator gold: coastal gravel climb resume \u2014 hard-pack gravel path from Dale through Dalsnuten foot approach (chunk_u01). Runnable ~2.1\u20132.6 m/s both athletes post walk-out; TI ~1.3; S2/F2 per friction_index_spec. Gravel\u2192asphalt seam @ km 23.8. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47107,7 +47116,7 @@
         "surface_class": "S1",
         "friction_tier": "F1",
         "gold_source": "operator",
-        "reason": "operator gold: coastal asphalt road — paved tread on climb toward Dalsnuten foot through chunk_u01 end (chunk_u01). S1/F1 per friction_index_spec from km 23.8; consensus TI ~1.2–1.3; runnable ~2.0 m/s both athletes. Intentional asphalt→dirt seam @ km 24.0 into chunk_u02 S3/F2. Locked 2026-06-29.",
+        "reason": "operator gold: coastal asphalt road \u2014 paved tread on climb toward Dalsnuten foot through chunk_u01 end (chunk_u01). S1/F1 per friction_index_spec from km 23.8; consensus TI ~1.2\u20131.3; runnable ~2.0 m/s both athletes. Intentional asphalt\u2192dirt seam @ km 24.0 into chunk_u02 S3/F2. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47116,7 +47125,7 @@
         "surface_class": "S1",
         "friction_tier": "F1",
         "gold_source": "operator",
-        "reason": "operator gold: coastal asphalt road continuation — paved tread from chunk_u01 S1/F1 @ km 23.8–24.0 through km 24.35 (chunk_u02). Continuous asphalt band; dirt tread onset @ km 24.35. S1/F1 per friction_index_spec; consensus TI ~1.2–1.9; runnable ~1.6–2.4 m/s both athletes on flat-to-mild grade. GMM S3/S4 rocky misclass @ km 24.07–24.15 removed from draft_preservation (paved tread, cluster noise). Locked 2026-06-29.",
+        "reason": "operator gold: coastal asphalt road continuation \u2014 paved tread from chunk_u01 S1/F1 @ km 23.8\u201324.0 through km 24.35 (chunk_u02). Continuous asphalt band; dirt tread onset @ km 24.35. S1/F1 per friction_index_spec; consensus TI ~1.2\u20131.9; runnable ~1.6\u20132.4 m/s both athletes on flat-to-mild grade. GMM S3/S4 rocky misclass @ km 24.07\u201324.15 removed from draft_preservation (paved tread, cluster noise). Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47125,7 +47134,7 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: Dalsnuten mid climb — hard-dirt tread from asphalt→dirt seam @ km 24.35, grade +3–10%, altitude ~34→57 m (chunk_u02). Consensus TI ~1.4–1.6; both athletes ~1.2–1.8 m/s. S3/F2 per friction_index_spec. GMM S1/S2 road-gravel misclass @ km 24.52–24.63 deferred — draft_preservation; no paved connector on topo. Locked 2026-06-29.",
+        "reason": "operator gold: Dalsnuten mid climb \u2014 hard-dirt tread from asphalt\u2192dirt seam @ km 24.35, grade +3\u201310%, altitude ~34\u219257 m (chunk_u02). Consensus TI ~1.4\u20131.6; both athletes ~1.2\u20131.8 m/s. S3/F2 per friction_index_spec. GMM S1/S2 road-gravel misclass @ km 24.52\u201324.63 deferred \u2014 draft_preservation; no paved connector on topo. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47134,7 +47143,7 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: Dalsnuten steep dirt climb — power-hike tread, grade >+15% from km 24.56 (rolling median inflection). Speed decay both athletes (~1.5→0.8 m/s); Subject_A brief 0 m/s windows on steep steps — not tagged TRF (no co-runner halt, no CP). S3/F2 per friction_index_spec. GMM S4 micro-pockets @ km 24.65–24.71 deferred — draft_preservation. Locked 2026-06-29.",
+        "reason": "operator gold: Dalsnuten steep dirt climb \u2014 power-hike tread, grade >+15% from km 24.56 (rolling median inflection). Speed decay both athletes (~1.5\u21920.8 m/s); Subject_A brief 0 m/s windows on steep steps \u2014 not tagged TRF (no co-runner halt, no CP). S3/F2 per friction_index_spec. GMM S4 micro-pockets @ km 24.65\u201324.71 deferred \u2014 draft_preservation. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       },
       {
@@ -47143,7 +47152,7 @@
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: Dalsnuten summit approach — technical rocky tread on steepest final push to geographic Dalsnuten summit @ km 25.0 (Garmin marker 25; race_corridors.json dalsnuten_summit). Grade +18–25%, altitude ~102→151 m; consensus TI ~1.4–1.7 rising toward crest. Subject_A extended power-hike @ km 24.74–24.95. S4/F3 per friction_index_spec. SUT_160 crosswalk ~km 142.25 summit. GMM S2/S3 micro-pockets @ km 24.97–25.0 deferred — draft_preservation; boundary @ km 25.0 for chunk_u03 resume. Locked 2026-06-29.",
+        "reason": "operator gold: Dalsnuten summit approach \u2014 technical rocky tread on steepest final push to geographic Dalsnuten summit @ km 25.0 (Garmin marker 25; race_corridors.json dalsnuten_summit). Grade +18\u201325%, altitude ~102\u2192151 m; consensus TI ~1.4\u20131.7 rising toward crest. Subject_A extended power-hike @ km 24.74\u201324.95. S4/F3 per friction_index_spec. SUT_160 crosswalk ~km 142.25 summit. GMM S2/S3 micro-pockets @ km 24.97\u201325.0 deferred \u2014 draft_preservation; boundary @ km 25.0 for chunk_u03 resume. Locked 2026-06-29.",
         "locked_at": "2026-06-29"
       }
     ],
@@ -47161,7 +47170,7 @@
           "S3",
           "S4"
         ],
-        "reason": "operator HITL (dale_paradisskaret_upstream chunk_u01): technical descent core — accept GMM S5/S6 micro-pockets within S4/F3 parent lock; high nti_std @ km 23.10–23.14. Locked 2026-06-29."
+        "reason": "operator HITL (dale_paradisskaret_upstream chunk_u01): technical descent core \u2014 accept GMM S5/S6 micro-pockets within S4/F3 parent lock; high nti_std @ km 23.10\u201323.14. Locked 2026-06-29."
       },
       {
         "course_km_start": 24.524,
@@ -47176,7 +47185,7 @@
           "S5",
           "S6"
         ],
-        "reason": "operator HITL (dale_paradisskaret_upstream chunk_u02): mid climb GMM misclass — accept GMM S1/S2 asphalt-gravel micro-pockets within S3/F2 parent lock; no paved connector on topo, cluster noise on dirt tread."
+        "reason": "operator HITL (dale_paradisskaret_upstream chunk_u02): mid climb GMM misclass \u2014 accept GMM S1/S2 asphalt-gravel micro-pockets within S3/F2 parent lock; no paved connector on topo, cluster noise on dirt tread."
       },
       {
         "course_km_start": 24.651,
@@ -47191,22 +47200,7 @@
           "S5",
           "S6"
         ],
-        "reason": "operator HITL (dale_paradisskaret_upstream chunk_u02): steep climb flank — accept GMM S4 draft @ km 24.65–24.71 within S3/F2 parent lock; minor rocky tread on steep dirt section, not promoted to operator gold."
-      },
-      {
-        "course_km_start": 25.006,
-        "course_km_end": 25.033,
-        "accept_draft_classes": [
-          "S1"
-        ],
-        "no_input_classes": [
-          "S2",
-          "S3",
-          "S4",
-          "S5",
-          "S6"
-        ],
-        "reason": "operator HITL (dale_paradisskaret_upstream chunk_u03): summit crest GMM misclass — accept GMM S1 asphalt micro-pocket within S4/F3 draft_review parent @ km 25.006–25.033; no paved connector on topo, cluster noise on rocky crest."
+        "reason": "operator HITL (dale_paradisskaret_upstream chunk_u02): steep climb flank \u2014 accept GMM S4 draft @ km 24.65\u201324.71 within S3/F2 parent lock; minor rocky tread on steep dirt section, not promoted to operator gold."
       },
       {
         "course_km_start": 25.06,
@@ -47221,11 +47215,11 @@
           "S4",
           "S6"
         ],
-        "reason": "operator HITL (chunk_u03): crest flank — accept GMM S5 micro-pocket @ km 25.060–25.110 within S4/F3 draft_review parent; operator defers loose-rock vs runnable-rock split pending field QC."
+        "reason": "operator HITL (chunk_u03): crest flank \u2014 accept GMM S5 micro-pocket @ km 25.060\u201325.110 within S4/F3 operator field correction parent; loose-rock pocket only; S1/S2/S3/S6 overridden."
       },
       {
-        "course_km_start": 25.375,
-        "course_km_end": 25.395,
+        "course_km_start": 25.794,
+        "course_km_end": 25.814,
         "accept_draft_classes": [
           "S5"
         ],
@@ -47236,67 +47230,7 @@
           "S4",
           "S6"
         ],
-        "reason": "operator HITL (chunk_u03): upper flank — accept GMM S5 micro-pocket @ km 25.375–25.395 within S4/F3 draft_review parent; steep rocky tread, not promoted to F4."
-      },
-      {
-        "course_km_start": 25.426,
-        "course_km_end": 25.46,
-        "accept_draft_classes": [
-          "S1",
-          "S2"
-        ],
-        "no_input_classes": [
-          "S3",
-          "S4",
-          "S5",
-          "S6"
-        ],
-        "reason": "operator HITL (chunk_u03): mid-flank GMM misclass — accept GMM S1/S2 road-gravel micro-pockets within S4/F3 draft_review parent @ km 25.426–25.460; no paved road on topo."
-      },
-      {
-        "course_km_start": 25.675,
-        "course_km_end": 25.77,
-        "accept_draft_classes": [
-          "S1",
-          "S2"
-        ],
-        "no_input_classes": [
-          "S3",
-          "S4",
-          "S5",
-          "S6"
-        ],
-        "reason": "operator HITL (chunk_u03): upper flank climb — accept GMM S1/S2 micro-pockets @ km 25.675–25.770 within S4/F3 draft_review parent; cluster noise on steep dirt tread approaching telemetric crest."
-      },
-      {
-        "course_km_start": 25.794,
-        "course_km_end": 25.814,
-        "accept_draft_classes": [
-          "S5",
-          "S6"
-        ],
-        "no_input_classes": [
-          "S1",
-          "S2",
-          "S3",
-          "S4"
-        ],
-        "reason": "operator HITL (chunk_u03): crest-to-descent transition — accept GMM S5/S6 bog-rock micro-pockets @ km 25.794–25.814 within S4/F3 draft_review parent; operator defers bog vs technical-rock split pending field QC."
-      },
-      {
-        "course_km_start": 25.912,
-        "course_km_end": 25.945,
-        "accept_draft_classes": [
-          "S1"
-        ],
-        "no_input_classes": [
-          "S2",
-          "S3",
-          "S4",
-          "S5",
-          "S6"
-        ],
-        "reason": "operator HITL (chunk_u03): descent onset GMM misclass — accept GMM S1 micro-pocket @ km 25.912–25.945 within S4/F3 draft_review parent; no paved road on steep technical descent."
+        "reason": "operator HITL (chunk_u03): crest-to-descent transition \u2014 accept GMM S5 loose-rock micro-pocket @ km 25.794\u201325.814 within S4/F3 operator field correction parent; S1/S2/S3/S6 overridden."
       }
     ],
     "behavioral_stops": [
@@ -47306,7 +47240,7 @@
         "course_km_end": 23.55,
         "tag": "cp_halt",
         "subject_scope": "both",
-        "reason": "Dale coastal aid CP halt — operator field correction 2026-06-29: co-stop at Dale aid on S2/F2 gravel path @ km 23.5 (not asphalt). Subject_A race FIT deceleration into CP @ km 23.48–23.53; pre-CP approach is S2/F2 gravel (km 23.29–23.48). Behavioral halt, not terrain friction signal. SUT_160 crosswalk Dale aid ~km 141.0."
+        "reason": "Dale coastal aid CP halt \u2014 operator field correction 2026-06-29: co-stop at Dale aid on S2/F2 gravel path @ km 23.5 (not asphalt). Subject_A race FIT deceleration into CP @ km 23.48\u201323.53; pre-CP approach is S2/F2 gravel (km 23.29\u201323.48). Behavioral halt, not terrain friction signal. SUT_160 crosswalk Dale aid ~km 141.0."
       },
       {
         "anchor_id": "dale_cp",
@@ -47314,7 +47248,7 @@
         "course_km_end": 23.67,
         "tag": "cp_walk_out",
         "subject_scope": "both",
-        "reason": "Dale CP walk-out — operator field correction 2026-06-29: post-CP exit on S2/F2 gravel path climb (not asphalt; not run). Subject_A race FIT low-speed walk ~1.06–1.50 m/s @ km 23.53–23.67; overlaps coastal gravel climb band km 23.55–23.75. Behavioral walk, not terrain friction signal."
+        "reason": "Dale CP walk-out \u2014 operator field correction 2026-06-29: post-CP exit on S2/F2 gravel path climb (not asphalt; not run). Subject_A race FIT low-speed walk ~1.06\u20131.50 m/s @ km 23.53\u201323.67; overlaps coastal gravel climb band km 23.55\u201323.75. Behavioral walk, not terrain friction signal."
       },
       {
         "anchor_id": "coastal_descent_fall",
@@ -47322,7 +47256,7 @@
         "course_km_end": 23.135,
         "tag": "fall_event",
         "subject_scope": "Subject_A_only",
-        "reason": "Technical coastal descent fall — operator sign-off 2026-06-29: Subject_A fall on S4/F3 rocky descent band. Race FIT halt @ ref_chainage km 23.123–23.135 (~15 s, 0 m/s, cadence 0); Subject_B continues ~1.2–1.7 m/s at spine co-location (<2 m UTM offset). FIT-tight behavioral_stop window (supersedes rounded 23.12–23.14 tag). Single-athlete asymmetry, not terrain friction signal."
+        "reason": "Technical coastal descent fall \u2014 operator sign-off 2026-06-29: Subject_A fall on S4/F3 rocky descent band. Race FIT halt @ ref_chainage km 23.123\u201323.135 (~15 s, 0 m/s, cadence 0); Subject_B continues ~1.2\u20131.7 m/s at spine co-location (<2 m UTM offset). FIT-tight behavioral_stop window (supersedes rounded 23.12\u201323.14 tag). Single-athlete asymmetry, not terrain friction signal."
       }
     ],
     "trf_exclusions": [
@@ -47335,7 +47269,7 @@
         "gold_source": "operator",
         "sector_id": "dale_paradisskaret_upstream",
         "locked_at": "2026-06-29",
-        "reason": "Dale coastal aid CP corridor — operator field correction 2026-06-29: co-stop @ km 23.48–23.55 on S2/F2 gravel path through Dale compound, then post-CP walk-out on S2/F2 gravel climb @ km 23.55–23.67 (not asphalt). Subject_A race FIT walk bands 23.533–23.574, 23.601–23.623, 23.644–23.673; exclude halt+walk metres from paired TRF and cell aggregation."
+        "reason": "Dale coastal aid CP corridor \u2014 operator field correction 2026-06-29: co-stop @ km 23.48\u201323.55 on S2/F2 gravel path through Dale compound, then post-CP walk-out on S2/F2 gravel climb @ km 23.55\u201323.67 (not asphalt). Subject_A race FIT walk bands 23.533\u201323.574, 23.601\u201323.623, 23.644\u201323.673; exclude halt+walk metres from paired TRF and cell aggregation."
       },
       {
         "course_km_start": 23.123,
@@ -47346,7 +47280,7 @@
         "gold_source": "operator",
         "sector_id": "dale_paradisskaret_upstream",
         "locked_at": "2026-06-29",
-        "reason": "Technical coastal descent fall — operator sign-off 2026-06-29: Subject_A-only halt @ ref_chainage km 23.123–23.135 (~15 s, 0 m/s, cadence 0) within S4/F3 operator gold band; Subject_B through-running at spine co-location. FIT-tight TRF exclusion (supersedes rounded 23.12–23.14 window). Exclude Subject_A halt metres from paired TRF and cell aggregation."
+        "reason": "Technical coastal descent fall \u2014 operator sign-off 2026-06-29: Subject_A-only halt @ ref_chainage km 23.123\u201323.135 (~15 s, 0 m/s, cadence 0) within S4/F3 operator gold band; Subject_B through-running at spine co-location. FIT-tight TRF exclusion (supersedes rounded 23.12\u201323.14 window). Exclude Subject_A halt metres from paired TRF and cell aggregation."
       }
     ],
     "friction_spans": [
@@ -47358,37 +47292,47 @@
         "gold_source": "draft_review",
         "mode": "guidance",
         "chunk_id": "chunk_u03",
-        "reason": "draft_review (dale_paradisskaret_upstream chunk_u03): post-summit crest continuation from operator gold S4/F3 seam @ km 25.0 — rocky tread on steep positive grade (+20–31%), altitude ~151→185 m. Both athletes brief 0 m/s power-hike @ km 25.02–25.11; not tagged TRF (terrain-driven hike, no CP). GMM S4 majority; S1 micro-pocket @ km 25.006–25.033 deferred. S4/F3 per friction_index_spec. Pending operator sign-off."
+        "reason": "operator field correction (dale_paradisskaret_upstream chunk_u03): post-summit crest continuation from operator gold S4/F3 seam @ km 25.0 \u2014 rocky tread on steep positive grade (+20\u201331%), altitude ~151\u2192185 m. Both athletes brief 0 m/s power-hike @ km 25.02\u201325.11; not tagged TRF (terrain-driven hike, no CP). Entire km 25.0\u201326.0 rocky/technical only (S4/S5); GMM S1/S2/S3/S6 misclass overridden. S4/F3 per friction_index_spec."
       },
       {
         "course_km_start": 25.15,
         "course_km_end": 25.4,
-        "surface_class": "S3",
-        "friction_tier": "F2",
+        "surface_class": "S4",
+        "friction_tier": "F3",
         "gold_source": "draft_review",
         "mode": "guidance",
         "chunk_id": "chunk_u03",
-        "reason": "draft_review (chunk_u03): post-summit traverse climb — runnable hard-dirt tread, grade +10–20%, altitude ~185→221 m. Subject_A/B TI ~1.2–1.9, speed ~0.8–1.3 m/s with scattered power-hike windows. S3/F2 per friction_index_spec. GMM S3/S4 mix; rocky micro-pockets deferred via draft_preservation. Pending operator sign-off."
+        "reason": "operator field correction (chunk_u03): post-summit traverse climb \u2014 rocky/technical tread, grade +10\u201320%, altitude ~185\u2192221 m. Subject_A/B TI ~1.2\u20131.9, speed ~0.8\u20131.3 m/s with scattered power-hike windows. Ends upstream of stone steps (sherpa steps) band @ km 25.475. Reclassified from S3/F2 draft \u2014 no S1/S2/S3/S6 in km 25.0\u201326.0. S4/F3 per friction_index_spec; GMM S3/S2 misclass overridden."
       },
       {
         "course_km_start": 25.4,
-        "course_km_end": 25.5,
-        "surface_class": "S3",
-        "friction_tier": "F2",
+        "course_km_end": 25.475,
+        "surface_class": "S4",
+        "friction_tier": "F3",
         "gold_source": "draft_review",
         "mode": "guidance",
         "chunk_id": "chunk_u03",
-        "reason": "draft_review (chunk_u03): traverse roll / plateau dip — brief grade inflection near 0% @ km 25.40, altitude ~220 m before upper flank push. Runnable dirt tread; S3/F2 per friction_index_spec. GMM S2/S3 mix. Pending operator sign-off."
+        "reason": "operator field correction (chunk_u03): rocky plateau roll before stone steps \u2014 brief grade inflection near 0% @ km 25.403 (min ~\u22122.3%), altitude ~219\u2192233 m; runnable tread ~0.9\u20131.3 m/s before sherpa-step onset. S4/F3 per friction_index_spec; GMM S2/S3 misclass overridden. No S1/S2/S3/S6 in km 25.0\u201326.0."
       },
       {
-        "course_km_start": 25.5,
+        "course_km_start": 25.475,
+        "course_km_end": 25.565,
+        "surface_class": "S5",
+        "friction_tier": "F4",
+        "gold_source": "draft_review",
+        "mode": "guidance",
+        "chunk_id": "chunk_u03",
+        "reason": "operator field correction (chunk_u03): stone steps (sherpa steps) @ km ~25.5 \u2014 technical stepped tread on rocky Dalsnuten flank (operator relocation from erroneous ~25.4 placement). Telemetry window km 25.475\u201325.565 (~90 m): grade +37\u201344% (med ~+39%); Subject_A extended 0 m/s power-hike @ km 25.475\u201325.564 on steep step risers; Subject_B runnable ~1.0 m/s (staggered, not simultaneous co-halt). TI med ~1.06 (Subject_A) / ~1.65 (Subject_B). S5/F4 per friction_index_spec (technical rock difficult / stepped tread). GMM S1/S2/S3/S6 misclass overridden. No S1/S2/S3/S6 in km 25.0\u201326.0."
+      },
+      {
+        "course_km_start": 25.565,
         "course_km_end": 25.8,
         "surface_class": "S4",
         "friction_tier": "F3",
         "gold_source": "draft_review",
         "mode": "guidance",
         "chunk_id": "chunk_u03",
-        "reason": "draft_review (chunk_u03): upper Dalsnuten flank — sustained steep rocky climb (+30–43%), altitude ~244→326 m; telemetric crest @ km 25.801 (distinct from Garmin marker @ km 25.0). Both athletes extended co-power-hike @ km 25.47–25.76 — terrain-driven, not TRF. S4/F3 per friction_index_spec. GMM S1/S2/S3 misclass on steep tread deferred. SUT_160 crosswalk: post-summit traverse band upstream of dalsnuten_descent. Pending operator sign-off."
+        "reason": "operator field correction (chunk_u03): upper Dalsnuten flank \u2014 sustained steep rocky climb (+30\u201343%), altitude ~262\u2192326 m; telemetric crest @ km 25.801 (distinct from Garmin marker @ km 25.0). Both athletes extended co-power-hike @ km 25.565\u201325.76 \u2014 terrain-driven, not TRF. S4/F3 per friction_index_spec; GMM S1/S2/S3/S6 misclass overridden. S5 loose-rock micro-pockets retained via draft_preservation only. SUT_160 crosswalk: post-summit traverse band upstream of dalsnuten_descent."
       },
       {
         "course_km_start": 25.8,
@@ -47398,11 +47342,11 @@
         "gold_source": "draft_review",
         "mode": "guidance",
         "chunk_id": "chunk_u03",
-        "reason": "draft_review (chunk_u03): post-crest technical descent onset — grade flip negative @ km 25.804, TI spike ~3.0–4.5 (Subject_B peak 4.50 @ km 25.8–25.9), speed recovery ~1.3–2.1 m/s. Technical rocky braking descent toward Revhol traverse. S4/F3 per friction_index_spec (runnable technical; not F4 scramble). GMM S3/S1 majority disagrees with TI signal. Boundary @ km 26.0 for chunk_u04 resume. Pending operator sign-off."
+        "reason": "operator field correction (chunk_u03): post-crest technical descent onset \u2014 grade flip negative @ km 25.804, TI spike ~3.0\u20134.5 (Subject_B peak 4.50 @ km 25.8\u201325.9), speed recovery ~1.3\u20132.1 m/s. Technical rocky braking descent toward Revhol traverse. S4/F3 per friction_index_spec (runnable technical; not F4 scramble). GMM S1/S2/S3/S6 misclass overridden. Boundary @ km 26.0 for chunk_u04 resume."
       }
     ],
     "authority": "operator_gold_partial",
-    "notes": "Partial operator gold: chunk_u01 km 23.0–24.0 locked 2026-06-29 (7 spans); chunk_u02 km 24.0–25.0 locked 2026-06-29 (4 spans: S1/F1 asphalt 24.0–24.35, S3/F2 mid 24.35–24.55, S3/F2 steep 24.55–24.72, S4/F3 summit 24.72–25.0). chunk_u03 km 25.0–26.0 draft_review friction spans (5 spans; not locked). Coastal descent fall: coastal_descent_fall behavioral_stop + TRF exclusion km 23.123–23.135 (FIT-tight; Subject_A_only). Dale CP: dale_cp TRF exclusion km 23.48–23.67 on S2/F2 gravel corridor. S4/F3→S3/F2 tread seam @ km 23.17; gravel→asphalt seam @ km 23.8; continuous asphalt u01+u02 through km 24.35; asphalt→dirt seam @ km 24.35; S4/F3 seam @ km 25.0 into chunk_u03 draft. Remaining km 22–23 and 26–29 remain GMM draft. Seam @ km 29.0 defers to gramstad_band lock in spatial_terrain_map_sut43.json."
+    "notes": "Partial operator gold: chunk_u01 km 23.0\u201324.0 locked 2026-06-29 (7 spans); chunk_u02 km 24.0\u201325.0 locked 2026-06-29 (4 spans: S1/F1 asphalt 24.0\u201324.35, S3/F2 mid 24.35\u201324.55, S3/F2 steep 24.55\u201324.72, S4/F3 summit 24.72\u201325.0). chunk_u03 km 25.0\u201326.0 operator field correction 2026-06-29: rocky/technical S4/F3 + S5/F4 stone steps @ km 25.475\u201325.565 (~25.5; 6 spans; no S1/S2/S3/S6; not locked). Coastal descent fall: coastal_descent_fall behavioral_stop + TRF exclusion km 23.123\u201323.135 (FIT-tight; Subject_A_only). Dale CP: dale_cp TRF exclusion km 23.48\u201323.67 on S2/F2 gravel corridor. S4/F3\u2192S3/F2 tread seam @ km 23.17; gravel\u2192asphalt seam @ km 23.8; continuous asphalt u01+u02 through km 24.35; asphalt\u2192dirt seam @ km 24.35; S4/F3 seam @ km 25.0 continuous through chunk_u03. Remaining km 22\u201323 and 26\u201329 remain GMM draft. Seam @ km 29.0 defers to gramstad_band lock in spatial_terrain_map_sut43.json."
   },
   "ti_draft_segments": [
     {
