@@ -1,0 +1,447 @@
+{
+  "chunk_id": "chunk_u04",
+  "course_km_window": [
+    26.0,
+    27.0
+  ],
+  "reviewed_at": "2026-06-29",
+  "operator_statement": "Locked 2026-06-29: 3-span operator gold km 26.0–27.0 — S4/F3↔S5 alternation parent @ 26.0–26.3 (technical rock medium + difficult-rock GMM pockets via draft_preservation; not monolithic S4), S4/F3 transition @ 26.3–26.4 (rocky tread easing to seam), S3/F2 main tread @ 26.4–27.0 (hard dirt Revhol traverse roll). Seam @ 26.0: continuous S4/F3 from chunk_u03 locked descent onset. Seam @ 26.4: S4/F3 → S3/F2 tread change. No TRF tags.",
+  "display_bugs_fixed": [],
+  "display_bugs_not_found": [],
+  "km_bands": [
+    {
+      "km_band": "26.00–26.30",
+      "draft_s_f": "S4/F3↔S5 alternation (technical rocky descent)",
+      "png_operator_read": "Dashed S4/F3 parent with GMM S5 difficult-rock pockets promoted via draft_preservation; not monolithic S4 across steep/moderate tiers",
+      "dashboard_assigned_after_fix": "S4/F3 parent + S5 accept-draft pockets (guidance only)",
+      "gmm_draft_dominant": "S4/S5 alternating clusters 26.0–26.3; S1/S2/S3/S6 noise overridden under rocky parent",
+      "draft_preservation": "accept S5 @ GMM-aligned pockets within S4/F3 parent (see alternation_pocket_list); S6 bog overridden",
+      "telemetry": "Grade −10% to −24% (med ~−18% @ 26.0–26.3); altitude ~299→255 m; speed recovery ~0.7→1.5 m/s; TI med ~3.2–4.6 (peak Subject_A 6.33 @ km 26.085, Subject_B 5.75 @ km 26.100)",
+      "mismatch_type": "operator_field_correction_s4_s5_alternation",
+      "dispute_topics": [
+        "Field read: trail alternates S4↔S5 — modelled as S4/F3 parent with S5/F4 micro-pockets, not monolithic S4",
+        "GMM S5/S6 flicker 26.04–26.12 — S5 via draft_preservation; S6 overridden",
+        "Subject_B brief 0 m/s @ 26.0–26.009 — barometric lag artifact vs behavioral stop/TRF"
+      ],
+      "operator_answer": "Confirmed: S4↔S5 alternation @ 26.0–26.3 per field read."
+    },
+    {
+      "km_band": "26.30–26.40",
+      "draft_s_f": "S4/F3 transition (pre-S3 seam)",
+      "png_operator_read": "Dashed S4/F3 narrow band; GMM S5 pockets @ 26.301–26.367 via draft_preservation before tread change",
+      "dashboard_assigned_after_fix": "S4/F3 transition guidance only",
+      "gmm_draft_dominant": "S5 majority (94 m in 26.2–26.4 window); S5 retained as pockets within S4 parent through 26.4",
+      "draft_preservation": "accept S5 @ 26.301–26.306, 26.314–26.367; S6 @ 26.306–26.314 overridden",
+      "telemetry": "Grade −10% to −16% (med ~−14%); altitude ~255→248 m; runnable ~1.1–1.5 m/s; TI med ~3.0–3.5 declining",
+      "mismatch_type": "operator_field_correction_transition_band",
+      "dispute_topics": [
+        "Transition boundary: guidance split @ 26.3 vs prior 26.2 steep/moderate tier",
+        "Seam @ 26.4: S4/F3 → S3/F2 tread change — operator confirms"
+      ],
+      "operator_answer": "Confirmed: S4/F3 transition @ 26.3–26.4; S3/F2 seam @ 26.4."
+    },
+    {
+      "km_band": "26.40–27.00",
+      "draft_s_f": "S3/F2 main tread (Revhol traverse roll)",
+      "png_operator_read": "Dashed S3/F2 unified band; GMM S2/S3 mix with S2/S4 micro-pockets via draft_preservation",
+      "dashboard_assigned_after_fix": "S3/F2 guidance only (unified from 26.4)",
+      "gmm_draft_dominant": "S3 majority (63% @ 26.4–26.6); S2 gravel pockets accepted within S3 parent",
+      "draft_preservation": "accept S2/S4 micro-pockets within S3/F2 parent; S5/S6 overridden",
+      "telemetry": "Grade −2% to −14% (med ~−5% @ 26.85–27.0); altitude ~248→212 m; runnable ~1.3–2.2 m/s; TI med ~1.8–2.8 declining toward Revhol/Gramstadtjørn",
+      "mismatch_type": "operator_field_correction_s3_main_tread",
+      "dispute_topics": [
+        "Prior 5-span draft (runnable descent / traverse shelf / Revhol) merged into unified S3/F2 @ 26.4–27.0",
+        "GMM S2 gravel pockets — aligned with S3/F2 mainly-S3 field read",
+        "Chunk seam @ km 27.0 for chunk_u05 resume"
+      ],
+      "operator_answer": "Confirmed: mainly S3/F2 @ 26.4–27.0 per field read."
+    }
+  ],
+  "alternation_pocket_list": {
+    "parent": "S4/F3",
+    "km_window": [
+      26.0,
+      26.3
+    ],
+    "model": "S4/F3 parent with S5/F4 (or S5/F3) micro-pockets via draft_preservation — GMM-aligned",
+    "s5_pockets": [
+      {
+        "km": [
+          26.036,
+          26.044
+        ],
+        "gmm_m": 36,
+        "note": "early-descent loose-rock"
+      },
+      {
+        "km": [
+          26.046,
+          26.063
+        ],
+        "gmm_m": 17,
+        "note": "S5 with S6 flicker overridden"
+      },
+      {
+        "km": [
+          26.07,
+          26.081
+        ],
+        "gmm_m": 11,
+        "note": "steep-descent S5 band"
+      },
+      {
+        "km": [
+          26.096,
+          26.112
+        ],
+        "gmm_m": 16,
+        "note": "S5 with S6 flicker overridden"
+      },
+      {
+        "km": [
+          26.209,
+          26.223
+        ],
+        "gmm_m": 14,
+        "note": "moderate-descent S5 cluster"
+      },
+      {
+        "km": [
+          26.251,
+          26.252
+        ],
+        "gmm_m": 1,
+        "note": "brief S5 flicker"
+      },
+      {
+        "km": [
+          26.272,
+          26.293
+        ],
+        "gmm_m": 21,
+        "note": "moderate-descent S5 cluster"
+      },
+      {
+        "km": [
+          26.301,
+          26.306
+        ],
+        "gmm_m": 5,
+        "note": "transition-zone S5 pocket (spans 26.3 boundary)"
+      }
+    ],
+    "s4_base_pockets": [
+      {
+        "km": [
+          26.027,
+          26.036
+        ],
+        "gmm_m": 9
+      },
+      {
+        "km": [
+          26.063,
+          26.07
+        ],
+        "gmm_m": 7
+      },
+      {
+        "km": [
+          26.112,
+          26.119
+        ],
+        "gmm_m": 7
+      },
+      {
+        "km": [
+          26.23,
+          26.251
+        ],
+        "gmm_m": 21
+      },
+      {
+        "km": [
+          26.259,
+          26.272
+        ],
+        "gmm_m": 13
+      },
+      {
+        "km": [
+          26.293,
+          26.301
+        ],
+        "gmm_m": 8
+      }
+    ],
+    "s6_overridden": [
+      [
+        26.044,
+        26.046
+      ],
+      [
+        26.048,
+        26.051
+      ],
+      [
+        26.054,
+        26.056
+      ],
+      [
+        26.081,
+        26.096
+      ],
+      [
+        26.099,
+        26.103
+      ]
+    ]
+  },
+  "dalsnuten_descent_revhol": {
+    "draft_spans": {
+      "s4_s5_alternation": [
+        26.0,
+        26.3
+      ],
+      "s4_transition": [
+        26.3,
+        26.4
+      ],
+      "s3_main_tread": [
+        26.4,
+        27.0
+      ]
+    },
+    "geographic_anchors": {
+      "garmin_marker_26": "Øvre Eikenuten area (operator screenshot atlas)",
+      "garmin_marker_27": "Gramstadtjørn (operator screenshot atlas)",
+      "sut_160_crosswalk_descent": "dalsnuten_descent 142.25–142.8 → lundane_flat 143.0–143.6 → revhol_flat 145.0–145.5",
+      "telemetric_altitude_loss_m": "299→212 (Subject_A consensus spine, km 26.0–27.0)",
+      "ti_peak_km": "26.085 (Subject_A 6.33) / 26.100 (Subject_B 5.75)",
+      "tread_seam_km": "26.4 (S4/F3 → S3/F2)"
+    },
+    "chunk_u03_seam": {
+      "km": 26.0,
+      "chunk_u03_end": "S4/F3 descent onset (25.80–26.0, operator gold locked 2026-06-29)",
+      "chunk_u04_start": "S4/F3↔S5 alternation parent (26.0–26.3, operator gold locked 2026-06-29)",
+      "s_f_continuous": true,
+      "friction_continuous": true,
+      "telemetry_at_seam": "Subject_A: grade −10.6% @ 26.0, speed ~1.41 m/s, TI ~4.15 — continuous descent. Subject_B: +31.6% grade / 0 m/s @ 26.0–26.009 — barometric crest lag; not co-halt, not TRF.",
+      "note": "S/F class continuous S4/F3 across chunk boundary into alternation parent @ 26.0–26.3."
+    },
+    "chunk_u05_seam": {
+      "km": 27.0,
+      "chunk_u04_end": "S3/F2 main tread (26.4–27.0, operator gold locked 2026-06-29)",
+      "chunk_u05_draft": "GMM draft (not yet reviewed)",
+      "note": "Boundary @ km 27.0 for chunk_u05 resume; tread class may continue S3/F2 or transition — deferred."
+    }
+  },
+  "draft_preservation_zones": [
+    {
+      "km": [
+        26.0,
+        26.3
+      ],
+      "accept": [
+        "S5"
+      ],
+      "parent": "S4/F3",
+      "gmm_classes_present": [
+        "S4",
+        "S5",
+        "S6",
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "open_question": null,
+      "operator_answer": "S4↔S5 alternation — S5 pockets via draft_preservation; S6 bog overridden."
+    },
+    {
+      "km": [
+        26.3,
+        26.4
+      ],
+      "accept": [
+        "S5"
+      ],
+      "parent": "S4/F3",
+      "gmm_classes_present": [
+        "S5",
+        "S4",
+        "S6"
+      ],
+      "open_question": null,
+      "operator_answer": "S4/F3 transition — S5 pockets retained before S3 seam @ 26.4."
+    },
+    {
+      "km": [
+        26.4,
+        27.0
+      ],
+      "accept": [
+        "S2",
+        "S4"
+      ],
+      "parent": "S3/F2",
+      "gmm_classes_present": [
+        "S3",
+        "S2",
+        "S4"
+      ],
+      "open_question": null,
+      "operator_answer": "Mainly S3/F2 — S2 gravel / S4 rocky micro-pockets only."
+    }
+  ],
+  "telemetry_summary": {
+    "subject_a": {
+      "grade_pct_range": [
+        -39.6,
+        15.3
+      ],
+      "speed_mps_median": 1.4,
+      "ti_median": 2.97,
+      "slow_halt_bands_lt_0_5_mps": [
+        [
+          26.231,
+          26.243
+        ],
+        [
+          26.351,
+          26.358
+        ]
+      ]
+    },
+    "subject_b": {
+      "grade_pct_range": [
+        -40.5,
+        45.0
+      ],
+      "speed_mps_median": 1.41,
+      "ti_median": 3.0,
+      "slow_halt_bands_lt_0_5_mps": [
+        [
+          26.0,
+          26.009
+        ]
+      ]
+    },
+    "consensus_highlights": {
+      "alternation_km": "26.0–26.3",
+      "alternation_grade_pct": "med ~−18%",
+      "ti_peak_km": "26.085 (Subject_A 6.33) / 26.100 (Subject_B 5.75)",
+      "transition_km": "26.3–26.4",
+      "transition_grade_pct": "med ~−14%",
+      "s3_main_tread_km": "26.4–27.0",
+      "s3_main_tread_ti_med": "~1.8–2.8",
+      "tread_seam_km": "26.4 (S4/F3 → S3/F2)",
+      "altitude_loss_m": "299→212 (Subject_A spine)",
+      "co_halt_bands": "none — no simultaneous <0.5 m/s both athletes"
+    }
+  },
+  "seam_reconciliation": {
+    "km_26_0": {
+      "u03_gold": "S4/F3 descent onset (25.80–26.0, locked 2026-06-29)",
+      "u04_draft": "S4/F3↔S5 alternation parent (26.0–26.3, operator gold locked 2026-06-29)",
+      "gmm_at_seam": "S4/S5 alternating clusters from chunk start",
+      "status": "clean_s_f_continuous",
+      "mismatch": false,
+      "telemetry_note": "Subject_A continuous descent; Subject_B +grade/0 m/s @ 26.0 is baro lag — not TRF"
+    },
+    "km_26_30": {
+      "u04_alternation_end": "S4/F3↔S5 alternation (26.0–26.3)",
+      "u04_transition_start": "S4/F3 transition (26.3–26.4)",
+      "status": "same_class_tier_split",
+      "telemetry_note": "Grade moderates; rocky tread easing toward S3 seam"
+    },
+    "km_26_40": {
+      "u04_transition_end": "S4/F3 transition (26.3–26.4)",
+      "u04_s3_start": "S3/F2 main tread (26.4–27.0)",
+      "status": "s4_f3_to_s3_f2_tread_transition",
+      "mismatch": false,
+      "telemetry_note": "Operator field correction: mainly S3/F2 from 26.4; TI declining ~3.0→~2.0"
+    },
+    "km_27_0": {
+      "u04_draft_end": "S3/F2 main tread (26.4–27.0, operator gold locked 2026-06-29)",
+      "u05_draft": "GMM draft (not reviewed)",
+      "status": "chunk_boundary_deferred",
+      "mismatch": false
+    },
+    "internal_seams": [
+      {
+        "km": 26.3,
+        "boundary": "S4↔S5 alternation → S4/F3 transition (same S4/F3 class)",
+        "status": "same_class_tier_split",
+        "telemetry_note": "Alternation parent ends; transition band before S3 seam"
+      },
+      {
+        "km": 26.4,
+        "boundary": "S4/F3 rocky → S3/F2 main tread",
+        "status": "operator_confirmed_class_transition",
+        "telemetry_note": "Tread change per field read; GMM S3 majority from 26.4"
+      }
+    ]
+  },
+  "recommended_revision_questions": [
+    {
+      "id": "Q1_seam_26_0_continuous",
+      "question": "Seam @ km 26.0: confirm continuous S4/F3 from u03 locked descent onset into u04 alternation parent?",
+      "recommended_resolution": "Continuous S4/F3 across boundary into S4↔S5 alternation @ 26.0–26.3.",
+      "status": "resolved",
+      "operator_answer": "Confirmed."
+    },
+    {
+      "id": "Q2_subject_b_seam_baro_lag",
+      "question": "Subject_B brief 0 m/s @ 26.0–26.009 — dismiss as barometric lag?",
+      "recommended_resolution": "Dismiss as baro lag — no co-halt, no TRF tag.",
+      "status": "resolved",
+      "operator_answer": "Dismissed."
+    },
+    {
+      "id": "Q3_s4_s5_alternation_26_0_26_3",
+      "question": "Field read @ 26.0–26.3: trail alternates S4↔S5 — model as S4/F3 parent with S5 pockets vs monolithic S4?",
+      "recommended_resolution": "S4/F3 parent with S5/F4 micro-pockets via draft_preservation aligned to GMM clusters.",
+      "status": "resolved",
+      "operator_answer": "Confirmed alternation model."
+    },
+    {
+      "id": "Q4_s3_seam_26_4",
+      "question": "Seam @ km 26.4: confirm S4/F3 → S3/F2 tread change with unified S3/F2 through km 27.0?",
+      "recommended_resolution": "Unified S3/F2 @ 26.4–27.0; merges prior runnable-descent / traverse-shelf / Revhol draft bands.",
+      "status": "resolved",
+      "operator_answer": "Confirmed mainly S3."
+    },
+    {
+      "id": "Q5_subject_a_halt_bands",
+      "question": "Subject_A isolated halt bands @ 26.231–26.243 and 26.351–26.358 — terrain-driven step risers or TRF?",
+      "recommended_resolution": "Terrain-driven only — brief 0 m/s on rocky step risers; no TRF tag.",
+      "status": "resolved",
+      "operator_answer": "Terrain-driven step risers only; no TRF tag."
+    },
+    {
+      "id": "Q6_dashboard_png_review",
+      "question": "Exported PNG: does Assigned strip show S4↔S5 alternation pockets @ 26.0–26.3 and unified S3/F2 @ 26.4–27.0?",
+      "recommended_resolution": "Operator visual sign-off complete; disagreement matrix elevated to locked.",
+      "status": "resolved",
+      "operator_answer": "Assigned strip shows S4↔S5 alternation pockets @ 26.0–26.3 and unified S3/F2 @ 26.4–27.0."
+    }
+  ],
+  "lock_readiness": {
+    "map_json_tier_lock": "chunk_u01–u04 locked 2026-06-29 (gold_source operator, locked_at 2026-06-29)",
+    "disagreement_matrix_status": "locked",
+    "gt_coverage_pct": 100.0,
+    "seams_clean": true,
+    "gmm_reconciled": true,
+    "blockers": [],
+    "recommendation": "chunk_u04 operator gold locked 2026-06-29. Proceed to chunk_u05 draft_review."
+  },
+  "reexport": {
+    "path": "06_Visualizations/sut43_hitl_upstream/chunk_u04_km26-27.png",
+    "trigger": "chunk_u04_operator_lock_2026-06-29",
+    "exported_at": "2026-06-29",
+    "verify_export": true,
+    "flagged_segments": 0
+  },
+  "status": "locked",
+  "locked_at": "2026-06-29"
+}
