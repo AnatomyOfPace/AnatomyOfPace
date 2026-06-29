@@ -5,7 +5,7 @@
     26.0
   ],
   "reviewed_at": "2026-06-29",
-  "operator_statement": "Operator field correction 2026-06-29 (rev 2): entire km 25.0–26.0 is rocky/technical terrain only — no S1, S2, S3, or S6. Six-span guidance: post-summit crest @ 25.0–25.15, traverse climb @ 25.15–25.40, plateau roll @ 25.40–25.475, stone steps (sherpa) S5/F4 @ 25.475–25.565 (~25.5), upper flank @ 25.565–25.80 (telemetric crest @ 25.801), descent onset @ 25.80–26.0. Seam @ 25.0: continuous S4/F3 from chunk_u02 (locked). S5 loose-rock micro-pockets retained via draft_preservation only (crest + crest-to-descent). Not locked.",
+  "operator_statement": "Locked 2026-06-29: 6-span operator gold km 25.0–26.0 — S4/F3 post-summit crest @ 25.0–25.15, S4/F3 traverse climb @ 25.15–25.40, S4/F3 plateau roll @ 25.40–25.475, S5/F4 stone steps (sherpa) @ 25.475–25.565 (~25.5), S4/F3 upper flank @ 25.565–25.80 (telemetric crest @ 25.801), S4/F3 descent onset @ 25.80–26.0 (terrain only, no TRF). Seam @ 25.0: continuous S4/F3 from chunk_u02 (locked). No S1/S2/S3/S6 in chunk. S5 loose-rock micro-pockets retained via draft_preservation only (crest + crest-to-descent).",
   "display_bugs_fixed": [],
   "display_bugs_not_found": [
     {
@@ -24,7 +24,7 @@
       "km_band": "25.00–25.15",
       "gold_s_f": "S4/F3 post-summit crest",
       "png_operator_read": "Light blue S4/F3 continuation from u02 summit seam @ km 25.0",
-      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "dashboard_assigned_after_fix": "S4/F3 (operator gold locked)",
       "gmm_draft_dominant": "S4 majority (74 m); S1/S2/S3 noise overridden",
       "draft_preservation": "accept S5 @ 25.060–25.110 within S4/F3 parent only",
       "telemetry": "Grade +17–45% (med ~+26.6%); altitude ~150→185 m; both athletes brief 0 m/s power-hike @ km 25.02–25.11; TI med ~1.30; not TRF (terrain-driven hike, no CP)",
@@ -39,7 +39,7 @@
       "km_band": "25.15–25.40",
       "gold_s_f": "S4/F3 traverse climb (reclassified from S3/F2 draft)",
       "png_operator_read": "Light blue S4/F3 rocky traverse climb",
-      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "dashboard_assigned_after_fix": "S4/F3 (operator gold locked)",
       "gmm_draft_dominant": "S4 majority — aligned with operator rocky classification",
       "draft_preservation": null,
       "telemetry": "Grade +10–20% (med ~+14.7%); altitude ~185→221 m; runnable ~0.8–1.3 m/s both athletes; TI med ~1.53",
@@ -54,7 +54,7 @@
       "km_band": "25.40–25.475",
       "gold_s_f": "S4/F3 plateau roll (reclassified from S3/F2 draft)",
       "png_operator_read": "Light blue S4/F3; brief grade dip near km 25.40; runnable tread before stone steps",
-      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "dashboard_assigned_after_fix": "S4/F3 (operator gold locked)",
       "gmm_draft_dominant": "S3/S2 micro-pockets overridden",
       "draft_preservation": null,
       "telemetry": "Grade inflection near 0% @ km 25.403 (min ~−2.3%); altitude ~219→233 m; runnable ~0.9–1.3 m/s; TI med ~1.19",
@@ -70,7 +70,7 @@
       "km_band": "25.475–25.565",
       "gold_s_f": "S5/F4 stone steps (sherpa steps)",
       "png_operator_read": "S5/F4 stepped tread band centered ~km 25.5",
-      "dashboard_assigned_after_fix": "S5/F4 (operator field correction guidance)",
+      "dashboard_assigned_after_fix": "S5/F4 (operator gold locked)",
       "gmm_draft_dominant": "S3/S2/S4 overridden; S5/F4 promoted from operator relocation",
       "draft_preservation": null,
       "telemetry": "Grade +37–44% (med ~+39%); Subject_A extended 0 m/s power-hike @ km 25.475–25.564; Subject_B runnable ~1.0 m/s (staggered, not simultaneous co-halt); TI med ~1.06 (Subject_A) / ~1.65 (Subject_B); altitude ~233→262 m",
@@ -86,7 +86,7 @@
       "km_band": "25.565–25.80",
       "gold_s_f": "S4/F3 upper Dalsnuten flank",
       "png_operator_read": "Light blue S4/F3 steep rocky climb; telemetric crest within band",
-      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "dashboard_assigned_after_fix": "S4/F3 (operator gold locked)",
       "gmm_draft_dominant": "S3 majority (94 m) overridden; S5 loose-rock pockets via draft_preservation",
       "draft_preservation": "accept S5 @ 25.794–25.814 within S4/F3 parent; GMM S1/S2/S3/S6 overridden",
       "telemetry": "Grade +30–43% (med ~+31.8%); altitude ~262→328 m; telemetric crest @ km 25.798 @ 328 m; extended co-power-hike Subject_A @ 25.606–25.762, Subject_B @ 25.645–25.756; TI med ~1.06",
@@ -102,7 +102,7 @@
       "km_band": "25.80–26.00",
       "gold_s_f": "S4/F3 post-crest technical descent",
       "png_operator_read": "Light blue S4/F3; TI spike visible on telemetry panel",
-      "dashboard_assigned_after_fix": "S4/F3 (operator field correction guidance)",
+      "dashboard_assigned_after_fix": "S4/F3 (operator gold locked)",
       "gmm_draft_dominant": "S3 majority (117 m) overridden; S1 asphalt pocket overridden",
       "draft_preservation": null,
       "telemetry": "Grade flip negative @ km 25.804; TI spike ~3.0–4.5 (peak 5.47 @ km 25.847; Subject_B peak ~4.50); speed recovery ~1.3–2.1 m/s; altitude ~299→327 m",
@@ -152,17 +152,20 @@
     "chunk_u02_seam": {
       "km": 25.0,
       "chunk_u02_end": "S4/F3 summit approach (locked 2026-06-29)",
-      "chunk_u03_start": "S4/F3 post-summit crest (operator field correction guidance)",
+      "chunk_u03_start": "S4/F3 post-summit crest (operator gold locked 2026-06-29)",
       "s_f_continuous": true,
       "friction_continuous": true,
       "telemetry_at_seam": "Grade +17–27%; both athletes slowing into crest; Subject_A extended 0 m/s @ 25.02–25.11; TI ~1.2–1.3",
-      "note": "S/F class continuous S4/F3 across chunk boundary; u03 spans operator field corrected, not locked."
+      "note": "S/F class continuous S4/F3 across chunk boundary; u03 spans operator gold locked 2026-06-29."
     },
     "chunk_u04_seam": {
       "km": 26.0,
-      "chunk_u03_end": "S4/F3 descent onset (operator field correction)",
-      "chunk_u04_start": "GMM draft (not yet reviewed)",
-      "note": "Boundary @ km 26.0 for chunk_u04 resume."
+      "chunk_u03_end": "S4/F3 descent onset (operator gold locked 2026-06-29)",
+      "chunk_u04_start": "S4/F3↔S5 alternation parent (operator gold locked 2026-06-29)",
+      "s_f_continuous": true,
+      "friction_continuous": true,
+      "telemetry_at_seam": "Subject_A: grade −10.6% @ 26.0, speed ~1.41 m/s, TI ~4.15 — continuous descent. Subject_B: +31.6% grade / 0 m/s @ 26.0–26.009 — barometric crest lag; not co-halt, not TRF.",
+      "note": "S/F class continuous S4/F3 across chunk boundary into chunk_u04 alternation parent @ 26.0–26.3."
     }
   },
   "draft_preservation_zones": [
@@ -282,9 +285,9 @@
   "seam_reconciliation": {
     "km_25_0": {
       "u02_gold": "S4/F3 summit approach (24.72–25.0, locked 2026-06-29)",
-      "u03_draft": "S4/F3 post-summit crest (25.0–25.15, operator field correction)",
+      "u03_draft": "S4/F3 post-summit crest (25.0–25.15, operator gold locked)",
       "gmm_at_seam": "S4 majority; S1/S2/S3 noise overridden",
-      "status": "clean_s_f_continuous; u03_not_locked",
+      "status": "clean_s_f_continuous; u03_locked",
       "mismatch": false
     },
     "km_25_15": {
@@ -320,7 +323,7 @@
       "telemetry_note": "Telemetric crest @ km 25.801 within flank span; grade flip @ km 25.804"
     },
     "km_26_0": {
-      "u03_draft_end": "S4/F3 descent onset (25.80–26.0)",
+      "u03_draft_end": "S4/F3 descent onset (25.80–26.0, operator gold locked)",
       "u04_draft": "GMM draft (not reviewed)",
       "status": "chunk_boundary_deferred",
       "mismatch": false
@@ -425,31 +428,29 @@
     {
       "id": "Q9_dashboard_png_review",
       "question": "Re-exported PNG: does Assigned strip show continuous S4/F3 with no S1/S2/S3/S6 in km 25–26?",
-      "recommended_resolution": "Operator visual sign-off required before lock.",
-      "status": "open"
+      "recommended_resolution": "Operator visual sign-off complete; disagreement matrix elevated to locked.",
+      "status": "resolved",
+      "operator_answer": "Assigned strip shows continuous S4/F3 + S5/F4 stone steps with no S1/S2/S3/S6 in km 25–26."
     }
   ],
   "lock_readiness": {
-    "map_json_tier_lock": "chunk_u01 locked 2026-06-29; chunk_u02 locked 2026-06-29; chunk_u03 operator field correction 2026-06-29 rev 2 (6 spans: S4/F3 + S5/F4 stone steps @ 25.475–25.565, not locked)",
-    "disagreement_matrix_status": "operator_field_correction",
+    "map_json_tier_lock": "chunk_u01 locked 2026-06-29; chunk_u02 locked 2026-06-29; chunk_u03 all 6 spans locked 2026-06-29 (gold_source operator, locked_at 2026-06-29)",
+    "disagreement_matrix_status": "locked",
     "gt_coverage_pct": 100.0,
     "seams_clean": true,
     "gmm_reconciled": true,
-    "blockers": [
-      "operator_png_sign_off_pending",
-      "Q9_dashboard_png_review"
-    ],
-    "recommendation": "chunk_u03 operator field correction rev 2 applied (S5/F4 stone steps relocated to 25.475–25.565 ~25.5; 2 S5-only draft_preservation policies on crest + crest-to-descent). Re-export PNG for visual sign-off before lock."
+    "blockers": [],
+    "recommendation": "chunk_u03 operator gold locked 2026-06-29. chunk_u04 operator gold locked 2026-06-29. Proceed to chunk_u05 draft_review."
   },
   "reexport": {
     "path": "06_Visualizations/sut43_hitl_upstream/chunk_u03_km25-26.png",
-    "trigger": "chunk_u03_stone_steps_relocation_25_5_2026-06-29",
+    "trigger": "chunk_u03_operator_lock_2026-06-29",
     "exported_at": "2026-06-29",
     "verify_export": true,
     "flagged_segments": 0
   },
-  "status": "operator_field_correction",
-  "locked_at": null,
+  "status": "locked",
+  "locked_at": "2026-06-29",
   "operator_rocky_only_rule": {
     "statement": "Entire km 25.0–26.0 is rocky/technical terrain only — no S1, S2, S3, or S6.",
     "allowed_classes": [
