@@ -1,0 +1,68 @@
+{
+  "schema_version": "terrain_hmm_draft_v0",
+  "generated_at": "2026-06-29T18:56:23.104130+00:00",
+  "train_km": [
+    22.0,
+    34.0
+  ],
+  "predict_km": [
+    22.0,
+    41.0
+  ],
+  "n_train_rows": 12000,
+  "n_predict_rows": 19000,
+  "feature_columns": [
+    "speed_median",
+    "grade_pct_median",
+    "cadence_median",
+    "consensus_nti"
+  ],
+  "class_distribution_train": {
+    "S4": 5510,
+    "S3": 4579,
+    "S2": 1271,
+    "S1": 550,
+    "S5": 90
+  },
+  "class_distribution_draft": {
+    "S4": 7903,
+    "S3": 5902,
+    "S2": 4233,
+    "S1": 869,
+    "S5": 93
+  },
+  "mean_hmm_confidence": 0.8313922575419727,
+  "transition_stay_log_prob": -0.05,
+  "transition_switch_log_prob": -2.5,
+  "oversmoothing_gates": {
+    "mvl_m": 1.0,
+    "mvl_pass": false,
+    "mvl_min_required_m": 15.0,
+    "s56_within_spike_pct": 0.0,
+    "s56_spike_tolerance": 0.1,
+    "s56_pass": false,
+    "technical_switch_windows": [
+      {
+        "km_window": [
+          29.0,
+          34.0
+        ],
+        "switches": 42,
+        "switches_per_km": 8.4,
+        "pass": false
+      },
+      {
+        "km_window": [
+          36.5,
+          38.5
+        ],
+        "switches": 33,
+        "switches_per_km": 16.5,
+        "pass": false
+      }
+    ],
+    "switches_pass": false,
+    "all_pass": false
+  },
+  "note": "Draft predictions only \u2014 operator gold spans remain authoritative."
+}
