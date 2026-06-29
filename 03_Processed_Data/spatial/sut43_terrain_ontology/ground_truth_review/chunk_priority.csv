@@ -3,7 +3,7 @@ chunk_00,29,30,1000,1000,1000,152,26,100.0,1000,0,0,operator gold locked 2026-06
 chunk_01,30,31,1000,1000,1000,380,215,100.0,1000,0,0,operator gold locked 2026-06-29 — Fjogstadnuten flank km 30.0-31.0 (4 spans S3/F2 + S4/F3 + S3/F2 + S3/F2); seam @ 30.0 from chunk_00; TRF @ 30.38-30.44 deferred; food CP TRF deferred; seam @ 31.0 into chunk_02 bedrock
 chunk_02,31,32,1000,1000,1000,0,402,100.0,1000,0,0,operator gold locked 2026-06-29 — S4/F3 bedrock lock km 31.0-32.0 (4 spans S4/F3); parent lock extends to ~33.2; seam @ 31.0 from chunk_01 S3/F2 (F2→F3); STILE-31 TRF @ 31.1-31.5 deferred; GMM S5/S6 no_input under parent; seam @ 32.0 continuous into chunk_03
 chunk_03,32,33,1000,1000,1000,0,111,100.0,1000,0,0,operator gold locked 2026-06-29 — S4/F3 bedrock lock km 32.0-33.0 (4 spans S4/F3 + S4/F3 + S3/F2 nested + S4/F3); parent lock extends to ~33.2; seam @ 32.0 continuous from chunk_02; nested S3/F2 dirt pocket @ 32.55-32.65; GMM S5/S6 no_input under parent; seam @ 33.0 into chunk_04 deferred
-chunk_04,33,34,1000,0,0,932,68,93.2,0,932,68,
+chunk_04,33,34,1000,1000,1000,0,68,100.0,1000,0,0,operator gold locked 2026-06-29 — Strategic Command 3-span km 33.0-34.0 (S3/F2 + S4/F3 + S3/F2); supersedes 5-span draft; seam @ 33.0 S3/F2 from chunk_03 S4/F3; granite-entry TRF @ 33.00-33.12 retained; seam @ 34.0 into chunk_05
 chunk_05,34,35,1000,700,1,166,133,86.7,701,197,102,
 chunk_06,35,36,1000,700,0,61,239,76.1,700,125,175,
 chunk_07,36,37,1000,0,0,797,203,79.7,0,942,58,

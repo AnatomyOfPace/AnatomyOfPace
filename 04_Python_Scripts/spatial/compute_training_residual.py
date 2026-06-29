@@ -46,8 +46,9 @@ from spatial.corridor_scope import (  # noqa: E402
 from spatial.locomotion_mode import (  # noqa: E402
     LocomotionThresholds,
     assign_grade_bin,
-    athlete_locomotion_thresholds,
     classify_locomotion_mode,
+    load_subject_kinematics_config,
+    thresholds_for_subject,
 )
 from spatial.reproject_to_spine import (  # noqa: E402
     is_spine_panel,
@@ -67,6 +68,7 @@ DEFAULT_SPINE_PANEL = (
     / "panel_race_1m_spine.parquet"
 )
 DEFAULT_TERRAIN_MAP = BASE_DIR / "config" / "spatial_terrain_map_sut43.json"
+DEFAULT_KINEMATICS_CONFIG = BASE_DIR / "config" / "subject_kinematics.local.json"
 DEFAULT_OUTPUT_DIR = (
     BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_ontology"
 )
@@ -504,6 +506,7 @@ def build_subject_residual(
     fit_ti_path: Path | None = None,
     sector_id: str = SUT43_SECTOR_ID,
     locomotion_thresholds: LocomotionThresholds | None = None,
+    kinematics_config: dict[str, Any] | None = None,
 ) -> pd.DataFrame:
     """Build metre-level TRF frame for one subject."""
     panel = normalize_panel_axes(panel)
@@ -526,13 +529,13 @@ def build_subject_residual(
     work["ti"] = pd.to_numeric(work["ti"], errors="coerce")
     work["grade_bin"] = assign_grade_bin(work["grade_pct"])
     work = resolve_friction_tiers(work, terrain_map)
-    subject_thresholds = athlete_locomotion_thresholds(
-        work,
-        overrides=locomotion_thresholds,
-    )
+    if kinematics_config is None:
+        kinematics_config = load_subject_kinematics_config()
     work["locomotion_mode"] = classify_locomotion_mode(
         work,
-        thresholds=subject_thresholds,
+        subject_id=subject_id,
+        kinematics_config=kinematics_config,
+        thresholds=locomotion_thresholds,
     )
 
     cohort = panel.copy()
@@ -542,14 +545,13 @@ def build_subject_residual(
     cohort["ti"] = pd.to_numeric(cohort["ti"], errors="coerce")
     cohort["grade_bin"] = assign_grade_bin(cohort["grade_pct"])
     cohort = resolve_friction_tiers(cohort, terrain_map)
-    cohort_subject = cohort[cohort[sid_col] == subject_id]
-    cohort_thresholds = athlete_locomotion_thresholds(
-        cohort_subject,
-        overrides=locomotion_thresholds,
-    )
+    if sid_col not in cohort.columns:
+        cohort[sid_col] = subject_id
     cohort["locomotion_mode"] = classify_locomotion_mode(
         cohort,
-        thresholds=cohort_thresholds,
+        subject_id_col=sid_col,
+        kinematics_config=kinematics_config,
+        thresholds=locomotion_thresholds,
     )
 
     if baseline_mode == "cohort_median":
@@ -680,12 +682,16 @@ def build_cross_athlete_summary(
     terrain_map_path: Path = DEFAULT_TERRAIN_MAP,
     panel_path: Path = DEFAULT_SPINE_PANEL,
     locomotion_thresholds: LocomotionThresholds | None = None,
+    kinematics_config: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
     Same-metre TRF on ref_chainage_m — paired ΔTI for cross-athlete validation (TRF §6 C3).
     """
     if not is_spine_panel(panel):
         raise ValueError("Cross-athlete TRF requires spine panel with ref_chainage_m")
+
+    if kinematics_config is None:
+        kinematics_config = load_subject_kinematics_config()
 
     per_subject: dict[str, pd.DataFrame] = {}
     reports: dict[str, dict[str, Any]] = {}
@@ -702,6 +708,7 @@ def build_cross_athlete_summary(
             session_type=session_type,
             fit_ti_path=fit_ti_path,
             locomotion_thresholds=locomotion_thresholds,
+            kinematics_config=kinematics_config,
         )
         per_subject[subject_id] = df
         _, json_path = export_outputs(
@@ -833,6 +840,12 @@ def main() -> None:
         default=None,
         help="Override run cadence threshold (default: 120 spm)",
     )
+    parser.add_argument(
+        "--kinematics-config",
+        type=Path,
+        default=DEFAULT_KINEMATICS_CONFIG,
+        help="Subject locomotion thresholds JSON (default: config/subject_kinematics.local.json)",
+    )
     args = parser.parse_args()
 
     if not args.cross_athlete and not args.subject:
@@ -847,9 +860,24 @@ def main() -> None:
     if not panel_path.exists():
         raise FileNotFoundError(f"Panel not found: {panel_path}")
 
-    thresholds = LocomotionThresholds()
+    thresholds = None
     if args.run_cadence_spm is not None:
-        thresholds = LocomotionThresholds(run_cadence_spm=args.run_cadence_spm)
+        base = thresholds_for_subject(load_subject_kinematics_config(), args.subject or "Subject_A")
+        thresholds = LocomotionThresholds(
+            run_cadence_min=args.run_cadence_spm,
+            hike_cadence_max=base.hike_cadence_max,
+        )
+
+    kinematics_path = (
+        args.kinematics_config
+        if args.kinematics_config.is_absolute()
+        else BASE_DIR / args.kinematics_config
+    )
+    kinematics_config = (
+        load_subject_kinematics_config(str(kinematics_path))
+        if kinematics_path.exists()
+        else None
+    )
 
     terrain_map = load_terrain_map(terrain_map_path)
     panel = normalize_panel_axes(pd.read_parquet(panel_path))
@@ -867,6 +895,7 @@ def main() -> None:
             terrain_map_path=terrain_map_path,
             panel_path=panel_path,
             locomotion_thresholds=thresholds,
+            kinematics_config=kinematics_config,
         )
         print("\n=== Cross-athlete same-metre TRF (ref_chainage_m) ===")
         print(f"  paired metres: {summary['paired_metres']}")
@@ -900,6 +929,7 @@ def main() -> None:
         session_type=args.session_type,
         fit_ti_path=fit_ti_path,
         locomotion_thresholds=thresholds,
+        kinematics_config=kinematics_config,
     )
 
     parquet_path, json_path = export_outputs(
