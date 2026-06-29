@@ -222,12 +222,64 @@ Committed artifacts use **Subject_*** identifiers and **Dr. Anatomy Pace** labor
 
 ---
 
-## Deferred — private web app (evaluate later)
+## Interactive HITL annotator (Streamlit)
 
-**Status (2026-06-28):** Deferred. CLI dashboard + PNG export is the production HITL path for now.
+**Script:** `04_Python_Scripts/spatial/hitl_annotator_app.py`
 
-**Re-evaluate when:** (a) chunk navigation via Preview feels too slow for daily labeling, (b) operator wants in-browser strip/map without re-export, or (c) two+ operators need shared QC view.
+Local Plotly profile + operator gold writer. Promotes spans to `hitl.operator_gold_spans[]` with `mode: operator_gold`, `gold_source: operator`, `locked_at`, and friction tier. Does **not** replace PNG export workflow — use both for in-browser zoom/pan and committed lock promotion.
 
-**If built:** prefer local **Streamlit read-only MVP** first (chunk picker, profile, F-tier strips, folium map) — reuse `panel_1m.parquet` + `spatial_terrain_map_sut43.json`; defer in-app gold writer until F-tier schema stable on km 29–41. Keep localhost-only; no public deploy.
+```bash
+pip install streamlit plotly   # or: pip install -r requirements.txt
 
-**Not needed while:** `./04_Python_Scripts/spatial/export_hitl_chunks.sh` + runbook workflow meets labeling cadence.
+streamlit run 04_Python_Scripts/spatial/hitl_annotator_app.py
+```
+
+| Control | Purpose |
+|---------|---------|
+| View sliders | Plotly zoom window (`course_km_start` / `course_km_end`) |
+| Lock span inputs | Metre-precise gold span to append |
+| surface_class / friction_tier | S1–S6 · F0–F4 |
+| Save Lock | Appends to terrain map JSON (sidebar path configurable for upstream `spatial_terrain_map_sut43_upstream.json`) |
+| Athlete overlay | Subject_A / Subject_B speed + NTI traces |
+
+**Upstream sector:** set terrain map path to `config/spatial_terrain_map_sut43_upstream.json` in the sidebar before locking km 22–29 spans. Keep gramstad_band locks in `spatial_terrain_map_sut43.json` only.
+
+---
+
+## HMM draft triage (management-by-exception)
+
+Train draft class predictions on **12 km operator gold** (km 22–34), then rank unreviewed chunks via **Review Priority Score (RPS)**:
+
+```bash
+# HMM draft (does not replace operator gold)
+python3 07_ML_Models/train_terrain_hmm.py
+
+# RPS triage queue — gramstad_band default km 29–41
+python3 04_Python_Scripts/spatial/hitl_chunk_triage.py --km-start 29 --km-end 41
+```
+
+**RPS formula (per 1 km chunk):**
+
+| Index | Meaning | Computation |
+|-------|---------|-------------|
+| **A** | Algorithmic blindness | % metres where HMM max-state probability *p* < 0.70 |
+| **B** | Kinematic divergence | % metres where \|NTI_Subject_A − NTI_Subject_B\| ≥ 0.30 |
+| **C** | Severity multiplier | `min(1, max(0, (TI_p90 − 1.0) / 2.5))` — TI ≥ 3.5 → 1.0 |
+
+`RPS = ((0.6 × A) + (0.4 × B)) × (1 + C)`
+
+**Queue bands:** RED RPS > 0.75 · YELLOW 0.40–0.75 · GREEN < 0.40
+
+Chunk boundaries are read from `ground_truth_review/chunk_priority.csv` when present.
+
+**HMM over-smoothing gates** (printed when draft parquet exists): MVL ≥ 15 m on S5/S6 runs · S5/S6 volume within ±10% of TI ≥ 2.5 spike metres · 2–8 class switches/km.
+
+Outputs: `07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet`, `ground_truth_review/triage_queue_sut43.csv` (columns: `chunk_id`, `km_start`, `km_end`, `A`, `B`, `C`, `RPS`, `queue`).
+
+---
+
+## Deferred — full private web app
+
+**Status (2026-06-29):** Streamlit annotator MVP shipped (profile + gold writer). Folium basemap + chunk picker remain deferred — PNG export via `export_hitl_chunks.sh` still recommended for topo QC.
+
+**Not needed while:** Streamlit annotator + PNG export meet labeling cadence.
