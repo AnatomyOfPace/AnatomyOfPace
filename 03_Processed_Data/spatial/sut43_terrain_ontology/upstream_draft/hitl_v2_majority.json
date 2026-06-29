@@ -1,0 +1,235 @@
+{
+  "meta": {
+    "schema_version": "hitl_v2_majority_v1",
+    "method": "per_stream_nti_ti_band_majority",
+    "km_start": 23.0,
+    "km_end": 24.0,
+    "donors": [
+      "Subject_A",
+      "Subject_B"
+    ],
+    "n_metres": 1000,
+    "n_segments": 27,
+    "sigma_gate": false,
+    "voter_eligibility": "all streams with telemetry at metre",
+    "generated_at": "2026-06-29T06:19:13.079788+00:00"
+  },
+  "majority_draft_segments": [
+    {
+      "course_m_start": 23000.0,
+      "course_m_end": 23022.0,
+      "course_km_start": 23.0,
+      "course_km_end": 23.022,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23022.0,
+      "course_m_end": 23040.0,
+      "course_km_start": 23.022,
+      "course_km_end": 23.04,
+      "surface_class": "S3",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23040.0,
+      "course_m_end": 23063.0,
+      "course_km_start": 23.04,
+      "course_km_end": 23.063,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23063.0,
+      "course_m_end": 23083.0,
+      "course_km_start": 23.063,
+      "course_km_end": 23.083,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23083.0,
+      "course_m_end": 23091.0,
+      "course_km_start": 23.083,
+      "course_km_end": 23.091,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23091.0,
+      "course_m_end": 23129.0,
+      "course_km_start": 23.091,
+      "course_km_end": 23.129,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23129.0,
+      "course_m_end": 23140.0,
+      "course_km_start": 23.129,
+      "course_km_end": 23.14,
+      "surface_class": "S4",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23140.0,
+      "course_m_end": 23171.0,
+      "course_km_start": 23.14,
+      "course_km_end": 23.171,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23171.0,
+      "course_m_end": 23202.0,
+      "course_km_start": 23.171,
+      "course_km_end": 23.202,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23202.0,
+      "course_m_end": 23239.0,
+      "course_km_start": 23.202,
+      "course_km_end": 23.239,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23239.0,
+      "course_m_end": 23294.0,
+      "course_km_start": 23.239,
+      "course_km_end": 23.294,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23294.0,
+      "course_m_end": 23364.0,
+      "course_km_start": 23.294,
+      "course_km_end": 23.364,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23364.0,
+      "course_m_end": 23400.0,
+      "course_km_start": 23.364,
+      "course_km_end": 23.4,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23400.0,
+      "course_m_end": 23423.0,
+      "course_km_start": 23.4,
+      "course_km_end": 23.423,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23423.0,
+      "course_m_end": 23429.0,
+      "course_km_start": 23.423,
+      "course_km_end": 23.429,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23429.0,
+      "course_m_end": 23550.0,
+      "course_km_start": 23.429,
+      "course_km_end": 23.55,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23550.0,
+      "course_m_end": 23585.0,
+      "course_km_start": 23.55,
+      "course_km_end": 23.585,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23585.0,
+      "course_m_end": 23809.0,
+      "course_km_start": 23.585,
+      "course_km_end": 23.809,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23809.0,
+      "course_m_end": 23827.0,
+      "course_km_start": 23.809,
+      "course_km_end": 23.827,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23827.0,
+      "course_m_end": 23864.0,
+      "course_km_start": 23.827,
+      "course_km_end": 23.864,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23864.0,
+      "course_m_end": 23910.0,
+      "course_km_start": 23.864,
+      "course_km_end": 23.91,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23910.0,
+      "course_m_end": 23933.0,
+      "course_km_start": 23.91,
+      "course_km_end": 23.933,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23933.0,
+      "course_m_end": 23938.0,
+      "course_km_start": 23.933,
+      "course_km_end": 23.938,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23938.0,
+      "course_m_end": 23950.0,
+      "course_km_start": 23.938,
+      "course_km_end": 23.95,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23950.0,
+      "course_m_end": 23972.0,
+      "course_km_start": 23.95,
+      "course_km_end": 23.972,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 23972.0,
+      "course_m_end": 23980.0,
+      "course_km_start": 23.972,
+      "course_km_end": 23.98,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 23980.0,
+      "course_m_end": 24000.0,
+      "course_km_start": 23.98,
+      "course_km_end": 24.0,
+      "surface_class": "S1",
+      "source": "ti_band"
+    }
+  ]
+}

@@ -326,6 +326,13 @@
     "note": "Canonical ref_chainage_m axis for cross-athlete alignment. Operator gold and HITL lock on Subject_A panel km (1:1 ref_chainage_km == course_km on spine — no span re-key). Subject_B stream km differs ~280–390 m at validated pins. After build_reference_spine.py, run reproject_to_spine.py to emit panel_race_1m_spine.parquet and panel_training_1m_spine.parquet (--session-type all).",
     "kinematic_anchors": [
       {
+        "anchor_id": "dale_cp",
+        "display_name": "Dale coastal aid CP",
+        "role": "behavioral_exclusion_only",
+        "ref_chainage_km": 23.52,
+        "note": "Coastal Dale aid halt + walk-out corridor km 23.48\u201323.68 on SUT_43; distinct from organiser timing Dale index (8.1 km) and dale_coastal geographic anchor @ km 23.5. SUT_160 crosswalk Dale aid ~km 141.0."
+      },
+      {
         "anchor_id": "food_cp",
         "display_name": "Gramstad food CP",
         "role": "crossing_order_knot",

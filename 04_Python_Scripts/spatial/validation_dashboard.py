@@ -90,10 +90,10 @@ DEFAULT_ML_LOOCV_PREDICTIONS = (
 )
 TILE_CACHE_ROOT = BASE_DIR / ".tile_cache"
 KARTVERKET_TILE_CACHE = TILE_CACHE_ROOT / "kartverket"
-BASEMAP_FETCH_ATTEMPTS = 3
-BASEMAP_FETCH_BACKOFF_S = 0.5
+BASEMAP_FETCH_ATTEMPTS = 4
+BASEMAP_FETCH_BACKOFF_S = 0.75
 BASEMAP_MIN_TILE_STD = 12.0
-CHUNK_EXPORT_PAUSE_S = 0.35
+CHUNK_EXPORT_PAUSE_S = 0.75
 KARTVERKET_TOPO_URL = (
     "https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png"
 )
@@ -111,8 +111,9 @@ COURSE_100M_TICK_FRAC = 0.004
 COURSE_100M_LABEL_FRAC = 0.009
 COURSE_100M_LABEL_FONTSIZE = 5.5
 DECISION_TOP_HEIGHT_RATIO = 1.9
-TOP_MAP_WIDTH_RATIO = 3.15
-TOP_LEGEND_WIDTH_RATIO = 0.60
+TOP_MAP_WIDTH_RATIO = 5.75
+TOP_LEGEND_WIDTH_RATIO = 0.38
+LEGEND_NCOL = 2
 LEGEND_FONT_SIZE = 10.5
 LEGEND_HANDLELENGTH = 1.25
 LEGEND_LABELSPACING = 0.28
@@ -130,7 +131,7 @@ DEFAULT_VARIANCE_THRESHOLD = 0.30
 
 # Operator-readable export — fixed canvas; avoid bbox_inches="tight" (expands with off-axis artists).
 FIG_SIZE_IN = (16.0, 10.0)
-DECISION_FIG_WIDTH_IN = 18.5
+DECISION_FIG_WIDTH_IN = 20.0
 FIG_DPI = 150
 # Map layout margins (fraction of figure). Decision mode needs wider left/right for grade + NTI twins.
 WITH_MAP_MARGINS = dict(left=0.05, right=0.99, top=0.91, bottom=0.05, hspace=0.38)
@@ -180,7 +181,8 @@ FRICTION_TIER_EDGE_COLORS: dict[str, str] = {
     "F0": "#81D4FA",
     "F1": "#AED581",
     "F2": "#FFEE58",
-    "F3": "#FF7043",
+    # Distinct from S5 fill (#ff7043) — orange F3 edge on S4 fill was misread as S5.
+    "F3": "#D84315",
     "F4": "#CE93D8",
 }
 FRICTION_TIER_EDGE_LW = 1.55
@@ -408,6 +410,58 @@ def _geo_bounds_with_padding(
     return west, south, east, north
 
 
+def _expand_bounds_to_display_aspect(
+    bounds: tuple[float, float, float, float],
+    target_aspect: float,
+    *,
+    min_span_deg: float = 0.0008,
+) -> tuple[float, float, float, float]:
+    """Pad lon/lat span so an equal-aspect map fills a wide subplot cell."""
+    if target_aspect <= 0:
+        return bounds
+    west, south, east, north = bounds
+    lon_span = max(float(east - west), min_span_deg)
+    lat_span = max(float(north - south), min_span_deg)
+    data_aspect = lon_span / lat_span
+    center_lon = (west + east) / 2.0
+    center_lat = (south + north) / 2.0
+    if data_aspect < target_aspect:
+        lon_span = lat_span * target_aspect
+    else:
+        lat_span = lon_span / target_aspect
+    return (
+        center_lon - lon_span / 2.0,
+        center_lat - lat_span / 2.0,
+        center_lon + lon_span / 2.0,
+        center_lat + lat_span / 2.0,
+    )
+
+
+def _map_subplot_target_aspect(
+    *,
+    decision_mode: bool,
+    with_cluster_ti: bool = True,
+) -> float:
+    """Width/height of map data limits needed to fill the top-left GridSpec cell."""
+    map_h = DECISION_TOP_HEIGHT_RATIO if decision_mode else 1.85
+    if decision_mode:
+        profile_heights = [2.25, 1.45 if with_cluster_ti else 1.15]
+    else:
+        profile_heights = [2.0, 1.0]
+    row_frac = map_h / (map_h + sum(profile_heights))
+    col_frac = TOP_MAP_WIDTH_RATIO / (TOP_MAP_WIDTH_RATIO + TOP_LEGEND_WIDTH_RATIO)
+    margins = DECISION_MAP_MARGINS if decision_mode else WITH_MAP_MARGINS
+    usable_w = float(margins["right"] - margins["left"])
+    usable_h = float(margins["top"] - margins["bottom"])
+    fig_w = DECISION_FIG_WIDTH_IN if decision_mode else FIG_SIZE_IN[0]
+    fig_h = 12.5 if decision_mode else 12.0
+    cell_w_frac = col_frac * usable_w
+    cell_h_frac = row_frac * usable_h
+    if cell_h_frac <= 0:
+        return 1.0
+    return (cell_w_frac / cell_h_frac) * (fig_w / fig_h)
+
+
 def _basemap_zoom_for_bounds(bounds: tuple[float, float, float, float]) -> int | Literal["auto"]:
     west, south, east, north = bounds
     try:
@@ -579,7 +633,10 @@ def _try_add_basemap(
                     return _add(source, label=fb_label, url=fb_url, attribution=None)
                 except Exception as fallback_exc:
                     logging.warning("%s basemap fetch failed (%s)", fb_label, fallback_exc)
-            return f"no ({type(exc).__name__})"
+            logging.error(
+                "All basemap sources failed for Kartverket request (last: %s)", exc
+            )
+            return f"no ({type(exc).__name__}: {exc})"
 
     try:
         fb_url = str(getattr(cx.providers.OpenTopoMap, "url", "OpenTopoMap"))
@@ -600,7 +657,8 @@ def _try_add_basemap(
                 attribution=None,
             )
         except Exception as fallback_exc:
-            return f"no ({type(fallback_exc).__name__})"
+            logging.error("All basemap sources failed (last: %s)", fallback_exc)
+            return f"no ({type(fallback_exc).__name__}: {fallback_exc})"
 
 
 def resolve_axis_label(terrain_map: dict[str, Any], panel: pd.DataFrame) -> str:
@@ -2297,6 +2355,8 @@ def render_reference_map(
     assigned_spans: list[dict[str, Any]] | None = None,
     map_track_activity: str | None = None,
     map_track_donor: str | None = None,
+    map_display_aspect: float | None = None,
+    require_basemap: bool = False,
 ) -> tuple[str, bool, bool]:
     """Topo basemap + race FIT or GPX S-class centerline, faint athlete GPS, chunk highlight."""
     km_lo, km_hi = viewport_km
@@ -2393,6 +2453,8 @@ def render_reference_map(
         )
 
     map_bounds = _geo_bounds_with_padding(bounds_geo, pad_frac=pad_frac)
+    if map_display_aspect is not None and map_display_aspect > 0:
+        map_bounds = _expand_bounds_to_display_aspect(map_bounds, map_display_aspect)
 
     ax.set_facecolor("#141414")
     ax.set_xlim(map_bounds[0], map_bounds[2])
@@ -2405,11 +2467,13 @@ def render_reference_map(
             if chunk_km is not None
             else f"km {km_lo:.0f}–{km_hi:.0f}"
         )
-        print(
-            f"WARN map basemap missing ({scope}): {basemap_status} "
-            f"(tiles cache: {TILE_CACHE_ROOT.relative_to(BASE_DIR)})",
-            file=sys.stderr,
+        msg = (
+            f"map basemap missing ({scope}): {basemap_status} "
+            f"(tiles cache: {TILE_CACHE_ROOT.relative_to(BASE_DIR)})"
         )
+        print(f"ERROR {msg}", file=sys.stderr)
+        if require_basemap:
+            raise RuntimeError(msg)
 
     if gpx_path is not None and gpx_path.exists() and not gpx_geo.empty:
         try:
@@ -2697,26 +2761,39 @@ def _normalize_assigned_class(value: Any) -> str | None:
     return s
 
 
-def operator_gold_class_at_km(terrain_map: dict[str, Any], km: float) -> str | None:
-    for span in operator_gold_spans(terrain_map):
+def _operator_gold_span_at_km(terrain_map: dict[str, Any], km: float) -> dict[str, Any] | None:
+    """Half-open [start, end) match; interior seams resolve to the downstream span."""
+    spans = operator_gold_spans(terrain_map)
+    match: dict[str, Any] | None = None
+    for span in spans:
         km0 = float(span["course_km_start"])
         km1 = float(span["course_km_end"])
-        if km0 <= km < km1 or (km >= km1 and abs(km - km1) < 1e-6):
-            return str(span.get("surface_class", "S2"))
+        if km0 <= km < km1:
+            match = span
+    if match is not None:
+        return match
+    for span in reversed(spans):
+        if abs(km - float(span["course_km_end"])) < 1e-6:
+            return span
     return None
+
+
+def operator_gold_class_at_km(terrain_map: dict[str, Any], km: float) -> str | None:
+    span = _operator_gold_span_at_km(terrain_map, km)
+    if span is None:
+        return None
+    return str(span.get("surface_class", "S2"))
 
 
 def operator_gold_friction_tier_at_km(terrain_map: dict[str, Any], km: float) -> str | None:
-    for span in operator_gold_spans(terrain_map):
-        km0 = float(span["course_km_start"])
-        km1 = float(span["course_km_end"])
-        if km0 <= km < km1 or (km >= km1 and abs(km - km1) < 1e-6):
-            tier = span.get("friction_tier")
-            if tier is None or (isinstance(tier, float) and pd.isna(tier)):
-                return None
-            s = str(tier).strip().upper()
-            return s if s else None
-    return None
+    span = _operator_gold_span_at_km(terrain_map, km)
+    if span is None:
+        return None
+    tier = span.get("friction_tier")
+    if tier is None or (isinstance(tier, float) and pd.isna(tier)):
+        return None
+    s = str(tier).strip().upper()
+    return s if s else None
 
 
 def friction_tier_edge_color(tier: str | None) -> str | None:
@@ -3497,6 +3574,7 @@ def render_dashboard_legend(
             handles,
             labels,
             loc="upper left",
+            ncol=LEGEND_NCOL,
             frameon=False,
             fontsize=LEGEND_FONT_SIZE,
             labelcolor="#CCCCCC",
@@ -3504,6 +3582,7 @@ def render_dashboard_legend(
             handletextpad=LEGEND_HANDLETEXTPAD,
             labelspacing=LEGEND_LABELSPACING,
             borderaxespad=LEGEND_BORDERAXESPAD,
+            columnspacing=0.9,
         )
         legend.set_clip_on(True)
         return
@@ -3641,6 +3720,7 @@ def render_dashboard_legend(
         handles,
         labels,
         loc="upper right",
+        ncol=LEGEND_NCOL,
         frameon=False,
         fontsize=LEGEND_FONT_SIZE,
         labelcolor="#CCCCCC",
@@ -3648,6 +3728,7 @@ def render_dashboard_legend(
         handletextpad=LEGEND_HANDLETEXTPAD,
         labelspacing=LEGEND_LABELSPACING,
         borderaxespad=LEGEND_BORDERAXESPAD,
+        columnspacing=0.9,
     )
     legend.set_clip_on(True)
 
@@ -3818,6 +3899,10 @@ def render_validation_dashboard(
             agreement_df=agr_map,
         )
     if with_map and ax_map is not None and ax_legend is not None:
+        map_display_aspect = _map_subplot_target_aspect(
+            decision_mode=decision_mode,
+            with_cluster_ti=bool(cluster_ti_dfs),
+        )
         _, ml_map_drawn, assigned_map_drawn = render_reference_map(
             ax_map,
             panel,
@@ -3832,6 +3917,8 @@ def render_validation_dashboard(
             assigned_spans=assigned_spans_for_map,
             map_track_activity=map_track_activity,
             map_track_donor=map_track_donor,
+            map_display_aspect=map_display_aspect,
+            require_basemap=decision_mode or chunk_window is not None,
         )
         render_dashboard_legend(
             ax_legend,

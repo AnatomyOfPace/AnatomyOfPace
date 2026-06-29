@@ -1,0 +1,340 @@
+{
+  "chunk_id": "chunk_u02",
+  "course_km_window": [
+    24.0,
+    25.0
+  ],
+  "reviewed_at": "2026-06-29",
+  "operator_statement": "Locked 2026-06-29: 4-span operator gold km 24.0–25.0 — S1/F1 asphalt @ 24.0–24.35 (continuous from chunk_u01), S3/F2 dirt @ 24.35–24.55 mid climb, S3/F2 steep @ 24.55–24.72, S4/F3 summit @ 24.72–25.0. Seam @ 24.0: continuous asphalt from u01. Seam @ 24.35: asphalt→dirt tread. Seam @ 25.0: S4/F3 into chunk_u03 draft.",
+  "display_bugs_fixed": [],
+  "display_bugs_not_found": [
+    {
+      "id": "asphalt_bleed_24_0",
+      "claim": "Assigned strip shows S1 asphalt bleeding into km 24.0+ after u01 lock.",
+      "finding": "resolve_assigned_display_at_km resolves S3/F2 from km 24.0; u01 S1/F1 ends at half-open boundary 24.0. Re-export confirms green S3 from chunk start."
+    },
+    {
+      "id": "summit_f3_s5_collision",
+      "claim": "S4/F3 summit span reads as S5 on Assigned strip (F3 edge vs S5 fill).",
+      "finding": "F3 edge recolor (#D84315) from chunk_u01 fix applies; S4/F3 @ km 24.72–25.0 renders light blue with distinct F3 edge, not S5 orange."
+    }
+  ],
+  "km_bands": [
+    {
+      "km_band": "24.00–24.35",
+      "gold_s_f": "S1/F1 asphalt (coastal road continuation)",
+      "png_operator_read": "Blue S1 asphalt band from chunk start; continuous with chunk_u01 S1/F1",
+      "dashboard_assigned_after_fix": "S1/F1",
+      "gmm_draft_dominant": "S1/S2/S3 mix; GMM S4/S5 pockets @ km 24.066–24.150 (cluster noise on paved tread)",
+      "draft_preservation": null,
+      "telemetry": "Flat-to-mild grade ~−5% to +2%; runnable ~1.6–2.4 m/s both athletes; TI ~1.2–1.9; altitude ~33 m flat — consistent with paved road, not dirt climb",
+      "mismatch_type": "operator_corrected_gmm_noise",
+      "dispute_topics": [
+        "Asphalt band extended from chunk_u01 through km 24.35 (operator field correction Q1)",
+        "Former GMM S4/S5 rocky pocket @ km 24.07–24.15 reclassified as cluster noise on asphalt"
+      ],
+      "operator_answer": "Confirmed: asphalt (S1/F1) from km 24.0 through 24.35; continuous with chunk_u01 S1/F1 @ 23.8–24.0. Dirt tread onset @ km 24.35."
+    },
+    {
+      "km_band": "24.35–24.55",
+      "gold_s_f": "S3/F2 mid climb",
+      "png_operator_read": "Green S3 dirt climb from asphalt seam @ km 24.35",
+      "dashboard_assigned_after_fix": "S3/F2",
+      "gmm_draft_dominant": "S3 majority; S1/S2 misclass pockets @ km 24.524–24.633 (draft_preservation)",
+      "draft_preservation": "accept S1/S2 within S3/F2 parent lock @ km 24.524–24.633",
+      "telemetry": "Grade +3–10% (med ~5.7%); runnable ~1.2–1.8 m/s both athletes (med ~1.6); TI ~1.4–1.6; altitude ~34→57 m",
+      "mismatch_type": "aligned_with_deferred_pockets",
+      "dispute_topics": [
+        "GMM S1/S2 asphalt-gravel pockets @ km 24.52–24.63 — confirm no paved connector on topo",
+        "Mid-climb end boundary: gold 24.55 vs grade inflection telemetry ~24.56"
+      ],
+      "operator_answer": "Confirmed: mid climb S3/F2 from asphalt→dirt seam @ km 24.35 through km 24.55; GMM S1/S2 pockets accepted as draft_preservation cluster noise."
+    },
+    {
+      "km_band": "24.55–24.72",
+      "gold_s_f": "S3/F2 steep dirt climb",
+      "png_operator_read": "Green S3; speed decay visible on telemetry panel",
+      "dashboard_assigned_after_fix": "S3/F2",
+      "gmm_draft_dominant": "S2/S3 mix; S4 pocket @ km 24.651–24.705 (draft_preservation)",
+      "draft_preservation": "accept S4 within S3/F2 parent lock @ km 24.651–24.705",
+      "telemetry": "Grade >+15% from ~km 24.57; med grade ~13.7%; speed decay Subject_A med ~0.92 m/s vs Subject_B ~1.62 m/s; brief 0 m/s Subject_A @ km 24.703–24.837; altitude ~58→81 m",
+      "mismatch_type": "aligned_with_deferred_pockets",
+      "dispute_topics": [
+        "Steep section onset: gold 24.55 vs rolling-median inflection ~24.56",
+        "Subject_A brief halt windows on steep steps — TRF tag vs terrain-driven power-hike",
+        "Promote GMM S4 rocky pocket @ km 24.65–24.71 vs retain parent S3/F2"
+      ],
+      "operator_answer": "Confirmed: steep S3/F2 split @ km 24.55; grade inflection ~24.56 is behavioral boundary within same tread class."
+    },
+    {
+      "km_band": "24.72–25.00",
+      "gold_s_f": "S4/F3 summit approach",
+      "png_operator_read": "Light blue S4/F3 final push; F3 edge distinct from S5",
+      "dashboard_assigned_after_fix": "S4/F3",
+      "gmm_draft_dominant": "S3/S4 mix; S2 pockets @ km 24.97–25.0 deferred",
+      "draft_preservation": null,
+      "telemetry": "Grade +8–32% (med ~18%); consensus TI ~1.2–1.7; Subject_A extended power-hike @ km 24.74–24.95 (med speed ~0.26 m/s); Subject_B med ~1.08 m/s; altitude ~81→128 m (Subject_A baro ~151 m @ km 25.0)",
+      "mismatch_type": "aligned",
+      "dispute_topics": [
+        "S3/F2 → S4/F3 promotion boundary: gold 24.72 vs rocky tread onset ~24.65",
+        "Summit geographic marker @ km 25.0 (Garmin) vs telemetric crest @ km 25.801 (chunk_u03 concern)",
+        "Chunk seam @ 25.0 — u02 S4/F3 end vs u03 S4/F3 draft_review start (continuous tread?)"
+      ],
+      "operator_answer": "Confirmed: S4/F3 summit approach @ 24.72–25.0; continuous S4/F3 seam into chunk_u03 draft @ km 25.0."
+    }
+  ],
+  "dalsnuten_climb": {
+    "gold_spans": {
+      "asphalt_continuation": [
+        24.0,
+        24.35
+      ],
+      "mid_climb": [
+        24.35,
+        24.55
+      ],
+      "steep_climb": [
+        24.55,
+        24.72
+      ],
+      "summit_approach": [
+        24.72,
+        25.0
+      ]
+    },
+    "geographic_anchor": {
+      "dalsnuten_summit_km": 25.0,
+      "garmin_marker": 25,
+      "sut_160_crosswalk_km": 142.25
+    },
+    "chunk_u01_seam": {
+      "km": 24.35,
+      "chunk_u01_end": "S1/F1 asphalt (23.8–24.0, locked)",
+      "chunk_u02_asphalt": "S1/F1 asphalt (24.0–24.35, operator correction)",
+      "chunk_u02_dirt_start": "S3/F2 dirt (24.35–24.55)",
+      "continuous_asphalt_km": "23.8–24.35",
+      "intentional": true,
+      "telemetry_at_seam": "Asphalt band 24.0–24.35: flat grade med ~0.9%; runnable ~1.6 m/s both athletes; TI ~1.2–1.9. Dirt onset @ 24.35: grade rises +3–10%, TI ~1.4–1.6.",
+      "note": "Operator correction 2026-06-29: asphalt continues from chunk_u01 through km 24.35; dirt tread starts @ km 24.35 (not @ km 24.0)."
+    },
+    "chunk_u03_seam": {
+      "km": 25.0,
+      "chunk_u02_end": "S4/F3 summit approach (locked 2026-06-29)",
+      "chunk_u03_start": "S4/F3 post-summit crest (draft_review, mode guidance)",
+      "s_f_continuous": true,
+      "friction_continuous": true,
+      "telemetry_at_seam": "Grade +18–23%; both athletes slowing (Subject_A ~1.14 m/s, Subject_B ~0.92 m/s); TI ~1.2–1.3; power-hike continues into u03",
+      "note": "S/F class continuous S4/F3 across chunk boundary; u03 span is draft_review pending sign-off. Geographic summit @ km 25.0; telemetric crest deferred to u03 @ km 25.801."
+    }
+  },
+  "draft_preservation_zones": [
+    {
+      "km": [
+        24.524,
+        24.633
+      ],
+      "accept": [
+        "S1",
+        "S2"
+      ],
+      "parent": "S3/F2",
+      "gmm_classes_present": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "open_question": "Confirm GMM asphalt-gravel as cluster noise (no paved connector on topo)."
+    },
+    {
+      "km": [
+        24.651,
+        24.705
+      ],
+      "accept": [
+        "S4"
+      ],
+      "parent": "S3/F2",
+      "gmm_classes_present": [
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "open_question": "Promote steep-flank S4 pocket vs retain parent S3/F2 through summit boundary @ 24.72."
+    }
+  ],
+  "telemetry_summary": {
+    "subject_a": {
+      "grade_pct_range": [
+        -3.5,
+        43.2
+      ],
+      "speed_mps_median": 1.47,
+      "ti_median": 1.42,
+      "slow_halt_bands_lt_0_5_mps": [
+        [
+          24.629,
+          24.638
+        ],
+        [
+          24.703,
+          24.837
+        ],
+        [
+          24.865,
+          24.876
+        ],
+        [
+          24.899,
+          24.954
+        ]
+      ]
+    },
+    "subject_b": {
+      "grade_pct_range": [
+        -11.7,
+        45.0
+      ],
+      "speed_mps_median": 1.54,
+      "ti_median": 1.52,
+      "slow_halt_bands_lt_0_5_mps": [
+        [
+          24.061,
+          24.095
+        ],
+        [
+          24.124,
+          24.128
+        ],
+        [
+          24.915,
+          24.957
+        ]
+      ]
+    },
+    "consensus_highlights": {
+      "asphalt_band_km": "24.0–24.35",
+      "asphalt_speed_mps": "~1.6 both athletes",
+      "asphalt_grade_pct": "med ~0.9% (flat)",
+      "dirt_onset_km": "24.35",
+      "runnable_mid_climb_km": "24.35–24.55",
+      "runnable_mid_speed_mps": "~1.5–1.6",
+      "steep_onset_km": "~24.57",
+      "summit_power_hike_km": "24.74–24.95 (Subject_A dominant)",
+      "altitude_gain_m": "33→128 (consensus spine); Subject_A baro ~151 @ km 25.0"
+    }
+  },
+  "seam_reconciliation": {
+    "km_24_0": {
+      "u01_gold": "S1/F1 asphalt (23.8–24.0, locked)",
+      "u02_gold": "S1/F1 asphalt (24.0–24.35, operator correction)",
+      "gmm_at_seam": "S1/S2/S3 mix (GMM noise on paved tread)",
+      "status": "continuous_asphalt_u01_u02",
+      "mismatch": false
+    },
+    "km_24_35": {
+      "u02_asphalt_end": "S1/F1 asphalt (24.0–24.35)",
+      "u02_dirt_start": "S3/F2 dirt (24.35–24.55)",
+      "gmm_at_seam": "S2/S3 dominant",
+      "status": "intentional_asphalt_dirt_seam",
+      "mismatch": false,
+      "telemetry_note": "Grade inflection +3–10% from km 24.35; runnable dirt climb onset"
+    },
+    "km_25_0": {
+      "u02_gold": "S4/F3 summit approach (24.72–25.0, locked 2026-06-29)",
+      "u03_draft": "S4/F3 post-summit crest (25.0–25.15, draft_review guidance)",
+      "gmm_at_seam": "S3/S4 mix with S2 pockets",
+      "status": "clean_s_f_continuous; u03_not_locked",
+      "mismatch": false
+    },
+    "internal_seams": [
+      {
+        "km": 24.35,
+        "boundary": "asphalt S1/F1 → dirt S3/F2",
+        "status": "intentional_tread_change",
+        "telemetry_note": "Flat paved band ends; grade rises +3–10% on dirt tread"
+      },
+      {
+        "km": 24.55,
+        "boundary": "mid → steep (both S3/F2)",
+        "status": "same_class_grade_inflection_only",
+        "telemetry_note": "Grade crosses +15% ~24.57; boundary is behavioral not tread-class"
+      },
+      {
+        "km": 24.72,
+        "boundary": "steep S3/F2 → summit S4/F3",
+        "status": "intentional_promotion",
+        "telemetry_note": "Rocky technical tread onset; Subject_A speed collapse begins ~24.70"
+      }
+    ]
+  },
+  "recommended_revision_questions": [
+    {
+      "id": "Q1_asphalt_dirt_seam_24_0",
+      "question": "Seam @ km 24.0: confirm intentional S1/F1 asphalt (u01) → S3/F2 dirt (u02) with no S2 gravel buffer?",
+      "recommended_resolution": "REVISED: Asphalt continues through km 24.35 (S1/F1). Dirt tread onset @ km 24.35, not @ km 24.0. Continuous asphalt band u01 23.8–24.0 + u02 24.0–24.35.",
+      "operator_answer": "Asphalt band extended to km 24.35 (S1/F1). Dirt starts @ km 24.35.",
+      "status": "resolved"
+    },
+    {
+      "id": "Q2_rocky_pocket_24_07_15",
+      "question": "Lower climb rocky pocket @ km 24.07–24.15: retain parent S3/F2 or promote GMM S4/S5 micro-pockets from draft_preservation?",
+      "recommended_resolution": "SUPERSEDED: km 24.07–24.15 now within S1/F1 asphalt band; GMM S4/S5 reclassified as cluster noise on paved tread. draft_preservation span removed.",
+      "status": "superseded_by_Q1"
+    },
+    {
+      "id": "Q3_steep_onset_24_55_56",
+      "question": "Steep climb boundary: keep gold split @ km 24.55 (mid→steep) or shift to grade inflection ~km 24.56?",
+      "recommended_resolution": "Retain 24.55 — same S3/F2 class both sides; boundary marks behavioral grade tier only.",
+      "status": "closed_2026-06-29"
+    },
+    {
+      "id": "Q4_gmm_road_misclass_24_52",
+      "question": "GMM S1/S2 pockets @ km 24.52–24.63: confirm cluster noise on dirt tread (no paved connector)?",
+      "recommended_resolution": "Accept draft_preservation — no topo paved road; retain S3/F2 parent.",
+      "status": "closed_2026-06-29"
+    },
+    {
+      "id": "Q5_summit_promotion_24_72",
+      "question": "S3/F2 → S4/F3 promotion @ km 24.72: confirm vs earlier rocky onset ~km 24.65 (GMM S4 pocket)?",
+      "recommended_resolution": "Retain 24.72 — operator gold defers S4 pocket promotion; summit S4/F3 span covers steepest final push only.",
+      "status": "closed_2026-06-29"
+    },
+    {
+      "id": "Q6_subject_a_power_hike",
+      "question": "Subject_A extended 0 m/s / slow bands @ km 24.70–24.95: tag TRF exclusion or terrain-driven power-hike only?",
+      "recommended_resolution": "No TRF — no co-runner halt, no CP; terrain-driven power-hike on steep rocky tread (consistent with u02 gold reason text).",
+      "status": "closed_2026-06-29"
+    },
+    {
+      "id": "Q7_seam_25_0_u03",
+      "question": "Chunk seam @ km 25.0: u02 S4/F3 operator gold end → u03 S4/F3 draft_review start — continuous tread or re-split at summit marker?",
+      "recommended_resolution": "Continuous S4/F3 across boundary; u03 first span is post-summit crest continuation (draft_review pending lock). Geographic summit @ km 25.0; telemetric crest @ km 25.801 is u03 concern.",
+      "status": "closed_2026-06-29"
+    },
+    {
+      "id": "Q8_dashboard_png_review",
+      "question": "Re-exported PNG: does Assigned strip match revised gold intent (S1/F1 asphalt + S3/F2 ×2 + S4/F3 summit)?",
+      "recommended_resolution": "Operator visual sign-off required before elevating disagreement matrix status to locked.",
+      "operator_answer": "Assigned strip matches revised gold: S1/F1 asphalt 24.0–24.35, S3/F2 mid/steep, S4/F3 summit.",
+      "status": "closed_2026-06-29"
+    }
+  ],
+  "lock_readiness": {
+    "map_json_tier_lock": "chunk_u01 locked 2026-06-29; chunk_u02 all 4 spans locked 2026-06-29 (gold_source operator, locked_at 2026-06-29)",
+    "disagreement_matrix_status": "locked",
+    "gt_coverage_pct": 100.0,
+    "seams_clean": true,
+    "gmm_reconciled": true,
+    "blockers": [],
+    "recommendation": "chunk_u02 operator gold locked 2026-06-29. Proceed to chunk_u03 draft_review."
+  },
+  "reexport": {
+    "path": "06_Visualizations/sut43_hitl_upstream/chunk_u02_km24-25.png",
+    "trigger": "chunk_u02_operator_lock_2026-06-29",
+    "exported_at": "2026-06-29",
+    "verify_export": true,
+    "flagged_segments": 0
+  },
+  "status": "locked",
+  "locked_at": "2026-06-29"
+}

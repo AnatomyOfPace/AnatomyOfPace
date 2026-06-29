@@ -181,19 +181,33 @@ Committed artifacts use **Subject_*** identifiers and **Dr. Anatomy Pace** labor
 
 ## Sector 2 bootstrap checklist — `dale_paradisskaret_upstream` (km 22–29)
 
-**Status (2026-06-28):** Bootstrap scaffold only. Sector 1 (`gramstad_band` km 29–41) remains the locked reference playbook.
+**Status (2026-06-29):** Machine draft generated. Sector 1 (`gramstad_band` km 29–41) remains the locked operator-gold reference.
 
-**Sector bounds:** Subject_A SUT43_20260418 stream axis **km 22.0–29.0** (upstream of gramstad_band seam @ km 29.0). Registry: `config/spatial_terrain_sectors_sut43.json`.
+**Sector bounds:** Subject_A / Subject_B SUT43_20260418 stream axis **km 22.0–29.0** (upstream of gramstad_band seam @ km 29.0). Registry: `config/spatial_terrain_sectors_sut43.json`.
+
+### Upstream draft vs operator gold (gramstad_band)
+
+| Aspect | `dale_paradisskaret_upstream` (km 22–29) | `gramstad_band` (km 29–41) |
+|--------|------------------------------------------|----------------------------|
+| Terrain map file | `config/spatial_terrain_map_sut43_upstream.json` | `config/spatial_terrain_map_sut43.json` |
+| Authority | **GMM cluster draft** (`segments[]`, `source: cluster`) | **Operator gold** (`hitl.operator_gold_spans[]` + friction locks) |
+| Friction tiers (F0–F4) | **None** — S-class only until HITL | Locked on promoted spans per `docs/friction_index_spec.md` |
+| HITL status | `hitl.status: draft` | `hitl.status: review` with 31+ operator gold spans |
+| Seam @ km 29.0 | Draft ends; no write into gramstad_band file | Operator gold from `chunk_00` applies downstream |
+| Dashboard overlay | `gmm_draft` + TI-band `ti_draft_segments[]` + v2 majority vote | Operator gold + accept-draft policies + ML guide |
+
+**Do not merge** upstream draft into `spatial_terrain_map_sut43.json` without operator sign-off — that file holds gramstad_band locks.
 
 | Step | Action | Artifact / command |
 |------|--------|-------------------|
 | 1 | Confirm sector bounds + anchor crosswalk | `config/spatial_terrain_sectors_sut43.json` · memo 13 bridge table |
-| 2 | Expand align window + rebuild panel | `corridor_multi_fit.py --manifest config/spatial_align_manifest_sut43.example.json` with `km_analysis_window: [22.0, 29.0]` (or `[22.0, 41.0]` combined) |
+| 2 | Expand align window + rebuild panel | `corridor_multi_fit.py --manifest config/spatial_align_manifest_sut43.example.json` with `km_analysis_window: [22.0, 41.0]` |
 | 3 | Extend reference spine | `python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json --km-start 22 --km-end 41` |
 | 4 | Reproject race + training to spine | `reproject_to_spine.py --manifest … --session-type all` |
-| 5 | Generate terrain map draft (ML clusters) | `terrain_map_gen.py` on expanded panel — **new** `spatial_terrain_map` or upstream slice; do not overwrite gramstad_band lock without operator sign-off |
-| 6 | Export first HITL chunk | `validation_dashboard.py --chunk-km 1 --chunk-index u01` (see chunk plan below) or manual `--chunk-km 2` window km 22–24 |
-| 7 | Operator gold + friction tiers | Append to `hitl.operator_gold_spans[]` in terrain map JSON |
+| 5 | Generate terrain map draft (ML clusters) | `python3 04_Python_Scripts/spatial/build_upstream_terrain_draft.py --write` → `config/spatial_terrain_map_sut43_upstream.json` |
+| 5b | ML feature matrix (upstream window) | `python3 04_Python_Scripts/spatial/terrain_ml_features.py --km-start 22 --km-end 29 --majority 03_Processed_Data/spatial/sut43_terrain_ontology/upstream_draft/hitl_v2_majority.parquet --output 03_Processed_Data/spatial/sut43_terrain_ontology/upstream_draft/ml_features_1m.parquet` |
+| 6 | Export first HITL chunk | `build_upstream_terrain_draft.py --write --export-chunk-index 1` or `validation_dashboard.py --terrain-map config/spatial_terrain_map_sut43_upstream.json --km-start 22 --km-end 29 --chunk-km 1 --chunk-index 1 --output 06_Visualizations/sut43_hitl_upstream/chunk_u01_km23-24.png --ti-draft --majority-draft` |
+| 7 | Operator gold + friction tiers | Append to `hitl.operator_gold_spans[]` in **`spatial_terrain_map_sut43_upstream.json`** (not gramstad_band file) |
 | 8 | TRF exclusions | Tag CP halts / co-wait on Subject_A `course_km` before cross-athlete TRF |
 | 9 | Cross-athlete TRF | `compute_training_residual.py --cross-athlete` on extended `panel_race_1m_spine.parquet` |
 | 10 | Update chunk priority | `ground_truth_review/chunk_priority_dale_upstream.csv` |
