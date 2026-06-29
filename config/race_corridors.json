@@ -1,0 +1,532 @@
+{
+  "LFI": {
+    "finish_km": 62.0,
+    "checkpoints": {
+      "Preikestolhytta": 9.0,
+      "Sognesand": 17.0,
+      "Mål": 62.0
+    },
+    "sub_corridors": {
+      "leg_a_technical": {
+        "km_start": 9.0,
+        "km_end": 17.0,
+        "label": "Preikestol→Sognesand"
+      },
+      "preikestol_descent": {
+        "km_start": 15.25,
+        "km_end": 16.0,
+        "label": "Legacy alias — steepest core of neverdalsskaret_descent km 15.25–16.0 (mis-tagged Preikestol)",
+        "strava_segment": {
+          "name": "Downhill etter Preikestolkrysset",
+          "segment_id": 20375681,
+          "distance_km": 0.34,
+          "avg_grade_pct": -26.1,
+          "elev_high_m": 562,
+          "elev_low_m": 472,
+          "note": "Same Strava geometry as neverdalsskaret_descent (steepest core); legacy lab sub-window km 15.25–16.0. Primary public Strava sector for Neverdalsskaret steepest core (~km 15.0–15.4 on LFI course); replaces user-created private segment LFI_neverdalsskaret_descent. Lab corridor neverdalsskaret_descent km 15.25–16.5 (1.25 km) is wider than this 0.34 km segment — Strava window captures the steepest braking core only; use lab km window for full TI/collapse stats. Reference_Elite sector KOM 1:54 (2020-08-08) — public copy uses Reference_Elite placeholder only."
+        }
+      },
+      "post_sognesand": {
+        "km_start": 17.0,
+        "km_end": 30.0,
+        "label": "Post-Sognesand climb"
+      },
+      "black_hole": {
+        "km_start": 21.0,
+        "km_end": 23.0,
+        "label": "TI black hole"
+      },
+      "bratteli_descent": {
+        "km_start": 22.2,
+        "km_end": 24.5,
+        "label": "Bratteli–Bakken (Case Study #001)"
+      },
+      "sognesand_descent": {
+        "km_start": 25.0,
+        "km_end": 26.0,
+        "label": "Sognesand-area steep descent (Dalevatn-like)"
+      },
+      "asphalt_finish": {
+        "km_start": 55.0,
+        "km_end": 62.0,
+        "label": "Asphalt finish"
+      },
+      "fjord_boulder_field": {
+        "km_start": 25.75,
+        "km_end": 28.0,
+        "label": "Fjord shore boulder field (flat-grade technical friction near sea level)"
+      },
+      "neverdalsskaret_climb": {
+        "km_start": 13.0,
+        "km_end": 15.25,
+        "label": "Neverdalsskaret climb (stone stairs to pass beneath Neverdalsfjellet)"
+      },
+      "neverdalsskaret_descent": {
+        "km_start": 15.25,
+        "km_end": 16.5,
+        "label": "Neverdalsskaret post-pass descent (steep technical: rock, roots, mud)",
+        "strava_segment": {
+          "name": "Downhill etter Preikestolkrysset",
+          "segment_id": 20375681,
+          "distance_km": 0.34,
+          "avg_grade_pct": -26.1,
+          "elev_high_m": 562,
+          "elev_low_m": 472,
+          "note": "Primary public Strava sector for Neverdalsskaret steepest core (~km 15.0–15.4 on LFI course); replaces user-created private segment LFI_neverdalsskaret_descent. Lab corridor neverdalsskaret_descent km 15.25–16.5 (1.25 km) is wider than this 0.34 km segment — Strava window captures the steepest braking core only; use lab km window for full TI/collapse stats. Reference_Elite sector KOM 1:54 (2020-08-08) — public copy uses Reference_Elite placeholder only."
+        }
+      }
+    },
+    "notes": "Checkpoint km calibrated from Subject_A FIT (2026-06-06) at official split clock times. Sub-corridors from Kinematic_Scan peaks. preikestol_descent and sognesand_descent: collapse v1 + high TI on steep descents (2026-06-21 scan). Refine via geo blueprint when available. fjord_boulder_field: elevated TI on modest grade at near-sea-level elevation km 25.75–28 (Subject_A FIT 2026-06-06, Minetti TI); follows sognesand_descent steep braking km 25–26 and sits inside post_sognesand km 17–30. Legacy mis-tag km 11–13 corrected — that corridor is mid-elevation Preikestol leg (~280 m), not fjord shore. neverdalsskaret_climb/descent (Subject_A FIT 2026-06-06, Minetti TI): geographic pass Neverdalsfjellet 706 m MSL; baro/GPS telemetric peak ~545 m at km 15.27 (no FIT sample 656–756 m — pass split km 15.25 at telemetric max, ~161 m vertical offset vs MSL). Climb km 13.0–15.25 mean TI 1.52 peak 4.08 mean grade +15.1% collapse v1×3 (km ~13.1, ~14.0, ~15.1). Descent km 15.25–16.5 mean TI 4.62 peak 10.54 mean grade −15.5% collapse v1×1 (km ~16.0); steepest TI bin 15.50–15.75 (5.62). preikestol_descent km 15.25–16.0 retained as legacy sub-window (mean TI 5.44, peak 10.54). Reference_Elite segment-effort intake (leaderboard / KOM): primary public segment id 20375681 (Downhill etter Preikestolkrysset) aligned to neverdalsskaret_descent; store efforts in config/strava_leaderboards.local.csv (gitignored). Deprecated: user-created private Strava segment LFI_neverdalsskaret_descent — do not use for intake; use 20375681. Subject_A LFI 2026-06-06 Strava segment effort 6:56 on id 20375681 (Reference_Elite sector KOM 1:54 — public copy: Reference_Elite placeholder only)."
+  },
+  "SUT_43": {
+    "finish_km": 43.0,
+    "checkpoints": {
+      "Hogstad": 0.66,
+      "Lifjell": 5.87,
+      "Lifjell_summit": 18.0,
+      "Dale": 8.1,
+      "Dalsnuten": 10.37,
+      "Dalsnuten_summit": 25.0,
+      "Dale_coastal": 23.5,
+      "Bjørndalsfjellet": 14.39,
+      "Mattirudla": 15.67,
+      "Mål": 43.0
+    },
+    "sub_corridors": {
+      "leg_a_technical": {
+        "km_start": 0.66,
+        "km_end": 5.87,
+        "label": "Start→Hogstad→Lifjell (timing CP)",
+        "note": "Organiser Lifjell split at km 5.87 is a timing index on start hills — not geographic Lifjell summit (~18 km, marker 18)."
+      },
+      "lifjell_summit": {
+        "km_start": 17.5,
+        "km_end": 18.5,
+        "label": "Lifjell summit (geographic)",
+        "note": "Garmin marker 18 on SUT_43 Dalevatn loop. Operator verified 2026-06-23. Distinct from Lifjell timing CP (5.87 km) and SUT_160 lifjell_dale_beach (~135 km)."
+      },
+      "dale_descent": {
+        "km_start": 14.5,
+        "km_end": 17.0,
+        "label": "Downhill Dalevatn (Case Study #002)"
+      },
+      "mattirudla_descent": {
+        "km_start": 14.39,
+        "km_end": 16.5,
+        "label": "Mattirudla checkpoint descent (early course — not Mattirudlå Downhill segment 4675307)"
+      },
+      "mid_race_descent": {
+        "km_start": 19.0,
+        "km_end": 20.0,
+        "label": "Mid-race steep descent (Lifjell summit → coast)"
+      },
+      "dale_coastal": {
+        "km_start": 23.0,
+        "km_end": 24.0,
+        "label": "Dale (coastal)",
+        "note": "Geographic coastal Dale at Garmin marker 24 on SUT_43 — operator verified 2026-06-23 (screenshots 7–8). Distinct from Dale timing CP (~8.1 km), Dalevatn lake (~15 km), and SUT_160 Dale aid (~140 km)."
+      },
+      "dalsnuten_summit": {
+        "km_start": 24.5,
+        "km_end": 25.5,
+        "label": "Dalsnuten summit (geographic)",
+        "note": "Garmin marker 25 on SUT_43 — operator verified 2026-06-23 (screenshot 8). Distinct from Dalsnuten timing CP (10.37 km) and SUT_160 dalsnuten_sector (~141–142 km)."
+      },
+      "post_mattirudla": {
+        "km_start": 15.67,
+        "km_end": 25.0,
+        "label": "Post-Mattirudla grind"
+      },
+      "late_braking": {
+        "km_start": 33.0,
+        "km_end": 34.0,
+        "label": "Late-race braking corridor (Dalevatn-like)"
+      },
+      "dalevatn_band_ontology": {
+        "km_start": 13.0,
+        "km_end": 25.0,
+        "label": "Dalevatn band — terrain ontology (superseded)",
+        "note": "Superseded 2026-06-26 by gramstad_band_ontology (km 29–41). Retained for Case Study #002 dale_descent reference and early-lap TI baselines."
+      },
+      "gramstad_band_ontology": {
+        "km_start": 29.0,
+        "km_end": 41.0,
+        "label": "Gramstad band — terrain ontology Phase A–D (Subject_A + Subject_B panel)",
+        "note": "Primary SUT_43 spatial experiment window 2026-06-26 (operator pivot). Late-loop Revhol→Bjørndalsfjellet→Gramstad traverse through late_braking (33–34). km 29–34.2 GPS-bridgable to SUT_160 140–152 (memo 13); km 34.2–41 stream-axis only. Full-course ontology (0.5–42.5 km) deferred to Phase E."
+      }
+    },
+    "notes": "Checkpoint km from finisher with full 2026 splits matched to Subject_A reference FIT (2026-04-18). Mål at 43 km official distance; GPS finish ~44.1 km. Lifjell timing CP (5.87 km) ≠ Lifjell geographic summit (~18 km, Garmin marker 18) — see lifjell_summit sub_corridor. Dalsnuten three-way: checkpoints.Dalsnuten (10.37 km) = organiser timing index on shared start only ≠ dalsnuten_summit sub_corridor (km 25, Garmin marker 25) ≠ SUT_160 dalsnuten_sector (~141–142 km). Dale four-way: checkpoints.Dale (8.1 km) = organiser timing index on shared start only ≠ dale_coastal sub_corridor (km 23–24, geographic Dale at marker 24) ≠ Dalevatn lake (~15 km, dale_descent corridor) ≠ SUT_160 Dale aid (~140 km). dale_descent: collapse v1 at km bins 15–16 (reference FIT); session black hole at km 44–45 (outside corridor). mid_race_descent and late_braking: Dalevatn-like TI+collapse on both Subject_A/B (2026-06-21 scan). SUT_43 dale_descent/mattirudla_descent km windows are early-course geography (km ~14–17); do not confuse with SUT_160 Downhill Dalevatn (seg 21316005 @ ~131 km) or Mattirudlå Downhill (seg 4675307 @ ~149 km)."
+  },
+  "SUT_160": {
+    "finish_km": 161.0,
+    "calibration_activity": "18159079828",
+    "calibration_donor": "Reference_Elite_D",
+    "checkpoints": {
+      "_note": "SUT_43-indexed CP km (0.66–15.67) apply to the shared race-start section only. Geographic Lifjell on SUT_43 summit is ~km 18 (Garmin marker 18). Geographic Lifjell massif on the 161 km lap is ~km 135 (segment Lifjell enroute Dale beach) — not km 1–6 or km 18. Dale_SUT43_index (8.1 km) is organiser timing on shared start only — coastal Dale on SUT_43 is ~km 23–24 (dale_coastal, marker 24); Dale_aid_late (~140 km) is SUT_160 only. Dalsnuten_SUT43_index (10.37 km) is organiser timing on shared start only — geographic Dalsnuten summit on SUT_43 is ~km 25 (marker 25); Dalsnuten_sector (~141–142 km) is SUT_160 only.",
+      "Hogstad_SUT43_index": 0.66,
+      "Lifjell_SUT43_index": 5.87,
+      "Lifjell_summit_SUT43": 18.0,
+      "Dale_SUT43_index": 8.1,
+      "Dale_coastal_SUT43": 23.5,
+      "Dalsnuten_SUT43_index": 10.37,
+      "Dalsnuten_summit_SUT43": 25.0,
+      "Dalsnuten_sector": 141.5,
+      "Bjørndalsfjellet_SUT43_index": 14.39,
+      "Mattirudla_SUT43_index": 15.67,
+      "Lifjell_massif": 134.88,
+      "Dale_aid_late": 140.4,
+      "Mål": 161.0
+    },
+    "sub_corridors": {
+      "start_hills": {
+        "km_start": 1.43,
+        "km_end": 6.63,
+        "label": "Øykjafjellet–Skrussfjell (race start)",
+        "strava_segments": [
+          {
+            "name": "Øykjafjellet opp",
+            "segment_id": 18184562,
+            "crossing_km_start": 1.429
+          },
+          {
+            "name": "Økjafjell ned",
+            "segment_id": 39095377,
+            "crossing_km_start": 2.748
+          },
+          {
+            "name": "Skrussfjell opp",
+            "segment_id": 30066413,
+            "crossing_km_start": 5.449
+          },
+          {
+            "name": "Skrussfjellet ner",
+            "segment_id": 18184593,
+            "crossing_km_start": 6.294
+          }
+        ],
+        "note": "Shared SUT start. SUT_43 leg_a_technical (0.66–5.87) indexes overlapping geography on the 43 km course — do not label Lifjell on SUT_160 at these km."
+      },
+      "skrussfjell_climb": {
+        "km_start": 5.45,
+        "km_end": 6.2,
+        "label": "Skrussfjell Climb",
+        "strava_segment": {
+          "name": "Skrussfjell opp",
+          "segment_id": 30066413,
+          "crossing_km_start": 5.449
+        },
+        "note": "Second start-hill climb after Øykjafjellet descent roll (start_hills sector). Strava stream geometry 5.449–6.196 on activity 18159079828."
+      },
+      "skrussfjell_descent": {
+        "km_start": 6.29,
+        "km_end": 6.63,
+        "label": "Skrussfjell Descent",
+        "strava_segment": {
+          "name": "Skrussfjellet ner",
+          "segment_id": 18184593,
+          "crossing_km_start": 6.294
+        },
+        "note": "Skrussfjell summit descent into Noredalen approach. Ends @ stream 6.634 (Strava seg 18184593); 0.1 km gap upstream of noredalen_opening_descent @ 6.63."
+      },
+      "noredalen_opening_descent": {
+        "km_start": 6.63,
+        "km_end": 8.0,
+        "label": "Noredalen Opening Descent",
+        "operator_locked": "2026-06-25",
+        "note": "Steep opening descent into Noredalen valley floor after Skrussfjell DH end @ 6.63. Barometric stream 6.63–8.0 on activity 18159079828: mean grade ~−14.8%, net elev ~−184 m (gain ~3 m / loss ~186 m), macro=brake — passes strict brake physics gates. Prior auto brake_early_0 span 6.3–8.1 superseded — start trimmed post-Skrussfjell to resolve overlap with skrussfjell_descent; end @ 8.0 abuts noredalen_valley_flat. Verified on activity 18159079828."
+      },
+      "noredalen_valley_flat": {
+        "km_start": 8.0,
+        "km_end": 10.4,
+        "label": "Noredalen Valley Flat",
+        "note": "Noredalen valley floor roll between opening descent end @ 8.0 and climb onset @ 10.4 (Kyllesvatnet approach). Barometric stream 8.0–10.4 on activity 18159079828: mean grade ~−0.2%, net elev ~−4 m, alt gain ~48 m / loss ~53 m, flatness ~101 m — passes strict flat physics gates (|mean grade| ≤ 2.5%, gain/loss ≤ 80 m, flatness ≤ 140 m); macro=brake (mild net descent, middle-third roller). Force-included as atlas landmark flat: topo Noredalen valley floor contours (garmin_marker_6–7 sector). Adjacent downstream of noredalen_opening_descent @ 8.0; 0.4 km gap upstream of climb band @ 10.4+. Verified on activity 18159079828."
+      },
+      "early_sut43_sector": {
+        "km_start": 116.69,
+        "km_end": 118.66,
+        "label": "Early part SUT43",
+        "strava_segment": {
+          "name": "Early part SUT43",
+          "segment_id": 36706238,
+          "crossing_km_start": 116.695,
+          "crossing_km_end": 118.663
+        }
+      },
+      "bersagel_hommersak_flat": {
+        "km_start": 118.0,
+        "km_end": 120.0,
+        "display_axis": "course",
+        "label": "Hommersåk Flat",
+        "note": "Western peninsula roll Hommersåk @ marker 118 → CP10 Frøylandsvatnet @ marker 120 (hogstad_peninsula sector). Operator recut 2026-06-24b: end trimmed from course 122.0 to 120.0 at CP10 — grade inflection (+11% climb onset @ 120.0–120.2); ridge traverse pre-Storaberget excluded. Organiser GPX course axis 118.0–120.0 km; stream geometry 116.709–118.713 on activity 18159079828 (pinned). Adjacent upstream of torenipen_climb @ course 120.0 (stream 118.713). Verified on activity 18159079828."
+      },
+      "torenipen_climb": {
+        "km_start": 120.0,
+        "km_end": 122.0,
+        "display_axis": "course",
+        "label": "Torenipen Climb",
+        "note": "Ridge climb CP10 Frøylandsvatnet → Torenipen summit approach (hogstad_peninsula sector, atlas torenipen_summit). Operator insert 2026-06-24c: organiser GPX course axis 120.0–122.0 km; stream geometry 118.713–120.774 on activity 18159079828 (pinned — uphill-only snap from grade inflection @ course 120.0–120.2 through summit @ course 122.0 before Torenipen descent onset). Mean grade ~+13.4%, net elev ~+252 m (gain ~262 m / loss ~10 m), macro=climb — passes strict climb physics gates; middle-third reversal false. Adjacent downstream of bersagel_hommersak_flat end @ course 120.0 (stream 118.713). 0.1 km gap upstream of torenipen_descent @ course 122.1 (stream 120.9). Verified on activity 18159079828."
+      },
+      "torenipen_descent": {
+        "km_start": 122.1,
+        "km_end": 123.0,
+        "display_axis": "course",
+        "label": "Torenipen Descent",
+        "note": "Torenipen NE rim steep descent on interior ridge approach (hogstad_peninsula sector, atlas torenipen_summit). Operator recut 2026-06-24: organiser GPX course axis 122.1–123.0 km; stream geometry 120.9–121.8 on activity 18159079828 (pinned — replaces auto brake_mid-late_3 whose expand_corridor_visual_spans analysis_window drifted to 121.5–122.5). Steep core: mean grade ~−5.4%, net elev ~−126 m. 0.1 km gap downstream of torenipen_climb end @ course 122.0 (stream 120.774). Verified on activity 18159079828."
+      },
+      "bakkafjellet_climb": {
+        "km_start": 123.65,
+        "km_end": 124.2,
+        "display_axis": "course",
+        "label": "Bakkafjellet Climb",
+        "note": "Steep wooded climb to Bakkafjellet summit @ M124 on Hogstad loop (hogstad_peninsula sector). Operator insert 2026-06-24f: organiser GPX course axis 123.65–124.2 km; stream geometry 122.461–123.036 on activity 18159079828 (pinned — uphill-only snap from grade inflection after post-Torenipen traverse roll @ course 123.0–123.6 through summit @ course 124.2 before descent dip @ course 124.25). Mean grade ~+18.7%, net elev ~+104 m (gain ~109 m / loss ~5 m), macro=climb — passes strict climb physics gates; middle-third reversal false. 0.65 km gap upstream of torenipen_descent end @ course 123.0 (stream 121.8). 1.0 km gap downstream of storaberget_downhill start @ course 125.2 (stream 124.15). Verified on activity 18159079828."
+      },
+      "storaberget_downhill": {
+        "km_start": 125.2,
+        "km_end": 126.0,
+        "display_axis": "course",
+        "label": "Storaberget Downhill",
+        "note": "Pure descent Storaberget summit @ M125 (barometric max ~339 m @ stream 124.14) → grade inflection brake→flat @ course ~126.0 (hogstad_peninsula sector, atlas storaberget). Operator insert 2026-06-24e: organiser GPX course axis 125.2–126.0 km; stream geometry 124.15–124.95 on activity 18159079828 (pinned — downhill-only snap from summit inflection @ stream 124.10/course 125.2 through base @ stream 124.95 before traverse to Fladafjellet). Mean grade ~−13.8%, net elev ~−96 m (gain ~14 m / loss ~110 m), macro=brake — passes strict brake physics gates; middle-third reversal false. 1.0 km gap upstream of bakkafjellet_climb end @ course 124.2 (stream 123.036). 0.5 km gap upstream of fladafjellet_downhill start @ course 126.5 (stream 125.45). Verified on activity 18159079828."
+      },
+      "fladafjellet_downhill": {
+        "km_start": 126.5,
+        "km_end": 127.8,
+        "display_axis": "course",
+        "label": "Fladafjellet Downhill",
+        "note": "Pure descent Fladafjellet summit/high point @ M126 → grade inflection brake→flat @ course ~127.8 before Bogafjellet climb onset (hogstad_peninsula sector, atlas fladafjellet). Operator insert 2026-06-24e: organiser GPX course axis 126.5–127.8 km; stream geometry 125.45–126.75 on activity 18159079828 (pinned — downhill-only snap from summit approach inflection @ stream 125.45 through base @ stream 126.75 before roller climb toward Bogafjellet @ course 128.8). Mean grade ~−15.2%, net elev ~−167 m (gain ~6 m / loss ~173 m), macro=brake — passes strict brake physics gates; middle-third reversal false. 0.5 km gap upstream of storaberget_downhill end @ course 126.0 (stream 124.95). 1.0 km gap downstream of bogafjellet_climb start @ course 128.8 (stream 127.738). Verified on activity 18159079828."
+      },
+      "bogafjellet_climb": {
+        "km_start": 128.8,
+        "km_end": 130.1,
+        "display_axis": "course",
+        "label": "Bogafjellet Climb",
+        "note": "Steep wooded climb W of M130 toward Bogafjellet summit (hogstad_peninsula sector). Operator insert 2026-06-24d: organiser GPX course axis 128.8–130.1 km; stream geometry 127.738–129.071 on activity 18159079828 (pinned — uphill-only snap from grade inflection after roller dip @ course 128.7 through summit @ course 130.1 before descent onset @ course 130.15). Mean grade ~+15.8%, net elev ~+168 m (gain ~170 m / loss ~2 m), macro=climb — passes strict climb physics gates; middle-third reversal false. 1.0 km gap upstream of fladafjellet_downhill end @ course 127.8 (stream 126.75). 1.3 km gap downstream of dale_descent start @ course 131.4 (locked). Verified on activity 18159079828."
+      },
+      "sorafjellet_climb": {
+        "km_start": 132.7,
+        "km_end": 133.1,
+        "display_axis": "course",
+        "label": "Sørafjellet Climb",
+        "note": "Sørafjellet upland approach W of Dalevatnet basin (norgeskart topo_dalevatnet_jodestad_sector, atlas sorafjellet). Operator recut 2026-06-24: organiser GPX axis window 132.7–133.1 km (0.4 km span) — sustained climb core from Dalevatn trail departure through primary summit approach; stream geometry 132.7–133.1 on activity 18159079828 (pinned — GPX course→stream nearest-point projection maps course 132.7–133.1 to stream 131.7–132.4 on Dalevatn descent loop, not ridge climb); excludes departure roll @ 132.4–132.7 and summit roller/descent tail @ 133.15+ (grade inflection up→down). Prior window 132.7–133.3 superseded (summit inflection @ 133.15); prior 132.8–133.0 superseded. 0.5 km gap upstream of dale_descent end @ 132.2 (locked). 1.9 km gap downstream to lifjell_downhill (135.0–136.5, locked). Distinct from dale_descent Strava core (131.37–131.98). Verified on activity 18159079828."
+      },
+      "lifjell_dale_beach": {
+        "retired": true,
+        "retired_date": "2026-06-24",
+        "retired_reason": "Macro Strava parent span (134.88–139.74, seg 36706247) nested inside lifjell_downhill (1.5 km overlap) and gandsfjorden_flat (1.9 km overlap). Retired from corridor analysis and sector display; lifjell_downhill + gandsfjorden_flat are the active non-overlapping corridors. Former alias: climb_late_4.",
+        "km_start": 134.88,
+        "km_end": 139.74,
+        "label": "Lifjell enroute Dale beach",
+        "strava_segment": {
+          "name": "Lifjell enroute Dale beach",
+          "segment_id": 36706247,
+          "crossing_km_start": 134.877,
+          "crossing_km_end": 139.738,
+          "elapsed_time_s": 4321,
+          "note": "Lifjell massif / Dale approach — late race (~km 135). SUT_160 geographic Lifjell. Distinct from SUT_43 Lifjell timing CP (5.87 km) and SUT_43 Lifjell summit (~18 km, marker 18)."
+        }
+      },
+      "dale_descent": {
+        "km_start": 131.4,
+        "km_end": 132.2,
+        "label": "Downhill Dalevatn",
+        "operator_locked": "2026-06-24",
+        "strava_segment": {
+          "name": "Downhill Dalevatn",
+          "segment_id": 21316005,
+          "distance_km": 0.608,
+          "crossing_km_start": 131.3678,
+          "crossing_km_end": 131.9758,
+          "elapsed_time_s": 583,
+          "note": "Operator lock 2026-06-24 (lifjell_dale QC). Lab corridor 131.4–132.2 km on activity 18159079828 — steep braking core aligned to Strava seg 21316005 crossing (131.37–131.98). Barometric stream: net elev ~−160 m, alt_loss > alt_gain, macro=brake. Prior wide buffer to km 133.9 trimmed to physics-valid display span (same pattern as Gramstad Downhill lock). Not SUT_43 dale_descent at km 14.5–17. Verified on activity 18159079828."
+        }
+      },
+      "lifjell_downhill": {
+        "km_start": 135.0,
+        "km_end": 136.5,
+        "label": "Lifjell Downhill",
+        "operator_locked": "2026-06-24",
+        "note": "Operator lock 2026-06-24 (lifjell_dale QC). Replaces retired climb_late_4 / lifjell_dale_beach macro spans. Shifted 1.0 km upstream from prior 136.0–137.5 (2026-06-24 recut). Grade audit on activity 18159079828: telemetric summit max 287.0 m @ km 135.174 (local high in 135.0–136.2 band); corridor spans summit approach @ operator anchor km 135.0 → base of slope @ km 136.5 (stream 136.492–136.501; alt ~46 m). Barometric stream 135.0–136.5: mean grade ~−15.5%, net elev ~−230 m, alt gain ~38 m / loss ~268 m, macro=brake — passes strict brake physics gates. Prior 136.0–137.5 window (−89 m net, summit @ km 136.128) superseded. 1.9 km gap upstream of sorafjellet_climb end @ 133.1; 0.8 km gap downstream to gandsfjorden_flat @ 137.3 (roller band 136.5–137.3). Distinct from Dale aid (~140 km). Verified on activity 18159079828."
+      },
+      "gandsfjorden_flat": {
+        "km_start": 137.3,
+        "km_end": 139.1,
+        "display_axis": "course",
+        "label": "Gandsfjorden Flat",
+        "note": "Coastal traverse along Gandsfjorden shore on Lifjell→Dale approach (norgeskart topo, operator 2026-06-24). Lab corridor 137.3–139.1 km on organiser GPX course axis (stream geometry 136.492–138.381 on activity 18159079828). Start @ course km 137.3 — 0.8 km gap downstream of lifjell_downhill end @ course 136.5 (roller descent band 136.5–137.3 excluded). Barometric stream 136.492–138.381: mean grade ~+4.6%, net elev ~+53 m, alt gain ~144 m / loss ~91 m, flatness ~235 m, macro=climb — fails strict flat physics gates (|mean grade| > 2.5%, flatness > 140 m, gain/loss > 80 m, macro-flat, middle-third reversal). Grade bins: roller coastal traverse. Force-included as atlas landmark flat: topo gentle coastal traverse contours on Gandsfjorden landform through Dale aid rolling section ~140 km. Operator override — same pattern as sorafjellet_climb display_axis=course. Prior window 137.8–139.0 (course) superseded: start extended downstream 0.5 km, end upstream 0.1 km. Verified on activity 18159079828."
+      },
+      "mattirudla_descent": {
+        "km_start": 149.378,
+        "km_end": 151.488,
+        "label": "Mattirudlå Downhill (Rinna ridge)",
+        "strava_segment": {
+          "name": "Mattirudlå Downhill",
+          "segment_id": 4675307,
+          "distance_km": 0.478,
+          "crossing_km_start": 149.378,
+          "crossing_km_end": 149.8564,
+          "elapsed_time_s": 556,
+          "note": "Verified on activity 18159079828. Ridge descent SW from Mattirudlå — topo label Rinna (mattirudla_downhill_corridor). Upstream of paradisskaret_corridor gravel road (~154 km). Distinct from generic downhill seg 21007177 at km ~15.7 (SUT_43 start section)."
+        }
+      },
+      "paradisskaret_corridor": {
+        "km_start": 152.5,
+        "km_end": 153.95,
+        "label": "Vassfjellet Climb",
+        "operator_locked": "2026-06-25",
+        "note": "Summit approach only — ends at telemetric max ~292 m @ km 153.9 (grade flip to descent). Narrowed 2026-06-25 from 152.5–155.5 to remove overlap with finish-band split (vassfjellet_downhill_finish @ 153.95+). Mean grade +9.3%, net +102 m on activity 18159079828. Distinct from vassfjellet_downhill_finish (post-summit moderate descent)."
+      },
+      "vassfjellet_downhill_finish": {
+        "km_start": 153.95,
+        "km_end": 154.80,
+        "label": "Vassfjellet Downhill",
+        "operator_locked": "2026-06-25-gap-154.80-154.95",
+        "note": "Post-summit moderate descent off Vassfjellet through gravel traverse; ends @ operator-specified stream band @ km 154.80 before gap. Operator lock 2026-06-25-gap-154.80-154.95: gap moved downstream from 154.41–154.45 (gap-upstream-qc: too far upstream per operator map QC). **150 m gap** 154.80–154.95 to paradisskaret_downhill_finish start @ 154.95 (no corridor polyline). Verified on activity 18159079828."
+      },
+      "paradisskaret_downhill_finish": {
+        "km_start": 154.95,
+        "km_end": 155.58,
+        "label": "Paradisskaret Downhill",
+        "operator_locked": "2026-06-25-gap-154.80-154.95",
+        "strava_segment": {
+          "name": "Paradisskaret ned",
+          "segment_id": 6114965,
+          "crossing_km_start": 154.87,
+          "crossing_km_end": 155.55,
+          "elapsed_time_s": 492
+        },
+        "note": "Steep core through sharp bend to gravel→asphalt road junction; starts 150 m downstream of vassfjellet_downhill_finish end @ 154.80 (gap 154.80–154.95, no corridor polyline). Operator lock 2026-06-25-gap-154.80-154.95: gap downstream of gap-upstream-qc (154.41–154.45) per operator map QC — sits on winding gravel approach before M155 marker / sharp bend. Sharp bend apex @ 155.14 (dheading peak 41°). Ends @ km 155.58 — last hairpin before Dybingen north-shore traverse (dheading 69° @ 155.578). **470 m unassigned band** 155.58–156.05 downstream before dybingen_alsvik_flat @ road junction. Strava Paradisskaret ned seg 6114965 crossing retained for reference. Black-hole band km 154–155. Verified on activity 18159079828."
+      },
+      "dybingen_alsvik_flat": {
+        "km_start": 156.05,
+        "km_end": 159.55,
+        "label": "Dybingen-Alsvik Flat",
+        "operator_locked": "2026-06-25-flat-start-road",
+        "note": "Isthmus traverse Dybingen/Floen — starts @ km 156.05 at brown-road crossroads (stream snap 156.053; lat 58.872634°N, lon 5.814824°E) immediately before track narrows between Dybingen and Floen (isthmus entry ~156.09). Prior start 155.58 superseded — that anchor was post-hairpin Dybingen north-shore roll, not isthmus flat. Mid-window roller 156.5–157.8 km. Climb onset @ 159.55 km (roll_grade +4.9%). Operator override flat (fails macro-flat gate). Verified on activity 18159079828."
+      },
+      "finish_climb": {
+        "km_start": 159.55,
+        "km_end": 160.3,
+        "label": "Finish Climb",
+        "operator_locked": "2026-06-25",
+        "note": "Late climb before Alsvik finish — telemetric max 112 m @ km 160.30. Mean grade +13.9%, net +85 m. Verified on activity 18159079828."
+      },
+      "finish_downhill": {
+        "km_start": 160.3,
+        "km_end": 161.0,
+        "label": "Finish Downhill",
+        "operator_locked": "2026-06-25",
+        "note": "Final drop to Alsvik natursenter finish @ km 161. Mean grade −15.2%, net −48 m. Verified on activity 18159079828."
+      },
+      "landmark_paradisskaret_alsvik_flat": {
+        "km_start": 154.0,
+        "km_end": 161.0,
+        "label": "Paradisskaret–Alsvik Asphalt Finish (deprecated parent)",
+        "deprecated": true,
+        "superseded_by": [
+          "vassfjellet_downhill_finish",
+          "paradisskaret_downhill_finish",
+          "dybingen_alsvik_flat",
+          "finish_climb",
+          "finish_downhill"
+        ],
+        "note": "Retired 2026-06-25 — split into five finish-band sub_corridors (153.95–161.0 km contiguous). Do not inject into corridor_window_analysis.json."
+      },
+      "early_mattirudla_checkpoint": {
+        "km_start": 15.67,
+        "km_end": 16.5,
+        "label": "Mattirudla CP descent (SUT_43 start section)",
+        "strava_segment": {
+          "name": "downhill",
+          "segment_id": 21007177,
+          "crossing_km_start": 15.72,
+          "crossing_km_end": 16.17,
+          "note": "SUT_43 shared start geography only — not Mattirudlå Downhill (4675307 @ ~149 km)."
+        }
+      },
+      "dale_aid_sector": {
+        "km_start": 140.4,
+        "km_end": 142.3,
+        "label": "Dale aid — Dalsnuten complex",
+        "strava_segment": {
+          "name": "SUT Dale-Gramstad",
+          "segment_id": 41273352,
+          "crossing_km_start": 140.354,
+          "note": "Late-race Dale aid — distinct from SUT_43 Dale timing index (~8.1 km) and SUT_43 coastal Dale (~23–24 km)."
+        }
+      },
+      "dalsnuten_climb": {
+        "km_start": 141.0,
+        "km_end": 142.251,
+        "label": "Dalsnuten Climb",
+        "strava_segment": {
+          "name": "Dale-Dalsnuten (terreng delen, start ved grind på bod)",
+          "segment_id": 12572676,
+          "crossing_km_start": 140.936,
+          "crossing_km_end": 142.227,
+          "note": "Sustained approach from Dale aid sector to Dalsnuten summit @ telemetric max km 142.251 (320 m, Garmin marker 143 approach). Lab corridor starts ~141.0 km (steep climb onset after Dale aid rolling section; Strava seg start 140.94 km). Ends at altitude maximum / up→down grade flip at summit — not km 142.8 (Dalsnuten Downhill end). Verified on activity 18159079828."
+        }
+      },
+      "dalsnuten_descent": {
+        "km_start": 142.251,
+        "km_end": 142.8,
+        "label": "Dalsnuten Downhill",
+        "strava_segment": {
+          "name": "SUT Dalsnuten Downhill",
+          "segment_id": 36730432,
+          "distance_km": 0.551,
+          "crossing_km_start": 142.256,
+          "crossing_km_end": 142.807,
+          "note": "Summit @ telemetric max km 142.251 (Garmin marker 143 approach) → first down→up grade flip ~142.80 km (barometric bins on activity 18159079828). Strava seg 36730432 (142.26–142.81 km) anchors summit core; lab corridor ends at grade inflection before roller-coaster dip and post-Dalsnuten traverse toward Gramstad uphill flip ~144.46. Verified on activity 18159079828."
+        }
+      },
+      "lundane_flat": {
+        "km_start": 143.0,
+        "km_end": 143.6,
+        "label": "Lundane Flat",
+        "note": "Post-Dalsnuten traverse on Lundane plateau (norgeskart topo, operator 2026-06-24). Barometric stream on activity 18159079828: mean grade ~−6.0%, net elev ~−30 m, macro=brake — fails strict flat physics gates (|mean grade| ≤ 2.5%, macro-flat). Force-included as atlas landmark flat: topo gentle descent contours on Lundane landform between Dalsnuten DH end @ 142.8 and Gramstad uphill flip ~144.46. Stream shows roller-coaster dip 143.0–143.25 and rebound 143.6+ within window. Verified on activity 18159079828."
+      },
+      "gramstad_downhill": {
+        "km_start": 143.9,
+        "km_end": 144.3,
+        "label": "Gramstad Downhill",
+        "strava_segment": {
+          "name": "SUT Dalsnuten - Gramstad",
+          "segment_id": 36730410,
+          "crossing_km_start": 142.245,
+          "crossing_km_end": 144.463,
+          "note": "Steep braking core on post-Lundane traverse toward Gramstad/Fjogstad on activity 18159079828. Lab corridor 143.9–144.3 km = steep descent onset (grade bin −17% @ 143.90–143.95) through pre-uphill roll before Gramstad sector flip ~144.46 (grade bin +3% @ 144.45–144.50). Barometric stream: mean grade ~−13.4%, net elev ~−49 m, braking tax ~2.0 on grade < −5%, macro=brake — passes strict brake physics gates (mean grade ≤ −3%, net elev ≤ −5 m, alt_loss > alt_gain, min_braking_tax ≥ 0.5). Prior span 144.3–144.7 km included uphill tail (net +7 m, macro climb) — recut to physics-valid steep core. Distinct from Lundane Flat (143–143.6), Øvre Eikenuten off-route summit @ marker 144, and Fjogstadnuten descent (~146.6–147.0). Verified on activity 18159079828."
+        }
+      },
+      "revhol_flat": {
+        "km_start": 145.0,
+        "km_end": 145.5,
+        "label": "Revhol Flat",
+        "note": "Gentle traverse through Revholen / Revholstjørn sector (norgeskart topo_dalsnuten_fjogstad_sector, operator 2026-06-24). Lab corridor 145.0–145.5 km on activity 18159079828 (stream endpoints 145.002 / 145.499). Barometric stream: mean grade ~+1.1%, net elev ~+5 m, alt gain ~14 m / loss ~9 m, flatness ~23 m, macro=climb — passes |mean grade| ≤ 2.5% but fails macro-flat gate. Grade bins 145.0–145.5: +2% → 0% → −3% → +4% (gentle Revholen traverse core; steep Fjogstadnuten approach begins @ 145.5+). Force-included as atlas landmark flat: topo gentle traverse contours on Revholen landform between Gramstad Downhill (143.9–144.3) and Fjogstadnuten ridge approach; upstream of Fjogstadnuten descent corridor 146.6–147.0. Operator override — same pattern as Lundane Flat. Verified on activity 18159079828."
+      },
+      "bjornalsfjellet_climb": {
+        "km_start": 147.1,
+        "km_end": 148.2,
+        "label": "Bjørndalsfjellet Climb",
+        "strava_segment": {
+          "name": "SUT Fjogstadveien - Bjørndalsfjellet",
+          "segment_id": 36743661,
+          "crossing_km_start": 147.082,
+          "crossing_km_end": 148.168,
+          "note": "Sustained approach from Fjogstadnuten descent sector (~146.6–147.0) to Bjørndalsfjellet summit @ telemetric max km 148.170 (361 m, inland Bjørndalsfjellet massif). Lab corridor starts ~147.1 km (steep climb onset after CP13 road / Fjogstadnuten sector; Strava seg start 147.08 km). Ends at/near summit before Bjørndalsfjellet Downhill @ 148.17. Mid-window dip 147.55–147.70 (roller on ridge approach) within macro climb. Verified on activity 18159079828."
+        }
+      },
+      "bjornalsfjellet_downhill": {
+        "km_start": 148.17,
+        "km_end": 148.57,
+        "label": "Bjørndalsfjellet Downhill",
+        "note": "Summit @ telemetric max km 148.170 (361 m, inland Bjørndalsfjellet massif Gramstad/Fjogstad sector) → first down→up grade flip ~148.57 km (barometric bins 0.05 km on activity 18159079828). Steep core 148.17–148.52 (mean grade ~−12%, net elev ~−48 m, braking tax ~2.0 on grade < −5%). No dedicated Strava downhill segment — wider Bjørndals, Ku, Matti og ned (36706265 @ 148.22–149.86) extends past corridor end and overlaps Mattirudlå DH downstream. Distinct from Fjogstadnuten descent (~146.6–147.0), Bjørndalsfjellet–Mattirudlå approach seg 35430020 (148.14–149.36, net mild grade), and Mattirudlå Downhill (4675307 @ 149.38+). Verified on activity 18159079828."
+      },
+      "gramstad_flat": {
+        "km_start": 150.0,
+        "km_end": 150.9,
+        "label": "Gramstad Flat",
+        "note": "Road/traverse through Gramstad cluster toward CP14 Gramstad 2 (~151 km) on activity 18159079828. Barometric stream: mean grade ~−1.1%, net elev ~−11 m, flatness ~63 m — passes strict flat physics gates (|mean grade| ≤ 2.5%, gain/loss ≤ 80 m, flatness ≤ 140 m); macro=brake (mild net descent). Upstream of Mattirudlå DH Strava core end ~149.86 km; downstream of steep ridge descent. Force-included as atlas landmark flat between Mattirudlå sector and CP14. Endpoints validated on stream @ km 150.001 / 150.900. Verified on activity 18159079828."
+      }
+    },
+    "notes": "Verified from Strava segment_efforts on activity 18159079828. See docs/outreach/sut160_corridor_ground_truth.local.md. SUT_43 checkpoint km must not be used as names for late-race geography (Lifjell massif, Dale aid, Mattirudlå DH). Mattirudlå DH (Rinna ridge, seg 4675307 @ ~149 km) → Paradisskaret gravel road (~154 km) — see paradisskaret_corridor; not Vassfjellet summit (SUT_43 km 37). Dale naming: timing index 8.1 km ≠ coastal Dale 23–24 km on SUT_43 ≠ Dale aid ~140 km on SUT_160."
+  }
+}
