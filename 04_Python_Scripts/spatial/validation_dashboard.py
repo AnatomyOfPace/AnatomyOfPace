@@ -1643,11 +1643,15 @@ def resolve_v1_effective_df(
     km_hi: float,
     v1_df: pd.DataFrame | None = None,
 ) -> pd.DataFrame | None:
-    """Load sidecar parquet or compute v1 effective inline."""
-    if v1_df is not None:
-        return v1_df
+    """Load sidecar parquet for [km_lo, km_hi) or compute v1 effective inline."""
     from spatial.hitl_v1_layer import build_hitl_v1_effective
 
+    if v1_df is not None and not v1_df.empty and "course_km" in v1_df.columns:
+        window = v1_df[
+            (v1_df["course_km"] >= km_lo) & (v1_df["course_km"] < km_hi)
+        ].copy()
+        if not window.empty:
+            return window.reset_index(drop=True)
     return build_hitl_v1_effective(terrain_map, panel, km_lo, km_hi)
 
 
@@ -2789,11 +2793,45 @@ def operator_gold_friction_tier_at_km(terrain_map: dict[str, Any], km: float) ->
     span = _operator_gold_span_at_km(terrain_map, km)
     if span is None:
         return None
-    tier = span.get("friction_tier")
-    if tier is None or (isinstance(tier, float) and pd.isna(tier)):
+    return _normalize_friction_tier(span.get("friction_tier"))
+
+
+def friction_spans(terrain_map: dict[str, Any]) -> list[dict[str, Any]]:
+    return list(terrain_map.get("hitl", {}).get("friction_spans") or [])
+
+
+def _normalize_friction_tier(value: Any) -> str | None:
+    if value is None or (isinstance(value, float) and pd.isna(value)):
         return None
-    s = str(tier).strip().upper()
+    s = str(value).strip().upper()
     return s if s else None
+
+
+def _span_at_km(spans: list[dict[str, Any]], km: float) -> dict[str, Any] | None:
+    """Half-open [start, end) match; interior seams resolve to the downstream span."""
+    match: dict[str, Any] | None = None
+    for span in spans:
+        km0 = float(span["course_km_start"])
+        km1 = float(span["course_km_end"])
+        if km0 <= km < km1:
+            match = span
+    if match is not None:
+        return match
+    for span in reversed(spans):
+        if abs(km - float(span["course_km_end"])) < 1e-6:
+            return span
+    return None
+
+
+def assigned_friction_tier_at_km(terrain_map: dict[str, Any], km: float) -> str | None:
+    """F-tier for Assigned strip: operator gold, then friction_spans sidecar."""
+    tier = operator_gold_friction_tier_at_km(terrain_map, km)
+    if tier is not None:
+        return tier
+    span = _span_at_km(friction_spans(terrain_map), km)
+    if span is None:
+        return None
+    return _normalize_friction_tier(span.get("friction_tier"))
 
 
 def friction_tier_edge_color(tier: str | None) -> str | None:
@@ -2959,9 +2997,7 @@ def collect_assigned_class_spans(
             v1_row=v1_by_km.get(km),
             agreement_row=agr_by_km.get(km),
         )
-        ft = ""
-        if kind == "operator_gold":
-            ft = operator_gold_friction_tier_at_km(terrain_map, km) or ""
+        ft = assigned_friction_tier_at_km(terrain_map, km) or ""
         rows.append((km, km + step, cls or "", kind, ft))
         km = round(km + step, 3)
 
