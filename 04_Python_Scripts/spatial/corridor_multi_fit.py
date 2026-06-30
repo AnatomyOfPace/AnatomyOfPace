@@ -201,6 +201,7 @@ def resolve_activity_spec(
         "race_id",
         "subject_id",
         "session_type",
+        "project_course",
     ):
         if key not in merged and key in manifest:
             merged[key] = manifest[key]
@@ -213,6 +214,28 @@ def resolve_activity_spec(
     if "bridge_target_race" not in merged:
         merged["bridge_target_race"] = manifest.get("bridge_target_race", STRESS_TEST_RACE_ID)
     return merged
+
+
+def resolve_project_course(
+    resolved: dict[str, Any],
+    *,
+    cli_project_course: bool = False,
+) -> bool:
+    """
+    Per-activity course projection flag.
+
+    Defaults: stream → True, gpx → False (pre-projected tiles keep course_km).
+    Explicit manifest ``project_course`` wins. CLI ``--project-course`` enables
+    projection for stream activities only — it does not re-snap GPX tiles.
+    """
+    if "project_course" in resolved:
+        return bool(resolved["project_course"])
+    align_mode = validate_align_mode(resolved.get("align_mode", "gpx"))
+    if align_mode == "gpx":
+        return False
+    if align_mode == "stream":
+        return True
+    return cli_project_course
 
 
 def _prepare_stream_frame(
@@ -283,6 +306,9 @@ def align_activity_multi(
     donor_id = resolved["donor_id"]
     activity_id = str(resolved["activity_id"])
     km_lo, km_hi = min(km_start, km_end), max(km_start, km_end)
+    activity_project_course = resolve_project_course(
+        resolved, cli_project_course=project_course
+    )
 
     if align_mode == "gpx":
         grid, meta = align_activity(
@@ -291,7 +317,7 @@ def align_activity_multi(
             km_start=km_start,
             km_end=km_end,
             step_m=step_m,
-            project_course=project_course,
+            project_course=activity_project_course,
             enrich_if_needed=enrich_if_needed,
             race_id=resolved.get("race_id", race_id),
             corridor_id=corridor_id,
@@ -370,6 +396,7 @@ def align_activity_multi(
         {
             "corridor_id": corridor_id,
             "align_mode": align_mode,
+            "project_course": activity_project_course,
             "traversal_direction": trav_dir,
             "direction_requested": direction,
             "step_m": step_m,

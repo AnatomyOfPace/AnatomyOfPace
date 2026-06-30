@@ -1,0 +1,39 @@
+{
+  "phase": "E1_start_ingest",
+  "km_window": [
+    0.5,
+    8.0
+  ],
+  "activities": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "SUT43_20260418",
+      "session_type": "race",
+      "align_mode": "stream",
+      "data_km_min": 0.501,
+      "data_km_max": 7.999,
+      "n_finite": 7499
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "19000570862",
+      "session_type": "race",
+      "align_mode": "stream",
+      "data_km_min": 0.503,
+      "data_km_max": 7.999,
+      "n_finite": 7497
+    },
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "hommersak_storaberget_20250628",
+      "session_type": "training",
+      "align_mode": "gpx",
+      "direction": "forward",
+      "data_km_min": 2.112,
+      "data_km_max": 7.995,
+      "n_finite": 5884
+    }
+  ],
+  "coverage_pct_any": 99.99,
+  "note": "GPX training tiles aligned WITHOUT --project-course; race streams WITH project-course"
+}
