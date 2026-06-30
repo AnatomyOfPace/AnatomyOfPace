@@ -406,7 +406,10 @@
         "display_name": "Dale coastal aid CP",
         "role": "behavioral_exclusion_only",
         "ref_chainage_km": 23.52,
-        "note": "Coastal Dale aid halt + walk-out corridor km 23.48\u201323.68 on SUT_43; distinct from organiser timing Dale index (8.1 km) and dale_coastal geographic anchor @ km 23.5. SUT_160 crosswalk Dale aid ~km 141.0."
+        "note": "Coastal Dale aid halt + walk-out corridor km 23.48\u201323.68 on SUT_43; distinct from organiser timing Dale index (8.1 km) and dale_coastal geographic anchor @ km 23.5. SUT_160 crosswalk Dale aid ~km 141.0.",
+        "utm_epsg": 25832,
+        "utm_e": 314523.39,
+        "utm_n": 6533858.55
       },
       {
         "anchor_id": "food_cp",

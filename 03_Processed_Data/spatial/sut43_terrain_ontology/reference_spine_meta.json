@@ -1,6 +1,6 @@
 {
   "schema_version": "reference_spine_v0",
-  "generated_at": "2026-06-29T05:56:28Z",
+  "generated_at": "2026-06-30T20:07:03Z",
   "corridor_id": "sut43_terrain_ontology",
   "sector_id": "gramstad_band",
   "km_window": [
@@ -16,6 +16,31 @@
   "n_metres": 19001,
   "output_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/reference_spine_1m.parquet",
   "kinematic_anchors": [
+    {
+      "anchor_id": "dale_cp",
+      "display_name": "Dale coastal aid CP",
+      "role": "behavioral_exclusion_only",
+      "ref_chainage_km": 23.52,
+      "note": "Coastal Dale aid halt + walk-out corridor km 23.48\u201323.68 on SUT_43; distinct from organiser timing Dale index (8.1 km) and dale_coastal geographic anchor @ km 23.5. SUT_160 crosswalk Dale aid ~km 141.0.",
+      "utm_epsg": 25832,
+      "utm_e": 314523.39,
+      "utm_n": 6533858.55,
+      "wgs84": {
+        "latitude": 58.90427892222619,
+        "longitude": 5.779782257354764
+      },
+      "stream_km": {
+        "Subject_A": 23.52,
+        "Subject_B": 23.748
+      },
+      "pin_offset_m": {
+        "Subject_A": 0.0,
+        "Subject_B": 0.4
+      },
+      "stream_km_delta_m": {
+        "Subject_B_vs_A": 228
+      }
+    },
     {
       "anchor_id": "food_cp",
       "display_name": "Gramstad food CP",
