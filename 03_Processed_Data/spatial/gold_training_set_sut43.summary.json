@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-06-30T19:21:09.692875+00:00",
+  "panel": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet",
+  "terrain_map": "config/spatial_terrain_map_sut43.json",
+  "extra_terrain_maps": [
+    "config/spatial_terrain_map_sut43_upstream.json"
+  ],
+  "hmm_draft": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
+  "km_start": 22.0,
+  "km_end": 41.0,
+  "total_metres": 19000,
+  "labeled_metres": 19000,
+  "unlabeled_metres": 0,
+  "labeled_pct": 100.0,
+  "label_surface_counts": {
+    "S3": 6111,
+    "S4": 5510,
+    "S2": 3711,
+    "S1": 2410,
+    "S6": 738,
+    "S5": 520
+  },
+  "label_friction_counts": {
+    "F3": 7772,
+    "F2": 6250,
+    "F1": 1950,
+    "F0": 1860,
+    "F4": 1168
+  },
+  "feature_columns": [
+    "consensus_nti",
+    "nti_std",
+    "nti_median",
+    "ti_median",
+    "ti_raw_median",
+    "grade_pct_median",
+    "speed_mps_median",
+    "mechanical_kappa_median",
+    "altitude_m",
+    "cadence_spm_median",
+    "pace_gap_flat_median",
+    "hmm_confidence",
+    "hmm_draft_class_ord"
+  ],
+  "output_parquet": "03_Processed_Data/spatial/gold_training_set_sut43.parquet"
+}

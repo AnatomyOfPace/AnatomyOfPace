@@ -36,6 +36,24 @@ SUT43_PRIMARY_KM_START = 29.0
 SUT43_PRIMARY_KM_END = 41.0
 SUT43_PRIMARY_VIEWPORT_KM_END = 41.5
 
+# Sunderunde Tier 0 training loop (stream-distance axis).
+SUNDERUNDE_RACE_ID = "Sunderunde"
+SUNDERUNDE_CORRIDOR_ID = "sunderunde_training_loop"
+SUNDERUNDE_KM_START = 0.0
+SUNDERUNDE_KM_END = 19.5
+
+# Stavanger Halvmarathon O₁ asphalt anchor (stream-distance axis).
+STAVANGER_HALVMARATHON_RACE_ID = "stavanger_halvmarathon"
+STAVANGER_HALVMARATHON_CORRIDOR_ID = "stavanger_halvmarathon_course"
+STAVANGER_HALVMARATHON_KM_START = 0.0
+STAVANGER_HALVMARATHON_KM_END = 21.38
+
+# 3-sjøersløpet O₁ gravel-road race anchor (stream-distance axis).
+SJOERSLOPET_RACE_ID = "3_sjoerslopet"
+SJOERSLOPET_CORRIDOR_ID = "3_sjoerslopet_course"
+SJOERSLOPET_KM_START = 0.0
+SJOERSLOPET_KM_END = 21.25
+
 # Operator scope: Dale aid CP band through Paradisskaret Downhill end (course km).
 DEFAULT_KM_START = 140.0
 DEFAULT_KM_END = 155.58
@@ -153,6 +171,66 @@ def load_sut43_experiment_window(
     return start, end, meta
 
 
+def load_sunderunde_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Sunderunde training loop — FIT stream-distance axis km 0–19.5."""
+    start = SUNDERUNDE_KM_START if km_start is None else float(km_start)
+    end = SUNDERUNDE_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": SUNDERUNDE_CORRIDOR_ID,
+        "race_id": SUNDERUNDE_RACE_ID,
+        "anchor_id": "sunderunde_training_gravel",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_sunderunde.json",
+    }
+    return start, end, meta
+
+
+def load_stavanger_halvmarathon_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Stavanger Halvmarathon — FIT stream-distance axis km 0–21.38 (O₁ asphalt anchor)."""
+    start = STAVANGER_HALVMARATHON_KM_START if km_start is None else float(km_start)
+    end = STAVANGER_HALVMARATHON_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": STAVANGER_HALVMARATHON_CORRIDOR_ID,
+        "race_id": STAVANGER_HALVMARATHON_RACE_ID,
+        "anchor_id": "stavanger_halvmarathon",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_stavanger_halvmarathon.json",
+    }
+    return start, end, meta
+
+
+def load_3_sjoerslopet_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """3-sjøersløpet race — FIT stream-distance axis km 0–21.25 (O₁ gravel-road anchor)."""
+    start = SJOERSLOPET_KM_START if km_start is None else float(km_start)
+    end = SJOERSLOPET_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": SJOERSLOPET_CORRIDOR_ID,
+        "race_id": SJOERSLOPET_RACE_ID,
+        "anchor_id": "3_sjoerslopet",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_3_sjoerslopet.json",
+    }
+    return start, end, meta
+
+
 def load_experiment_window(
     race_id: str = STRESS_TEST_RACE_ID,
     *,
@@ -163,4 +241,10 @@ def load_experiment_window(
     """Dispatch corridor window loader by race_id."""
     if race_id == SUT43_EXPERIMENT_RACE_ID:
         return load_sut43_experiment_window(km_start=km_start, km_end=km_end, registry=registry)
+    if race_id == SUNDERUNDE_RACE_ID:
+        return load_sunderunde_window(km_start=km_start, km_end=km_end)
+    if race_id == STAVANGER_HALVMARATHON_RACE_ID:
+        return load_stavanger_halvmarathon_window(km_start=km_start, km_end=km_end)
+    if race_id == SJOERSLOPET_RACE_ID:
+        return load_3_sjoerslopet_window(km_start=km_start, km_end=km_end)
     return load_stress_test_window(km_start=km_start, km_end=km_end, registry=registry)

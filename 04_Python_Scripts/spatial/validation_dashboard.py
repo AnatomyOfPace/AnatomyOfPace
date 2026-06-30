@@ -49,7 +49,8 @@ from pathlib import Path
 from typing import Any, Literal
 
 OverrideMode = Literal["guidance", "lock"]
-BasemapChoice = Literal["kartverket-topo", "kartverket-gray", "opentopomap"]
+BasemapLayerId = Literal["topo_standard", "topo_grayscale", "satellite_flyfoto"]
+BasemapChoice = BasemapLayerId | Literal["kartverket-topo", "kartverket-gray", "opentopomap"]
 MLPredictionsMode = Literal["full", "loocv", "path"]
 
 import matplotlib
@@ -100,7 +101,60 @@ KARTVERKET_TOPO_URL = (
 KARTVERKET_GRAY_URL = (
     "https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png"
 )
+NIB_ORTHO_WMTS_URL = (
+    "https://tilecache.norgeibilder.no/wmts/webmercator?"
+    "service=WMTS&request=GetTile&version=1.0.0&layer=nib&style=default&format=image/jpeg"
+    "&tileMatrixSet=webmercator&tileMatrix={z}&tileRow={y}&tileCol={x}"
+)
 KARTVERKET_ATTRIBUTION = "© Kartverket / Geovekst"
+NIB_ATTRIBUTION = "© Kartverket / Norge i bilder"
+BLOCKED_MARITIME_LAYER_IDS = frozenset(
+    {"sjokartraster", "sjokart", "sjøkart", "maritime", "sea_chart"}
+)
+BASEMAP_LAYER_REGISTRY: dict[BasemapLayerId, dict[str, str]] = {
+    "topo_standard": {
+        "label": "Kartverket standard topo",
+        "url": KARTVERKET_TOPO_URL,
+        "attribution": KARTVERKET_ATTRIBUTION,
+    },
+    "topo_grayscale": {
+        "label": "Kartverket greyscale topo",
+        "url": KARTVERKET_GRAY_URL,
+        "attribution": KARTVERKET_ATTRIBUTION,
+    },
+    "satellite_flyfoto": {
+        "label": "Kartverket orthophoto (flyfoto)",
+        "url": NIB_ORTHO_WMTS_URL,
+        "attribution": NIB_ATTRIBUTION,
+    },
+}
+HITL_BASEMAP_LAYER_LABELS: dict[BasemapLayerId, str] = {
+    "topo_standard": "Standard (topographic)",
+    "topo_grayscale": "Greyscale (Gråtone)",
+    "satellite_flyfoto": "Satellite (orthophoto)",
+}
+DEFAULT_BASEMAP_LAYER: BasemapLayerId = "topo_standard"
+SCALEBAR_NICE_LENGTHS_M = (
+    5.0,
+    10.0,
+    20.0,
+    25.0,
+    50.0,
+    100.0,
+    200.0,
+    250.0,
+    500.0,
+    1000.0,
+    2000.0,
+    5000.0,
+)
+SCALEBAR_TARGET_VIEWPORT_FRACTION = 0.22
+SCALEBAR_PAD_X_FRAC = 0.04
+SCALEBAR_PAD_Y_FRAC = 0.05
+SCALEBAR_TICK_FRAC = 0.018
+SCALEBAR_LABEL_FRAC = 0.028
+SCALEBAR_LINEWIDTH = 2.6
+SCALEBAR_FONTSIZE = 7.5
 CHUNK_MAP_PAD_FRAC = 0.12
 VIEWPORT_MAP_PAD_FRAC = 0.06
 COURSE_KM_MARKER_STEP_SHORT = 0.5
@@ -386,10 +440,211 @@ def _rle_metre_rows(
     return spans
 
 
-def _kartverket_tile_url(basemap: BasemapChoice) -> str:
-    if basemap == "kartverket-gray":
-        return KARTVERKET_GRAY_URL
-    return KARTVERKET_TOPO_URL
+def _normalize_basemap_token(raw: str) -> str:
+    return raw.strip().lower().replace("-", "_")
+
+
+def assert_basemap_not_maritime(basemap: str) -> None:
+    """Reject Sjøkart / maritime tile layer identifiers."""
+    token = _normalize_basemap_token(basemap)
+    if token in BLOCKED_MARITIME_LAYER_IDS or "sjokart" in token or "sjøkart" in token:
+        raise ValueError(f"Maritime basemap layer blocked: {basemap}")
+
+
+def normalize_basemap_layer(basemap: BasemapChoice | str) -> BasemapLayerId | Literal["opentopomap"]:
+    """Map CLI / legacy aliases to registry layer ids."""
+    assert_basemap_not_maritime(str(basemap))
+    token = _normalize_basemap_token(str(basemap))
+    aliases: dict[str, BasemapLayerId | Literal["opentopomap"]] = {
+        "topo_standard": "topo_standard",
+        "kartverket_topo": "topo_standard",
+        "topo": "topo_standard",
+        "topo_grayscale": "topo_grayscale",
+        "kartverket_gray": "topo_grayscale",
+        "kartverket_greyscale": "topo_grayscale",
+        "topograatone": "topo_grayscale",
+        "satellite_flyfoto": "satellite_flyfoto",
+        "flyfoto": "satellite_flyfoto",
+        "orthophoto": "satellite_flyfoto",
+        "opentopomap": "opentopomap",
+    }
+    if token in aliases:
+        return aliases[token]
+    if token in BASEMAP_LAYER_REGISTRY:
+        return token  # type: ignore[return-value]
+    raise ValueError(f"Unknown basemap layer: {basemap}")
+
+
+def nib_wmts_token_configured() -> bool:
+    """True when Kartverket Norge i bilder orthophoto WMTS token is set and non-empty."""
+    return bool(os.environ.get("NIB_WMTS_TOKEN", "").strip())
+
+
+def resolve_basemap_tile_source(
+    basemap: BasemapChoice | str,
+) -> tuple[str, str, str | None]:
+    """Return tile URL template, human label, and optional attribution."""
+    layer = normalize_basemap_layer(basemap)
+    if layer == "opentopomap":
+        return "opentopomap", "OpenTopoMap", None
+    spec = BASEMAP_LAYER_REGISTRY[layer]
+    url = spec["url"]
+    if layer == "satellite_flyfoto":
+        token = os.environ.get("NIB_WMTS_TOKEN", "").strip()
+        if token:
+            sep = "&" if "?" in url else "?"
+            url = f"{url}{sep}token={token}"
+    return url, spec["label"], spec.get("attribution")
+
+
+def _kartverket_tile_url(basemap: BasemapChoice | str) -> str:
+    url, _, _ = resolve_basemap_tile_source(basemap)
+    if url == "opentopomap":
+        return KARTVERKET_TOPO_URL
+    return url
+
+
+def _map_span_meters(bounds: tuple[float, float, float, float]) -> tuple[float, float]:
+    """Approximate map width and height in metres for EPSG:4326 bounds."""
+    west, south, east, north = bounds
+    center_lat = (south + north) / 2.0
+    lat_m_per_deg = 111_320.0
+    lon_m_per_deg = lat_m_per_deg * max(np.cos(np.radians(center_lat)), 1e-6)
+    width_m = max((east - west) * lon_m_per_deg, 1.0)
+    height_m = max((north - south) * lat_m_per_deg, 1.0)
+    return width_m, height_m
+
+
+def pick_metric_scalebar_length_m(viewport_width_m: float) -> tuple[float, str]:
+    """Choose a round metric scalebar length for the current geographic zoom."""
+    target_m = viewport_width_m * SCALEBAR_TARGET_VIEWPORT_FRACTION
+    chosen = SCALEBAR_NICE_LENGTHS_M[0]
+    for length_m in SCALEBAR_NICE_LENGTHS_M:
+        if length_m <= target_m * 1.35:
+            chosen = length_m
+    if chosen >= 1000.0 and chosen % 1000.0 == 0.0:
+        label = f"{int(chosen / 1000.0)} km"
+    elif chosen >= 1000.0:
+        label = f"{chosen / 1000.0:.1f} km"
+    else:
+        label = f"{int(chosen)} m" if chosen == int(chosen) else f"{chosen:.0f} m"
+    return chosen, label
+
+
+def plot_metric_scalebar(
+    ax: plt.Axes,
+    bounds: tuple[float, float, float, float],
+) -> tuple[float, str]:
+    """Draw a bottom-left metric scalebar that tracks geographic zoom."""
+    west, south, east, north = bounds
+    width_m, height_m = _map_span_meters(bounds)
+    bar_m, label = pick_metric_scalebar_length_m(width_m)
+    center_lat = (south + north) / 2.0
+    lon_m_per_deg = 111_320.0 * max(np.cos(np.radians(center_lat)), 1e-6)
+    bar_lon = bar_m / lon_m_per_deg
+    lon_span = max(east - west, 1e-9)
+    lat_span = max(north - south, 1e-9)
+    pad_x = lon_span * SCALEBAR_PAD_X_FRAC
+    pad_y = lat_span * SCALEBAR_PAD_Y_FRAC
+    tick_h = lat_span * SCALEBAR_TICK_FRAC
+    label_y = south + pad_y + lat_span * SCALEBAR_LABEL_FRAC
+    x0 = west + pad_x
+    x1 = x0 + bar_lon
+    y0 = south + pad_y
+    ax.plot(
+        [x0, x1],
+        [y0, y0],
+        color="#F5F5F5",
+        linewidth=SCALEBAR_LINEWIDTH,
+        solid_capstyle="butt",
+        zorder=25,
+    )
+    ax.plot(
+        [x0, x0],
+        [y0 - tick_h, y0 + tick_h],
+        color="#F5F5F5",
+        linewidth=SCALEBAR_LINEWIDTH * 0.85,
+        solid_capstyle="butt",
+        zorder=25,
+    )
+    ax.plot(
+        [x1, x1],
+        [y0 - tick_h, y0 + tick_h],
+        color="#F5F5F5",
+        linewidth=SCALEBAR_LINEWIDTH * 0.85,
+        solid_capstyle="butt",
+        zorder=25,
+    )
+    text = ax.text(
+        (x0 + x1) / 2.0,
+        label_y,
+        label,
+        ha="center",
+        va="bottom",
+        fontsize=SCALEBAR_FONTSIZE,
+        color="#F0F0F0",
+        zorder=26,
+    )
+    text.set_path_effects([pe.withStroke(linewidth=1.4, foreground="#111111", alpha=0.9)])
+    return bar_m, label
+
+
+def lock_plotly_geo_aspect_1_1(
+    fig: Any,
+    bounds: tuple[float, float, float, float],
+    *,
+    geo_ref: str = "geo",
+) -> None:
+    """Force 1:1 lon/lat scaling on a Plotly geo subplot (mercator data axes)."""
+    west, south, east, north = bounds
+    fig.update_layout(
+        **{
+            geo_ref: dict(
+                projection_type="mercator",
+                lonaxis=dict(range=[west, east]),
+                lataxis=dict(range=[south, north], scaleanchor=f"{geo_ref}.lonaxis"),
+                fitbounds=False,
+            )
+        }
+    )
+
+
+def plotly_geo_scalebar_annotations(
+    bounds: tuple[float, float, float, float],
+    *,
+    xref: str = "paper",
+    yref: str = "paper",
+) -> list[dict[str, Any]]:
+    """Bottom-left scalebar annotations for a Plotly geo/map viewport."""
+    width_m, _ = _map_span_meters(bounds)
+    _, label = pick_metric_scalebar_length_m(width_m)
+    return [
+        dict(
+            x=0.04,
+            y=0.06,
+            xref=xref,
+            yref=yref,
+            text=label,
+            showarrow=False,
+            font=dict(size=11, color="#F0F0F0"),
+            bgcolor="rgba(17,17,17,0.72)",
+            borderpad=3,
+        ),
+        dict(
+            x=0.04,
+            y=0.03,
+            xref=xref,
+            yref=yref,
+            ax=0.18,
+            ay=0,
+            axref=xref,
+            ayref=yref,
+            arrowhead=0,
+            arrowwidth=2,
+            arrowcolor="#F5F5F5",
+            showarrow=True,
+        ),
+    ]
 
 
 def _geo_bounds_with_padding(
@@ -408,6 +663,38 @@ def _geo_bounds_with_padding(
     south = float(geo["latitude"].min()) - lat_pad
     north = float(geo["latitude"].max()) + lat_pad
     return west, south, east, north
+
+
+def apply_geo_coordinate_offset(
+    geo: pd.DataFrame,
+    *,
+    lat_offset: float = 0.0,
+    lon_offset: float = 0.0,
+) -> pd.DataFrame:
+    """Shift lat/lon columns for GPS–basemap drift correction (degrees)."""
+    if geo.empty or (lat_offset == 0.0 and lon_offset == 0.0):
+        return geo
+    out = geo.copy()
+    out["latitude"] = out["latitude"] + lat_offset
+    out["longitude"] = out["longitude"] + lon_offset
+    return out
+
+
+def offset_panel_gps(
+    panel: pd.DataFrame,
+    *,
+    lat_offset: float = 0.0,
+    lon_offset: float = 0.0,
+) -> pd.DataFrame:
+    """Return panel copy with latitude/longitude shifted for map overlay alignment."""
+    if lat_offset == 0.0 and lon_offset == 0.0:
+        return panel
+    out = panel.copy()
+    if "latitude" in out.columns:
+        out["latitude"] = out["latitude"] + lat_offset
+    if "longitude" in out.columns:
+        out["longitude"] = out["longitude"] + lon_offset
+    return out
 
 
 def _expand_bounds_to_display_aspect(
@@ -429,6 +716,35 @@ def _expand_bounds_to_display_aspect(
         lon_span = lat_span * target_aspect
     else:
         lat_span = lon_span / target_aspect
+    return (
+        center_lon - lon_span / 2.0,
+        center_lat - lat_span / 2.0,
+        center_lon + lon_span / 2.0,
+        center_lat + lat_span / 2.0,
+    )
+
+
+def _expand_bounds_to_metric_aspect(
+    bounds: tuple[float, float, float, float],
+    target_aspect: float,
+    *,
+    min_span_deg: float = 0.0008,
+) -> tuple[float, float, float, float]:
+    """Pad bounds so ground width/height matches target_aspect (metres, latitude-aware)."""
+    if target_aspect <= 0:
+        return bounds
+    west, south, east, north = bounds
+    center_lon = (west + east) / 2.0
+    center_lat = (south + north) / 2.0
+    width_m, height_m = _map_span_meters(bounds)
+    if width_m / max(height_m, 1.0) < target_aspect:
+        width_m = height_m * target_aspect
+    else:
+        height_m = width_m / target_aspect
+    lat_m_per_deg = 111_320.0
+    lon_m_per_deg = lat_m_per_deg * max(np.cos(np.radians(center_lat)), 1e-6)
+    lon_span = max(width_m / lon_m_per_deg, min_span_deg)
+    lat_span = max(height_m / lat_m_per_deg, min_span_deg)
     return (
         center_lon - lon_span / 2.0,
         center_lat - lat_span / 2.0,
@@ -505,6 +821,22 @@ def _ensure_contextily_cache() -> None:
     cx.set_cache_dir(str(TILE_CACHE_ROOT))
 
 
+def _safe_log_error(msg: str) -> None:
+    """Log to stderr without crashing when the pipe is closed (e.g. Streamlit cache)."""
+    try:
+        print(f"ERROR {msg}", file=sys.stderr)
+    except BrokenPipeError:
+        pass
+
+
+def _safe_canvas_draw(fig: plt.Figure) -> None:
+    """Draw matplotlib canvas; surface BrokenPipeError as RuntimeError for basemap fallback."""
+    try:
+        fig.canvas.draw()
+    except BrokenPipeError as exc:
+        raise RuntimeError("matplotlib canvas draw pipe closed") from exc
+
+
 def _invoke_add_basemap(
     cx: Any,
     ax: plt.Axes,
@@ -523,7 +855,7 @@ def _invoke_add_basemap(
         alpha=alpha,
         reset_extent=False,
     )
-    ax.figure.canvas.draw()
+    _safe_canvas_draw(ax.figure)
     if not ax.images:
         raise RuntimeError("basemap tile layer missing after add_basemap")
     tile_arr = ax.images[-1].get_array()
@@ -538,9 +870,11 @@ def _atomic_savefig(fig: plt.Figure, output_path: Path, **kwargs: Any) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = output_path.with_name(f"{output_path.stem}.tmp{output_path.suffix}")
     try:
-        fig.canvas.draw()
+        _safe_canvas_draw(fig)
         fig.savefig(tmp_path, **kwargs)
         os.replace(tmp_path, output_path)
+    except (BrokenPipeError, OSError) as exc:
+        raise RuntimeError(f"PNG export failed: {type(exc).__name__}: {exc}") from exc
     finally:
         tmp_path.unlink(missing_ok=True)
 
@@ -583,7 +917,7 @@ def _try_add_basemap(
 
     west, south, east, north = bounds
     zoom = _clamp_tile_zoom(_basemap_zoom_for_bounds(bounds))
-    kartverket = basemap in ("kartverket-topo", "kartverket-gray")
+    layer = normalize_basemap_layer(basemap)
     _ensure_contextily_cache()
 
     def _add(source: Any, *, label: str, url: str, attribution: str | None) -> str:
@@ -618,14 +952,19 @@ def _try_add_basemap(
         ),
     ]
 
-    if kartverket:
-        url = _kartverket_tile_url(basemap)
-        label = "Kartverket topo" if basemap == "kartverket-topo" else "Kartverket gray"
+    if layer != "opentopomap":
+        url, label, attribution = resolve_basemap_tile_source(layer)
+        if layer == "satellite_flyfoto" and not nib_wmts_token_configured():
+            return "no (NIB_WMTS_TOKEN required for Kartverket orthophoto)"
         try:
-            return _add(url, label=label, url=url, attribution=KARTVERKET_ATTRIBUTION)
+            return _add(url, label=label, url=url, attribution=attribution)
         except Exception as exc:
+            if layer == "satellite_flyfoto":
+                logging.error("Kartverket orthophoto fetch failed (%s)", exc)
+                return f"no ({type(exc).__name__}: {exc})"
             logging.warning(
-                "Kartverket basemap fetch failed (%s); trying OpenTopoMap / OSM fallbacks",
+                "%s basemap fetch failed (%s); trying OpenTopoMap / OSM fallbacks",
+                label,
                 exc,
             )
             for source, fb_label, fb_url in fallback_sources:
@@ -633,9 +972,7 @@ def _try_add_basemap(
                     return _add(source, label=fb_label, url=fb_url, attribution=None)
                 except Exception as fallback_exc:
                     logging.warning("%s basemap fetch failed (%s)", fb_label, fallback_exc)
-            logging.error(
-                "All basemap sources failed for Kartverket request (last: %s)", exc
-            )
+            logging.error("All basemap sources failed for %s request (last: %s)", label, exc)
             return f"no ({type(exc).__name__}: {exc})"
 
     try:
@@ -2056,16 +2393,23 @@ def estimate_gpx_stream_offset_km(
     gpx_path: Path,
     *,
     offset_panel: pd.DataFrame | None = None,
+    stream_km_lo: float | None = None,
+    stream_km_hi: float | None = None,
 ) -> float:
     """
     Median (GPX distance_km − stream course_km) from panel GPS.
 
     SUT_43 uses stream-distance axis; organiser GPX km labels differ by ~1–1.8 km
     along-track. Used to paint S-class on GPX centerline while profiles stay on stream km.
+
+    When stream_km_lo/hi are set, offset is estimated only inside that window so chunk
+    maps do not inherit a corridor-wide median that drifts ~200 m laterally at km 37+.
     """
     work = (offset_panel if offset_panel is not None else panel).dropna(
         subset=["latitude", "longitude", "course_km"]
     )
+    if stream_km_lo is not None and stream_km_hi is not None:
+        work = work[(work["course_km"] >= stream_km_lo) & (work["course_km"] <= stream_km_hi)]
     if work.empty or not gpx_path.exists():
         return 0.0
     course = load_gpx_course_km(gpx_path)
@@ -2113,7 +2457,13 @@ def build_map_track_geography(
     Seeds from sparse GPX vertices (constant stream→GPX offset), then interpolates
     lat/lon at regular stream-km steps — stays on GPX geometry, not panel GPS.
     """
-    offset = estimate_gpx_stream_offset_km(panel, gpx_path, offset_panel=offset_panel)
+    offset = estimate_gpx_stream_offset_km(
+        panel,
+        gpx_path,
+        offset_panel=offset_panel,
+        stream_km_lo=stream_km_lo,
+        stream_km_hi=stream_km_hi,
+    )
     sparse = gpx_geography_for_stream_window(
         gpx_path, stream_km_lo, stream_km_hi, gpx_stream_offset_km=offset
     )
@@ -2352,7 +2702,7 @@ def render_reference_map(
     viewport_km: tuple[float, float],
     chunk_km: tuple[float, float] | None = None,
     gpx_path: Path | None = None,
-    basemap: BasemapChoice = "kartverket-topo",
+    basemap: BasemapChoice = DEFAULT_BASEMAP_LAYER,
     ml_pred_df: pd.DataFrame | None = None,
     ml_map_alpha: float = ML_MAP_TRACK_ALPHA,
     decision_mode: bool = False,
@@ -2361,8 +2711,11 @@ def render_reference_map(
     map_track_donor: str | None = None,
     map_display_aspect: float | None = None,
     require_basemap: bool = False,
+    lat_offset: float = 0.0,
+    lon_offset: float = 0.0,
 ) -> tuple[str, bool, bool]:
     """Topo basemap + race FIT or GPX S-class centerline, faint athlete GPS, chunk highlight."""
+    panel = offset_panel_gps(panel, lat_offset=lat_offset, lon_offset=lon_offset)
     km_lo, km_hi = viewport_km
     geo_lo, geo_hi = km_lo, km_hi
     if chunk_km is not None:
@@ -2408,7 +2761,13 @@ def render_reference_map(
     )
     use_fit_track = not fit_geo.empty
     if use_gpx_track:
-        gpx_offset = estimate_gpx_stream_offset_km(panel, gpx_path, offset_panel=track_panel)
+        gpx_offset = estimate_gpx_stream_offset_km(
+            panel,
+            gpx_path,
+            offset_panel=track_panel,
+            stream_km_lo=geo_lo,
+            stream_km_hi=geo_hi,
+        )
         gpx_geo = build_map_track_geography(
             gpx_path, geo_lo, geo_hi, panel, offset_panel=track_panel
         )
@@ -2417,6 +2776,7 @@ def render_reference_map(
                 gpx_path, geo_lo, geo_hi, gpx_stream_offset_km=gpx_offset
             )
 
+    # Prefer dense race FIT GPS on stream course_km (panel rows in km window).
     if use_fit_track:
         track_geo = fit_geo
         track_label = (
@@ -2424,22 +2784,29 @@ def render_reference_map(
             if map_track_activity or map_track_donor
             else "race FIT"
         )
+    elif use_gpx_track and not gpx_geo.empty:
+        track_geo = gpx_geo
+        track_label = "GPX centerline"
     else:
-        track_geo = gpx_geo if not gpx_geo.empty else geo_full
-        track_label = "GPX centerline" if not gpx_geo.empty else "panel GPS"
-    bounds_geo = track_geo if not track_geo.empty else geo_full
+        track_geo = geo_full
+        track_label = "panel GPS"
+    bounds_geo = track_geo[(track_geo["course_km"] >= geo_lo) & (track_geo["course_km"] <= geo_hi)]
+    if bounds_geo.empty:
+        bounds_geo = track_geo if not track_geo.empty else geo_full
     if chunk_km is not None:
         c_lo, c_hi = chunk_km
         chunk_geo = bounds_geo[(bounds_geo["course_km"] >= c_lo) & (bounds_geo["course_km"] <= c_hi)]
         if not chunk_geo.empty:
             bounds_geo = chunk_geo
-            pad_frac = CHUNK_MAP_PAD_FRAC
-        else:
-            pad_frac = VIEWPORT_MAP_PAD_FRAC
+        pad_frac = CHUNK_MAP_PAD_FRAC
     else:
         pad_frac = VIEWPORT_MAP_PAD_FRAC
 
-    if not track_geo.empty and not geo_full.empty:
+    reference_geo = fit_geo if not fit_geo.empty else course_geography(panel, geo_lo, geo_hi)
+    reference_label = "race FIT GPS" if not fit_geo.empty else "panel consensus"
+    mismatch_track = gpx_geo if (use_gpx_track and not gpx_geo.empty) else track_geo
+    mismatch_track_label = "GPX centerline" if mismatch_track is gpx_geo else track_label
+    if not mismatch_track.empty and not reference_geo.empty and mismatch_track is not track_geo:
         mismatch_lo, mismatch_hi = geo_lo, geo_hi
         scope = (
             f"km {chunk_km[0]:.0f}–{chunk_km[1]:.0f}"
@@ -2447,24 +2814,33 @@ def render_reference_map(
             else f"km {km_lo:.0f}–{km_hi:.0f}"
         )
         report_geo_mismatch_stats(
-            track_geo,
-            geo_full,
+            mismatch_track,
+            reference_geo,
             km_lo=mismatch_lo,
             km_hi=mismatch_hi,
             scope=scope,
-            reference_label="race FIT GPS" if use_fit_track else "panel GPS",
-            track_label=track_label,
+            reference_label=reference_label,
+            track_label=mismatch_track_label,
         )
 
     map_bounds = _geo_bounds_with_padding(bounds_geo, pad_frac=pad_frac)
     if map_display_aspect is not None and map_display_aspect > 0:
-        map_bounds = _expand_bounds_to_display_aspect(map_bounds, map_display_aspect)
+        if abs(map_display_aspect - 1.0) < 0.05:
+            map_bounds = _expand_bounds_to_metric_aspect(map_bounds, map_display_aspect)
+        else:
+            map_bounds = _expand_bounds_to_display_aspect(map_bounds, map_display_aspect)
 
     ax.set_facecolor("#141414")
     ax.set_xlim(map_bounds[0], map_bounds[2])
     ax.set_ylim(map_bounds[1], map_bounds[3])
     ax.set_aspect("equal", adjustable="box")
-    basemap_status = _try_add_basemap(ax, basemap, map_bounds)
+    basemap_layer = normalize_basemap_layer(basemap)
+    if basemap_layer == "satellite_flyfoto" and not nib_wmts_token_configured():
+        basemap_status = "no (NIB_WMTS_TOKEN required for Kartverket orthophoto)"
+    else:
+        basemap_status = _try_add_basemap(ax, basemap, map_bounds)
+        ax.set_xlim(map_bounds[0], map_bounds[2])
+        ax.set_ylim(map_bounds[1], map_bounds[3])
     if basemap_status.startswith("no"):
         scope = (
             f"km {chunk_km[0]:.0f}–{chunk_km[1]:.0f}"
@@ -2475,7 +2851,7 @@ def render_reference_map(
             f"map basemap missing ({scope}): {basemap_status} "
             f"(tiles cache: {TILE_CACHE_ROOT.relative_to(BASE_DIR)})"
         )
-        print(f"ERROR {msg}", file=sys.stderr)
+        _safe_log_error(msg)
         if require_basemap:
             raise RuntimeError(msg)
 
@@ -2533,11 +2909,15 @@ def render_reference_map(
                 )
         chunk_geo = track_geo[(track_geo["course_km"] >= c_lo) & (track_geo["course_km"] <= c_hi)]
         if not chunk_geo.empty:
-            west, south, east, north = _geo_bounds_with_padding(
-                chunk_geo,
-                pad_frac=CHUNK_MAP_PAD_FRAC,
-                min_pad_deg=0.0008,
-            )
+            pad_m = 60.0
+            center_lat = float(chunk_geo["latitude"].mean())
+            lon_m_per_deg = 111_320.0 * max(np.cos(np.radians(center_lat)), 1e-6)
+            pad_lon = pad_m / lon_m_per_deg
+            pad_lat = pad_m / 111_320.0
+            west = float(chunk_geo["longitude"].min()) - pad_lon
+            east = float(chunk_geo["longitude"].max()) + pad_lon
+            south = float(chunk_geo["latitude"].min()) - pad_lat
+            north = float(chunk_geo["latitude"].max()) + pad_lat
             rect = Rectangle(
                 (west, south),
                 east - west,
@@ -2594,6 +2974,7 @@ def render_reference_map(
 
     ax.set_xticks([])
     ax.set_yticks([])
+    plot_metric_scalebar(ax, map_bounds)
 
     return basemap_status, ml_map_drawn, assigned_map_drawn
 
@@ -2875,11 +3256,8 @@ def report_geo_mismatch_stats(
     median_m = float(np.median(dists))
     p95_m = float(np.percentile(dists, 95))
     max_m = float(np.max(dists))
-    level = "WARN" if (
-        median_m >= GEO_MISMATCH_WARN_MEDIAN_M or p95_m >= GEO_MISMATCH_WARN_P95_M
-    ) else "INFO"
     print(
-        f"{level} geo mismatch ({scope}): {reference_label} vs {track_label} "
+        f"INFO geo mismatch ({scope}): {reference_label} vs {track_label} "
         f"median={median_m:.1f}m p95={p95_m:.1f}m max={max_m:.1f}m (n={len(dists)})",
         file=sys.stderr,
     )
@@ -3829,7 +4207,7 @@ def render_validation_dashboard(
     """Stacked dashboard: map + legend, elevation/grade/NTI profile, assigned or debug class rows."""
     plt.style.use("dark_background")
     if basemap is None:
-        basemap = "kartverket-topo" if decision_mode else "opentopomap"
+        basemap = DEFAULT_BASEMAP_LAYER if decision_mode else "opentopomap"
     use_invoice_row = structural_invoice is not None and not decision_mode
     n_profile_rows = 3 if use_invoice_row else 2
     profile_height_ratios = [2.0] + [1.0] * (n_profile_rows - 1)
@@ -4398,9 +4776,17 @@ def main() -> None:
     )
     parser.add_argument(
         "--basemap",
-        choices=("kartverket-topo", "kartverket-gray", "opentopomap"),
+        choices=(
+            "topo_standard",
+            "topo_grayscale",
+            "satellite_flyfoto",
+            "kartverket-topo",
+            "kartverket-gray",
+            "opentopomap",
+        ),
         default=None,
-        help="Map tile source (default: kartverket-topo in decision/chunk mode, else opentopomap)",
+        help="Map tile layer (registry: topo_standard | topo_grayscale | satellite_flyfoto; "
+        "legacy aliases kartverket-topo/gray; maritime layers blocked)",
     )
     parser.add_argument(
         "--ml-predictions",
@@ -4515,7 +4901,7 @@ def main() -> None:
     if args.basemap is not None:
         basemap_choice: BasemapChoice = args.basemap
     elif decision_mode or chunk_mode or args.export_chunks:
-        basemap_choice = "kartverket-topo"
+        basemap_choice = DEFAULT_BASEMAP_LAYER
     else:
         basemap_choice = "opentopomap"
     stored_ti_draft = ti_draft_segments_from_map(terrain_map)

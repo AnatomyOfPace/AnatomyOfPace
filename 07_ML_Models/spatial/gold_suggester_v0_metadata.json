@@ -1,0 +1,195 @@
+{
+  "schema_version": "gold_suggester_v0",
+  "generated_at": "2026-06-30T19:23:21.079510+00:00",
+  "training_set": null,
+  "training_sets": [
+    "03_Processed_Data/spatial/gold_training_set_calibration_pool.parquet",
+    "03_Processed_Data/spatial/gold_training_set_sut43.parquet"
+  ],
+  "labeled_metres": 81130,
+  "total_metres": 81130,
+  "label_friction_counts": {
+    "F0": 26040,
+    "F1": 39900,
+    "F2": 6250,
+    "F3": 7772,
+    "F4": 1168
+  },
+  "retrain_provenance": {
+    "trigger": "SUT43 chunk_07 F3 adjudication (km 36.0–36.81); chunk_05 pin @ 34.60; Loen underpass variance_gap annotations; locked km 22–41 gold rebuild",
+    "prior_generated_at": "2026-06-30T16:47:59.941262+00:00",
+    "sut43_friction_f3_delta": {
+      "prior_metres": 6962,
+      "current_metres": 7772,
+      "delta_metres": 810
+    },
+    "holdout_vs_prior": {
+      "surface_accuracy": {
+        "prior": 0.9772587205719216,
+        "current": 0.9772587205719216,
+        "delta": 0.0
+      },
+      "friction_accuracy": {
+        "prior": 0.9938986811290521,
+        "current": 0.9926044619746086,
+        "delta": -0.0012942191544435
+      },
+      "friction_f3_holdout_support": {
+        "prior": 1392,
+        "current": 1554,
+        "delta": 162
+      }
+    },
+    "smoke_test": {
+      "chunk_07_km_36.0_36.81": {
+        "prior_revise_f3_bands": 5,
+        "current_revise_f3_bands": 2,
+        "current_keep_f3_bands": 4,
+        "note": "F3 adjudication bands now KEEP (S2/F3, S3/F3, S6/F3); residual LOW/MED REVISE on edge metres only"
+      },
+      "chunk_05_pin_34.60": {
+        "keep_span_km": "34.600–35.000 S2/F1 HIGH",
+        "pin_window_km_34.55_34.65": "0 suggestions (fully golded)",
+        "note": "Residual REVISE 34.604–34.985 S2/F1→S2/F2 overlaps pin edge; core pin @ 34.60 within KEEP band"
+      }
+    }
+  },
+  "feature_columns": [
+    "consensus_nti",
+    "nti_std",
+    "nti_median",
+    "ti_median",
+    "ti_raw_median",
+    "grade_pct_median",
+    "speed_mps_median",
+    "mechanical_kappa_median",
+    "altitude_m",
+    "cadence_spm_median",
+    "pace_gap_flat_median",
+    "hmm_confidence",
+    "hmm_draft_class_ord"
+  ],
+  "dropped_features": [],
+  "surface_metrics": {
+    "n_train": 64904,
+    "n_test": 16226,
+    "classes": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6"
+    ],
+    "classification_report": {
+      "S1": {
+        "precision": 0.9723710649698594,
+        "recall": 0.9697728790915163,
+        "f1-score": 0.9710702341137124,
+        "support": 5988.0
+      },
+      "S2": {
+        "precision": 0.9762928227172072,
+        "recall": 0.9782041242495432,
+        "f1-score": 0.9772475389529957,
+        "support": 7662.0
+      },
+      "S3": {
+        "precision": 0.9926229508196721,
+        "recall": 0.9909983633387889,
+        "f1-score": 0.9918099918099919,
+        "support": 1222.0
+      },
+      "S4": {
+        "precision": 0.9891891891891892,
+        "recall": 0.9963702359346642,
+        "f1-score": 0.9927667269439421,
+        "support": 1102.0
+      },
+      "S5": {
+        "precision": 1.0,
+        "recall": 0.9615384615384616,
+        "f1-score": 0.9803921568627451,
+        "support": 104.0
+      },
+      "S6": {
+        "precision": 0.9931972789115646,
+        "recall": 0.9864864864864865,
+        "f1-score": 0.9898305084745763,
+        "support": 148.0
+      },
+      "accuracy": 0.9772587205719216,
+      "macro avg": {
+        "precision": 0.987278884434582,
+        "recall": 0.9805617584399102,
+        "f1-score": 0.9838528595263273,
+        "support": 16226.0
+      },
+      "weighted avg": {
+        "precision": 0.9772573939582028,
+        "recall": 0.9772587205719216,
+        "f1-score": 0.9772535220006632,
+        "support": 16226.0
+      }
+    },
+    "accuracy": 0.9772587205719216
+  },
+  "friction_metrics": {
+    "n_train": 64904,
+    "n_test": 16226,
+    "classes": [
+      "F0",
+      "F1",
+      "F2",
+      "F3",
+      "F4"
+    ],
+    "classification_report": {
+      "F0": {
+        "precision": 0.9876119687440442,
+        "recall": 0.9950076804915514,
+        "f1-score": 0.9912960306073649,
+        "support": 5208.0
+      },
+      "F1": {
+        "precision": 0.9965994962216624,
+        "recall": 0.9916040100250627,
+        "f1-score": 0.9940954773869347,
+        "support": 7980.0
+      },
+      "F2": {
+        "precision": 0.9896414342629483,
+        "recall": 0.9936,
+        "f1-score": 0.9916167664670659,
+        "support": 1250.0
+      },
+      "F3": {
+        "precision": 0.9922779922779923,
+        "recall": 0.9922779922779923,
+        "f1-score": 0.9922779922779923,
+        "support": 1554.0
+      },
+      "F4": {
+        "precision": 0.9869565217391304,
+        "recall": 0.9700854700854701,
+        "f1-score": 0.978448275862069,
+        "support": 234.0
+      },
+      "accuracy": 0.9926044619746086,
+      "macro avg": {
+        "precision": 0.9906174826491556,
+        "recall": 0.9885150305760153,
+        "f1-score": 0.9895469085202853,
+        "support": 16226.0
+      },
+      "weighted avg": {
+        "precision": 0.9926258308876797,
+        "recall": 0.9926044619746086,
+        "f1-score": 0.9926062795258507,
+        "support": 16226.0
+      }
+    },
+    "accuracy": 0.9926044619746086
+  },
+  "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib"
+}

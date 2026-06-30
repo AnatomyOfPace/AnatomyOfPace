@@ -1,0 +1,133 @@
+{
+  "schema_version": "spatial_terrain_map_v0",
+  "ontology_version": "s6_v0",
+  "generated_at": "2026-06-30T18:00:00+00:00",
+  "corridor": {
+    "corridor_id": "stavanger_halvmarathon_course",
+    "race_id": "stavanger_halvmarathon",
+    "anchor_id": "stavanger_halvmarathon",
+    "km_start": 0.0,
+    "km_end": 21.38,
+    "course_axis": "stream_distance",
+    "notes": "O\u2081 mixed-substrate anchor \u2014 Stavanger Halvmarathon race stream (poles off). Operator gold S1/F0 asphalt + S2/F1 gravel bands (km 0\u201321.38)."
+  },
+  "clustering": {
+    "method": null,
+    "n_clusters": null,
+    "fallback": "map_first_operator_gold",
+    "note": "No GMM draft \u2014 substrate adjudicated from orthophoto; operator_gold_spans[] is authoritative once breakpoints are locked."
+  },
+  "segments": [
+    {
+      "course_km_start": 0.0,
+      "course_km_end": 2.0,
+      "surface_class": "S1",
+      "friction_tier": "F0",
+      "source": "seed",
+      "label": "Local asphalt band",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 2.0,
+      "course_km_end": 4.05,
+      "surface_class": "S2",
+      "friction_tier": "F1",
+      "source": "seed",
+      "label": "Engineered gravel road",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 4.05,
+      "course_km_end": 6.4,
+      "surface_class": "S1",
+      "friction_tier": "F0",
+      "source": "seed",
+      "label": "Local asphalt band",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 6.4,
+      "course_km_end": 7.4,
+      "surface_class": "S2",
+      "friction_tier": "F1",
+      "source": "seed",
+      "label": "Engineered gravel road",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 7.4,
+      "course_km_end": 21.38,
+      "surface_class": "S1",
+      "friction_tier": "F0",
+      "source": "seed",
+      "label": "Local asphalt band",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    }
+  ],
+  "hitl": {
+    "status": "review",
+    "sector_id": "stavanger_halvmarathon_course",
+    "manual_overrides": [],
+    "operator_gold_spans": [
+      {
+        "course_km_start": 0.0,
+        "course_km_end": 2.0,
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: local asphalt band (km 0.0\u20132.0). S1/F0 map-first Tier 1."
+      },
+      {
+        "course_km_start": 2.0,
+        "course_km_end": 4.05,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: engineered gravel road (km 2.0\u20134.05). S2/F1 per stavanger_halvmarathon anchor."
+      },
+      {
+        "course_km_start": 4.05,
+        "course_km_end": 6.4,
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: local asphalt band (km 4.05\u20136.4). S1/F0 map-first Tier 1."
+      },
+      {
+        "course_km_start": 6.4,
+        "course_km_end": 7.4,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: engineered gravel road (km 6.4\u20137.4). S2/F1 per stavanger_halvmarathon anchor."
+      },
+      {
+        "course_km_start": 7.4,
+        "course_km_end": 21.38,
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: local asphalt band (km 7.4\u201321.38). S1/F0 map-first Tier 1."
+      }
+    ],
+    "trf_exclusions": [],
+    "behavioral_stops": [],
+    "variance_gaps": [],
+    "notes": "Append-only operator_gold_spans[] \u2014 map-first Tier 0 Stavanger Halvmarathon course. Use gold_span_editor.py with --terrain-map config/spatial_terrain_map_stavanger_halvmarathon.json."
+  }
+}

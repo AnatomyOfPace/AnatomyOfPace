@@ -1,0 +1,137 @@
+{
+  "schema_version": "spatial_terrain_map_v0",
+  "ontology_version": "s6_v0",
+  "generated_at": "2026-06-29T12:00:00+00:00",
+  "corridor": {
+    "corridor_id": "sut43_terrain_ontology",
+    "sector_id": "leg_a_technical",
+    "sector_lock_version": null,
+    "race_id": "SUT_43",
+    "km_start": 0.5,
+    "km_end": 8.0,
+    "sector_viewport_km_end": 8.5,
+    "finish_km": 43.0,
+    "full_course_window": [
+      0.5,
+      42.5
+    ],
+    "course_axis": "stream_distance",
+    "gpx_reference": "COURSE_SUT43_official_2027.gpx",
+    "downstream_sector_boundary_km": 8.0,
+    "geographic_anchors": [
+      {
+        "anchor_id": "hogstad_timing_index",
+        "display_name": "Hogstad timing index",
+        "course_km": 0.66,
+        "role": "organiser_checkpoint",
+        "registry_ref": "race_corridors.json → SUT_43.checkpoints.Hogstad"
+      },
+      {
+        "anchor_id": "lifjell_timing_index",
+        "display_name": "Lifjell timing index (start hills)",
+        "course_km": 5.87,
+        "role": "organiser_checkpoint",
+        "note": "Timing CP on shared start — not geographic Lifjell summit (~km 18)"
+      },
+      {
+        "anchor_id": "oykjafjellet_climb_entry",
+        "display_name": "Øykjafjellet climb entry",
+        "course_km": 1.43,
+        "registry_ref": "race_corridors.json → SUT_160.sub_corridors.start_hills"
+      },
+      {
+        "anchor_id": "noredalen_descent_lip",
+        "display_name": "Noredalen descent lip",
+        "course_km": 6.63,
+        "registry_ref": "race_corridors.json → SUT_160.sub_corridors.noredalen_descent"
+      }
+    ],
+    "notes": "Phase E bootstrap stub — seed segments only. Replace machine draft after panel rebuild km 0.5–8. Operator gold for gramstad_band (km 29–41) and dale_paradisskaret_upstream (km 22–29) remain in separate JSON files."
+  },
+  "clustering": {
+    "method": null,
+    "n_clusters": null,
+    "fallback": "seed_stub_pending_panel",
+    "note": "Run build_start_terrain_draft.py after panel ingest to populate GMM centroids from consensus NTI"
+  },
+  "segments": [
+    {
+      "course_km_start": 0.5,
+      "course_km_end": 0.66,
+      "surface_class": "S1",
+      "friction_tier": "F0",
+      "source": "seed",
+      "label": "Hommersåk start chute — sealed / compact roll",
+      "confidence": 0.25,
+      "operator_note": "Draft placeholder — verify against race panel + topo after Phase E ingest"
+    },
+    {
+      "course_km_start": 0.66,
+      "course_km_end": 1.43,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "seed",
+      "label": "Hogstad approach — grass / hard dirt",
+      "confidence": 0.25,
+      "operator_note": "Hogstad timing index @ km 0.66 — calibration target for HITL milestone"
+    },
+    {
+      "course_km_start": 1.43,
+      "course_km_end": 2.75,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "seed",
+      "label": "Øykjafjellet climb — technical rock / roots",
+      "confidence": 0.25,
+      "operator_note": "Overlaps hommersak_storaberget training tile from ~km 2.1"
+    },
+    {
+      "course_km_start": 2.75,
+      "course_km_end": 5.45,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "seed",
+      "label": "Start hills traverse — mixed technical tread",
+      "confidence": 0.2,
+      "operator_note": "leg_a_technical core per race_corridors.json km 0.66–5.87"
+    },
+    {
+      "course_km_start": 5.45,
+      "course_km_end": 6.63,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "seed",
+      "label": "Skrussfjell climb / rim — technical rock",
+      "confidence": 0.25,
+      "operator_note": "Lifjell timing index @ km 5.87 within this band"
+    },
+    {
+      "course_km_start": 6.63,
+      "course_km_end": 8.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "seed",
+      "label": "Noredalen opening descent — steep technical brake",
+      "confidence": 0.25,
+      "operator_note": "Milestone viewport end @ km 8.0; hommersak tile ends ~km 8.0"
+    }
+  ],
+  "hitl": {
+    "status": "draft",
+    "sector_id": "leg_a_technical",
+    "manual_overrides": [],
+    "operator_gold_spans": [],
+    "trf_exclusions": [],
+    "behavioral_stops": [],
+    "variance_gaps": [
+      {
+        "course_km_start": 0.5,
+        "course_km_end": 2.1,
+        "reason": "Subject_B race stream may be sparse pre-hommersak overlap; defer cross-athlete σ review until full-lap panel rebuild",
+        "median_sigma": null,
+        "pct_metres_high_variance": null
+      }
+    ],
+    "notes": "Append-only operator_gold_spans[] — use hitl_annotator_app.py with this file only. Do not write start-sector locks into spatial_terrain_map_sut43.json or spatial_terrain_map_sut43_upstream.json."
+  }
+}

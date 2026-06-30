@@ -1,0 +1,166 @@
+{
+  "_comment": "O₂ anchor run registry — event-agnostic calibration sessions. Ghost Authority: Subject_A/B only in examples.",
+  "schema_version": 1,
+  "asphalt_anchor_fit": "02_Raw_Data/Stavanger_Halvmaraton.fit",
+  "output_dir": "03_Processed_Data/spatial/anchor_features",
+  "calibration_set": {
+    "anchor_runs": [
+      "stavanger_halvmarathon",
+      "3_sjoerslopet",
+      "sunderunde_training_gravel",
+      "lfi_2026",
+      "selvikstakken"
+    ],
+    "in_course_validation": [
+      {
+        "corridor": "SUT_43",
+        "windows_km": [
+          [34.6, 36.3],
+          [38.4, 39.14],
+          [39.14, 41.0]
+        ],
+        "label": "Paradisskaret gravel + asphalt bands",
+        "script": "04_Python_Scripts/spatial/build_telemetry_clusters.py"
+      }
+    ]
+  },
+  "runs": [
+    {
+      "anchor_id": "stavanger_halvmarathon",
+      "display_name": "Stavanger Halvmarathon",
+      "subject_id": "Subject_A",
+      "fit_path": "02_Raw_Data/Stavanger_Halvmaraton.fit",
+      "status": "ready",
+      "expected": {
+        "substrate_fraction_asphalt": 0.857,
+        "substrate_fraction_gravel_road": 0.143,
+        "substrate_o1": "mixed",
+        "friction_o1": "mixed",
+        "locomotion_mix": { "run": 0.98, "walk": 0.02, "scramble": 0.0 },
+        "effort": "high"
+      },
+      "o2_signature": "sealed_road × run",
+      "o2_role": "asphalt_ti_null_anchor",
+      "pole_policy": "off",
+      "ingest_notes": "Race stream ~21.38 km (FIT stream_distance). Operator gold S1/F0 asphalt + S2/F1 gravel bands (km 0–21.38; ~18.33 km asphalt, ~3.05 km gravel). Terrain map: config/spatial_terrain_map_stavanger_halvmarathon.json. Poles off."
+    },
+    {
+      "anchor_id": "3_sjoerslopet",
+      "display_name": "3-sjøersløpet",
+      "subject_id": "Subject_A",
+      "fit_path": "02_Raw_Data/3_sjøers_Eirik_20251108.fit",
+      "status": "ready",
+      "expected": {
+        "substrate_fraction_asphalt": 0.275,
+        "substrate_fraction_gravel_road": 0.725,
+        "substrate_o1": "mixed",
+        "friction_o1": "mixed",
+        "locomotion_mix": { "run": 0.95, "walk": 0.05, "scramble": 0.0 },
+        "effort": "high"
+      },
+      "o2_signature": "mixed gravel/asphalt × run",
+      "o2_role": "gravel_road_anchor",
+      "pole_policy": "off",
+      "ingest_notes": "Official race stream ~21.25 km (FIT stream_distance). Operator gold S1/F0 asphalt + S2/F1 gravel bands (km 0–21.25; ~5.85 km asphalt, ~15.4 km gravel). Terrain map: config/spatial_terrain_map_3_sjoerslopet.json. High-effort mixed gravel/asphalt race calibration (poles off). Low-intensity training gravel → sunderunde_training_gravel."
+    },
+    {
+      "anchor_id": "sunderunde_training_gravel",
+      "display_name": "Sunderunde (training gravel)",
+      "subject_id": "Subject_A",
+      "fit_path": "02_Raw_Data/Sunderunde_Eirik_20260530.fit",
+      "candidate_fit_paths": [
+        "02_Raw_Data/Sunderunde_Solvi_20260530.fit"
+      ],
+      "status": "ready",
+      "expected": {
+        "substrate_fraction_gravel_road": 0.828,
+        "substrate_fraction_asphalt": 0.172,
+        "substrate_o1": "mixed",
+        "friction_o1": "F1",
+        "locomotion_mix": { "run": 0.95, "walk": 0.05, "scramble": 0.0 },
+        "effort": "low"
+      },
+      "o2_signature": "mixed gravel/asphalt × run (low effort)",
+      "o2_role": "training_gravel_low_intensity",
+      "pole_policy": "off",
+      "ingest_notes": "Training loop — operator gold S2/F1 gravel + S1/F1 asphalt bands (km 0–19.5). Terrain map: config/spatial_terrain_map_sunderunde.json. Low aerobic effort vs 3-sjøersløpet race anchor. Subject_B candidate: Sunderunde_Solvi_20260530.fit."
+    },
+    {
+      "anchor_id": "lfi_2026",
+      "display_name": "Lysefjorden Inn 2026",
+      "subject_id": "Subject_A",
+      "activity_id": "LFI_20260606",
+      "race_id": "LFI",
+      "fit_path": "02_Raw_Data/LFI_Eirik_20260606.fit",
+      "candidate_fit_paths": [
+        "02_Raw_Data/LFI_2026.fit"
+      ],
+      "status": "ready",
+      "expected": {
+        "substrate_fraction_asphalt": 0.22,
+        "substrate_fraction_gravel_road": 0.08,
+        "substrate_fraction_trail": 0.7,
+        "substrate_o1": "mixed",
+        "friction_o1": "mixed",
+        "locomotion_mix": { "run": 0.55, "walk": 0.35, "scramble": 0.1 },
+        "effort": "race"
+      },
+      "o2_signature": "mixed_road_trail × run_walk (poles mixed)",
+      "o2_role": "pole_mixed_road_anchor",
+      "pole_policy": "mixed",
+      "pole_section_windows_km": [
+        {
+          "km_start": 0.0,
+          "km_end": 7.0,
+          "pole_state": "off",
+          "substrate": "asphalt",
+          "note": "Opening asphalt — poles stowed (race manual §1C stav-protokoll deploys at km 7)"
+        },
+        {
+          "km_start": 7.0,
+          "km_end": 24.0,
+          "pole_state": "on",
+          "substrate": "trail",
+          "note": "Poles on from km 7 through technical legs"
+        },
+        {
+          "km_start": 24.0,
+          "km_end": 28.0,
+          "pole_state": "on",
+          "substrate": "asphalt_gravel",
+          "note": "Daladalen transport — pole-on asphalt and gravel roads (primary O₂ calibration window)"
+        },
+        {
+          "km_start": 55.0,
+          "km_end": 62.0,
+          "pole_state": "on",
+          "substrate": "asphalt",
+          "note": "Finish asphalt corridor — poles on (race_corridors asphalt_finish)"
+        }
+      ],
+      "ingest_notes": "Full-course LFI 2026-06-06; course-projected micro parquet at 03_Processed_Data/micro/Subject_A/activity_LFI_20260606.parquet. Checkpoint km calibrated in race_corridors.json from this FIT. Macro: anatomy_macro.db LFI 2026 results. Complements stavanger_halvmarathon (poles off, sealed road) and 3_sjoerslopet (poles off, gravel). Extract pole-on-road windows for O₂ / multitask pole head — not a single-substrate TI null. Subject_B LFI stream not in repo."
+    },
+    {
+      "anchor_id": "selvikstakken",
+      "display_name": "Selvikstakken",
+      "subject_id": "Subject_A",
+      "fit_path": "02_Raw_Data/Selviksstakken_Eirik_20260628.fit",
+      "candidate_fit_paths": [
+        "02_Raw_Data/Selviksstakken_Eirik_20260628.fit"
+      ],
+      "status": "ready",
+      "expected": {
+        "substrate_fraction_rock": 0.6,
+        "substrate_fraction_trail": 0.4,
+        "substrate_o1": "S4",
+        "friction_o1": "F3",
+        "locomotion_mix": { "run": 0.2, "walk": 0.3, "scramble": 0.5 },
+        "effort": "high"
+      },
+      "o2_signature": "technical_rock × scramble",
+      "o2_role": "scramble_locomotion_anchor",
+      "pole_policy": "on_mixed",
+      "ingest_notes": "Selviksstakken_Eirik_20260628.fit (filename double-s spelling). Dedicated scramble session for O₂ scramble anchor. SUT_160 race stream covers km 73–75 corridor only — insufficient as standalone scramble anchor."
+    }
+  ]
+}

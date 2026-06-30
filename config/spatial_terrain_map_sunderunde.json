@@ -1,0 +1,173 @@
+{
+  "schema_version": "spatial_terrain_map_v0",
+  "ontology_version": "s6_v0",
+  "generated_at": "2026-06-30T12:00:00+00:00",
+  "corridor": {
+    "corridor_id": "sunderunde_training_loop",
+    "race_id": "Sunderunde",
+    "anchor_id": "sunderunde_training_gravel",
+    "km_start": 0.0,
+    "km_end": 19.5,
+    "course_axis": "stream_distance",
+    "notes": "Tier 0 map-first training loop \u2014 operator gold gravel S2/F1 and asphalt S1/F1. Anchor stream per config/anchor_runs_manifest.json \u2192 sunderunde_training_gravel."
+  },
+  "clustering": {
+    "method": null,
+    "n_clusters": null,
+    "fallback": "map_first_operator_gold",
+    "note": "No GMM draft \u2014 substrate adjudicated from orthophoto; operator_gold_spans[] is authoritative."
+  },
+  "segments": [
+    {
+      "course_km_start": 0.0,
+      "course_km_end": 4.6,
+      "surface_class": "S2",
+      "friction_tier": "F1",
+      "source": "seed",
+      "label": "Engineered gravel road",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 4.6,
+      "course_km_end": 7.1,
+      "surface_class": "S1",
+      "friction_tier": "F1",
+      "source": "seed",
+      "label": "Local asphalt band",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 7.1,
+      "course_km_end": 9.5,
+      "surface_class": "S2",
+      "friction_tier": "F1",
+      "source": "seed",
+      "label": "Engineered gravel road",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 9.5,
+      "course_km_end": 10.05,
+      "surface_class": "S1",
+      "friction_tier": "F1",
+      "source": "seed",
+      "label": "Local asphalt band",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 10.05,
+      "course_km_end": 15.5,
+      "surface_class": "S2",
+      "friction_tier": "F1",
+      "source": "seed",
+      "label": "Engineered gravel road",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 15.5,
+      "course_km_end": 15.8,
+      "surface_class": "S1",
+      "friction_tier": "F1",
+      "source": "seed",
+      "label": "Local asphalt band",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    },
+    {
+      "course_km_start": 15.8,
+      "course_km_end": 19.5,
+      "surface_class": "S2",
+      "friction_tier": "F1",
+      "source": "seed",
+      "label": "Engineered gravel road",
+      "confidence": 0.5,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked"
+    }
+  ],
+  "hitl": {
+    "status": "review",
+    "sector_id": "sunderunde_training_loop",
+    "manual_overrides": [],
+    "operator_gold_spans": [
+      {
+        "course_km_start": 0.0,
+        "course_km_end": 4.6,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: engineered gravel road (km 0.0\u20134.6). S2/F1 per sunderunde_training_gravel anchor."
+      },
+      {
+        "course_km_start": 4.6,
+        "course_km_end": 7.1,
+        "surface_class": "S1",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: local asphalt band (km 4.6\u20137.1). S1/F1 map-first Tier 1."
+      },
+      {
+        "course_km_start": 7.1,
+        "course_km_end": 9.5,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: engineered gravel road (km 7.1\u20139.5). S2/F1 per sunderunde_training_gravel anchor."
+      },
+      {
+        "course_km_start": 9.5,
+        "course_km_end": 10.05,
+        "surface_class": "S1",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: local asphalt band (km 9.5\u201310.05). S1/F1 map-first Tier 1."
+      },
+      {
+        "course_km_start": 10.05,
+        "course_km_end": 15.5,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: engineered gravel road (km 10.05\u201315.5). S2/F1 per sunderunde_training_gravel anchor."
+      },
+      {
+        "course_km_start": 15.5,
+        "course_km_end": 15.8,
+        "surface_class": "S1",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: local asphalt band (km 15.5\u201315.8). S1/F1 map-first Tier 1."
+      },
+      {
+        "course_km_start": 15.8,
+        "course_km_end": 19.5,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: engineered gravel road (km 15.8\u201319.5). S2/F1 per sunderunde_training_gravel anchor."
+      }
+    ],
+    "trf_exclusions": [],
+    "behavioral_stops": [],
+    "variance_gaps": [],
+    "notes": "Append-only operator_gold_spans[] \u2014 map-first Tier 0 Sunderunde training loop. Use gold_span_editor.py with --terrain-map config/spatial_terrain_map_sunderunde.json."
+  }
+}

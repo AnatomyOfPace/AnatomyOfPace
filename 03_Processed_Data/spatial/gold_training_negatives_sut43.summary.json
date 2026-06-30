@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-06-30T19:38:21.557792+00:00",
+  "output_parquet": "03_Processed_Data/spatial/gold_training_negatives_sut43.parquet",
+  "n_negatives": 10,
+  "reject_reason_counts": {
+    "upstream_transition_pull": 6,
+    "qc_operator_reject": 2,
+    "grade_inflated_ti": 1,
+    "surface_class_misroute": 1
+  },
+  "harvest_source_counts": {
+    "qc_notes+suggest_csv": 8,
+    "qc_notes": 2
+  },
+  "suggest_csvs": [
+    "03_Processed_Data/spatial/suggested_locks_sut43.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk06.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk10.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk10_paradisskaret.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk_05.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk_06.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk_07.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk_08.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk_09.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk_10.csv",
+    "03_Processed_Data/spatial/suggested_locks_sut43_chunk_11.csv"
+  ],
+  "qc_csv": "03_Processed_Data/spatial/sut43_window_centroid_qc.csv",
+  "reject_revise": false,
+  "all_revise": false,
+  "feature_columns": [
+    "consensus_nti",
+    "nti_std",
+    "nti_median",
+    "ti_median",
+    "ti_raw_median",
+    "grade_pct_median",
+    "speed_mps_median",
+    "mechanical_kappa_median",
+    "altitude_m",
+    "cadence_spm_median",
+    "pace_gap_flat_median",
+    "hmm_confidence",
+    "hmm_draft_class_ord"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "operator_gold_pending_v0",
+  "anchor_id": "3_sjoerslopet",
+  "corridor_id": "3_sjoerslopet_course",
+  "course_axis": "stream_distance",
+  "course_length_km": 21.2493,
+  "analysis_window_km": [0.0, 21.25],
+  "status": "locked",
+  "substrate_rules": {
+    "asphalt": { "surface_class": "S1", "friction_tier": "F0" },
+    "gravel": { "surface_class": "S2", "friction_tier": "F1" }
+  },
+  "pending_spans": [],
+  "locked_spans": [
+    { "km_start": 0.0, "km_end": 1.2, "substrate": "asphalt", "surface_class": "S1", "friction_tier": "F0" },
+    { "km_start": 1.2, "km_end": 4.2, "substrate": "gravel", "surface_class": "S2", "friction_tier": "F1" },
+    { "km_start": 4.2, "km_end": 4.6, "substrate": "asphalt", "surface_class": "S1", "friction_tier": "F0" },
+    { "km_start": 4.6, "km_end": 11.5, "substrate": "gravel", "surface_class": "S2", "friction_tier": "F1" },
+    { "km_start": 11.5, "km_end": 12.1, "substrate": "asphalt", "surface_class": "S1", "friction_tier": "F0" },
+    { "km_start": 12.1, "km_end": 15.2, "substrate": "gravel", "surface_class": "S2", "friction_tier": "F1" },
+    { "km_start": 15.2, "km_end": 18.3, "substrate": "asphalt", "surface_class": "S1", "friction_tier": "F0" },
+    { "km_start": 18.3, "km_end": 20.7, "substrate": "gravel", "surface_class": "S2", "friction_tier": "F1" },
+    { "km_start": 20.7, "km_end": 21.25, "substrate": "asphalt", "surface_class": "S1", "friction_tier": "F0" }
+  ],
+  "notes": "Operator gold locked 2026-06-30. Authoritative spans in config/spatial_terrain_map_3_sjoerslopet.json hitl.operator_gold_spans[]."
+}

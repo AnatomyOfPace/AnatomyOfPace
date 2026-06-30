@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-06-30T16:31:25.418179+00:00",
+  "output": "03_Processed_Data/spatial/gold_training_set_calibration_pool.parquet",
+  "total_rows": 62130,
+  "total_labeled": 62130,
+  "sources": {
+    "stavanger_halvmarathon": {
+      "rows": 21380,
+      "labeled": 21380
+    },
+    "sunderunde": {
+      "rows": 19500,
+      "labeled": 19500
+    },
+    "3_sjoerslopet": {
+      "rows": 21250,
+      "labeled": 21250
+    }
+  },
+  "inputs": [
+    "03_Processed_Data/spatial/gold_training_set_stavanger_halvmarathon.parquet",
+    "03_Processed_Data/spatial/gold_training_set_sunderunde.parquet",
+    "03_Processed_Data/spatial/gold_training_set_3_sjoerslopet.parquet"
+  ]
+}

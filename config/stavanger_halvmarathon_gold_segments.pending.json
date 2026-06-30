@@ -1,0 +1,22 @@
+{
+  "schema_version": "operator_gold_pending_v0",
+  "anchor_id": "stavanger_halvmarathon",
+  "corridor_id": "stavanger_halvmarathon_course",
+  "course_axis": "stream_distance",
+  "course_length_km": 21.3813,
+  "analysis_window_km": [0.0, 21.38],
+  "status": "locked",
+  "substrate_rules": {
+    "asphalt": { "surface_class": "S1", "friction_tier": "F0" },
+    "gravel": { "surface_class": "S2", "friction_tier": "F1" }
+  },
+  "pending_spans": [],
+  "locked_spans": [
+    { "km_start": 0.0, "km_end": 2.0, "substrate": "asphalt", "surface_class": "S1", "friction_tier": "F0" },
+    { "km_start": 2.0, "km_end": 4.05, "substrate": "gravel", "surface_class": "S2", "friction_tier": "F1" },
+    { "km_start": 4.05, "km_end": 6.4, "substrate": "asphalt", "surface_class": "S1", "friction_tier": "F0" },
+    { "km_start": 6.4, "km_end": 7.4, "substrate": "gravel", "surface_class": "S2", "friction_tier": "F1" },
+    { "km_start": 7.4, "km_end": 21.38, "substrate": "asphalt", "surface_class": "S1", "friction_tier": "F0" }
+  ],
+  "notes": "Operator gold locked 2026-06-30. Authoritative spans in config/spatial_terrain_map_stavanger_halvmarathon.json hitl.operator_gold_spans[]."
+}
