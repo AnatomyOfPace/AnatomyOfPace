@@ -222,11 +222,15 @@ Committed artifacts use **Subject_*** identifiers and **Dr. Anatomy Pace** labor
 
 ---
 
-## Interactive HITL annotator (Streamlit)
+## Interactive HITL annotator (Streamlit v0.2.0)
+
+**Operator guide:** [`docs/hitl_annotator.md`](hitl_annotator.md) — launch, workflow, class codes, calibration vs RED queue, troubleshooting.
 
 **Script:** `04_Python_Scripts/spatial/hitl_annotator_app.py`
 
 Local Plotly profile + operator gold writer. Promotes spans to `hitl.operator_gold_spans[]` with `mode: operator_gold`, `gold_source: operator`, `locked_at`, and friction tier. Does **not** replace PNG export workflow — use both for in-browser zoom/pan and committed lock promotion.
+
+**Geometry:** Topo basemap panel enforces **1:1 lon/lat aspect lock** (matplotlib `equal` + square bounds); Plotly telemetry rows use `course_km` and are not geo-scaled. Circle Test procedure: [`docs/hitl_annotator.md`](hitl_annotator.md) § Circle Test.
 
 ```bash
 pip install streamlit plotly   # or: pip install -r requirements.txt
@@ -234,13 +238,48 @@ pip install streamlit plotly   # or: pip install -r requirements.txt
 streamlit run 04_Python_Scripts/spatial/hitl_annotator_app.py
 ```
 
+### CLI flags (after `--`)
+
+| Flag | Default | Purpose |
+|------|---------|---------|
+| `--panel` | `panel_1m.parquet` | Race panel parquet |
+| `--terrain-map` | `spatial_terrain_map_sut43.json` | Target terrain map JSON |
+| `--triage-queue` | `triage_queue_sut43.csv` | RPS chunk picker |
+| `--hmm-draft` | `terrain_hmm_sut43_draft_predictions.parquet` | HMM draft strip |
+| `--lat-offset` | `0` | GPS latitude drift correction (degrees) for topo basemap |
+| `--lon-offset` | `0` | GPS longitude drift correction (degrees) for topo basemap |
+
+Example with GPS alignment offsets:
+
+```bash
+streamlit run 04_Python_Scripts/spatial/hitl_annotator_app.py -- \
+  --terrain-map config/spatial_terrain_map_sut43_upstream.json \
+  --lat-offset 0.00012 --lon-offset -0.00008
+```
+
+### Safety gates (v0.2.0)
+
+| Gate | Behavior |
+|------|----------|
+| **Pre-save modal** | **Save Lock** opens confirmation dialog showing `course_km` window, `surface_class`, `friction_tier`, and target JSON filename before write |
+| **Overlap guard** | Append blocked when new span intersects any existing `operator_gold_spans[]` entry — error banner, no JSON mutation |
+| **Windowed panel load** | Parquet filtered to sidebar km range + 0.5 km buffer (not full 161 km corridor) |
+
+Dry-run verification (no production JSON):
+
+```bash
+python3 04_Python_Scripts/spatial/hitl_annotator_app.py --dry-run-test
+```
+
 | Control | Purpose |
 |---------|---------|
-| View sliders | Plotly zoom window (`course_km_start` / `course_km_end`) |
+| **Profile mode** | **Continuous TI gradient** — dual-layer TI + HMM strip; per-metre hover (TI + HMM). **Categorical F-tier / S-class** — operator gold + F-tier edges for lock validation |
+| View sliders / chunk picker | Plotly zoom window (`course_km_start` / `course_km_end`) |
 | Lock span inputs | Metre-precise gold span to append |
 | surface_class / friction_tier | S1–S6 · F0–F4 |
-| Save Lock | Appends to terrain map JSON (sidebar path configurable for upstream `spatial_terrain_map_sut43_upstream.json`) |
-| Athlete overlay | Subject_A / Subject_B speed + NTI traces |
+| Save Lock | Opens confirmation modal → appends to terrain map JSON |
+| Athlete overlay | Subject_A / Subject_B speed traces |
+| Topo basemap | Kartverket tiles; respects `--lat-offset` / `--lon-offset` |
 
 **Upstream sector:** set terrain map path to `config/spatial_terrain_map_sut43_upstream.json` in the sidebar before locking km 22–29 spans. Keep gramstad_band locks in `spatial_terrain_map_sut43.json` only.
 

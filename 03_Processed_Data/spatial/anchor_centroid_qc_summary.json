@@ -1,0 +1,66 @@
+{
+  "generated_at": "2026-06-30T14:27:37Z",
+  "n_anchors": 5,
+  "n_metres_pooled": 134756,
+  "cluster_feature_columns_ref": [
+    "ti",
+    "grade_pct",
+    "speed",
+    "pace_expected",
+    "nti_std",
+    "ti_mean",
+    "ti_std",
+    "speed_mean",
+    "pace_residual_mean",
+    "walk_fraction"
+  ],
+  "qc_features": [
+    "ti",
+    "grade_pct",
+    "speed",
+    "pace_residual",
+    "walk_fraction",
+    "scramble_fraction",
+    "ti_mean",
+    "speed_mean",
+    "pace_residual_mean"
+  ],
+  "centroid_distance_matrix": {
+    "3_sjoerslopet": {
+      "3_sjoerslopet": 0.0,
+      "lfi_2026": 5.5383,
+      "selvikstakken": 6.868,
+      "stavanger_halvmarathon": 0.1164,
+      "sunderunde_training_gravel": 2.1061
+    },
+    "lfi_2026": {
+      "3_sjoerslopet": 5.5383,
+      "lfi_2026": 0.0,
+      "selvikstakken": 4.6798,
+      "stavanger_halvmarathon": 5.4432,
+      "sunderunde_training_gravel": 3.7096
+    },
+    "selvikstakken": {
+      "3_sjoerslopet": 6.868,
+      "lfi_2026": 4.6798,
+      "selvikstakken": 0.0,
+      "stavanger_halvmarathon": 6.7801,
+      "sunderunde_training_gravel": 5.241
+    },
+    "stavanger_halvmarathon": {
+      "3_sjoerslopet": 0.1164,
+      "lfi_2026": 5.4432,
+      "selvikstakken": 6.7801,
+      "stavanger_halvmarathon": 0.0,
+      "sunderunde_training_gravel": 1.9954
+    },
+    "sunderunde_training_gravel": {
+      "3_sjoerslopet": 2.1061,
+      "lfi_2026": 3.7096,
+      "selvikstakken": 5.241,
+      "stavanger_halvmarathon": 1.9954,
+      "sunderunde_training_gravel": 0.0
+    }
+  },
+  "output_csv": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/anchor_centroid_qc_summary.csv"
+}

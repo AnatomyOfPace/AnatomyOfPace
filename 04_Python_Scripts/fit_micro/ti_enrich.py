@@ -133,7 +133,6 @@ def enrich_ti(
         anchor_fit,
         barometric_shift=barometric_shift,
         ti_smoothing=ti_smoothing,
-        use_cegap=use_cegap,
     )
     enriched = merge_gap_columns(frame, gap_out)
     ti = gap_out["ti"].replace([np.inf, -np.inf], np.nan).dropna()

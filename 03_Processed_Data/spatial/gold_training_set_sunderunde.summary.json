@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-06-30T14:17:28.731404+00:00",
+  "panel": "03_Processed_Data/spatial/sunderunde_training_loop/panel_1m.parquet",
+  "terrain_map": "config/spatial_terrain_map_sunderunde.json",
+  "hmm_draft": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
+  "km_start": 0.0,
+  "km_end": 19.5,
+  "total_metres": 19500,
+  "labeled_metres": 19500,
+  "unlabeled_metres": 0,
+  "labeled_pct": 100.0,
+  "label_surface_counts": {
+    "S2": 16150,
+    "S1": 3350
+  },
+  "label_friction_counts": {
+    "F1": 19500
+  },
+  "feature_columns": [
+    "consensus_nti",
+    "nti_std",
+    "nti_median",
+    "ti_median",
+    "ti_raw_median",
+    "grade_pct_median",
+    "speed_mps_median",
+    "mechanical_kappa_median",
+    "altitude_m",
+    "cadence_spm_median",
+    "pace_gap_flat_median",
+    "hmm_confidence",
+    "hmm_draft_class_ord"
+  ],
+  "output_parquet": "03_Processed_Data/spatial/gold_training_set_sunderunde.parquet"
+}

@@ -1,0 +1,44 @@
+{
+  "corridor_id": "sunderunde_training_loop",
+  "race_id": "Sunderunde",
+  "anchor_id": "sunderunde_training_gravel",
+  "terrain_map": "config/spatial_terrain_map_sunderunde.json",
+  "course_axis": "stream_distance",
+  "km_analysis_window": [
+    0.0,
+    19.5
+  ],
+  "km_viewport_window": [
+    0.0,
+    19.6
+  ],
+  "default_align_mode": "stream",
+  "default_direction": "auto",
+  "stream_race_id": "Sunderunde",
+  "multi_fit": true,
+  "panel_scope": "Subject_A anchor stream (stream-distance course axis km 0–19.5) + optional Subject_B repeat. Operator gold in spatial_terrain_map_sunderunde.json.",
+  "activities": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "Sunderunde_20260530",
+      "session_type": "race",
+      "subject_id": "Subject_A",
+      "align_mode": "stream",
+      "note": "Canonical anchor FIT — defines stream-distance course axis for Tier 0 operator gold (S2/F1 gravel + S1/F1 asphalt)."
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "Sunderunde_20260530",
+      "session_type": "training",
+      "subject_id": "Subject_B",
+      "align_mode": "stream",
+      "note": "Subject_B repeat session — contributes training panel rows when micro Parquet present."
+    }
+  ],
+  "build_commands": {
+    "wash_anchor": "python3 04_Python_Scripts/15_fit_micro_wash.py --donor Subject_A --activity Sunderunde_20260530 --fit 02_Raw_Data/Sunderunde_Eirik_20260530.fit --race Sunderunde --project-course --enrich-ti --no-privacy-clip",
+    "wash_subject_b": "python3 04_Python_Scripts/15_fit_micro_wash.py --donor Subject_B --activity Sunderunde_20260530 --fit 02_Raw_Data/Sunderunde_Solvi_20260530.fit --race Sunderunde --project-course --enrich-ti --no-privacy-clip",
+    "rebuild_panel": "python3 04_Python_Scripts/spatial/corridor_multi_fit.py --manifest config/spatial_align_manifest_sunderunde.json --enrich-if-needed",
+    "gold_training_export": "python3 04_Python_Scripts/spatial/build_gold_training_set.py --panel 03_Processed_Data/spatial/sunderunde_training_loop/panel_1m.parquet --terrain-map config/spatial_terrain_map_sunderunde.json --km-start 0 --km-end 19.5 --output 03_Processed_Data/spatial/gold_training_set_sunderunde.parquet"
+  }
+}

@@ -1,15 +1,15 @@
 {
   "schema_version": "hitl_nti_consistency_v1",
-  "generated_at": "2026-06-26T22:47:27.939203+00:00",
-  "terrain_map": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/config/spatial_terrain_map_sut43.json",
-  "panel": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet",
+  "generated_at": "2026-06-29T18:24:16.937478+00:00",
+  "terrain_map": "config/spatial_terrain_map_sut43.json",
+  "panel": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet",
   "variance_threshold": 0.3,
   "donors": [
     "Subject_A",
     "Subject_B"
   ],
   "panel_km_range": [
-    29.0,
+    22.0,
     41.0
   ],
   "hitl_spans": [
@@ -20,18 +20,18 @@
       "mode": "guidance",
       "locked": false,
       "n_metres": 800,
-      "mean_consensus_nti": 1.038,
-      "median_nti_std": 0.364,
-      "mean_nti_std": 0.364,
-      "pct_metres_high_variance": 70.9,
+      "mean_consensus_nti": 1.045,
+      "median_nti_std": 0.077,
+      "mean_nti_std": 0.096,
+      "pct_metres_high_variance": 1.8,
       "expected_ti_band": [
         1.05,
         1.45
       ],
       "ti_target": 1.25,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.212
+      "high_variance": false,
+      "classification": "marginal",
+      "delta_from_target": -0.205
     },
     {
       "course_km_start": 30.5,
@@ -40,30 +40,10 @@
       "mode": "guidance",
       "locked": false,
       "n_metres": 200,
-      "mean_consensus_nti": 1.147,
-      "median_nti_std": 0.099,
-      "mean_nti_std": 0.134,
-      "pct_metres_high_variance": 13.0,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": false,
-      "classification": "inconsistent",
-      "delta_from_target": -0.453
-    },
-    {
-      "course_km_start": 32.021,
-      "course_km_end": 32.231,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 210,
-      "mean_consensus_nti": 1.438,
-      "median_nti_std": 0.594,
-      "mean_nti_std": 0.667,
-      "pct_metres_high_variance": 73.8,
+      "mean_consensus_nti": 1.209,
+      "median_nti_std": 0.337,
+      "mean_nti_std": 0.316,
+      "pct_metres_high_variance": 64.0,
       "expected_ti_band": [
         1.4,
         1.8
@@ -71,187 +51,7 @@
       "ti_target": 1.6,
       "high_variance": true,
       "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.162
-    },
-    {
-      "course_km_start": 32.35,
-      "course_km_end": 32.567,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 217,
-      "mean_consensus_nti": 1.453,
-      "median_nti_std": 0.375,
-      "mean_nti_std": 0.37,
-      "pct_metres_high_variance": 56.2,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.147
-    },
-    {
-      "course_km_start": 32.707,
-      "course_km_end": 32.957,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 250,
-      "mean_consensus_nti": 1.34,
-      "median_nti_std": 0.721,
-      "mean_nti_std": 0.67,
-      "pct_metres_high_variance": 82.8,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.26
-    },
-    {
-      "course_km_start": 32.0,
-      "course_km_end": 32.021,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 21,
-      "mean_consensus_nti": 1.278,
-      "median_nti_std": 0.518,
-      "mean_nti_std": 0.587,
-      "pct_metres_high_variance": 100.0,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.322
-    },
-    {
-      "course_km_start": 32.231,
-      "course_km_end": 32.35,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 119,
-      "mean_consensus_nti": 1.114,
-      "median_nti_std": 0.232,
-      "mean_nti_std": 0.268,
-      "pct_metres_high_variance": 31.9,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": false,
-      "classification": "inconsistent",
-      "delta_from_target": -0.486
-    },
-    {
-      "course_km_start": 32.567,
-      "course_km_end": 32.707,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 140,
-      "mean_consensus_nti": 1.147,
-      "median_nti_std": 0.369,
-      "mean_nti_std": 0.398,
-      "pct_metres_high_variance": 69.3,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.453
-    },
-    {
-      "course_km_start": 32.957,
-      "course_km_end": 33.2,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 243,
-      "mean_consensus_nti": 1.383,
-      "median_nti_std": 0.635,
-      "mean_nti_std": 0.601,
-      "pct_metres_high_variance": 88.9,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.217
-    },
-    {
-      "course_km_start": 34.0,
-      "course_km_end": 34.14,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 140,
-      "mean_consensus_nti": 1.098,
-      "median_nti_std": 0.247,
-      "mean_nti_std": 0.261,
-      "pct_metres_high_variance": 31.4,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": false,
-      "classification": "inconsistent",
-      "delta_from_target": -0.502
-    },
-    {
-      "course_km_start": 34.16,
-      "course_km_end": 34.2,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 40,
-      "mean_consensus_nti": 1.203,
-      "median_nti_std": 0.047,
-      "mean_nti_std": 0.091,
-      "pct_metres_high_variance": 0.0,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": false,
-      "classification": "inconsistent",
-      "delta_from_target": -0.397
-    },
-    {
-      "course_km_start": 34.14,
-      "course_km_end": 34.16,
-      "surface_class": "S4",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 20,
-      "mean_consensus_nti": 1.182,
-      "median_nti_std": 0.326,
-      "mean_nti_std": 0.342,
-      "pct_metres_high_variance": 70.0,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.418
+      "delta_from_target": -0.391
     },
     {
       "course_km_start": 34.3,
@@ -260,18 +60,18 @@
       "mode": "guidance",
       "locked": false,
       "n_metres": 35,
-      "mean_consensus_nti": 0.858,
-      "median_nti_std": 0.259,
-      "mean_nti_std": 0.206,
-      "pct_metres_high_variance": 28.6,
+      "mean_consensus_nti": 0.747,
+      "median_nti_std": 0.129,
+      "mean_nti_std": 0.139,
+      "pct_metres_high_variance": 0.0,
       "expected_ti_band": [
         0.9,
         1.2
       ],
       "ti_target": 1.0,
       "high_variance": false,
-      "classification": "marginal",
-      "delta_from_target": -0.142
+      "classification": "inconsistent",
+      "delta_from_target": -0.253
     },
     {
       "course_km_start": 34.335,
@@ -280,10 +80,10 @@
       "mode": "guidance",
       "locked": false,
       "n_metres": 65,
-      "mean_consensus_nti": 0.886,
-      "median_nti_std": 0.224,
-      "mean_nti_std": 0.196,
-      "pct_metres_high_variance": 0.0,
+      "mean_consensus_nti": 0.813,
+      "median_nti_std": 0.212,
+      "mean_nti_std": 0.214,
+      "pct_metres_high_variance": 13.8,
       "expected_ti_band": [
         0.9,
         1.2
@@ -291,7 +91,7 @@
       "ti_target": 1.0,
       "high_variance": false,
       "classification": "marginal",
-      "delta_from_target": -0.114
+      "delta_from_target": -0.187
     },
     {
       "course_km_start": 35.0,
@@ -300,18 +100,18 @@
       "mode": "guidance",
       "locked": false,
       "n_metres": 800,
-      "mean_consensus_nti": 0.797,
-      "median_nti_std": 0.299,
-      "mean_nti_std": 0.312,
-      "pct_metres_high_variance": 49.8,
+      "mean_consensus_nti": 0.739,
+      "median_nti_std": 0.149,
+      "mean_nti_std": 0.16,
+      "pct_metres_high_variance": 9.4,
       "expected_ti_band": [
         0.9,
         1.2
       ],
       "ti_target": 1.0,
       "high_variance": false,
-      "classification": "marginal",
-      "delta_from_target": -0.203
+      "classification": "inconsistent",
+      "delta_from_target": -0.261
     },
     {
       "course_km_start": 37.866,
@@ -320,10 +120,10 @@
       "mode": "guidance",
       "locked": false,
       "n_metres": 84,
-      "mean_consensus_nti": 1.661,
-      "median_nti_std": 0.762,
-      "mean_nti_std": 0.808,
-      "pct_metres_high_variance": 88.1,
+      "mean_consensus_nti": 1.498,
+      "median_nti_std": 0.307,
+      "mean_nti_std": 0.314,
+      "pct_metres_high_variance": 50.0,
       "expected_ti_band": [
         1.4,
         1.8
@@ -331,7 +131,7 @@
       "ti_target": 1.6,
       "high_variance": true,
       "classification": "excluded (high \u03c3)",
-      "delta_from_target": 0.061
+      "delta_from_target": -0.102
     },
     {
       "course_km_start": 37.7,
@@ -340,18 +140,18 @@
       "mode": "guidance",
       "locked": false,
       "n_metres": 166,
-      "mean_consensus_nti": 1.493,
-      "median_nti_std": 0.615,
-      "mean_nti_std": 0.818,
-      "pct_metres_high_variance": 89.8,
+      "mean_consensus_nti": 1.365,
+      "median_nti_std": 0.196,
+      "mean_nti_std": 0.301,
+      "pct_metres_high_variance": 35.5,
       "expected_ti_band": [
         1.4,
         1.8
       ],
       "ti_target": 1.6,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.107
+      "high_variance": false,
+      "classification": "marginal",
+      "delta_from_target": -0.235
     },
     {
       "course_km_start": 38.4,
@@ -360,10 +160,10 @@
       "mode": "guidance",
       "locked": false,
       "n_metres": 100,
-      "mean_consensus_nti": 1.051,
-      "median_nti_std": 0.282,
-      "mean_nti_std": 0.259,
-      "pct_metres_high_variance": 37.0,
+      "mean_consensus_nti": 1.058,
+      "median_nti_std": 0.12,
+      "mean_nti_std": 0.145,
+      "pct_metres_high_variance": 13.0,
       "expected_ti_band": [
         1.05,
         1.45
@@ -371,27 +171,27 @@
       "ti_target": 1.25,
       "high_variance": false,
       "classification": "consistent",
-      "delta_from_target": -0.199
+      "delta_from_target": -0.192
     },
     {
-      "course_km_start": 38.5,
+      "course_km_start": 38.9,
       "course_km_end": 39.0,
       "surface_class": "S2",
-      "mode": "lock",
-      "locked": true,
-      "n_metres": 500,
-      "mean_consensus_nti": 0.976,
-      "median_nti_std": 0.231,
-      "mean_nti_std": 0.298,
-      "pct_metres_high_variance": 41.6,
+      "mode": "guidance",
+      "locked": false,
+      "n_metres": 100,
+      "mean_consensus_nti": 0.863,
+      "median_nti_std": 0.074,
+      "mean_nti_std": 0.087,
+      "pct_metres_high_variance": 0.0,
       "expected_ti_band": [
         0.9,
         1.2
       ],
       "ti_target": 1.0,
       "high_variance": false,
-      "classification": "consistent",
-      "delta_from_target": -0.024
+      "classification": "marginal",
+      "delta_from_target": -0.137
     },
     {
       "course_km_start": 39.3,
@@ -400,10 +200,50 @@
       "mode": "guidance",
       "locked": false,
       "n_metres": 234,
+      "mean_consensus_nti": 0.731,
+      "median_nti_std": 0.1,
+      "mean_nti_std": 0.092,
+      "pct_metres_high_variance": 0.0,
+      "expected_ti_band": [
+        0.85,
+        1.15
+      ],
+      "ti_target": 1.0,
+      "high_variance": false,
+      "classification": "marginal",
+      "delta_from_target": -0.269
+    },
+    {
+      "course_km_start": 39.534,
+      "course_km_end": 39.835,
+      "surface_class": "S1",
+      "mode": "guidance",
+      "locked": false,
+      "n_metres": 301,
+      "mean_consensus_nti": 0.897,
+      "median_nti_std": 0.267,
+      "mean_nti_std": 0.35,
+      "pct_metres_high_variance": 46.8,
+      "expected_ti_band": [
+        0.85,
+        1.15
+      ],
+      "ti_target": 1.0,
+      "high_variance": false,
+      "classification": "consistent",
+      "delta_from_target": -0.103
+    },
+    {
+      "course_km_start": 39.835,
+      "course_km_end": 40.0,
+      "surface_class": "S1",
+      "mode": "guidance",
+      "locked": false,
+      "n_metres": 165,
       "mean_consensus_nti": 0.75,
-      "median_nti_std": 0.189,
-      "mean_nti_std": 0.214,
-      "pct_metres_high_variance": 16.2,
+      "median_nti_std": 0.063,
+      "mean_nti_std": 0.087,
+      "pct_metres_high_variance": 0.0,
       "expected_ti_band": [
         0.85,
         1.15
@@ -414,56 +254,16 @@
       "delta_from_target": -0.25
     },
     {
-      "course_km_start": 39.534,
-      "course_km_end": 39.835,
-      "surface_class": "S1",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 301,
-      "mean_consensus_nti": 0.932,
-      "median_nti_std": 0.193,
-      "mean_nti_std": 0.178,
-      "pct_metres_high_variance": 2.0,
-      "expected_ti_band": [
-        0.85,
-        1.15
-      ],
-      "ti_target": 1.0,
-      "high_variance": false,
-      "classification": "consistent",
-      "delta_from_target": -0.068
-    },
-    {
-      "course_km_start": 39.835,
-      "course_km_end": 40.0,
-      "surface_class": "S1",
-      "mode": "guidance",
-      "locked": false,
-      "n_metres": 165,
-      "mean_consensus_nti": 0.803,
-      "median_nti_std": 0.178,
-      "mean_nti_std": 0.181,
-      "pct_metres_high_variance": 0.0,
-      "expected_ti_band": [
-        0.85,
-        1.15
-      ],
-      "ti_target": 1.0,
-      "high_variance": false,
-      "classification": "marginal",
-      "delta_from_target": -0.197
-    },
-    {
       "course_km_start": 40.0,
       "course_km_end": 41.0,
       "surface_class": "S1",
       "mode": "guidance",
       "locked": false,
       "n_metres": 1000,
-      "mean_consensus_nti": 0.766,
-      "median_nti_std": 0.219,
-      "mean_nti_std": 0.239,
-      "pct_metres_high_variance": 30.9,
+      "mean_consensus_nti": 0.732,
+      "median_nti_std": 0.103,
+      "mean_nti_std": 0.111,
+      "pct_metres_high_variance": 0.6,
       "expected_ti_band": [
         0.85,
         1.15
@@ -471,7 +271,7 @@
       "ti_target": 1.0,
       "high_variance": false,
       "classification": "marginal",
-      "delta_from_target": -0.234
+      "delta_from_target": -0.268
     }
   ],
   "cluster_gap_spans": [
@@ -482,66 +282,43 @@
       "mode": "cluster_draft",
       "locked": false,
       "n_metres": 700,
-      "mean_consensus_nti": 1.211,
-      "median_nti_std": 0.538,
-      "mean_nti_std": 0.553,
-      "pct_metres_high_variance": 77.4,
+      "mean_consensus_nti": 1.122,
+      "median_nti_std": 0.183,
+      "mean_nti_std": 0.202,
+      "pct_metres_high_variance": 25.4,
       "expected_ti_band": [
         1.8,
         2.6
       ],
       "ti_target": 2.2,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.989,
+      "high_variance": false,
+      "classification": "inconsistent",
+      "delta_from_target": -1.078,
       "source": "cluster",
       "dominant_cluster_fraction": 0.421,
       "note": "non-HITL gap; GMM class is length-weighted modal over micro-segments"
     },
     {
       "course_km_start": 30.7,
-      "course_km_end": 32.0,
-      "surface_class": "S4",
-      "mode": "cluster_draft",
-      "locked": false,
-      "n_metres": 1300,
-      "mean_consensus_nti": 1.093,
-      "median_nti_std": 0.358,
-      "mean_nti_std": 0.412,
-      "pct_metres_high_variance": 58.6,
-      "expected_ti_band": [
-        1.4,
-        1.8
-      ],
-      "ti_target": 1.6,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.507,
-      "source": "cluster",
-      "dominant_cluster_fraction": 0.251,
-      "note": "non-HITL gap; GMM class is length-weighted modal over micro-segments"
-    },
-    {
-      "course_km_start": 33.2,
-      "course_km_end": 34.0,
+      "course_km_end": 34.3,
       "surface_class": "S6",
       "mode": "cluster_draft",
       "locked": false,
-      "n_metres": 800,
-      "mean_consensus_nti": 1.375,
-      "median_nti_std": 0.424,
-      "mean_nti_std": 0.5,
-      "pct_metres_high_variance": 68.1,
+      "n_metres": 3600,
+      "mean_consensus_nti": 1.193,
+      "median_nti_std": 0.191,
+      "mean_nti_std": 0.231,
+      "pct_metres_high_variance": 27.4,
       "expected_ti_band": [
         2.0,
         4.5
       ],
       "ti_target": 2.5,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -1.125,
+      "high_variance": false,
+      "classification": "inconsistent",
+      "delta_from_target": -1.307,
       "source": "cluster",
-      "dominant_cluster_fraction": 0.515,
+      "dominant_cluster_fraction": 0.291,
       "note": "non-HITL gap; GMM class is length-weighted modal over micro-segments"
     },
     {
@@ -551,10 +328,10 @@
       "mode": "cluster_draft",
       "locked": false,
       "n_metres": 600,
-      "mean_consensus_nti": 0.889,
-      "median_nti_std": 0.255,
-      "mean_nti_std": 0.3,
-      "pct_metres_high_variance": 44.3,
+      "mean_consensus_nti": 0.831,
+      "median_nti_std": 0.114,
+      "mean_nti_std": 0.16,
+      "pct_metres_high_variance": 13.8,
       "expected_ti_band": [
         0.9,
         1.2
@@ -562,7 +339,7 @@
       "ti_target": 1.0,
       "high_variance": false,
       "classification": "marginal",
-      "delta_from_target": -0.111,
+      "delta_from_target": -0.169,
       "source": "cluster",
       "dominant_cluster_fraction": 0.492,
       "note": "non-HITL gap; GMM class is length-weighted modal over micro-segments"
@@ -574,18 +351,18 @@
       "mode": "cluster_draft",
       "locked": false,
       "n_metres": 1900,
-      "mean_consensus_nti": 1.16,
-      "median_nti_std": 0.455,
-      "mean_nti_std": 0.516,
-      "pct_metres_high_variance": 81.7,
+      "mean_consensus_nti": 1.109,
+      "median_nti_std": 0.133,
+      "mean_nti_std": 0.171,
+      "pct_metres_high_variance": 16.2,
       "expected_ti_band": [
         1.05,
         1.45
       ],
       "ti_target": 1.25,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -0.09,
+      "high_variance": false,
+      "classification": "consistent",
+      "delta_from_target": -0.141,
       "source": "cluster",
       "dominant_cluster_fraction": 0.265,
       "note": "non-HITL gap; GMM class is length-weighted modal over micro-segments"
@@ -597,29 +374,52 @@
       "mode": "cluster_draft",
       "locked": false,
       "n_metres": 450,
-      "mean_consensus_nti": 1.306,
-      "median_nti_std": 0.302,
-      "mean_nti_std": 0.406,
-      "pct_metres_high_variance": 51.6,
+      "mean_consensus_nti": 1.228,
+      "median_nti_std": 0.161,
+      "mean_nti_std": 0.204,
+      "pct_metres_high_variance": 21.3,
       "expected_ti_band": [
         2.0,
         4.5
       ],
       "ti_target": 2.5,
-      "high_variance": true,
-      "classification": "excluded (high \u03c3)",
-      "delta_from_target": -1.194,
+      "high_variance": false,
+      "classification": "inconsistent",
+      "delta_from_target": -1.272,
       "source": "cluster",
       "dominant_cluster_fraction": 0.376,
+      "note": "non-HITL gap; GMM class is length-weighted modal over micro-segments"
+    },
+    {
+      "course_km_start": 38.5,
+      "course_km_end": 38.9,
+      "surface_class": "S3",
+      "mode": "cluster_draft",
+      "locked": false,
+      "n_metres": 400,
+      "mean_consensus_nti": 0.974,
+      "median_nti_std": 0.127,
+      "mean_nti_std": 0.155,
+      "pct_metres_high_variance": 12.0,
+      "expected_ti_band": [
+        1.05,
+        1.45
+      ],
+      "ti_target": 1.25,
+      "high_variance": false,
+      "classification": "marginal",
+      "delta_from_target": -0.276,
+      "source": "cluster",
+      "dominant_cluster_fraction": 0.325,
       "note": "non-HITL gap; GMM class is length-weighted modal over micro-segments"
     }
   ],
   "summary": {
-    "n_hitl": 23,
-    "n_consistent": 3,
-    "n_marginal": 6,
-    "n_inconsistent": 4,
-    "n_excluded_high_variance": 10,
+    "n_hitl": 13,
+    "n_consistent": 2,
+    "n_marginal": 7,
+    "n_inconsistent": 2,
+    "n_excluded_high_variance": 2,
     "n_cluster_gaps_checked": 6
   }
 }

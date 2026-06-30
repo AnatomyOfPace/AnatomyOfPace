@@ -79248,7 +79248,7 @@
     "n_athletes": 2
   },
   "hitl": {
-    "status": "review",
+    "status": "locked",
     "manual_overrides": [
       {
         "course_km_start": 29.0,
@@ -79368,7 +79368,15 @@
         "defer_reason": "superseded by operator gold km 40.0\u201341.0 Loen-Alsvik asphalt S1/F0 (chunk_11 HITL lock); guidance retained for audit only"
       }
     ],
-    "variance_gaps": [],
+    "variance_gaps": [
+      {
+        "course_km_start": 39.495,
+        "course_km_end": 39.505,
+        "median_sigma": null,
+        "pct_metres_high_variance": null,
+        "reason": "GPS disturbance \u2014 Loen underpass @ km ~39.5 (Loen-Alsvik asphalt corridor); multipath/reflection artefact on S1/F0 corridor (~10 m). Likely kinematic/GPS seed for false ML S4/F3 REVISE km 39.521\u201339.917; operator rejects REVISE \u2014 substrate remains operator gold S1/F0 asphalt km 39.140\u201341.0."
+      }
+    ],
     "draft_preservation_spans": [
       {
         "course_km_start": 29.0,
@@ -79619,31 +79627,6 @@
         "reason": "operator gold: low friction trail \u2014 compact dirt, runnable tread (km 34.0\u201334.60) downstream of chunk_04 S3/F2 ease band @ 33.8\u201334.0 (Strategic Command 3-span lock 2026-06-29); extends to low\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward). S3/F2 per friction_index_spec. Dashboard HITL QC chunk_05. Subject_A drink CP stop behavioral TRF exclusion. Not S2 hard-pack gravel."
       },
       {
-        "surface_class": "S2",
-        "friction_tier": "F1",
-        "gold_source": "operator",
-        "reason": "operator gold: Gramstad area hard-pack gravel road / tractor road (dossier sector #2) \u2014 km 34.60\u201336.30 compact gravel corridor from trail\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward) through gravel\u2192trail transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m (Kubbetj\u00f8rn / Kollirudla; dashed trail meets solid gravel road at end of Gramstad gravel band); SUT43 forward; panel snap raw 36.302 km, residual 5.1 m). S2/F1 hard-pack baseline per friction_index_spec. Operator anchors: km 34.2 low-friction trail (S3/F2); gate ~km 34.0\u201334.1; gate ~km 34.6; SUT43 drink CP km 34.6\u201334.7; km 34.7 on gravel road (SUT43 forward). Subject_B drink CP stop: panel ~34.97\u201335.01, Subject_B stream km 34.972\u201335.011 (~215 s cumulative zero-speed; primary halt UTM centroid \u0394 1.1 m vs Subject_A drink stop @ stream km 34.641\u201334.647, geodesic 11.6 m full window, pin residual 38\u201347 m; stream-km offset ~330 m vs Subject_A \u2014 consistent with stile offset ~302 m) \u2014 behavioral TRF exclusion; same Gramstad drink CP as Subject_A, not impatient gravel wait downstream of drink CP. Dashboard HITL QC chunk_05/06.",
-        "course_km_start": 34.6,
-        "course_km_end": 36.3
-      },
-      {
-        "surface_class": "S3",
-        "friction_tier": "F2",
-        "gold_source": "operator",
-        "reason": "operator gold: Vassfjellet traverse upstream tread \u2014 hard dirt / grass trail corridor (not bog); trail begins @ km 36.30 immediately downstream of Gramstad gravel road S2/F1 exit. gravel\u2192trail forward transition pinned @ km 36.30 (norgeskart pin UTM-32 E 315039.07 N 6530558.66 elev 182.8 m (Kubbetj\u00f8rn / Kollirudla; dashed trail meets solid gravel road at end of Gramstad gravel band); SUT43 forward; panel snap raw 36.302 km, residual 5.1 m). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax; not S4 technical rock, not S6 bog). Cross-ref sut_course_mileage_atlas vassfjellet_traverse @ ~36.4; dashboard HITL QC chunk_06/07.",
-        "course_km_start": 36.3,
-        "course_km_end": 36.6
-      },
-      {
-        "surface_class": "S3",
-        "friction_tier": "F2",
-        "gold_source": "operator",
-        "locked_at": "2026-06-28",
-        "course_km_start": 36.6,
-        "course_km_end": 36.72,
-        "reason": "operator gold: Vassfjellet gravel\u2192trail transition tread \u2014 hard dirt / grass trail corridor downstream of traverse S3/F2 km 36.30\u201336.60; approach to Vassfjellet bog S6/F4 km 36.72\u201336.89 (chunk_07). S3/F2 per friction_index_spec (compacted dirt tread, moderate stabilisation tax; not S4 technical rock, not S6 bog). GMM S2/S3 clusters km 36.611\u201336.719; cross-athlete NTI \u03c3 elevated on variance-gap panel. Supersedes draft-preservation km 36.6\u201336.72; tier lock 2026-06-28."
-      },
-      {
         "surface_class": "S3",
         "friction_tier": "F3",
         "gold_source": "operator",
@@ -79651,14 +79634,6 @@
         "course_km_start": 36.89,
         "course_km_end": 37.0,
         "reason": "operator gold: post-bog forest dirt transition \u2014 wet forest dirt tread immediately downstream of Vassfjellet approach bog S6/F4 km 36.72\u201336.89; upstream flank of post-bog forest climb S3/F3 km 37.0\u201337.072 before chunk_08 rocky-muddy descent. S3/F3 per friction_index_spec (rooty/muddy dirt trail). GMM S3 cluster km 36.888\u201337.0; NTI \u03c3 spike at bog exit on cross-athlete panel. Non-overlapping boundary @ km 37.0; tier lock 2026-06-28."
-      },
-      {
-        "surface_class": "S6",
-        "friction_tier": "F4",
-        "gold_source": "operator",
-        "reason": "operator gold: Vassfjellet approach bog \u2014 deep bog / marsh tread (S6/F4 per friction_index_spec). norgeskart bog/marsh cartography (blue-hatched bog on dashed trail; Kollirudla north; Vassfjellet approach hairpin) pinned @ km 36.833 (norgeskart pin UTM-32 E 314569.35 N 6530043.56 elev 213.0 m; panel snap raw 36.833 km, residual 14.1 m, elev \u0394 +3.2 m). Span km 36.72\u201336.89 encloses pin and GMM S6 hairpin cluster (36.719\u201336.888); upstream S3/F2 traverse tread ends @ km 36.60. Operator HITL chunk_07 confirmation; best in-band F4 calibration anchor on gramstad_band downstream of S3/F2 traverse tread.",
-        "course_km_start": 36.72,
-        "course_km_end": 36.89
       },
       {
         "surface_class": "S3",
@@ -79760,6 +79735,66 @@
         "reason": "operator gold: Loen-Alsvik asphalt road (Alsvik asphalt tail, dossier sector #1) \u2014 pure sealed S1/F0 corridor km 40.0\u201341.0 per operator field confirmation (chunk_11). Continuous downstream of chunk_10 asphalt lock km 39.140\u201340.0; flat grade, low NTI; friction tier F0 per friction_index_spec; dashboard HITL QC chunk_11.",
         "course_km_start": 40.0,
         "course_km_end": 41.0
+      },
+      {
+        "course_km_start": 34.6,
+        "course_km_end": 36.0,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Gramstad area hard-pack gravel road / tractor road (dossier sector #2) km 34.60-36.00; tail trimmed @ km 36.0 for F3 transition band chunk_07 adjudication 2026-06-30. S2/F1 per friction_index_spec."
+      },
+      {
+        "course_km_start": 36.0,
+        "course_km_end": 36.3,
+        "surface_class": "S2",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Gramstad gravel road tail km 36.0-36.30; F3 coarse gravel approaching trail exit @ km 36.30 (chunk_07 adjudication 2026-06-30). S2/F3 per friction_index_spec; operator band F3 km 36.0-36.72."
+      },
+      {
+        "course_km_start": 36.3,
+        "course_km_end": 36.6,
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Vassfjellet traverse upstream tread km 36.30-36.60; F3 wet/coarse dirt-grass trail (chunk_07 adjudication 2026-06-30). S3/F3 per friction_index_spec; operator band F3 km 36.0-36.72."
+      },
+      {
+        "course_km_start": 36.6,
+        "course_km_end": 36.72,
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Vassfjellet gravel-to-trail transition tread km 36.60-36.72 approach to bog; F3 (chunk_07 adjudication 2026-06-30). S3/F3 per friction_index_spec; operator band F3 km 36.0-36.72."
+      },
+      {
+        "course_km_start": 36.72,
+        "course_km_end": 36.81,
+        "surface_class": "S6",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Vassfjellet approach bog entry km 36.72-36.81; S6/F3 bog tread at entry (chunk_07 adjudication 2026-06-30). Accepts ML F4-to-F3 downgrade at bog entry; norgeskart bog pin @ km 36.833 downstream."
+      },
+      {
+        "course_km_start": 36.81,
+        "course_km_end": 36.89,
+        "surface_class": "S6",
+        "friction_tier": "F4",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Vassfjellet approach bog core km 36.81-36.89 deep bog/marsh tread (S6/F4 per friction_index_spec). norgeskart bog pin @ km 36.833; upstream entry S6/F3 km 36.72-36.81 per chunk_07 adjudication 2026-06-30."
       }
     ],
     "behavioral_stops": [
@@ -79874,6 +79909,17 @@
         "sector_id": "gramstad_band",
         "locked_at": "2026-06-28",
         "reason": "Paradisskaret stile Subject_B-only halt \u2014 sequential crossing anchor (Subject_B before Subject_A); exclude stop window from cross-athlete paired TRF on S2/F3 gravel."
+      },
+      {
+        "course_km_start": 39.495,
+        "course_km_end": 39.505,
+        "exclusion_type": "gps_disturbance",
+        "subject_scope": "both",
+        "anchor_id": "loen_underpass",
+        "gold_source": "operator",
+        "sector_id": "gramstad_band",
+        "locked_at": "2026-06-30",
+        "reason": "Loen underpass @ km ~39.5 (Loen-Alsvik asphalt corridor) \u2014 GPS multipath/reflection corrupts kinematic features (~10 m); exclude from TRF aggregation and ML REVISE interpretation; operator gold S1/F0 unchanged km 39.140\u201341.0."
       }
     ]
   },

@@ -275,15 +275,6 @@
     },
     {
       "donor_id": "Subject_A",
-      "activity_id": "hommersak_storaberget_20250628",
-      "session_type": "training",
-      "subject_id": "Subject_A",
-      "align_mode": "gpx",
-      "direction": "forward",
-      "note": "Hommersåk–Storaberget early-lap training 2025-06-28 (~6.5 km); GPX snap km 1.85–8.0 (leg_a_technical / start hills); washed micro Parquet present — Phase E full-course tile; zero gramstad_band overlap"
-    },
-    {
-      "donor_id": "Subject_A",
       "activity_id": "gramstad_lifjell_20250625",
       "session_type": "training",
       "subject_id": "Subject_A",
@@ -303,12 +294,97 @@
       "note": "EXCLUDED (2026-06-28 QC): SUT43 partial Strava export 2026-03-21 ('partial SUT43 course'). Global cross_track_m median 1585 m; only 267 samples / 245 m ref_chainage span pass <30 m gate (km 29.0–29.25). Off-corridor geometry despite title — not eligible for spine TRF."
     }
   ],
+  "phase_e_start": {
+    "sector_id": "leg_a_technical",
+    "status": "bootstrap",
+    "terrain_map": "config/spatial_terrain_map_sut43_start.json",
+    "km_immediate_milestone": [
+      0.0,
+      8.0
+    ],
+    "km_annotator_ready": [
+      0.5,
+      8.0
+    ],
+    "km_analysis_window_milestone": [
+      0.5,
+      8.0
+    ],
+    "km_viewport_window": [
+      0.0,
+      8.5
+    ],
+    "downstream_seam_km": 8.0,
+    "scope_memo": "docs/memos/16_phase_e_start_ingest_scope.md",
+    "hommersak_promotion_checklist": [
+      "Copy manifest to config/spatial_align_manifest_sut43.local.json",
+      "Confirm hommersak_storaberget_20250628 washed micro Parquet under 03_Processed_Data/micro/Subject_A/",
+      "Promote hommersak_storaberget_20250628 from phase_e_start.pending_activities to activities[] with align_mode gpx, direction forward",
+      "Extend reference_spine.km_window to [0.5, 41.0] before corridor_multi_fit",
+      "Run build_reference_spine.py --km-start 0.5 --km-end 41.0",
+      "Run corridor_multi_fit.py --km-start 0.5 --km-end 8.0 --project-course",
+      "Run reproject_to_spine.py if spine panels split race/training",
+      "QC: check_spine_coverage.py on km 0.5–8.0; hommersak cross_track_m median ≤ 30 m",
+      "Generate triage_queue_start.csv (--km-start 0 --km-end 8)",
+      "HITL launch with spatial_terrain_map_sut43_start.json — verify sliders km 0.5–1.5"
+    ],
+    "expanded_panel_note": "Current panel_1m.parquet clips to km 22.0–41.0 (152008 rows). Phase E milestone extends race + training rows to km 0.5–8.0 via full-lap race streams + hommersak GPX snap.",
+    "reference_spine_extension": {
+      "current_km_window": [
+        22.0,
+        41.0
+      ],
+      "milestone_km_window": [
+        0.5,
+        8.0
+      ],
+      "target_km_window": [
+        0.5,
+        42.5
+      ],
+      "build_command": "python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.local.json --km-start 0.5 --km-end 41.0",
+      "milestone_fit_command": "python3 04_Python_Scripts/spatial/corridor_multi_fit.py --manifest config/spatial_align_manifest_sut43.local.json --km-start 0.5 --km-end 8.0 --project-course"
+    },
+    "pending_activities": [
+      {
+        "donor_id": "Subject_A",
+        "activity_id": "hommersak_storaberget_20250628",
+        "session_type": "training",
+        "align_mode": "gpx",
+        "direction": "forward",
+        "status": "awaiting_manifest_promotion",
+        "overlap_km": [
+          1.85,
+          8.0
+        ],
+        "micro_parquet_course_km": [
+          2.11,
+          8.0
+        ],
+        "note": "Hommersåk–Storaberget early-lap training 2025-06-28; GPX snap leg_a_technical / start hills; privacy clip leaves gap km 0.5–2.1 — fill from race streams"
+      }
+    ],
+    "coverage_gaps": [
+      {
+        "course_km_start": 0.5,
+        "course_km_end": 2.1,
+        "status": "missing_training",
+        "reason": "Hommersak tile privacy clip — race-day streams required for Hommersåk chute through Hogstad approach"
+      },
+      {
+        "course_km_start": 8.0,
+        "course_km_end": 22.0,
+        "status": "deferred_phase_e3",
+        "reason": "Start-sector milestone ends @ km 8; bridge to upstream km 22 requires additional full-lap / training traverses"
+      }
+    ]
+  },
   "full_course_stretch_goal": {
     "km_analysis_window": [
       0.5,
       42.5
     ],
-    "note": "Phase E — meter-by-meter S1–S6 on full SUT43 after gramstad_band sector lock validates clustering"
+    "note": "Phase E — meter-by-meter S1–S6 on full SUT43 after gramstad_band sector lock validates clustering. Immediate milestone km 0.5–8.0 (leg_a_technical) — see phase_e_start block and docs/memos/16_phase_e_start_ingest_scope.md"
   },
   "reference_spine": {
     "schema_version": "reference_spine_v0",

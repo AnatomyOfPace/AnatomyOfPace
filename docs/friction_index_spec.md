@@ -65,6 +65,8 @@ Per-athlete, per-metre performance index from the GAP pipeline.
 
 Observed TI is the measured quantity. It must not be mistaken for intrinsic friction.
 
+**Telemetry non-identifiability:** A single friction tier or S-class does not map one-to-one to a unique TI/speed signature. Grade, run-vs-walk locomotion, tactical iso-HR effort, and fatigue can produce overlapping observed TI on the same tread — especially S3–S6 and F2–F4. Operator tier gold remains ontological authority; cross-athlete `consensus_nti` corroborates but does not replace HITL on technical trail metres.
+
 ### consensus_nti
 
 Cross-athlete aggregate at each course metre — partial de-mixing of grade and inter-athlete spread.
