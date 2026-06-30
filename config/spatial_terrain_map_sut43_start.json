@@ -24,29 +24,29 @@
         "display_name": "Hogstad timing index",
         "course_km": 0.66,
         "role": "organiser_checkpoint",
-        "registry_ref": "race_corridors.json → SUT_43.checkpoints.Hogstad"
+        "registry_ref": "race_corridors.json \u2192 SUT_43.checkpoints.Hogstad"
       },
       {
         "anchor_id": "lifjell_timing_index",
         "display_name": "Lifjell timing index (start hills)",
         "course_km": 5.87,
         "role": "organiser_checkpoint",
-        "note": "Timing CP on shared start — not geographic Lifjell summit (~km 18)"
+        "note": "Timing CP on shared start \u2014 not geographic Lifjell summit (~km 18)"
       },
       {
         "anchor_id": "oykjafjellet_climb_entry",
-        "display_name": "Øykjafjellet climb entry",
+        "display_name": "\u00d8ykjafjellet climb entry",
         "course_km": 1.43,
-        "registry_ref": "race_corridors.json → SUT_160.sub_corridors.start_hills"
+        "registry_ref": "race_corridors.json \u2192 SUT_160.sub_corridors.start_hills"
       },
       {
         "anchor_id": "noredalen_descent_lip",
         "display_name": "Noredalen descent lip",
         "course_km": 6.63,
-        "registry_ref": "race_corridors.json → SUT_160.sub_corridors.noredalen_descent"
+        "registry_ref": "race_corridors.json \u2192 SUT_160.sub_corridors.noredalen_descent"
       }
     ],
-    "notes": "Phase E bootstrap stub — seed segments only. Replace machine draft after panel rebuild km 0.5–8. Operator gold for gramstad_band (km 29–41) and dale_paradisskaret_upstream (km 22–29) remain in separate JSON files."
+    "notes": "Phase E bootstrap stub \u2014 seed segments only. Replace machine draft after panel rebuild km 0.5\u20138. Operator gold for gramstad_band (km 29\u201341) and dale_paradisskaret_upstream (km 22\u201329) remain in separate JSON files."
   },
   "clustering": {
     "method": null,
@@ -61,9 +61,9 @@
       "surface_class": "S1",
       "friction_tier": "F0",
       "source": "seed",
-      "label": "Hommersåk start chute — sealed / compact roll",
+      "label": "Hommers\u00e5k start chute \u2014 sealed / compact roll",
       "confidence": 0.25,
-      "operator_note": "Draft placeholder — verify against race panel + topo after Phase E ingest"
+      "operator_note": "Draft placeholder \u2014 verify against race panel + topo after Phase E ingest"
     },
     {
       "course_km_start": 0.66,
@@ -71,9 +71,9 @@
       "surface_class": "S3",
       "friction_tier": "F2",
       "source": "seed",
-      "label": "Hogstad approach — grass / hard dirt",
+      "label": "Hogstad approach \u2014 grass / hard dirt",
       "confidence": 0.25,
-      "operator_note": "Hogstad timing index @ km 0.66 — calibration target for HITL milestone"
+      "operator_note": "Hogstad timing index @ km 0.66 \u2014 calibration target for HITL milestone"
     },
     {
       "course_km_start": 1.43,
@@ -81,7 +81,7 @@
       "surface_class": "S4",
       "friction_tier": "F3",
       "source": "seed",
-      "label": "Øykjafjellet climb — technical rock / roots",
+      "label": "\u00d8ykjafjellet climb \u2014 technical rock / roots",
       "confidence": 0.25,
       "operator_note": "Overlaps hommersak_storaberget training tile from ~km 2.1"
     },
@@ -91,9 +91,9 @@
       "surface_class": "S4",
       "friction_tier": "F3",
       "source": "seed",
-      "label": "Start hills traverse — mixed technical tread",
+      "label": "Start hills traverse \u2014 mixed technical tread",
       "confidence": 0.2,
-      "operator_note": "leg_a_technical core per race_corridors.json km 0.66–5.87"
+      "operator_note": "leg_a_technical core per race_corridors.json km 0.66\u20135.87"
     },
     {
       "course_km_start": 5.45,
@@ -101,7 +101,7 @@
       "surface_class": "S4",
       "friction_tier": "F3",
       "source": "seed",
-      "label": "Skrussfjell climb / rim — technical rock",
+      "label": "Skrussfjell climb / rim \u2014 technical rock",
       "confidence": 0.25,
       "operator_note": "Lifjell timing index @ km 5.87 within this band"
     },
@@ -111,7 +111,7 @@
       "surface_class": "S4",
       "friction_tier": "F3",
       "source": "seed",
-      "label": "Noredalen opening descent — steep technical brake",
+      "label": "Noredalen opening descent \u2014 steep technical brake",
       "confidence": 0.25,
       "operator_note": "Milestone viewport end @ km 8.0; hommersak tile ends ~km 8.0"
     }
@@ -120,18 +120,29 @@
     "status": "draft",
     "sector_id": "leg_a_technical",
     "manual_overrides": [],
-    "operator_gold_spans": [],
+    "operator_gold_spans": [
+      {
+        "course_km_start": 0.5,
+        "course_km_end": 0.66,
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Hommers\u00e5k start chute sealed roll (km 0.5\u20130.66). S1/F0 Tier 1 map-first; Hogstad timing index calibration anchor @ km 0.66. TI \u22481.1 both race donors; matches sealed_road \u00d7 run anchor family (Halvmarathon S1/F0)."
+      }
+    ],
     "trf_exclusions": [],
     "behavioral_stops": [],
     "variance_gaps": [
       {
         "course_km_start": 0.5,
         "course_km_end": 2.1,
-        "reason": "Subject_B race stream may be sparse pre-hommersak overlap; defer cross-athlete σ review until full-lap panel rebuild",
+        "reason": "Subject_B race stream may be sparse pre-hommersak overlap; defer cross-athlete \u03c3 review until full-lap panel rebuild",
         "median_sigma": null,
         "pct_metres_high_variance": null
       }
     ],
-    "notes": "Append-only operator_gold_spans[] — use hitl_annotator_app.py with this file only. Do not write start-sector locks into spatial_terrain_map_sut43.json or spatial_terrain_map_sut43_upstream.json."
+    "notes": "Append-only operator_gold_spans[] \u2014 use hitl_annotator_app.py with this file only. Do not write start-sector locks into spatial_terrain_map_sut43.json or spatial_terrain_map_sut43_upstream.json."
   }
 }
