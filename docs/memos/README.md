@@ -7,7 +7,7 @@ Standalone Markdown files for attaching to Gemini, ChatGPT, or other sessions.
 
 | Date | Subject | File | Wave / status |
 |------|---------|------|---------------|
-| 2026-06-25 | Project-wide AI handoff | [`01_gemini_handoff.md`](01_gemini_handoff.md) | Ongoing — update on material state change |
+| 2026-07-01 | Project-wide AI handoff | [`01_gemini_handoff.md`](01_gemini_handoff.md) | **Updated** — Phase E km 0.5–8.0 operator gold complete; gramstad km 34–40 partial |
 | 2026-06-25 | Cursor session recap | [`02_cursor_session_summary.md`](02_cursor_session_summary.md) | Session snapshot |
 | 2026-06-25 | Gemini opening prompt | [`03_gemini_opening_prompt.md`](03_gemini_opening_prompt.md) | Paste-first + attach handoff |
 | 2026-06-25 | Gemini context update card | [`04_gemini_context_update.md`](04_gemini_context_update.md) | Mid-thread refresh |
@@ -22,9 +22,9 @@ Standalone Markdown files for attaching to Gemini, ChatGPT, or other sessions.
 | **2026-06-26** | **SUT corridor stress test pipeline v2.0** | [`10_sut_stress_test_pipeline_v2_20260626.local.md`](10_sut_stress_test_pipeline_v2_20260626.local.md) | **v2.0** — Phases A–D (decouple + validation dashboard); SUT_160 wash still blocking E2E |
 | **2026-06-26** | **SUT stress test interim path (Strava JSON)** | [`11_sut_stress_test_interim_path_20260626.local.md`](11_sut_stress_test_interim_path_20260626.local.md) | **Interim active** — corridor TI via Strava JSON; Phases A–D unchanged pending `18159079828.fit` wash |
 | **2026-06-26** | **SUT43 terrain ontology experiment (Subject_A + Subject_B)** | [`12_sut43_terrain_ontology_experiment_20260626.local.md`](12_sut43_terrain_ontology_experiment_20260626.local.md) | **ACTIVE** — Tier 0 + Phase A complete; km 29–41 gramstad_band; SUT_160 stress test deferred |
-| **2026-06-29** | **Phase E start-of-course ingest (km 0–8)** | [`16_phase_e_start_ingest_scope.md`](16_phase_e_start_ingest_scope.md) | **SCOPED** — HITL annotator milestone; panel ingest pending operator execution |
+| **2026-06-29** | **Phase E start-of-course ingest (km 0–8)** | [`16_phase_e_start_ingest_scope.md`](16_phase_e_start_ingest_scope.md) | **LABELS COMPLETE** — operator gold km 0.5–8.0 (`46a0ff2`); mid-course km 8–22 panel gap remains |
 | **2026-06-30** | **Sparse gold ML suggestion pipeline (v0)** | [`17_sparse_gold_ml_suggestion_pipeline.md`](17_sparse_gold_ml_suggestion_pipeline.md) | **ACTIVE** — CLI build/train/suggest; Streamlit HITL parked |
-| **2026-06-30** | **SUT_43 gold HITL low-hanging fruit** | [`18_gold_hitl_low_hanging_fruit.md`](18_gold_hitl_low_hanging_fruit.md) | **ACTIVE** — Tier 1–3 priority list; km 22–41 fully golded; KEEP QC first |
+| **2026-06-30** | **SUT_43 gold HITL low-hanging fruit** | [`18_gold_hitl_low_hanging_fruit.md`](18_gold_hitl_low_hanging_fruit.md) | **ACTIVE** — Tier 1–3 priority list; km 22–34 + start sector golded; km 34–40 partial; KEEP QC first |
 | **2026-06-30** | **Dual ontology — telemetry clusters (O₁/O₂ bridge)** | [`19_dual_ontology_telemetry_clusters.md`](19_dual_ontology_telemetry_clusters.md) | **ACTIVE** — v0 `build_telemetry_clusters.py`; Paradisskaret + road anchors |
 | **2026-06-30** | **O₂ anchor run signature library** | [`20_anchor_run_signature_library.md`](20_anchor_run_signature_library.md) | **ACTIVE** — manifest + `build_anchor_features.py`; pole_policy per run |
 | **2026-06-30** | **O₂ anchor run signature library** | [`20_anchor_run_signature_library.md`](20_anchor_run_signature_library.md) | **SCOPED** — manifest + `build_anchor_features.py`; 3 extra runs + Paradisskaret calibration set |
