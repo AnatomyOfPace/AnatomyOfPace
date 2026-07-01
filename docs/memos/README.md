@@ -28,6 +28,7 @@ Standalone Markdown files for attaching to Gemini, ChatGPT, or other sessions.
 | **2026-06-30** | **Dual ontology — telemetry clusters (O₁/O₂ bridge)** | [`19_dual_ontology_telemetry_clusters.md`](19_dual_ontology_telemetry_clusters.md) | **ACTIVE** — v0 `build_telemetry_clusters.py`; Paradisskaret + road anchors |
 | **2026-06-30** | **O₂ anchor run signature library** | [`20_anchor_run_signature_library.md`](20_anchor_run_signature_library.md) | **ACTIVE** — manifest + `build_anchor_features.py`; pole_policy per run |
 | **2026-06-30** | **O₂ anchor run signature library** | [`20_anchor_run_signature_library.md`](20_anchor_run_signature_library.md) | **SCOPED** — manifest + `build_anchor_features.py`; 3 extra runs + Paradisskaret calibration set |
+| **2026-07-01** | **Publication pipeline readiness (Gemini handoff)** | [`22_publication_pipeline_readiness.md`](22_publication_pipeline_readiness.md) | **RECONCILED** — 17-article taxonomy committed (PR #5); gramstad_band gold ready km 29–34 & 40–41; km 34–40 HITL + Article 1 render outstanding |
 
 ## Naming convention
 
