@@ -132,24 +132,24 @@
         "reason": "operator gold: Hommers\u00e5k start chute sealed roll (km 0.5\u20130.66). S1/F0 Tier 1 map-first; Hogstad timing index calibration anchor @ km 0.66. TI \u22481.1 both race donors; matches sealed_road \u00d7 run anchor family (Halvmarathon S1/F0)."
       },
       {
-        "course_km_start": 0.66,
-        "course_km_end": 2.0,
+        "course_km_start": 2.0,
+        "course_km_end": 3.0,
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
         "mode": "operator_gold",
         "locked_at": "2026-07-01",
-        "reason": "operator gold: Hogstad approach grass/hard dirt gravel road extended through km 2.0 (km 0.66\u20132.0). S3/F2 per seed + operator topo: gravel-to-trail transition near km 2.0 \u2014 organiser \u00d8ykjafjellet anchor @ km 1.43 marks climb entry not surface break. Race TI med 1.23 (0.66\u20131.43) and 1.33 (1.66\u20132.0) remain F2 band; grade med \u22640.7% through km 2.0; rejects premature S4/F3 lock at km 1.43."
+        "reason": "operator gold: post-lake trail tread after Fr\u00f8ylandsvatnet departure (km 2.0\u20133.0). S3/F2 per operator topo review: runnable dirt trail ascending toward Eilevfjellet \u2014 not S4/F3 technical rock. TI median 1.46 (consensus NTI 1.06) sits in F2 moderate band; grade step at km 2.0 (+12% med) marks departure from lakeshore gravel not bedrock tread. Supersedes prior S4/F3 \u00d8ykjafjellet rock lock and background S4/F3 traverse stub; defers seed technical traverse until operator HITL km 3.0+."
       },
       {
-        "course_km_start": 2.0,
-        "course_km_end": 2.75,
-        "surface_class": "S4",
-        "friction_tier": "F3",
+        "course_km_start": 0.66,
+        "course_km_end": 2.0,
+        "surface_class": "S2",
+        "friction_tier": "F1",
         "gold_source": "operator",
         "mode": "operator_gold",
         "locked_at": "2026-07-01",
-        "reason": "operator gold: \u00d8ykjafjellet climb technical rock/roots (km 2.0\u20132.75). S4/F3 per seed ontology; operator topo: gravel-to-trail transition near km 2.0. TI med 1.52 with grade step +9.9% @ km 2.0; F3+F4 share 64% km 2.0\u20132.75 vs 43% upstream. End @ km 2.75 per seed hommersak_storaberget overlap boundary."
+        "reason": "operator gold: Fr\u00f8ylandsvatnet lakeshore gravel road (km 0.66\u20132.0). S2/F1 per operator topo review: compacted gravel along Fr\u00f8ylandsvatnet from Hogstad timing index through lakeshore departure near km 2.0; supersedes prior S3/F2 grass/hard-dirt lock. Race TI median 1.23 (consensus NTI 0.85) aligns with Sunderunde S2/F1 calibration ~1.33; flat grade med 0.4%; F1 low-friction band per friction_index_spec."
       }
     ],
     "trf_exclusions": [],

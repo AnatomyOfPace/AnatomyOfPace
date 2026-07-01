@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T07:49:12.628606+00:00",
+  "generated_at": "2026-07-01T08:15:31.691696+00:00",
   "panel": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_start_1m.parquet",
   "terrain_map": "config/spatial_terrain_map_sut43_start.json",
   "extra_terrain_maps": [],
@@ -7,17 +7,17 @@
   "km_start": 0.5,
   "km_end": 8.0,
   "total_metres": 7500,
-  "labeled_metres": 2250,
-  "unlabeled_metres": 5250,
-  "labeled_pct": 30.0,
+  "labeled_metres": 2500,
+  "unlabeled_metres": 5000,
+  "labeled_pct": 33.33,
   "label_surface_counts": {
-    "S3": 1340,
-    "S4": 750,
+    "S2": 1340,
+    "S3": 1000,
     "S1": 160
   },
   "label_friction_counts": {
-    "F2": 1340,
-    "F3": 750,
+    "F1": 1340,
+    "F2": 1000,
     "F0": 160
   },
   "feature_columns": [
