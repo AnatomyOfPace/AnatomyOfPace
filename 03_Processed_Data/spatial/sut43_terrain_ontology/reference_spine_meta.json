@@ -1,10 +1,10 @@
 {
   "schema_version": "reference_spine_v0",
-  "generated_at": "2026-06-30T20:07:03Z",
+  "generated_at": "2026-07-01T17:53:40Z",
   "corridor_id": "sut43_terrain_ontology",
   "sector_id": "gramstad_band",
   "km_window": [
-    22.0,
+    8.0,
     41.0
   ],
   "step_m": 1.0,
@@ -13,7 +13,7 @@
     "activity_id": "SUT43_20260418",
     "session_type": "race"
   },
-  "n_metres": 19001,
+  "n_metres": 33001,
   "output_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/reference_spine_1m.parquet",
   "kinematic_anchors": [
     {
@@ -26,19 +26,16 @@
       "utm_e": 314523.39,
       "utm_n": 6533858.55,
       "wgs84": {
-        "latitude": 58.90427892222619,
-        "longitude": 5.779782257354764
+        "latitude": NaN,
+        "longitude": NaN
       },
       "stream_km": {
-        "Subject_A": 23.52,
-        "Subject_B": 23.748
+        "Subject_A": null,
+        "Subject_B": null
       },
       "pin_offset_m": {
-        "Subject_A": 0.0,
-        "Subject_B": 0.4
-      },
-      "stream_km_delta_m": {
-        "Subject_B_vs_A": 228
+        "Subject_A": null,
+        "Subject_B": null
       }
     },
     {
@@ -50,19 +47,16 @@
       "utm_e": 316090.14,
       "utm_n": 6531722.07,
       "wgs84": {
-        "latitude": 58.885795403227185,
-        "longitude": 5.808702612116426
+        "latitude": NaN,
+        "longitude": NaN
       },
       "stream_km": {
-        "Subject_A": 30.52,
-        "Subject_B": 30.818
+        "Subject_A": null,
+        "Subject_B": null
       },
       "pin_offset_m": {
-        "Subject_A": 3.8,
-        "Subject_B": 3.6
-      },
-      "stream_km_delta_m": {
-        "Subject_B_vs_A": 298
+        "Subject_A": null,
+        "Subject_B": null
       }
     },
     {
@@ -74,19 +68,16 @@
       "utm_e": 315494.2,
       "utm_n": 6531475.5,
       "wgs84": {
-        "latitude": 58.88332896794134,
-        "longitude": 5.798584695252138
+        "latitude": NaN,
+        "longitude": NaN
       },
       "stream_km": {
-        "Subject_A": 34.641,
-        "Subject_B": 34.97
+        "Subject_A": null,
+        "Subject_B": null
       },
       "pin_offset_m": {
-        "Subject_A": 0.1,
-        "Subject_B": 0.2
-      },
-      "stream_km_delta_m": {
-        "Subject_B_vs_A": 329
+        "Subject_A": null,
+        "Subject_B": null
       }
     },
     {
@@ -99,19 +90,16 @@
       "utm_e": 315959.62,
       "utm_n": 6530127.48,
       "wgs84": {
-        "latitude": 58.871441038901594,
-        "longitude": 5.807760585561466
+        "latitude": NaN,
+        "longitude": NaN
       },
       "stream_km": {
-        "Subject_A": 39.135,
-        "Subject_B": 39.525
+        "Subject_A": null,
+        "Subject_B": null
       },
       "pin_offset_m": {
-        "Subject_A": 1.4,
-        "Subject_B": 2.5
-      },
-      "stream_km_delta_m": {
-        "Subject_B_vs_A": 390
+        "Subject_A": null,
+        "Subject_B": null
       }
     },
     {
@@ -124,19 +112,16 @@
       "utm_n": 6531320.04,
       "note": "Behavioral TRF exclusion \u2014 not a crossing-order knot",
       "wgs84": {
-        "latitude": 58.882326676935875,
-        "longitude": 5.814552695171791
+        "latitude": NaN,
+        "longitude": NaN
       },
       "stream_km": {
-        "Subject_A": 31.158,
-        "Subject_B": 31.44
+        "Subject_A": null,
+        "Subject_B": null
       },
       "pin_offset_m": {
-        "Subject_A": 1.9,
-        "Subject_B": 1.2
-      },
-      "stream_km_delta_m": {
-        "Subject_B_vs_A": 282
+        "Subject_A": null,
+        "Subject_B": null
       }
     }
   ],
@@ -146,15 +131,16 @@
       "activity_id": "SUT43_20260418",
       "cross_track_m_median": 0.0,
       "cross_track_m_p95": 0.0,
-      "n_samples": 19001,
+      "n_samples": 33001,
       "note": "canonical spine source"
     },
     {
       "subject_id": "Subject_B",
       "activity_id": "19000570862",
-      "cross_track_m_median": 1.1,
-      "cross_track_m_p95": 4.2,
-      "n_samples": 16074
+      "cross_track_m_median": null,
+      "cross_track_m_p95": null,
+      "n_samples": 0,
+      "error": "washed parquet missing"
     }
   ],
   "usage": "Join activities on ref_chainage_m after reprojecting stream samples. Use kinematic_anchors.stream_km for per-athlete km labels at validated pins. Defer cross-athlete same-metre TRF until all panel rows carry ref_chainage_m."

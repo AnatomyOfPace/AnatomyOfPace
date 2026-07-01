@@ -157,7 +157,8 @@
         }
       ],
       "bootstrap_blockers": [
-        "Subject_A km 8–22 telemetry is stitch-interpolated — operator gold + washed micro still required",
+        "Subject_A km 8–22 spine GPS is stitch-interpolated — operator gold + washed micro still required",
+        "reproject_to_spine.py race pass pending for cross-athlete ref_chainage_m on mid-course panel",
         "Operator gold not started — seed segments only"
       ],
       "notes": "Phase F mid-course bridge. Noredalen valley through Lifjell summit / Dalevatn descent (Case Study #002). Seam km 8.0 from leg_a_technical; seam km 22.0 into locked dale_paradisskaret_upstream chunk_u00."

@@ -397,10 +397,10 @@
     ],
     "expanded_panel_note": "Closes km 8.0–22.0 gap between panel_start_* (Phase E) and panel_* upstream/gramstad (km 22–41). Race streams required; training traverse optional for TRF.",
     "reference_spine_extension": {
-      "current_km_window": [22.0, 41.0],
+      "current_km_window": [8.0, 41.0],
       "milestone_km_window": [8.0, 22.0],
       "target_km_window": [0.5, 42.5],
-      "build_command": "python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json --km-start 8 --km-end 41"
+      "build_command": "python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json"
     },
     "pending_activities": [
       {
@@ -433,7 +433,7 @@
     "source_donor_id": "Subject_A",
     "source_activity_id": "SUT43_20260418",
     "km_window": [
-      22.0,
+      8.0,
       41.0
     ],
     "step_m": 1.0,
@@ -441,7 +441,7 @@
     "build_script": "04_Python_Scripts/spatial/build_reference_spine.py",
     "reproject_script": "04_Python_Scripts/spatial/reproject_to_spine.py",
     "reproject_usage": "python3 04_Python_Scripts/spatial/reproject_to_spine.py --manifest config/spatial_align_manifest_sut43.example.json",
-    "note": "Canonical ref_chainage_m axis for cross-athlete alignment. Operator gold and HITL lock on Subject_A panel km (1:1 ref_chainage_km == course_km on spine — no span re-key). Subject_B stream km differs ~280–390 m at validated pins. After build_reference_spine.py, run reproject_to_spine.py to emit panel_race_1m_spine.parquet and panel_training_1m_spine.parquet (--session-type all).",
+    "note": "Canonical ref_chainage_m axis for cross-athlete alignment. Extended km 8–41 (2026-07-01) from stitched Subject_A full-lap race. km 8–22 GPS interpolated pending washed micro. Operator gold and HITL lock on Subject_A panel km (1:1 ref_chainage_km == course_km on spine — no span re-key). Subject_B stream km differs ~280–390 m at validated pins. After build_reference_spine.py, run reproject_to_spine.py to emit panel_race_1m_spine.parquet and panel_training_1m_spine.parquet (--session-type all).",
     "kinematic_anchors": [
       {
         "anchor_id": "dale_cp",

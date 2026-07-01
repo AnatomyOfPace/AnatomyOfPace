@@ -91,7 +91,7 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 |---------|------------|
 | Subject_A race spine clips km 22–41 only | **Mitigated (interim):** `realign_subject_a_race.py` stitches start + interpolated gap + spine |
 | Subject_A race micro not in cloud workspace | Operator must wash from canonical `.fit` locally; replace interpolated km 8–22 telemetry |
-| `reference_spine` window still km 22–41 | Extend via `build_reference_spine.py` before cross-athlete NTI |
+| `reference_spine` window still km 22–41 | **Mitigated:** extended to km 8–41 via `build_reference_spine.py` (km 8–22 GPS interpolated) |
 
 **Interim:** `realign_subject_a_race.py` + `build_midcourse_panel.py` populate **dual-athlete** race rows km 8–22 on stream axis. Subject_A gap telemetry is linearly interpolated — not operator gold.
 
@@ -100,7 +100,7 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 ## Success criteria
 
 - [x] `panel_midcourse_1m.parquet` with Subject_A + Subject_B race rows km 8.0–21.999 *(Subject_A interpolated)*
-- [ ] `check_spine_coverage.py` union ≥ 99% on km 8–22 after spine reproject
+- [ ] `check_spine_coverage.py` union ≥ 99% on km 8–22 after spine reproject *(spine extended km 8–41; reproject pending)*
 - [ ] `hitl_chunk_triage.py` queue generated for `chunk_m00`–`chunk_m13`
 - [ ] Seam QC: km 8.0 matches Phase E last metre; km 22.0 abuts upstream chunk_u00
 

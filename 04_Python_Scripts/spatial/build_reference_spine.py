@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-Build Subject_A canonical reference spine for gramstad_band cross-athlete alignment.
+Build Subject_A canonical reference spine for SUT_43 cross-athlete alignment.
+
+Default manifest window: km 8.0–41.0 (extended mid-course bridge through gramstad_band).
+Gramstad-only rebuild: `--km-start 29 --km-end 41`.
 
 Exports a 1 m grid with ref_chainage_m from Subject_A SUT43_20260418 race GPS,
 resolves kinematic anchor stream-km per athlete, and scaffolds cross_track_m
@@ -36,6 +39,8 @@ from spatial.corridor_scope import (  # noqa: E402
     SUT43_CORRIDOR_ID,
     SUT43_PRIMARY_KM_END,
     SUT43_PRIMARY_KM_START,
+    SUT43_REFERENCE_SPINE_KM_END,
+    SUT43_REFERENCE_SPINE_KM_START,
     SUT43_SECTOR_ID,
 )
 from spatial.spatial_align import (  # noqa: E402
@@ -316,8 +321,8 @@ def build_reference_spine(
     *,
     manifest_path: Path | None = None,
     corridor_id: str = SUT43_CORRIDOR_ID,
-    km_start: float = SUT43_PRIMARY_KM_START,
-    km_end: float = SUT43_PRIMARY_KM_END,
+    km_start: float | None = None,
+    km_end: float | None = None,
     step_m: float = DEFAULT_STEP_M,
     source_donor_id: str = "Subject_A",
     source_activity_id: str = "SUT43_20260418",
@@ -329,26 +334,36 @@ def build_reference_spine(
     out_dir.mkdir(parents=True, exist_ok=True)
 
     manifest: dict[str, Any] = {}
+    ref_km_start = km_start
+    ref_km_end = km_end
     if manifest_path and manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         ref_cfg = manifest.get("reference_spine") or {}
         km_win = ref_cfg.get("km_window") or manifest.get("km_analysis_window")
         if km_win and len(km_win) == 2:
-            km_start, km_end = float(km_win[0]), float(km_win[1])
+            if ref_km_start is None:
+                ref_km_start = float(km_win[0])
+            if ref_km_end is None:
+                ref_km_end = float(km_win[1])
         source_donor_id = ref_cfg.get("source_donor_id", source_donor_id)
         source_activity_id = ref_cfg.get("source_activity_id", source_activity_id)
         if ref_cfg.get("kinematic_anchors"):
             anchors = ref_cfg["kinematic_anchors"]
+
+    if ref_km_start is None:
+        ref_km_start = SUT43_REFERENCE_SPINE_KM_START
+    if ref_km_end is None:
+        ref_km_end = SUT43_REFERENCE_SPINE_KM_END
 
     anchor_list = anchors or DEFAULT_KINEMATIC_ANCHORS
     spine_src = load_canonical_spine_frame(
         donor_id=source_donor_id,
         activity_id=source_activity_id,
         corridor_id=corridor_id,
-        km_start=km_start,
-        km_end=km_end,
+        km_start=ref_km_start,
+        km_end=ref_km_end,
     )
-    spine = build_reference_spine_1m(spine_src, km_start=km_start, km_end=km_end, step_m=step_m)
+    spine = build_reference_spine_1m(spine_src, km_start=ref_km_start, km_end=ref_km_end, step_m=step_m)
 
     race_athletes = [
         {
@@ -382,7 +397,7 @@ def build_reference_spine(
         try:
             frame = read_parquet(athlete["donor_id"], athlete["activity_id"])
             km = _resolve_course_km(frame)
-            mask = (km >= km_start) & (km < km_end)
+            mask = (km >= ref_km_start) & (km < ref_km_end)
             cross_track.append(
                 project_activity_cross_track(
                     spine,
@@ -411,7 +426,7 @@ def build_reference_spine(
         "generated_at": _utc_now(),
         "corridor_id": corridor_id,
         "sector_id": SUT43_SECTOR_ID,
-        "km_window": [km_start, km_end],
+        "km_window": [ref_km_start, ref_km_end],
         "step_m": step_m,
         "canonical_source": {
             "donor_id": source_donor_id,
@@ -442,8 +457,8 @@ def main() -> None:
         default=BASE_DIR / "config" / "spatial_align_manifest_sut43.example.json",
     )
     parser.add_argument("--corridor-id", default=SUT43_CORRIDOR_ID)
-    parser.add_argument("--km-start", type=float, default=SUT43_PRIMARY_KM_START)
-    parser.add_argument("--km-end", type=float, default=SUT43_PRIMARY_KM_END)
+    parser.add_argument("--km-start", type=float, default=None, help="Spine km start (manifest default if omitted)")
+    parser.add_argument("--km-end", type=float, default=None, help="Spine km end (manifest default if omitted)")
     parser.add_argument("--step-m", type=float, default=DEFAULT_STEP_M)
     args = parser.parse_args()
 

@@ -58,4 +58,24 @@ Overwrite interim stitch parquet; re-run spine extension + `reproject_to_spine.p
 
 ---
 
+## Reference spine extension (2026-07-01)
+
+`build_reference_spine.py` now exports km **8.0–41.0** (33,001 rows) from stitched Subject_A race alignment:
+
+| Artifact | Window | Rows |
+|----------|--------|------|
+| `reference_spine_1m.parquet` | km 8–41 | 33,001 |
+| `reference_spine_meta.json` | `km_window: [8.0, 41.0]` | — |
+
+`ref_chainage_m` tracks Subject_A `course_km` 1:1 (8,000 m → 41,000 m). km 8–22 polyline inherits interpolated GPS from the stitch scaffold — replace when washed micro is available.
+
+```bash
+python3 04_Python_Scripts/spatial/build_reference_spine.py \\
+    --manifest config/spatial_align_manifest_sut43.example.json
+```
+
+Next: `reproject_to_spine.py --session-type race` for cross-athlete `ref_chainage_m` on mid-course panel rows.
+
+---
+
 *Internal memo — not public Anatomy of Pace copy.*
