@@ -170,6 +170,36 @@
         "mode": "operator_gold",
         "locked_at": "2026-07-01",
         "reason": "operator gold: ascending trail continuation toward Eilevfjellet (km 3.5\u20134.5). S3/F2 per established operator pattern: runnable dirt trail after technical traverse; seamless seam @ km 3.5 from locked S4/F3 (F3\u2192F2 tread step). Race TI median ~1.38 (F2 moderate band); altitude climb 287\u2192~350 m confirms trail tread not bedrock. ML S3/F2 gap fills corroborate; Tier 3 micro-pockets absorbed under parent. S4/F3 technical rock deferred to km 4.5+ HITL."
+      },
+      {
+        "course_km_start": 4.5,
+        "course_km_end": 5.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: start-hills technical descent toward Lifjell rim (km 4.5\u20135.0). S4/F3 per seed leg_a_technical traverse and friction_index_spec; seam @ km 4.5: S3/F2 trail \u2192 S4/F3 technical (F2\u2192F3 tread step). Race TI median ~3.86 (F3\u2013F4 band; grade-braking on \u221220% descent); hommersak training TI med ~4.90 corroborates high-friction character. Steep descent 295\u2192195 m alt confirms technical brake zone not runnable trail. ML S3/F2 gap fill deferred (Tier 3 REVISE per memo 18 \u2014 road-first model on trail gap)."
+      },
+      {
+        "course_km_start": 5.0,
+        "course_km_end": 5.45,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: post-descent technical tread continuation (km 5.0\u20135.45). S4/F3 per seed leg_a_technical traverse through km 5.45; seamless seam @ km 5.0 from locked chunk_04 S4/F3 descent. Race TI med ~2.26 (F3 moderate-high; descent braking clears by km 5.15); hommersak training TI med ~2.96 (50% F3 + 41% F4) corroborates technical tread not runnable trail. Altitude floor ~182\u2013201 m; grade med \u22121.5% post-brake. ML S3/F2 gap fill km 5.005\u20135.827 deferred (Tier 3 per memo 18 \u2014 telemetry non-identifiable on trail; absorb under S4/F3 parent)."
+      },
+      {
+        "course_km_start": 5.45,
+        "course_km_end": 6.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Skrussfjell climb / rim approach (km 5.45\u20136.0). S4/F3 per seed leg_a_technical Skrussfjell band; seam @ km 5.45 from post-descent tread (seed transition @ 5.45). Lifjell timing index organiser anchor @ km 5.87 \u2014 calibration checkpoint, not tread transition. Race TI med ~1.79 (5.5\u20136.0) grade-dominated on climb flank (+7\u2013+24% med); rim traverse TI ~2.0\u20132.5 pre-climb. Hommersak training TI med ~1.78 deferred (effort mixing on climb). ML S3/F2 pockets km 5.921\u20136.119 deferred Tier 3. Operator topo confirmation requested for rim tread vs trail at km ~5.2\u20135.45 seam."
       }
     ],
     "trf_exclusions": [],
