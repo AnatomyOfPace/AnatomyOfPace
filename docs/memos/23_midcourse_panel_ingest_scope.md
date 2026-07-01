@@ -76,6 +76,7 @@ python3 04_Python_Scripts/spatial/hitl_chunk_triage.py \\
     --use-chunk-priority --km-start 8 --km-end 22 \\
     --output 03_Processed_Data/spatial/sut43_terrain_ontology/ground_truth_review/triage_queue_midcourse.csv
 python3 04_Python_Scripts/spatial/check_panel_seams.py
+./04_Python_Scripts/spatial/export_hitl_chunks_midcourse.sh
 ```
 
 Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8–22, writes:
@@ -113,6 +114,7 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 - [x] `check_spine_coverage.py` union ≥ 99% on km 8–22 after spine reproject *(100% union; Subject_B per-activity 71% — interpolated spine QC)*
 - [x] `hitl_chunk_triage.py` queue generated for `chunk_m00`–`chunk_m13` → `triage_queue_midcourse.csv`
 - [x] Seam QC: km 8.0 and km 22.0 — `check_panel_seams.py` → `panel_seam_qc_midcourse.json` *(stream seams NaN at interpolated boundary; expected on scaffold)*
+- [x] HITL dashboard PNGs `chunk_m00`–`chunk_m13` — `export_hitl_chunks_midcourse.sh` → `06_Visualizations/sut43_hitl_midcourse/` *(gitignored; regenerate locally)*
 
 ---
 
@@ -127,6 +129,7 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 | `ground_truth_review/chunk_priority_midcourse.csv` | HITL chunk ledger (scaffold ready; operator gold pending) |
 | `ground_truth_review/triage_queue_midcourse.csv` | RPS triage queue (5 RED / 5 YELLOW / 4 GREEN; HMM km 8–41) |
 | `04_Python_Scripts/spatial/check_panel_seams.py` | Seam QC at km 8.0 / 22.0 boundaries |
+| `04_Python_Scripts/spatial/export_hitl_chunks_midcourse.sh` | Bulk HITL dashboard PNGs → `06_Visualizations/sut43_hitl_midcourse/` |
 
 ---
 

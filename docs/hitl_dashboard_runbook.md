@@ -44,6 +44,15 @@ Writes `06_Visualizations/sut43_hitl/chunk_04_km33-34.png`.
 ./04_Python_Scripts/spatial/export_hitl_chunks.sh
 ```
 
+### Mid-course export (14 × 1 km chunks, km 8–22, `dalevatn_midcourse`)
+
+```bash
+export MPLCONFIGDIR="${MPLCONFIGDIR:-$(pwd)/.mplconfig}"
+./04_Python_Scripts/spatial/export_hitl_chunks_midcourse.sh
+```
+
+Writes `06_Visualizations/sut43_hitl_midcourse/chunk_m00_km8-9.png` … `chunk_m13_km21-22.png` (ledger IDs match `chunk_priority_midcourse.csv`). Uses `panel_midcourse_1m_spine.parquet` + `spatial_terrain_map_sut43_midcourse.json`.
+
 ### Spine-panel cross-athlete export (race panel on ref_chainage_m)
 
 Use when verifying per-subject NTI/speed overlays on the Subject_A race spine (Subject_A + Subject_B race streams):
