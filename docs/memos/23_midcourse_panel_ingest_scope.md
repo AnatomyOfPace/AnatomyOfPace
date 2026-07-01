@@ -91,7 +91,7 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8â
 3. `build_reference_spine.py --km-start 8 --km-end 41`
 4. `reproject_to_spine.py --session-type race`
 5. Merge `panel_start` + `panel_midcourse` + `panel_race` â†’ unified `panel_1m.parquet`
-6. `terrain_map_gen.py` on mid-course window
+6. `build_midcourse_terrain_draft.py --write` (GMM draft + TI-band sidecar)
 7. `hitl_chunk_triage.py` with `chunk_priority_midcourse.csv`
 
 ---

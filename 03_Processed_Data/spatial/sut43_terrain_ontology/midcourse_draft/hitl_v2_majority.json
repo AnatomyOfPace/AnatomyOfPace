@@ -1,0 +1,1811 @@
+{
+  "meta": {
+    "schema_version": "hitl_v2_majority_v1",
+    "method": "per_stream_nti_ti_band_majority",
+    "km_start": 8.0,
+    "km_end": 22.0,
+    "donors": [
+      "Subject_A",
+      "Subject_B"
+    ],
+    "n_metres": 14186,
+    "n_segments": 224,
+    "sigma_gate": false,
+    "voter_eligibility": "all streams with telemetry at metre",
+    "generated_at": "2026-07-01T21:37:54.202497+00:00"
+  },
+  "majority_draft_segments": [
+    {
+      "course_m_start": 8000.0,
+      "course_m_end": 8000.999999999999,
+      "course_km_start": 8.0,
+      "course_km_end": 8.001,
+      "surface_class": "S2",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8000.999999999999,
+      "course_m_end": 8052.999999999999,
+      "course_km_start": 8.001,
+      "course_km_end": 8.052999999999999,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8052.999999999999,
+      "course_m_end": 8127.999999999999,
+      "course_km_start": 8.052999999999999,
+      "course_km_end": 8.127999999999998,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8127.999999999999,
+      "course_m_end": 8136.999999999999,
+      "course_km_start": 8.127999999999998,
+      "course_km_end": 8.136999999999999,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8136.999999999999,
+      "course_m_end": 8142.999999999999,
+      "course_km_start": 8.136999999999999,
+      "course_km_end": 8.142999999999999,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8142.999999999999,
+      "course_m_end": 8149.999999999999,
+      "course_km_start": 8.142999999999999,
+      "course_km_end": 8.149999999999999,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8149.999999999999,
+      "course_m_end": 8155.999999999999,
+      "course_km_start": 8.149999999999999,
+      "course_km_end": 8.155999999999999,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8155.999999999999,
+      "course_m_end": 8210.0,
+      "course_km_start": 8.155999999999999,
+      "course_km_end": 8.21,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8210.0,
+      "course_m_end": 8221.0,
+      "course_km_start": 8.21,
+      "course_km_end": 8.221,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8221.0,
+      "course_m_end": 8229.0,
+      "course_km_start": 8.221,
+      "course_km_end": 8.229,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8229.0,
+      "course_m_end": 8239.0,
+      "course_km_start": 8.229,
+      "course_km_end": 8.239,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8239.0,
+      "course_m_end": 8257.0,
+      "course_km_start": 8.239,
+      "course_km_end": 8.257,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8257.0,
+      "course_m_end": 8273.0,
+      "course_km_start": 8.257,
+      "course_km_end": 8.273,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8273.0,
+      "course_m_end": 8293.0,
+      "course_km_start": 8.273,
+      "course_km_end": 8.293,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8293.0,
+      "course_m_end": 8346.0,
+      "course_km_start": 8.293,
+      "course_km_end": 8.346,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8346.0,
+      "course_m_end": 8369.0,
+      "course_km_start": 8.346,
+      "course_km_end": 8.369,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8369.0,
+      "course_m_end": 8397.0,
+      "course_km_start": 8.369,
+      "course_km_end": 8.397,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8397.0,
+      "course_m_end": 8479.0,
+      "course_km_start": 8.397,
+      "course_km_end": 8.479,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8479.0,
+      "course_m_end": 8582.0,
+      "course_km_start": 8.479,
+      "course_km_end": 8.582,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8582.0,
+      "course_m_end": 8590.0,
+      "course_km_start": 8.582,
+      "course_km_end": 8.59,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8590.0,
+      "course_m_end": 8636.0,
+      "course_km_start": 8.59,
+      "course_km_end": 8.636,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8636.0,
+      "course_m_end": 8645.0,
+      "course_km_start": 8.636,
+      "course_km_end": 8.645,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8645.0,
+      "course_m_end": 8671.0,
+      "course_km_start": 8.645,
+      "course_km_end": 8.671,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8671.0,
+      "course_m_end": 8687.0,
+      "course_km_start": 8.671,
+      "course_km_end": 8.687,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8687.0,
+      "course_m_end": 8727.0,
+      "course_km_start": 8.687,
+      "course_km_end": 8.727,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8727.0,
+      "course_m_end": 8741.0,
+      "course_km_start": 8.727,
+      "course_km_end": 8.741,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8741.0,
+      "course_m_end": 8761.0,
+      "course_km_start": 8.741,
+      "course_km_end": 8.761,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8761.0,
+      "course_m_end": 8769.0,
+      "course_km_start": 8.761,
+      "course_km_end": 8.769,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8769.0,
+      "course_m_end": 8817.0,
+      "course_km_start": 8.769,
+      "course_km_end": 8.817,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8817.0,
+      "course_m_end": 8827.0,
+      "course_km_start": 8.817,
+      "course_km_end": 8.827,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8827.0,
+      "course_m_end": 8903.0,
+      "course_km_start": 8.827,
+      "course_km_end": 8.903,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8903.0,
+      "course_m_end": 8921.0,
+      "course_km_start": 8.903,
+      "course_km_end": 8.921,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8921.0,
+      "course_m_end": 8935.0,
+      "course_km_start": 8.921,
+      "course_km_end": 8.935,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8935.0,
+      "course_m_end": 8942.0,
+      "course_km_start": 8.935,
+      "course_km_end": 8.942,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 8942.0,
+      "course_m_end": 8951.0,
+      "course_km_start": 8.942,
+      "course_km_end": 8.951,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8951.0,
+      "course_m_end": 8976.0,
+      "course_km_start": 8.951,
+      "course_km_end": 8.976,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8976.0,
+      "course_m_end": 8991.0,
+      "course_km_start": 8.976,
+      "course_km_end": 8.991,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 8991.0,
+      "course_m_end": 9037.0,
+      "course_km_start": 8.991,
+      "course_km_end": 9.037,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9037.0,
+      "course_m_end": 9070.0,
+      "course_km_start": 9.037,
+      "course_km_end": 9.07,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9070.0,
+      "course_m_end": 9087.0,
+      "course_km_start": 9.07,
+      "course_km_end": 9.087,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9087.0,
+      "course_m_end": 9095.0,
+      "course_km_start": 9.087,
+      "course_km_end": 9.095,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9095.0,
+      "course_m_end": 9101.0,
+      "course_km_start": 9.095,
+      "course_km_end": 9.101,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9101.0,
+      "course_m_end": 9139.0,
+      "course_km_start": 9.101,
+      "course_km_end": 9.139,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9139.0,
+      "course_m_end": 9145.0,
+      "course_km_start": 9.139,
+      "course_km_end": 9.145,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 9145.0,
+      "course_m_end": 9179.0,
+      "course_km_start": 9.145,
+      "course_km_end": 9.179,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9179.0,
+      "course_m_end": 9207.0,
+      "course_km_start": 9.179,
+      "course_km_end": 9.207,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9207.0,
+      "course_m_end": 9216.0,
+      "course_km_start": 9.207,
+      "course_km_end": 9.216,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9216.0,
+      "course_m_end": 9244.0,
+      "course_km_start": 9.216,
+      "course_km_end": 9.244,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9244.0,
+      "course_m_end": 9250.0,
+      "course_km_start": 9.244,
+      "course_km_end": 9.25,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9250.0,
+      "course_m_end": 9276.0,
+      "course_km_start": 9.25,
+      "course_km_end": 9.276,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9276.0,
+      "course_m_end": 9289.0,
+      "course_km_start": 9.276,
+      "course_km_end": 9.289,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 9289.0,
+      "course_m_end": 9333.0,
+      "course_km_start": 9.289,
+      "course_km_end": 9.333,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 9333.0,
+      "course_m_end": 9390.0,
+      "course_km_start": 9.333,
+      "course_km_end": 9.39,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9390.0,
+      "course_m_end": 9413.0,
+      "course_km_start": 9.39,
+      "course_km_end": 9.413,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9413.0,
+      "course_m_end": 9563.0,
+      "course_km_start": 9.413,
+      "course_km_end": 9.563,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9563.0,
+      "course_m_end": 9581.0,
+      "course_km_start": 9.563,
+      "course_km_end": 9.581,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 9581.0,
+      "course_m_end": 9616.0,
+      "course_km_start": 9.581,
+      "course_km_end": 9.616,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9616.0,
+      "course_m_end": 9683.0,
+      "course_km_start": 9.616,
+      "course_km_end": 9.683,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9683.0,
+      "course_m_end": 9743.0,
+      "course_km_start": 9.683,
+      "course_km_end": 9.743,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9743.0,
+      "course_m_end": 9776.0,
+      "course_km_start": 9.743,
+      "course_km_end": 9.776,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9776.0,
+      "course_m_end": 9801.0,
+      "course_km_start": 9.776,
+      "course_km_end": 9.801,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9801.0,
+      "course_m_end": 9811.0,
+      "course_km_start": 9.801,
+      "course_km_end": 9.811,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9811.0,
+      "course_m_end": 9824.0,
+      "course_km_start": 9.811,
+      "course_km_end": 9.824,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9824.0,
+      "course_m_end": 9866.0,
+      "course_km_start": 9.824,
+      "course_km_end": 9.866,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9866.0,
+      "course_m_end": 9999.0,
+      "course_km_start": 9.866,
+      "course_km_end": 9.999,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 9999.0,
+      "course_m_end": 10012.0,
+      "course_km_start": 9.999,
+      "course_km_end": 10.012,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 10012.0,
+      "course_m_end": 10150.0,
+      "course_km_start": 10.012,
+      "course_km_end": 10.15,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 10150.0,
+      "course_m_end": 10625.0,
+      "course_km_start": 10.15,
+      "course_km_end": 10.625,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 10625.0,
+      "course_m_end": 10937.0,
+      "course_km_start": 10.625,
+      "course_km_end": 10.937,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 10937.0,
+      "course_m_end": 11084.0,
+      "course_km_start": 10.937,
+      "course_km_end": 11.084,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11084.0,
+      "course_m_end": 11097.0,
+      "course_km_start": 11.084,
+      "course_km_end": 11.097,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 11097.0,
+      "course_m_end": 11108.0,
+      "course_km_start": 11.097,
+      "course_km_end": 11.108,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11108.0,
+      "course_m_end": 11122.0,
+      "course_km_start": 11.108,
+      "course_km_end": 11.122,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11122.0,
+      "course_m_end": 11150.0,
+      "course_km_start": 11.122,
+      "course_km_end": 11.15,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11150.0,
+      "course_m_end": 11168.0,
+      "course_km_start": 11.15,
+      "course_km_end": 11.168,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11168.0,
+      "course_m_end": 11181.0,
+      "course_km_start": 11.168,
+      "course_km_end": 11.181,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11181.0,
+      "course_m_end": 11295.0,
+      "course_km_start": 11.181,
+      "course_km_end": 11.295,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11295.0,
+      "course_m_end": 11351.0,
+      "course_km_start": 11.295,
+      "course_km_end": 11.351,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11351.0,
+      "course_m_end": 11366.0,
+      "course_km_start": 11.351,
+      "course_km_end": 11.366,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11366.0,
+      "course_m_end": 11377.0,
+      "course_km_start": 11.366,
+      "course_km_end": 11.377,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11377.0,
+      "course_m_end": 11394.0,
+      "course_km_start": 11.377,
+      "course_km_end": 11.394,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11394.0,
+      "course_m_end": 11413.0,
+      "course_km_start": 11.394,
+      "course_km_end": 11.413,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 11413.0,
+      "course_m_end": 11421.0,
+      "course_km_start": 11.413,
+      "course_km_end": 11.421,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11421.0,
+      "course_m_end": 11430.0,
+      "course_km_start": 11.421,
+      "course_km_end": 11.43,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11430.0,
+      "course_m_end": 11472.0,
+      "course_km_start": 11.43,
+      "course_km_end": 11.472,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11472.0,
+      "course_m_end": 11501.0,
+      "course_km_start": 11.472,
+      "course_km_end": 11.501,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11501.0,
+      "course_m_end": 11515.0,
+      "course_km_start": 11.501,
+      "course_km_end": 11.515,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11515.0,
+      "course_m_end": 11638.0,
+      "course_km_start": 11.515,
+      "course_km_end": 11.638,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11638.0,
+      "course_m_end": 11667.0,
+      "course_km_start": 11.638,
+      "course_km_end": 11.667,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11667.0,
+      "course_m_end": 11686.0,
+      "course_km_start": 11.667,
+      "course_km_end": 11.686,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11686.0,
+      "course_m_end": 11733.0,
+      "course_km_start": 11.686,
+      "course_km_end": 11.733,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11733.0,
+      "course_m_end": 11826.0,
+      "course_km_start": 11.733,
+      "course_km_end": 11.826,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11826.0,
+      "course_m_end": 11850.0,
+      "course_km_start": 11.826,
+      "course_km_end": 11.85,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11850.0,
+      "course_m_end": 11925.0,
+      "course_km_start": 11.85,
+      "course_km_end": 11.925,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11925.0,
+      "course_m_end": 11941.0,
+      "course_km_start": 11.925,
+      "course_km_end": 11.941,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11941.0,
+      "course_m_end": 11969.0,
+      "course_km_start": 11.941,
+      "course_km_end": 11.969,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 11969.0,
+      "course_m_end": 12019.0,
+      "course_km_start": 11.969,
+      "course_km_end": 12.019,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 12019.0,
+      "course_m_end": 12032.0,
+      "course_km_start": 12.019,
+      "course_km_end": 12.032,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 12032.0,
+      "course_m_end": 12073.0,
+      "course_km_start": 12.032,
+      "course_km_end": 12.073,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 12073.0,
+      "course_m_end": 14119.0,
+      "course_km_start": 12.073,
+      "course_km_end": 14.119,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 14119.0,
+      "course_m_end": 14167.0,
+      "course_km_start": 14.119,
+      "course_km_end": 14.167,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 14167.0,
+      "course_m_end": 14422.0,
+      "course_km_start": 14.167,
+      "course_km_end": 14.422,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 14422.0,
+      "course_m_end": 14441.0,
+      "course_km_start": 14.422,
+      "course_km_end": 14.441,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 14441.0,
+      "course_m_end": 14538.0,
+      "course_km_start": 14.441,
+      "course_km_end": 14.538,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 14538.0,
+      "course_m_end": 14610.0,
+      "course_km_start": 14.538,
+      "course_km_end": 14.61,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 14610.0,
+      "course_m_end": 14731.0,
+      "course_km_start": 14.61,
+      "course_km_end": 14.731,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 14731.0,
+      "course_m_end": 14874.0,
+      "course_km_start": 14.731,
+      "course_km_end": 14.874,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 14874.0,
+      "course_m_end": 14983.0,
+      "course_km_start": 14.874,
+      "course_km_end": 14.983,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 14983.0,
+      "course_m_end": 14994.0,
+      "course_km_start": 14.983,
+      "course_km_end": 14.994,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 14994.0,
+      "course_m_end": 15018.0,
+      "course_km_start": 14.994,
+      "course_km_end": 15.018,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 15018.0,
+      "course_m_end": 15027.0,
+      "course_km_start": 15.018,
+      "course_km_end": 15.027,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 15027.0,
+      "course_m_end": 15037.0,
+      "course_km_start": 15.027,
+      "course_km_end": 15.037,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 15037.0,
+      "course_m_end": 15313.0,
+      "course_km_start": 15.037,
+      "course_km_end": 15.313,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 15313.0,
+      "course_m_end": 15529.0,
+      "course_km_start": 15.313,
+      "course_km_end": 15.529,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 15529.0,
+      "course_m_end": 16118.0,
+      "course_km_start": 15.529,
+      "course_km_end": 16.118,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16118.0,
+      "course_m_end": 16193.0,
+      "course_km_start": 16.118,
+      "course_km_end": 16.193,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16193.0,
+      "course_m_end": 16245.0,
+      "course_km_start": 16.193,
+      "course_km_end": 16.245,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16245.0,
+      "course_m_end": 16289.0,
+      "course_km_start": 16.245,
+      "course_km_end": 16.289,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 16289.0,
+      "course_m_end": 16353.0,
+      "course_km_start": 16.289,
+      "course_km_end": 16.353,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16353.0,
+      "course_m_end": 16380.0,
+      "course_km_start": 16.353,
+      "course_km_end": 16.38,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16380.0,
+      "course_m_end": 16391.0,
+      "course_km_start": 16.38,
+      "course_km_end": 16.391,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16391.0,
+      "course_m_end": 16412.0,
+      "course_km_start": 16.391,
+      "course_km_end": 16.412,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16412.0,
+      "course_m_end": 16490.0,
+      "course_km_start": 16.412,
+      "course_km_end": 16.49,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16490.0,
+      "course_m_end": 16497.0,
+      "course_km_start": 16.49,
+      "course_km_end": 16.497,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 16497.0,
+      "course_m_end": 16567.0,
+      "course_km_start": 16.497,
+      "course_km_end": 16.567,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16567.0,
+      "course_m_end": 16620.0,
+      "course_km_start": 16.567,
+      "course_km_end": 16.62,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16620.0,
+      "course_m_end": 16712.0,
+      "course_km_start": 16.62,
+      "course_km_end": 16.712,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16712.0,
+      "course_m_end": 16909.0,
+      "course_km_start": 16.712,
+      "course_km_end": 16.909,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 16909.0,
+      "course_m_end": 17013.0,
+      "course_km_start": 16.909,
+      "course_km_end": 17.013,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17013.0,
+      "course_m_end": 17074.0,
+      "course_km_start": 17.013,
+      "course_km_end": 17.074,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17074.0,
+      "course_m_end": 17098.0,
+      "course_km_start": 17.074,
+      "course_km_end": 17.098,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 17098.0,
+      "course_m_end": 17119.0,
+      "course_km_start": 17.098,
+      "course_km_end": 17.119,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17119.0,
+      "course_m_end": 17199.0,
+      "course_km_start": 17.119,
+      "course_km_end": 17.199,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17199.0,
+      "course_m_end": 17218.0,
+      "course_km_start": 17.199,
+      "course_km_end": 17.218,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17218.0,
+      "course_m_end": 17237.0,
+      "course_km_start": 17.218,
+      "course_km_end": 17.237,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 17237.0,
+      "course_m_end": 17314.0,
+      "course_km_start": 17.237,
+      "course_km_end": 17.314,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17314.0,
+      "course_m_end": 17418.0,
+      "course_km_start": 17.314,
+      "course_km_end": 17.418,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17418.0,
+      "course_m_end": 17469.0,
+      "course_km_start": 17.418,
+      "course_km_end": 17.469,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17469.0,
+      "course_m_end": 17474.0,
+      "course_km_start": 17.469,
+      "course_km_end": 17.474,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 17474.0,
+      "course_m_end": 17519.0,
+      "course_km_start": 17.474,
+      "course_km_end": 17.519,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17519.0,
+      "course_m_end": 17839.0,
+      "course_km_start": 17.519,
+      "course_km_end": 17.839,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17839.0,
+      "course_m_end": 17895.0,
+      "course_km_start": 17.839,
+      "course_km_end": 17.895,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 17895.0,
+      "course_m_end": 17941.0,
+      "course_km_start": 17.895,
+      "course_km_end": 17.941,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 17941.0,
+      "course_m_end": 17962.0,
+      "course_km_start": 17.941,
+      "course_km_end": 17.962,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 17962.0,
+      "course_m_end": 17989.0,
+      "course_km_start": 17.962,
+      "course_km_end": 17.989,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 17989.0,
+      "course_m_end": 18098.0,
+      "course_km_start": 17.989,
+      "course_km_end": 18.098,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 18098.0,
+      "course_m_end": 18186.0,
+      "course_km_start": 18.098,
+      "course_km_end": 18.186,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18186.0,
+      "course_m_end": 18229.0,
+      "course_km_start": 18.186,
+      "course_km_end": 18.229,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18229.0,
+      "course_m_end": 18321.0,
+      "course_km_start": 18.229,
+      "course_km_end": 18.321,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18321.0,
+      "course_m_end": 18366.0,
+      "course_km_start": 18.321,
+      "course_km_end": 18.366,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18366.0,
+      "course_m_end": 18383.0,
+      "course_km_start": 18.366,
+      "course_km_end": 18.383,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 18383.0,
+      "course_m_end": 18414.0,
+      "course_km_start": 18.383,
+      "course_km_end": 18.414,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18414.0,
+      "course_m_end": 18458.0,
+      "course_km_start": 18.414,
+      "course_km_end": 18.458,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 18458.0,
+      "course_m_end": 18476.0,
+      "course_km_start": 18.458,
+      "course_km_end": 18.476,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18476.0,
+      "course_m_end": 18490.0,
+      "course_km_start": 18.476,
+      "course_km_end": 18.49,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 18490.0,
+      "course_m_end": 18499.0,
+      "course_km_start": 18.49,
+      "course_km_end": 18.499,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18499.0,
+      "course_m_end": 18518.0,
+      "course_km_start": 18.499,
+      "course_km_end": 18.518,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 18518.0,
+      "course_m_end": 18598.0,
+      "course_km_start": 18.518,
+      "course_km_end": 18.598,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18598.0,
+      "course_m_end": 18685.0,
+      "course_km_start": 18.598,
+      "course_km_end": 18.685,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18685.0,
+      "course_m_end": 18698.0,
+      "course_km_start": 18.685,
+      "course_km_end": 18.698,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 18698.0,
+      "course_m_end": 18772.0,
+      "course_km_start": 18.698,
+      "course_km_end": 18.772,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18772.0,
+      "course_m_end": 18871.0,
+      "course_km_start": 18.772,
+      "course_km_end": 18.871,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18871.0,
+      "course_m_end": 18897.0,
+      "course_km_start": 18.871,
+      "course_km_end": 18.897,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18897.0,
+      "course_m_end": 18907.0,
+      "course_km_start": 18.897,
+      "course_km_end": 18.907,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 18907.0,
+      "course_m_end": 18932.0,
+      "course_km_start": 18.907,
+      "course_km_end": 18.932,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 18932.0,
+      "course_m_end": 18977.0,
+      "course_km_start": 18.932,
+      "course_km_end": 18.977,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 18977.0,
+      "course_m_end": 19097.0,
+      "course_km_start": 18.977,
+      "course_km_end": 19.097,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19097.0,
+      "course_m_end": 19143.0,
+      "course_km_start": 19.097,
+      "course_km_end": 19.143,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 19143.0,
+      "course_m_end": 19290.0,
+      "course_km_start": 19.143,
+      "course_km_end": 19.29,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19290.0,
+      "course_m_end": 19394.0,
+      "course_km_start": 19.29,
+      "course_km_end": 19.394,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19394.0,
+      "course_m_end": 19478.0,
+      "course_km_start": 19.394,
+      "course_km_end": 19.478,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19478.0,
+      "course_m_end": 19542.0,
+      "course_km_start": 19.478,
+      "course_km_end": 19.542,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19542.0,
+      "course_m_end": 19673.0,
+      "course_km_start": 19.542,
+      "course_km_end": 19.673,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19673.0,
+      "course_m_end": 19694.0,
+      "course_km_start": 19.673,
+      "course_km_end": 19.694,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 19694.0,
+      "course_m_end": 19700.0,
+      "course_km_start": 19.694,
+      "course_km_end": 19.7,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 19700.0,
+      "course_m_end": 19712.0,
+      "course_km_start": 19.7,
+      "course_km_end": 19.712,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 19712.0,
+      "course_m_end": 19738.0,
+      "course_km_start": 19.712,
+      "course_km_end": 19.738,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19738.0,
+      "course_m_end": 19747.0,
+      "course_km_start": 19.738,
+      "course_km_end": 19.747,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 19747.0,
+      "course_m_end": 19756.0,
+      "course_km_start": 19.747,
+      "course_km_end": 19.756,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19756.0,
+      "course_m_end": 19763.0,
+      "course_km_start": 19.756,
+      "course_km_end": 19.763,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 19763.0,
+      "course_m_end": 19775.0,
+      "course_km_start": 19.763,
+      "course_km_end": 19.775,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 19775.0,
+      "course_m_end": 19782.0,
+      "course_km_start": 19.775,
+      "course_km_end": 19.782,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 19782.0,
+      "course_m_end": 19813.0,
+      "course_km_start": 19.782,
+      "course_km_end": 19.813,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19813.0,
+      "course_m_end": 19823.0,
+      "course_km_start": 19.813,
+      "course_km_end": 19.823,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 19823.0,
+      "course_m_end": 19836.0,
+      "course_km_start": 19.823,
+      "course_km_end": 19.836,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19836.0,
+      "course_m_end": 19844.0,
+      "course_km_start": 19.836,
+      "course_km_end": 19.844,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19844.0,
+      "course_m_end": 19862.0,
+      "course_km_start": 19.844,
+      "course_km_end": 19.862,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19862.0,
+      "course_m_end": 19878.0,
+      "course_km_start": 19.862,
+      "course_km_end": 19.878,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19878.0,
+      "course_m_end": 19893.0,
+      "course_km_start": 19.878,
+      "course_km_end": 19.893,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19893.0,
+      "course_m_end": 19901.0,
+      "course_km_start": 19.893,
+      "course_km_end": 19.901,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19901.0,
+      "course_m_end": 19934.0,
+      "course_km_start": 19.901,
+      "course_km_end": 19.934,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19934.0,
+      "course_m_end": 19975.0,
+      "course_km_start": 19.934,
+      "course_km_end": 19.975,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 19975.0,
+      "course_m_end": 20007.0,
+      "course_km_start": 19.975,
+      "course_km_end": 20.007,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20007.0,
+      "course_m_end": 20013.0,
+      "course_km_start": 20.007,
+      "course_km_end": 20.013,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20013.0,
+      "course_m_end": 20044.0,
+      "course_km_start": 20.013,
+      "course_km_end": 20.044,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 20044.0,
+      "course_m_end": 20054.0,
+      "course_km_start": 20.044,
+      "course_km_end": 20.054,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20054.0,
+      "course_m_end": 20086.0,
+      "course_km_start": 20.054,
+      "course_km_end": 20.086,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20086.0,
+      "course_m_end": 20149.0,
+      "course_km_start": 20.086,
+      "course_km_end": 20.149,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20149.0,
+      "course_m_end": 20188.0,
+      "course_km_start": 20.149,
+      "course_km_end": 20.188,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20188.0,
+      "course_m_end": 20331.0,
+      "course_km_start": 20.188,
+      "course_km_end": 20.331,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20331.0,
+      "course_m_end": 20478.0,
+      "course_km_start": 20.331,
+      "course_km_end": 20.478,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20478.0,
+      "course_m_end": 20966.0,
+      "course_km_start": 20.478,
+      "course_km_end": 20.966,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20966.0,
+      "course_m_end": 20974.0,
+      "course_km_start": 20.966,
+      "course_km_end": 20.974,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 20974.0,
+      "course_m_end": 21016.0,
+      "course_km_start": 20.974,
+      "course_km_end": 21.016,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21016.0,
+      "course_m_end": 21037.0,
+      "course_km_start": 21.016,
+      "course_km_end": 21.037,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21037.0,
+      "course_m_end": 21071.0,
+      "course_km_start": 21.037,
+      "course_km_end": 21.071,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21071.0,
+      "course_m_end": 21162.0,
+      "course_km_start": 21.071,
+      "course_km_end": 21.162,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21162.0,
+      "course_m_end": 21177.0,
+      "course_km_start": 21.162,
+      "course_km_end": 21.177,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21177.0,
+      "course_m_end": 21237.0,
+      "course_km_start": 21.177,
+      "course_km_end": 21.237,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21237.0,
+      "course_m_end": 21279.0,
+      "course_km_start": 21.237,
+      "course_km_end": 21.279,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21279.0,
+      "course_m_end": 21294.0,
+      "course_km_start": 21.279,
+      "course_km_end": 21.294,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21294.0,
+      "course_m_end": 21316.0,
+      "course_km_start": 21.294,
+      "course_km_end": 21.316,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21316.0,
+      "course_m_end": 21350.0,
+      "course_km_start": 21.316,
+      "course_km_end": 21.35,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21350.0,
+      "course_m_end": 21378.0,
+      "course_km_start": 21.35,
+      "course_km_end": 21.378,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21378.0,
+      "course_m_end": 21439.0,
+      "course_km_start": 21.378,
+      "course_km_end": 21.439,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21439.0,
+      "course_m_end": 21450.0,
+      "course_km_start": 21.439,
+      "course_km_end": 21.45,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 21450.0,
+      "course_m_end": 21556.0,
+      "course_km_start": 21.45,
+      "course_km_end": 21.556,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21556.0,
+      "course_m_end": 21574.0,
+      "course_km_start": 21.556,
+      "course_km_end": 21.574,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 21574.0,
+      "course_m_end": 21592.0,
+      "course_km_start": 21.574,
+      "course_km_end": 21.592,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 21592.0,
+      "course_m_end": 21597.0,
+      "course_km_start": 21.592,
+      "course_km_end": 21.597,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 21597.0,
+      "course_m_end": 21623.0,
+      "course_km_start": 21.597,
+      "course_km_end": 21.623,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21623.0,
+      "course_m_end": 21911.0,
+      "course_km_start": 21.623,
+      "course_km_end": 21.911,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21911.0,
+      "course_m_end": 21985.0,
+      "course_km_start": 21.911,
+      "course_km_end": 21.985,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 21985.0,
+      "course_m_end": 22000.0,
+      "course_km_start": 21.985,
+      "course_km_end": 22.0,
+      "surface_class": "S1",
+      "source": "ti_band"
+    }
+  ]
+}

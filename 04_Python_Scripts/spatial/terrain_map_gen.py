@@ -44,6 +44,8 @@ from spatial.surface_ontology import (
     map_cluster_to_surface_class,
 )
 
+DEFAULT_MIN_RUN_M = 5
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DEFAULT_TERRAIN_MAP_PATH = BASE_DIR / "config" / "spatial_terrain_map.json"
 DEFAULT_N_CLUSTERS = 6
@@ -248,6 +250,7 @@ def build_terrain_map(
     reference_donor: str | None = "Reference_Elite_D",
     n_clusters: int = DEFAULT_N_CLUSTERS,
     method: ClusterMethod = "gmm",
+    min_run_m: int = DEFAULT_MIN_RUN_M,
 ) -> dict[str, Any]:
     """Produce spatial_terrain_map.json payload from aligned panel (race sessions)."""
     race_panel = _race_panel(panel)
@@ -265,44 +268,18 @@ def build_terrain_map(
     if len(centroids):
         cluster_to_class = map_cluster_to_surface_class(centroids, ordered=True)
 
-    segments: list[dict[str, Any]] = []
     agg = agg.copy()
     agg["cluster_id"] = labels
     agg["surface_class"] = agg["cluster_id"].map(lambda c: cluster_to_class.get(int(c), "S2"))
+    agg.loc[agg["cluster_id"] < 0, "surface_class"] = "S2"
 
-    # Run-length encode surface_class along course_m for compact JSON.
+    # Run-length encode surface_class; absorb sub-min_run_m GMM flicker on noisy panels.
+    from spatial.ti_draft_layer import run_length_encode_classes
+
     agg = agg.sort_values("course_m")
-    current_class = None
-    seg_start: float | None = None
-    for row in agg.itertuples(index=False):
-        cls = row.surface_class if row.cluster_id >= 0 else "S2"
-        cm = float(row.course_m)
-        if cls != current_class:
-            if current_class is not None and seg_start is not None:
-                segments.append(
-                    {
-                        "course_m_start": seg_start,
-                        "course_m_end": cm,
-                        "course_km_start": seg_start / 1000.0,
-                        "course_km_end": cm / 1000.0,
-                        "surface_class": current_class,
-                        "source": "cluster",
-                    }
-                )
-            current_class = cls
-            seg_start = cm
-    if current_class is not None and seg_start is not None:
-        last_m = float(agg["course_m"].iloc[-1])
-        segments.append(
-            {
-                "course_m_start": seg_start,
-                "course_m_end": last_m + 1.0,
-                "course_km_start": seg_start / 1000.0,
-                "course_km_end": (last_m + 1.0) / 1000.0,
-                "surface_class": current_class,
-                "source": "cluster",
-            }
-        )
+    segments = run_length_encode_classes(agg, class_col="surface_class", min_run_m=min_run_m)
+    for seg in segments:
+        seg["source"] = "cluster"
 
     kappa = race_panel.groupby("course_m", as_index=False)["mechanical_kappa"].median()
     fatigue = compute_fatigue_delta_ti(race_panel, reference_donor=reference_donor)
