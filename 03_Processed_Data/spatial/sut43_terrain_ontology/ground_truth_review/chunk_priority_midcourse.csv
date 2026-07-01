@@ -1,15 +1,15 @@
 chunk_id,km_start,km_end,total_m,operator_gold_m,agreement_gold_m,draft_preservation_m,unset_m,gt_coverage_pct,current_tier_gold_m,abstain_m,review_m,notes
-chunk_m00,8,9,1000,0,0,0,1000,0.0,0,0,0,pending panel ingest — Noredalen valley floor roll (seed S3/F2)
-chunk_m01,9,10,1000,0,0,0,1000,0.0,0,0,0,pending — Dale timing index organiser anchor @ km 8.1 (not geographic Dale)
-chunk_m02,10,11,1000,0,0,0,1000,0.0,0,0,0,pending — Dalsnuten timing index @ km 10.37
-chunk_m03,11,12,1000,0,0,0,1000,0.0,0,0,0,pending — upland trail approach
-chunk_m04,12,13,1000,0,0,0,1000,0.0,0,0,0,pending — pre-Dalevatn climb band
-chunk_m05,13,14,1000,0,0,0,1000,0.0,0,0,0,pending — Bjørndalsfjellet approach
-chunk_m06,14,15,1000,0,0,0,1000,0.0,0,0,0,pending — Dalevatn descent onset (Case Study #002)
-chunk_m07,15,16,1000,0,0,0,1000,0.0,0,0,0,pending — Mattirudla timing index @ km 15.67
-chunk_m08,16,17,1000,0,0,0,1000,0.0,0,0,0,pending — Dalevatn descent core (Eccentric Downfall band)
-chunk_m09,17,18,1000,0,0,0,1000,0.0,0,0,0,pending — Lifjell summit geographic approach @ km 18
-chunk_m10,18,19,1000,0,0,0,1000,0.0,0,0,0,pending — Lifjell summit geographic marker 18
-chunk_m11,19,20,1000,0,0,0,1000,0.0,0,0,0,pending — mid_race_descent steep band
-chunk_m12,20,21,1000,0,0,0,1000,0.0,0,0,0,pending — coast approach tread
-chunk_m13,21,22,1000,0,0,0,1000,0.0,0,0,0,pending — seam @ km 22.0 into dale_paradisskaret_upstream chunk_u00
+chunk_m00,8,9,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.2563 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — Noredalen valley floor roll (seed S3/F2)
+chunk_m01,9,10,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.2352 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — Dale timing index organiser anchor @ km 8.1 (not geographic Dale)
+chunk_m02,10,11,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.3084 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — Dalsnuten timing index @ km 10.37
+chunk_m03,11,12,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.1953 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — upland trail approach
+chunk_m04,12,13,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.2457 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — pre-Dalevatn climb band
+chunk_m05,13,14,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.2651 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — Bjørndalsfjellet approach
+chunk_m06,14,15,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.2047 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — Dalevatn descent onset (Case Study #002)
+chunk_m07,15,16,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.1810 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — Mattirudla timing index @ km 15.67
+chunk_m08,16,17,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.2507 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — Dalevatn descent core (Eccentric Downfall band)
+chunk_m09,17,18,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.3232 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — Lifjell summit geographic approach @ km 18
+chunk_m10,18,19,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.3632 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — Lifjell summit geographic marker 18
+chunk_m11,19,20,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.3297 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — mid_race_descent steep band
+chunk_m12,20,21,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.3005 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — coast approach tread
+chunk_m13,21,22,1000,0,0,0,1000,0.0,0,0,1000,scaffold ready 2026-07-01 — triage RED RPS=1.3760 (HMM A stub km 22+ only); panel_midcourse_1m_spine; Subject_A km 8-22 interpolated; operator gold not started — seam @ km 22.0 into dale_paradisskaret_upstream chunk_u00

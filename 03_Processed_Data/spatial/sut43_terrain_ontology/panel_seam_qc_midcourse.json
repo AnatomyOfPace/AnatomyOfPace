@@ -1,0 +1,388 @@
+{
+  "corridor_id": "sut43_terrain_ontology",
+  "seams": [
+    {
+      "seam_id": "phase_e_to_midcourse_stream",
+      "boundary_km": 8.0,
+      "donors": {
+        "Subject_A": {
+          "upstream": "start",
+          "downstream": "midcourse_stream",
+          "status": "seam_nan",
+          "upstream_km": 8.0,
+          "downstream_km": 8.0,
+          "fields": {
+            "altitude_m": {
+              "upstream": null,
+              "downstream": null,
+              "delta": null,
+              "status": "both_nan"
+            },
+            "speed_mps": {
+              "upstream": null,
+              "downstream": null,
+              "delta": null,
+              "status": "both_nan"
+            },
+            "latitude": {
+              "upstream": null,
+              "downstream": null,
+              "delta": null,
+              "status": "both_nan"
+            },
+            "longitude": {
+              "upstream": null,
+              "downstream": null,
+              "delta": null,
+              "status": "both_nan"
+            },
+            "heart_rate": {
+              "upstream": null,
+              "downstream": null,
+              "delta": null,
+              "status": "both_nan"
+            },
+            "ti": {
+              "upstream": null,
+              "downstream": null,
+              "delta": null,
+              "status": "both_nan"
+            }
+          },
+          "flags": [
+            "altitude_m_both_nan",
+            "speed_mps_both_nan",
+            "latitude_both_nan",
+            "longitude_both_nan",
+            "heart_rate_both_nan",
+            "ti_both_nan"
+          ]
+        },
+        "Subject_B": {
+          "upstream": "start",
+          "downstream": "midcourse_stream",
+          "status": "seam_nan",
+          "upstream_km": 8.0,
+          "downstream_km": 8.0,
+          "fields": {
+            "altitude_m": {
+              "upstream": null,
+              "downstream": 296.6126,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "speed_mps": {
+              "upstream": null,
+              "downstream": 1.4298,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "latitude": {
+              "upstream": null,
+              "downstream": 58.8877,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "longitude": {
+              "upstream": null,
+              "downstream": 5.8738,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "heart_rate": {
+              "upstream": null,
+              "downstream": 149.0,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "ti": {
+              "upstream": null,
+              "downstream": 3.3298,
+              "delta": null,
+              "status": "one_nan"
+            }
+          },
+          "flags": [
+            "altitude_m_seam_nan",
+            "speed_mps_seam_nan",
+            "latitude_seam_nan",
+            "longitude_seam_nan",
+            "heart_rate_seam_nan",
+            "ti_seam_nan"
+          ]
+        }
+      },
+      "status": "seam_nan"
+    },
+    {
+      "seam_id": "midcourse_to_upstream_stream",
+      "boundary_km": 22.0,
+      "donors": {
+        "Subject_A": {
+          "upstream": "midcourse_stream",
+          "downstream": "upstream",
+          "status": "seam_nan",
+          "upstream_km": 21.999,
+          "downstream_km": 22.0,
+          "fields": {
+            "altitude_m": {
+              "upstream": 42.2766,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "speed_mps": {
+              "upstream": 1.1101,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "latitude": {
+              "upstream": 58.9161,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "longitude": {
+              "upstream": 5.778,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "heart_rate": {
+              "upstream": 133.2104,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "ti": {
+              "upstream": 3.3333,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            }
+          },
+          "flags": [
+            "altitude_m_seam_nan",
+            "speed_mps_seam_nan",
+            "latitude_seam_nan",
+            "longitude_seam_nan",
+            "heart_rate_seam_nan",
+            "ti_seam_nan"
+          ]
+        },
+        "Subject_B": {
+          "upstream": "midcourse_stream",
+          "downstream": "upstream",
+          "status": "seam_nan",
+          "upstream_km": 21.999,
+          "downstream_km": 22.0,
+          "fields": {
+            "altitude_m": {
+              "upstream": 15.0,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "speed_mps": {
+              "upstream": 1.248,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "latitude": {
+              "upstream": 58.9175,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "longitude": {
+              "upstream": 5.7776,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "heart_rate": {
+              "upstream": 149.0,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "ti": {
+              "upstream": 3.0751,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            }
+          },
+          "flags": [
+            "altitude_m_seam_nan",
+            "speed_mps_seam_nan",
+            "latitude_seam_nan",
+            "longitude_seam_nan",
+            "heart_rate_seam_nan",
+            "ti_seam_nan"
+          ]
+        }
+      },
+      "status": "seam_nan"
+    },
+    {
+      "seam_id": "midcourse_to_upstream_spine",
+      "boundary_km": 22.0,
+      "donors": {
+        "Subject_A": {
+          "upstream": "midcourse_spine",
+          "downstream": "upstream_spine",
+          "status": "seam_nan",
+          "upstream_km": 21.999,
+          "downstream_km": 22.0,
+          "fields": {
+            "altitude_m": {
+              "upstream": 42.2766,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "speed_mps": {
+              "upstream": 1.1101,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "latitude": {
+              "upstream": 58.9161,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "longitude": {
+              "upstream": 5.778,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "heart_rate": {
+              "upstream": 133.2104,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            },
+            "ti": {
+              "upstream": 3.3333,
+              "downstream": null,
+              "delta": null,
+              "status": "one_nan"
+            }
+          },
+          "flags": [
+            "altitude_m_seam_nan",
+            "speed_mps_seam_nan",
+            "latitude_seam_nan",
+            "longitude_seam_nan",
+            "heart_rate_seam_nan",
+            "ti_seam_nan"
+          ]
+        },
+        "Subject_B": {
+          "upstream": "midcourse_spine",
+          "downstream": "upstream_spine",
+          "status": "warn",
+          "upstream_km": 21.998,
+          "downstream_km": 22.0,
+          "fields": {
+            "altitude_m": {
+              "upstream": 94.7348,
+              "downstream": 15.0,
+              "delta": -79.7348,
+              "tolerance": 5.0,
+              "status": "warn"
+            },
+            "speed_mps": {
+              "upstream": 0.0,
+              "downstream": 1.232,
+              "delta": 1.232,
+              "tolerance": 0.5,
+              "status": "warn"
+            },
+            "latitude": {
+              "upstream": 58.9284,
+              "downstream": 58.9175,
+              "delta": -0.0109,
+              "tolerance": 0.0001,
+              "status": "warn"
+            },
+            "longitude": {
+              "upstream": 5.7917,
+              "downstream": 5.7776,
+              "delta": -0.0141,
+              "tolerance": 0.0001,
+              "status": "warn"
+            },
+            "heart_rate": {
+              "upstream": 111.326,
+              "downstream": 148.7667,
+              "delta": 37.4407,
+              "tolerance": 10.0,
+              "status": "warn"
+            },
+            "ti": {
+              "upstream": 3.0946,
+              "downstream": 3.0441,
+              "delta": -0.0505,
+              "tolerance": 0.3,
+              "status": "ok"
+            }
+          },
+          "flags": [
+            "altitude_m_delta",
+            "speed_mps_delta",
+            "latitude_delta",
+            "longitude_delta",
+            "heart_rate_delta"
+          ]
+        }
+      },
+      "status": "warn"
+    }
+  ],
+  "panels": {
+    "start": {
+      "path": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_start_race_1m.parquet",
+      "rows": 15002,
+      "km_min": 0.5,
+      "km_max": 8.0
+    },
+    "midcourse_stream": {
+      "path": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_midcourse_race_1m.parquet",
+      "rows": 28000,
+      "km_min": 8.0,
+      "km_max": 21.999
+    },
+    "midcourse_spine": {
+      "path": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_midcourse_1m_spine.parquet",
+      "rows": 33379,
+      "km_min": 8.0,
+      "km_max": 21.999
+    },
+    "upstream": {
+      "path": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m.parquet",
+      "rows": 38002,
+      "km_min": 22.0,
+      "km_max": 41.0
+    },
+    "upstream_spine": {
+      "path": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet",
+      "rows": 81002,
+      "km_min": 0.5,
+      "km_max": 41.0
+    }
+  },
+  "summary": {
+    "n_seams": 3,
+    "ok": 0,
+    "seam_nan": 2,
+    "warn": 1,
+    "skipped": 0
+  }
+}

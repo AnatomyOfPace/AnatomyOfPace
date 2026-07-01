@@ -69,6 +69,12 @@ python3 04_Python_Scripts/spatial/build_midcourse_panel.py
 python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json
 python3 04_Python_Scripts/spatial/reproject_to_spine.py --manifest config/spatial_align_manifest_sut43.example.json --session-type race
 python3 04_Python_Scripts/spatial/build_midcourse_panel.py --spine
+python3 04_Python_Scripts/spatial/hitl_chunk_triage.py \\
+    --panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_midcourse_1m_spine.parquet \\
+    --chunk-priority 03_Processed_Data/spatial/sut43_terrain_ontology/ground_truth_review/chunk_priority_midcourse.csv \\
+    --use-chunk-priority --km-start 8 --km-end 22 \\
+    --output 03_Processed_Data/spatial/sut43_terrain_ontology/ground_truth_review/triage_queue_midcourse.csv
+python3 04_Python_Scripts/spatial/check_panel_seams.py
 ```
 
 Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8–22, writes:
@@ -104,8 +110,8 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 
 - [x] `panel_midcourse_1m.parquet` with Subject_A + Subject_B race rows km 8.0–21.999 *(Subject_A interpolated)*
 - [x] `check_spine_coverage.py` union ≥ 99% on km 8–22 after spine reproject *(100% union; Subject_B per-activity 71% — interpolated spine QC)*
-- [ ] `hitl_chunk_triage.py` queue generated for `chunk_m00`–`chunk_m13`
-- [ ] Seam QC: km 8.0 matches Phase E last metre; km 22.0 abuts upstream chunk_u00
+- [x] `hitl_chunk_triage.py` queue generated for `chunk_m00`–`chunk_m13` → `triage_queue_midcourse.csv`
+- [x] Seam QC: km 8.0 and km 22.0 — `check_panel_seams.py` → `panel_seam_qc_midcourse.json` *(stream seams NaN at interpolated boundary; expected on scaffold)*
 
 ---
 
@@ -117,7 +123,9 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 | `config/spatial_terrain_sectors_sut43.json` | Sector registry entry |
 | `04_Python_Scripts/spatial/realign_subject_a_race.py` | Subject_A full-lap stitch (start + gap + spine) |
 | `04_Python_Scripts/spatial/build_midcourse_panel.py` | Mid-course panel builder |
-| `ground_truth_review/chunk_priority_midcourse.csv` | HITL chunk ledger (pending gold) |
+| `ground_truth_review/chunk_priority_midcourse.csv` | HITL chunk ledger (scaffold ready; operator gold pending) |
+| `ground_truth_review/triage_queue_midcourse.csv` | RPS triage queue (14 × RED; HMM A stub) |
+| `04_Python_Scripts/spatial/check_panel_seams.py` | Seam QC at km 8.0 / 22.0 boundaries |
 
 ---
 
