@@ -6,6 +6,8 @@ Trains on operator-gold spans (km 22–34: upstream + gramstad_band), applies
 Viterbi smoothing with spatial transition penalties, and emits **draft** class
 predictions for management-by-exception triage. Does **not** replace operator gold.
 
+Extended predict window km 8–41 when midcourse feature parquet is present.
+
 Usage (from repo root):
     python3 07_ML_Models/train_terrain_hmm.py --dry-run
 
@@ -34,6 +36,7 @@ if str(_REPO_ROOT / "04_Python_Scripts") not in sys.path:
 
 from spatial.corridor_scope import (
     SUT43_FULL_KM_END,
+    SUT43_MIDCOURSE_KM_START,
     SUT43_PRIMARY_KM_END,
     SUT43_PRIMARY_KM_START,
     SUT43_UPSTREAM_KM_END,
@@ -53,6 +56,14 @@ DEFAULT_UPSTREAM_FEATURES = (
     / "spatial"
     / "sut43_terrain_ontology"
     / "upstream_draft"
+    / "ml_features_1m.parquet"
+)
+DEFAULT_MIDCOURSE_FEATURES = (
+    _REPO_ROOT
+    / "03_Processed_Data"
+    / "spatial"
+    / "sut43_terrain_ontology"
+    / "midcourse_draft"
     / "ml_features_1m.parquet"
 )
 DEFAULT_OUTPUT = _REPO_ROOT / "07_ML_Models" / "terrain_hmm_sut43_draft_predictions.parquet"
@@ -84,12 +95,16 @@ def merged_operator_gold_spans(
 def load_merged_features(
     upstream_features_path: Path,
     gramstad_features_path: Path,
+    *,
+    midcourse_features_path: Path | None = None,
 ) -> pd.DataFrame:
     frames: list[pd.DataFrame] = []
-    for path in (upstream_features_path, gramstad_features_path):
-        if not path.exists():
-            raise FileNotFoundError(f"Feature parquet missing: {path}")
+    for path in (midcourse_features_path, upstream_features_path, gramstad_features_path):
+        if path is None or not path.exists():
+            continue
         frames.append(pd.read_parquet(path))
+    if not frames:
+        raise FileNotFoundError("No feature parquets found for HMM ingest")
     merged = pd.concat(frames, ignore_index=True)
     merged = merged.sort_values("course_m").drop_duplicates("course_m", keep="last")
     return merged.reset_index(drop=True)
@@ -347,9 +362,10 @@ def main() -> None:
     parser.add_argument("--gramstad-map", type=Path, default=DEFAULT_GRAMSTAD_MAP)
     parser.add_argument("--upstream-features", type=Path, default=DEFAULT_UPSTREAM_FEATURES)
     parser.add_argument("--gramstad-features", type=Path, default=DEFAULT_GRAMSTAD_FEATURES)
+    parser.add_argument("--midcourse-features", type=Path, default=DEFAULT_MIDCOURSE_FEATURES)
     parser.add_argument("--train-km-start", type=float, default=SUT43_UPSTREAM_KM_START)
     parser.add_argument("--train-km-end", type=float, default=34.0)
-    parser.add_argument("--predict-km-start", type=float, default=SUT43_UPSTREAM_KM_START)
+    parser.add_argument("--predict-km-start", type=float, default=SUT43_MIDCOURSE_KM_START)
     parser.add_argument("--predict-km-end", type=float, default=SUT43_FULL_KM_END)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--diagnostics", type=Path, default=DEFAULT_DIAGNOSTICS)
@@ -361,7 +377,11 @@ def main() -> None:
     spans = merged_operator_gold_spans(upstream_map, gramstad_map)
     print(f"Operator gold spans: {len(spans)} (upstream + gramstad maps)")
 
-    features = load_merged_features(args.upstream_features, args.gramstad_features)
+    features = load_merged_features(
+        args.upstream_features,
+        args.gramstad_features,
+        midcourse_features_path=args.midcourse_features,
+    )
     labels = gold_labels_from_spans(features, spans)
     n_gold = int(
         labels[

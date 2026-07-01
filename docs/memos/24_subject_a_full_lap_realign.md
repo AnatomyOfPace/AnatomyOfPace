@@ -95,4 +95,27 @@ Race activities reprojected onto extended `reference_spine_1m` (km 8–41):
 
 ---
 
+## HMM draft extension (2026-07-01)
+
+Extended `terrain_hmm_sut43_draft_predictions.parquet` to km **8.0–41.0** (33,186 rows):
+
+| Window | Rows | Mean `hmm_confidence` | Low-conf (A) share |
+|--------|------|----------------------|-------------------|
+| km 8–22 | 14,186 | 0.732 | 43.6% |
+| km 22–41 | 19,000 | 0.783 | — |
+
+Mid-course triage after HMM extension: **5 RED / 5 YELLOW / 4 GREEN** (was 14 RED with A stub).
+
+Top RED: `chunk_m11` km 19–20 (RPS 1.110), `chunk_m12` km 20–21 (RPS 1.097).
+
+```bash
+PYTHONPATH=04_Python_Scripts python3 04_Python_Scripts/spatial/terrain_ml_features.py \\
+    --panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_midcourse_1m_spine.parquet \\
+    --km-start 8 --km-end 22 \\
+    --output 03_Processed_Data/spatial/sut43_terrain_ontology/midcourse_draft/ml_features_1m.parquet
+python3 07_ML_Models/train_terrain_hmm.py --predict-km-start 8 --predict-km-end 41
+```
+
+---
+
 *Internal memo — not public Anatomy of Pace copy.*

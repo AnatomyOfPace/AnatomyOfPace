@@ -69,6 +69,7 @@ python3 04_Python_Scripts/spatial/build_midcourse_panel.py
 python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json
 python3 04_Python_Scripts/spatial/reproject_to_spine.py --manifest config/spatial_align_manifest_sut43.example.json --session-type race
 python3 04_Python_Scripts/spatial/build_midcourse_panel.py --spine
+python3 07_ML_Models/train_terrain_hmm.py --predict-km-start 8 --predict-km-end 41
 python3 04_Python_Scripts/spatial/hitl_chunk_triage.py \\
     --panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_midcourse_1m_spine.parquet \\
     --chunk-priority 03_Processed_Data/spatial/sut43_terrain_ontology/ground_truth_review/chunk_priority_midcourse.csv \\
@@ -124,7 +125,7 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 | `04_Python_Scripts/spatial/realign_subject_a_race.py` | Subject_A full-lap stitch (start + gap + spine) |
 | `04_Python_Scripts/spatial/build_midcourse_panel.py` | Mid-course panel builder |
 | `ground_truth_review/chunk_priority_midcourse.csv` | HITL chunk ledger (scaffold ready; operator gold pending) |
-| `ground_truth_review/triage_queue_midcourse.csv` | RPS triage queue (14 × RED; HMM A stub) |
+| `ground_truth_review/triage_queue_midcourse.csv` | RPS triage queue (5 RED / 5 YELLOW / 4 GREEN; HMM km 8–41) |
 | `04_Python_Scripts/spatial/check_panel_seams.py` | Seam QC at km 8.0 / 22.0 boundaries |
 
 ---

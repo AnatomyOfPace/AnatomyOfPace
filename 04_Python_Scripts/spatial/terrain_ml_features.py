@@ -45,6 +45,16 @@ PACE_IRREGULARITY_WINDOWS_M = (25, 100, 250)
 WALK_SPEED_THRESHOLD_MPS = 0.5
 
 
+def _resolve_panel_km(panel: pd.DataFrame) -> pd.Series:
+    if "course_km" in panel.columns and panel["course_km"].notna().any():
+        return pd.to_numeric(panel["course_km"], errors="coerce")
+    if "ref_chainage_m" in panel.columns:
+        return pd.to_numeric(panel["ref_chainage_m"], errors="coerce") / 1000.0
+    if "activity_course_km" in panel.columns:
+        return pd.to_numeric(panel["activity_course_km"], errors="coerce")
+    raise ValueError("Panel lacks course_km / ref_chainage_m / activity_course_km")
+
+
 def _filter_panel(
     panel: pd.DataFrame,
     *,
@@ -55,6 +65,15 @@ def _filter_panel(
     work = panel.copy()
     if session_type and "session_type" in work.columns:
         work = work[work["session_type"] == session_type]
+    km = _resolve_panel_km(work)
+    work = work.assign(course_km=km)
+    if "course_m" not in work.columns:
+        work = work.assign(course_m=np.round(work["course_km"] * 1000.0))
+    else:
+        work["course_m"] = pd.to_numeric(work["course_m"], errors="coerce")
+        missing = work["course_m"].isna()
+        if missing.any():
+            work.loc[missing, "course_m"] = np.round(work.loc[missing, "course_km"] * 1000.0)
     return work[(work["course_km"] >= km_lo) & (work["course_km"] < km_hi)].copy()
 
 

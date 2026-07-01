@@ -391,6 +391,8 @@
       "Extend reference_spine.km_window to [8.0, 41.0] via build_reference_spine.py",
       "Run reproject_to_spine.py --session-type race for cross-athlete ref_chainage alignment",
       "Run build_midcourse_panel.py --spine for panel_midcourse_1m_spine.parquet",
+      "Build midcourse_draft/ml_features_1m.parquet via terrain_ml_features.py on spine panel",
+      "Run train_terrain_hmm.py --predict-km-start 8 --predict-km-end 41",
       "Run hitl_chunk_triage.py on chunk_priority_midcourse.csv → triage_queue_midcourse.csv",
       "Run check_panel_seams.py for km 8.0 / 22.0 seam QC",
       "Merge panel_start + panel_midcourse + panel_race into unified panel_1m.parquet (km 0.5–41)",

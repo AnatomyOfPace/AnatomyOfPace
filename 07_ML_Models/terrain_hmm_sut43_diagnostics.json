@@ -1,16 +1,16 @@
 {
   "schema_version": "terrain_hmm_draft_v0",
-  "generated_at": "2026-06-29T18:56:23.104130+00:00",
+  "generated_at": "2026-07-01T18:18:27.438906+00:00",
   "train_km": [
     22.0,
     34.0
   ],
   "predict_km": [
-    22.0,
+    8.0,
     41.0
   ],
   "n_train_rows": 12000,
-  "n_predict_rows": 19000,
+  "n_predict_rows": 33186,
   "feature_columns": [
     "speed_median",
     "grade_pct_median",
@@ -25,13 +25,14 @@
     "S5": 90
   },
   "class_distribution_draft": {
-    "S4": 7903,
-    "S3": 5902,
-    "S2": 4233,
-    "S1": 869,
-    "S5": 93
+    "S3": 18914,
+    "S4": 9672,
+    "S2": 3334,
+    "S1": 1139,
+    "S5": 120,
+    "S6": 7
   },
-  "mean_hmm_confidence": 0.8313922575419727,
+  "mean_hmm_confidence": 0.7614226919604761,
   "transition_stay_log_prob": -0.05,
   "transition_switch_log_prob": -2.5,
   "oversmoothing_gates": {
@@ -47,8 +48,8 @@
           29.0,
           34.0
         ],
-        "switches": 42,
-        "switches_per_km": 8.4,
+        "switches": 75,
+        "switches_per_km": 15.0,
         "pass": false
       },
       {
@@ -56,8 +57,8 @@
           36.5,
           38.5
         ],
-        "switches": 33,
-        "switches_per_km": 16.5,
+        "switches": 18,
+        "switches_per_km": 9.0,
         "pass": false
       }
     ],
