@@ -150,6 +150,26 @@
         "mode": "operator_gold",
         "locked_at": "2026-07-01",
         "reason": "operator gold: Fr\u00f8ylandsvatnet lakeshore gravel road (km 0.66\u20132.0). S2/F1 per operator topo review: compacted gravel along Fr\u00f8ylandsvatnet from Hogstad timing index through lakeshore departure near km 2.0; supersedes prior S3/F2 grass/hard-dirt lock. Race TI median 1.23 (consensus NTI 0.85) aligns with Sunderunde S2/F1 calibration ~1.33; flat grade med 0.4%; F1 low-friction band per friction_index_spec."
+      },
+      {
+        "course_km_start": 3.0,
+        "course_km_end": 3.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: start-hills technical traverse toward Eilevfjellet (km 3.0\u20133.5). S4/F3 per friction_index_spec and seed start-hills traverse; operator topo: rocky/technical tread after post-lake trail departure @ km 3.0 \u2014 F3 bedrock/rock tread (not F2 trail). Seam @ km 3.0: S3/F2 trail \u2192 S4/F3 technical (F2\u2192F3 tread step). Race TI median ~1.55 (F2\u2013F3 band); hommersak training overlap TI med ~1.80 (81% F3+F4) corroborates technical character. Supersedes prior S3/F2 continuation lock km 3.0\u20134.0."
+      },
+      {
+        "course_km_start": 3.5,
+        "course_km_end": 4.5,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: ascending trail continuation toward Eilevfjellet (km 3.5\u20134.5). S3/F2 per established operator pattern: runnable dirt trail after technical traverse; seamless seam @ km 3.5 from locked S4/F3 (F3\u2192F2 tread step). Race TI median ~1.38 (F2 moderate band); altitude climb 287\u2192~350 m confirms trail tread not bedrock. ML S3/F2 gap fills corroborate; Tier 3 micro-pockets absorbed under parent. S4/F3 technical rock deferred to km 4.5+ HITL."
       }
     ],
     "trf_exclusions": [],
