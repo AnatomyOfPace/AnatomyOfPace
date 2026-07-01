@@ -200,6 +200,46 @@
         "mode": "operator_gold",
         "locked_at": "2026-07-01",
         "reason": "operator gold: Skrussfjell climb / rim approach (km 5.45\u20136.0). S4/F3 per seed leg_a_technical Skrussfjell band; seam @ km 5.45 from post-descent tread (seed transition @ 5.45). Lifjell timing index organiser anchor @ km 5.87 \u2014 calibration checkpoint, not tread transition. Race TI med ~1.79 (5.5\u20136.0) grade-dominated on climb flank (+7\u2013+24% med); rim traverse TI ~2.0\u20132.5 pre-climb. Hommersak training TI med ~1.78 deferred (effort mixing on climb). ML S3/F2 pockets km 5.921\u20136.119 deferred Tier 3. Operator topo confirmation requested for rim tread vs trail at km ~5.2\u20135.45 seam."
+      },
+      {
+        "course_km_start": 6.0,
+        "course_km_end": 6.63,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Skrussfjell rim climb finish + Skrussfjell descent (km 6.0\u20136.63). S4/F3 per seed leg_a_technical Skrussfjell band through skrussfjell_descent (Strava seg 18184593 @ 6.29\u20136.63); seamless seam @ km 6.0 from locked chunk_05 S4/F3 rim. Race TI med ~1.24 (6.0\u20136.29 climb; grade +21% med, F1/F0 grade-dominated) / ~2.30 (6.29\u20136.63 DH; grade \u22125% med, F4 51% grade-brake). Altitude 218\u2192302 m summit then DH lip. Hommersak training TI med ~2.23 deferred (effort mixing). ML S3/F2 gap fills km 5.921\u20136.119 + 6.379\u20136.694 deferred Tier 3 per memo 18."
+      },
+      {
+        "course_km_start": 6.63,
+        "course_km_end": 7.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Noredalen opening descent (km 6.63\u20137.0). S4/F3 per seed noredalen_opening_descent + race_corridors noredalen_descent_lip organiser anchor @ km 6.63; seam @ 6.63 Skrussfjell DH end \u2192 valley brake lip (grade step \u221212% @ 6.35\u20136.40). Race TI med ~2.13 (F4 47% + F3 25%); grade med \u22123% widening to \u221221.7% @ 6.7; alt 278\u2192243 m. Hommersak training TI med ~3.91 (74% F4) corroborates steep brake. ML S3/F2 gap fills km 6.379\u20136.866 deferred Tier 3 per memo 18."
+      },
+      {
+        "course_km_start": 7.0,
+        "course_km_end": 7.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Noredalen rim climb (km 7.0\u20137.5). S4/F3 per seed noredalen_opening_descent + leg_a_technical; seamless seam @ km 7.0 from locked chunk_06 Noredalen lip descent. Race TI med ~1.35 (F1 36% + F2 30% grade-dominated on climb flank); grade med +14.4% (+26% @ 7.0\u20137.1); alt 274\u2192349 m summit. Hommersak training TI med ~2.93 deferred (effort mixing on climb). ML S3/F2 gap fills deferred Tier 3 per memo 18 \u2014 absorb under S4/F3 parent."
+      },
+      {
+        "course_km_start": 7.5,
+        "course_km_end": 8.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Noredalen opening descent to valley floor (km 7.5\u20138.0). S4/F3 per seed noredalen_opening_descent + race_corridors atlas (ends @ 8.0 abuts noredalen_valley_flat); seam @ km 7.5 summit lip (grade flip +10% \u2192 \u221217%). Race TI med ~2.91 (F4 88%); grade med \u221212.4%; alt 349\u2192302 m. Hommersak training TI med ~3.62 (92% F4) corroborates steep brake. ML S3/F2 gap fills deferred Tier 3 per memo 18. Phase E start viewport terminus @ km 8.0."
       }
     ],
     "trf_exclusions": [],
