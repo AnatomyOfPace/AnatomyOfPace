@@ -1,0 +1,135 @@
+{
+  "schema_version": "spatial_terrain_map_v0",
+  "ontology_version": "s6_v0",
+  "generated_at": "2026-07-01T12:00:00+00:00",
+  "corridor": {
+    "corridor_id": "sut43_terrain_ontology",
+    "sector_id": "dalevatn_midcourse",
+    "sector_lock_version": null,
+    "race_id": "SUT_43",
+    "km_start": 8.0,
+    "km_end": 22.0,
+    "sector_viewport_km_end": 22.5,
+    "finish_km": 43.0,
+    "full_course_window": [0.5, 42.5],
+    "course_axis": "stream_distance",
+    "gpx_reference": "COURSE_SUT43_official_2027.gpx",
+    "upstream_sector_boundary_km": 8.0,
+    "downstream_sector_boundary_km": 22.0,
+    "geographic_anchors": [
+      {
+        "anchor_id": "dale_timing_index",
+        "display_name": "Dale timing index (organiser CP)",
+        "course_km": 8.1,
+        "role": "organiser_checkpoint",
+        "registry_ref": "race_corridors.json → SUT_43.checkpoints.Dale",
+        "note": "Timing index on shared start — not geographic coastal Dale @ km 23.5"
+      },
+      {
+        "anchor_id": "dalsnuten_timing_index",
+        "display_name": "Dalsnuten timing index",
+        "course_km": 10.37,
+        "role": "organiser_checkpoint",
+        "registry_ref": "race_corridors.json → SUT_43.checkpoints.Dalsnuten"
+      },
+      {
+        "anchor_id": "bjørndalsfjellet_timing_index",
+        "display_name": "Bjørndalsfjellet timing index",
+        "course_km": 14.39,
+        "role": "organiser_checkpoint",
+        "registry_ref": "race_corridors.json → SUT_43.checkpoints.Bjørndalsfjellet"
+      },
+      {
+        "anchor_id": "mattirudla_timing_index",
+        "display_name": "Mattirudla timing index",
+        "course_km": 15.67,
+        "role": "organiser_checkpoint",
+        "registry_ref": "race_corridors.json → SUT_43.checkpoints.Mattirudla"
+      },
+      {
+        "anchor_id": "lifjell_summit_geographic",
+        "display_name": "Lifjell summit (geographic)",
+        "course_km": 18.0,
+        "role": "geographic_anchor",
+        "registry_ref": "race_corridors.json → SUT_43.sub_corridors.lifjell_summit",
+        "note": "Garmin marker 18 — distinct from Lifjell timing CP @ km 5.87"
+      }
+    ],
+    "notes": "Phase F mid-course bootstrap stub — seed segments only. Operator gold for leg_a_technical (km 0.5–8), dale_paradisskaret_upstream (km 22–29), and gramstad_band (km 29–41) remain in separate terrain map JSON files."
+  },
+  "clustering": {
+    "method": null,
+    "n_clusters": null,
+    "fallback": "seed_stub_pending_panel",
+    "note": "Run terrain_map_gen.py after panel_midcourse_1m.parquet ingest to populate GMM centroids from consensus NTI"
+  },
+  "segments": [
+    {
+      "course_km_start": 8.0,
+      "course_km_end": 10.4,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "seed",
+      "label": "Noredalen valley floor roll",
+      "confidence": 0.2,
+      "operator_note": "Atlas noredalen_valley_flat — seam @ km 8.0 from Phase E opening descent"
+    },
+    {
+      "course_km_start": 10.4,
+      "course_km_end": 14.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "seed",
+      "label": "Kyllesvatnet approach / upland trail",
+      "confidence": 0.15,
+      "operator_note": "Pre-Dalevatn climb band — operator HITL required"
+    },
+    {
+      "course_km_start": 14.0,
+      "course_km_end": 17.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "seed",
+      "label": "Dalevatn descent (Case Study #002 corridor)",
+      "confidence": 0.2,
+      "operator_note": "race_corridors.json dale_descent km 14.5–17.0 — Eccentric Downfall hypothesis band"
+    },
+    {
+      "course_km_start": 17.0,
+      "course_km_end": 18.5,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "seed",
+      "label": "Lifjell summit geographic approach",
+      "confidence": 0.15,
+      "operator_note": "lifjell_summit sub_corridor km 17.5–18.5"
+    },
+    {
+      "course_km_start": 18.5,
+      "course_km_end": 20.0,
+      "surface_class": "S5",
+      "friction_tier": "F4",
+      "source": "seed",
+      "label": "Mid-race steep descent (Lifjell summit → coast approach)",
+      "confidence": 0.15,
+      "operator_note": "mid_race_descent sub_corridor km 19.0–20.0"
+    },
+    {
+      "course_km_start": 20.0,
+      "course_km_end": 22.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "seed",
+      "label": "Late-lap approach tread (pre-Dale upstream seam)",
+      "confidence": 0.15,
+      "operator_note": "Seam @ km 22.0 into dale_paradisskaret_upstream chunk_u00"
+    }
+  ],
+  "hitl": {
+    "status": "draft",
+    "sector_id": "dalevatn_midcourse",
+    "manual_overrides": [],
+    "operator_gold_spans": [],
+    "notes": "Append-only operator_gold_spans[] — use hitl_annotator_app.py with this file only. Do not write mid-course locks into start/upstream/gramstad terrain maps."
+  }
+}

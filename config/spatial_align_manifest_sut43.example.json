@@ -370,12 +370,54 @@
         "course_km_end": 2.1,
         "status": "missing_training",
         "reason": "Hommersak tile privacy clip — race-day streams required for Hommersåk chute through Hogstad approach"
-      },
+      }
+    ]
+  },
+  "phase_f_midcourse": {
+    "sector_id": "dalevatn_midcourse",
+    "status": "bootstrap",
+    "terrain_map": "config/spatial_terrain_map_sut43_midcourse.json",
+    "km_immediate_milestone": [8.0, 22.0],
+    "km_annotator_ready": [8.0, 22.0],
+    "km_analysis_window": [8.0, 22.0],
+    "km_viewport_window": [7.5, 22.5],
+    "upstream_seam_km": 8.0,
+    "downstream_seam_km": 22.0,
+    "scope_memo": "docs/memos/23_midcourse_panel_ingest_scope.md",
+    "build_script": "04_Python_Scripts/spatial/build_midcourse_panel.py",
+    "promotion_checklist": [
+      "Confirm Subject_A + Subject_B race washed micro Parquet under 03_Processed_Data/micro/",
+      "Run corridor_multi_fit.py --km-start 8.0 --km-end 22.0 --project-course (or build_midcourse_panel.py from aligned race parquets)",
+      "Extend reference_spine.km_window to [8.0, 41.0] via build_reference_spine.py",
+      "Run reproject_to_spine.py --session-type race for cross-athlete ref_chainage alignment",
+      "Merge panel_start + panel_midcourse + panel_race into unified panel_1m.parquet (km 0.5–41)",
+      "QC: check_spine_coverage.py --km-start 8 --km-end 22; cross_track_m median ≤ 30 m",
+      "Generate hitl_chunk_triage.py --chunk-priority ground_truth_review/chunk_priority_midcourse.csv",
+      "HITL launch with spatial_terrain_map_sut43_midcourse.json — verify Dale timing index @ km 8.1 vs geographic Dale @ km 23.5"
+    ],
+    "expanded_panel_note": "Closes km 8.0–22.0 gap between panel_start_* (Phase E) and panel_* upstream/gramstad (km 22–41). Race streams required; training traverse optional for TRF.",
+    "reference_spine_extension": {
+      "current_km_window": [22.0, 41.0],
+      "milestone_km_window": [8.0, 22.0],
+      "target_km_window": [0.5, 42.5],
+      "build_command": "python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json --km-start 8 --km-end 41"
+    },
+    "pending_activities": [
+      {
+        "donor_id": "Subject_A",
+        "activity_id": "SUT43_20260418",
+        "session_type": "race",
+        "align_mode": "stream",
+        "status": "awaiting_full_grid_realign",
+        "note": "Spine-aligned race parquet currently clips activity_course_km to km 22–41; re-run corridor_multi_fit on full lap or build_midcourse_panel from non-spine aligned race parquet"
+      }
+    ],
+    "coverage_gaps": [
       {
         "course_km_start": 8.0,
         "course_km_end": 22.0,
-        "status": "deferred_phase_e3",
-        "reason": "Start-sector milestone ends @ km 8; bridge to upstream km 22 requires additional full-lap / training traverses"
+        "status": "panel_gap",
+        "reason": "No rows in panel_1m.parquet — scaffold via build_midcourse_panel.py until unified merge"
       }
     ]
   },
