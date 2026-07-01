@@ -12,6 +12,7 @@ course_km matches Phase E start ingest convention until full-lap spine rebuild.
 Usage (from repo root):
     python3 04_Python_Scripts/spatial/realign_subject_a_race.py   # Subject_A full-lap stitch (if missing)
     python3 04_Python_Scripts/spatial/build_midcourse_panel.py
+    python3 04_Python_Scripts/spatial/build_midcourse_panel.py --spine  # after reproject_to_spine.py
 
     python3 04_Python_Scripts/spatial/build_midcourse_panel.py \\
         --km-start 8.0 --km-end 22.0 \\
@@ -38,6 +39,7 @@ from spatial.corridor_scope import (  # noqa: E402
     SUT43_MIDCOURSE_KM_END,
     SUT43_MIDCOURSE_KM_START,
 )
+from spatial.reproject_to_spine import normalize_panel_axes  # noqa: E402
 
 # Mirror spatial_align.GRID_NUMERIC_COLS — avoid fit_micro import chain in cloud workspace.
 GRID_NUMERIC_COLS = (
@@ -119,6 +121,121 @@ def _extract_race_window(
     keep = ["course_m", "course_km", *GRID_NUMERIC_COLS, "donor_id", "activity_id", "session_type"]
     keep = [c for c in keep if c in sub.columns]
     return sub[keep].reset_index(drop=True)
+
+
+def _aligned_spine_race_path(corridor_dir: Path, donor_id: str, activity_id: str) -> Path | None:
+    path = corridor_dir / f"aligned_{donor_id}_{activity_id}_race_spine.parquet"
+    return path if path.exists() else None
+
+
+def _resolve_ref_chainage_km(frame: pd.DataFrame) -> pd.Series:
+    if "ref_chainage_m" not in frame.columns:
+        raise ValueError("Spine frame missing ref_chainage_m — run reproject_to_spine.py first")
+    return pd.to_numeric(frame["ref_chainage_m"], errors="coerce") / 1000.0
+
+
+def _extract_spine_window(
+    path: Path,
+    *,
+    donor_id: str,
+    activity_id: str,
+    km_start: float,
+    km_end: float,
+) -> pd.DataFrame | None:
+    frame = pd.read_parquet(path)
+    ref_km = _resolve_ref_chainage_km(frame)
+    mask = (ref_km >= km_start - 1e-6) & (ref_km < km_end - 1e-6)
+    if not mask.any():
+        return None
+
+    sub = normalize_panel_axes(frame.loc[mask].copy())
+    sub["donor_id"] = donor_id
+    sub["activity_id"] = activity_id
+    sub["session_type"] = "race"
+    return sub.reset_index(drop=True)
+
+
+def build_midcourse_spine_panel(
+    *,
+    corridor_dir: Path,
+    km_start: float,
+    km_end: float,
+    race_specs: list[tuple[str, str]] | None = None,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    specs = race_specs or RACE_ACTIVITY_SPECS
+    frames: list[pd.DataFrame] = []
+    activity_meta: list[dict[str, Any]] = []
+
+    for donor_id, activity_id in specs:
+        path = _aligned_spine_race_path(corridor_dir, donor_id, activity_id)
+        if path is None:
+            activity_meta.append(
+                {
+                    "donor_id": donor_id,
+                    "activity_id": activity_id,
+                    "status": "missing_spine_parquet",
+                }
+            )
+            continue
+
+        slice_df = _extract_spine_window(
+            path,
+            donor_id=donor_id,
+            activity_id=activity_id,
+            km_start=km_start,
+            km_end=km_end,
+        )
+        if slice_df is None or slice_df.empty:
+            activity_meta.append(
+                {
+                    "donor_id": donor_id,
+                    "activity_id": activity_id,
+                    "status": "no_rows_in_window",
+                    "source": str(path.relative_to(BASE_DIR)),
+                }
+            )
+            continue
+
+        ref_km = _resolve_ref_chainage_km(slice_df)
+        activity_meta.append(
+            {
+                "donor_id": donor_id,
+                "activity_id": activity_id,
+                "session_type": "race",
+                "align_mode": "spine",
+                "status": "ok",
+                "source": str(path.relative_to(BASE_DIR)),
+                "data_km_min": round(float(ref_km.min()), 3),
+                "data_km_max": round(float(ref_km.max()), 3),
+                "n_finite": int(ref_km.notna().sum()),
+                "cross_track_m_median": round(float(slice_df["cross_track_m"].median()), 2)
+                if "cross_track_m" in slice_df.columns and slice_df["cross_track_m"].notna().any()
+                else None,
+            }
+        )
+        frames.append(slice_df)
+
+    panel = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+    window_m = int(round((km_end - km_start) * 1000))
+    donors_ok = {m["donor_id"] for m in activity_meta if m.get("status") == "ok"}
+    coverage_pct_any = 0.0
+    if not panel.empty and window_m > 0:
+        union_m = pd.to_numeric(panel["ref_chainage_m"], errors="coerce").astype(int).nunique()
+        coverage_pct_any = round(100.0 * union_m / window_m, 2)
+
+    meta: dict[str, Any] = {
+        "phase": "F1_midcourse_bridge_spine",
+        "km_window": [km_start, km_end],
+        "corridor_id": SUT43_CORRIDOR_ID,
+        "activities": activity_meta,
+        "donors_in_panel": sorted(donors_ok),
+        "coverage_pct_any": coverage_pct_any,
+        "note": (
+            "Spine-axis race panel for mid-course HITL scaffold. "
+            "Rows keyed on ref_chainage_m from extended reference_spine km 8–41."
+        ),
+    }
+    return panel, meta
 
 
 def build_midcourse_panel(
@@ -226,12 +343,25 @@ def main() -> int:
     parser.add_argument("--corridor-dir", type=Path, default=DEFAULT_CORRIDOR_DIR)
     parser.add_argument("--km-start", type=float, default=SUT43_MIDCOURSE_KM_START)
     parser.add_argument("--km-end", type=float, default=SUT43_MIDCOURSE_KM_END)
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("--meta", type=Path, default=DEFAULT_META)
+    parser.add_argument("--output", type=Path, default=None)
+    parser.add_argument("--meta", type=Path, default=None)
+    parser.add_argument("--spine", action="store_true", help="Build spine-axis panel from *_race_spine.parquet")
     parser.add_argument("--no-race-sidecar", action="store_true", help="Skip panel_midcourse_race_1m.parquet sidecar")
     args = parser.parse_args()
 
-    panel, meta = build_midcourse_panel(
+    if args.spine:
+        default_output = DEFAULT_CORRIDOR_DIR / "panel_midcourse_1m_spine.parquet"
+        default_meta = DEFAULT_CORRIDOR_DIR / "panel_midcourse_spine_meta.json"
+        build_fn = build_midcourse_spine_panel
+    else:
+        default_output = DEFAULT_OUTPUT
+        default_meta = DEFAULT_META
+        build_fn = build_midcourse_panel
+
+    output = args.output or default_output
+    meta_path = args.meta or default_meta
+
+    panel, meta = build_fn(
         corridor_dir=args.corridor_dir,
         km_start=args.km_start,
         km_end=args.km_end,
@@ -240,24 +370,24 @@ def main() -> int:
 
     if panel.empty:
         print("ERROR: no race rows in window — check aligned race parquets and washed micro.", file=sys.stderr)
-        args.meta.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
+        meta_path.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
         return 1
 
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    panel.to_parquet(args.output, index=False)
-    meta["panel"] = str(args.output.relative_to(BASE_DIR))
+    output.parent.mkdir(parents=True, exist_ok=True)
+    panel.to_parquet(output, index=False)
+    meta["panel"] = str(output.relative_to(BASE_DIR))
     meta["row_count"] = int(len(panel))
-    args.meta.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
+    meta_path.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
 
-    if not args.no_race_sidecar:
-        race_path = args.output.with_name("panel_midcourse_race_1m.parquet")
+    if not args.no_race_sidecar and not args.spine:
+        race_path = output.with_name("panel_midcourse_race_1m.parquet")
         race = panel[panel["session_type"] == "race"] if "session_type" in panel.columns else panel
         race.to_parquet(race_path, index=False)
         meta["panel_race"] = str(race_path.relative_to(BASE_DIR))
 
-    print(f"Wrote {args.output} ({len(panel)} rows, donors={meta['donors_in_panel']})")
+    print(f"Wrote {output} ({len(panel)} rows, donors={meta['donors_in_panel']})")
     print(f"Coverage (union metres / window): {meta['coverage_pct_any']}%")
-    print(f"Meta: {args.meta}")
+    print(f"Meta: {meta_path}")
     return 0
 
 

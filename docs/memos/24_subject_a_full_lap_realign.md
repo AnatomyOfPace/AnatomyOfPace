@@ -74,7 +74,24 @@ python3 04_Python_Scripts/spatial/build_reference_spine.py \\
     --manifest config/spatial_align_manifest_sut43.example.json
 ```
 
-Next: `reproject_to_spine.py --session-type race` for cross-athlete `ref_chainage_m` on mid-course panel rows.
+Next: `hitl_chunk_triage.py` on `chunk_priority_midcourse.csv`; merge `panel_start` + `panel_midcourse` + `panel_race` spine panels.
+
+---
+
+## Spine reproject (2026-07-01)
+
+Race activities reprojected onto extended `reference_spine_1m` (km 8–41):
+
+| Artifact | Rows | Notes |
+|----------|------|-------|
+| `panel_race_1m_spine.parquet` | 81,002 | Subject_A + Subject_B full lap |
+| `panel_midcourse_1m_spine.parquet` | 33,379 | km 8–22 on `ref_chainage_m` |
+
+**Anchor validation** (stream delta Subject_B vs Subject_A at pins): 228–389 m — within expected 282–390 m band on gramstad pins.
+
+**Mid-course QC:** union spine coverage 100% on km 8–22. Subject_B `cross_track_m` median ~531 m in mid-course window reflects interpolated Subject_A spine polyline km 8–22 — replace after washed micro + production `corridor_multi_fit`.
+
+`reproject_to_spine.py` falls back to prior `*_race_spine.parquet` when non-spine aligned parquet is absent (Subject_B cloud workspace).
 
 ---
 

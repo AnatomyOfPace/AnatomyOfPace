@@ -204,6 +204,59 @@ def aligned_spine_parquet_path(
     return base.with_name(f"{base.stem}_spine.parquet")
 
 
+def stream_aligned_frame_from_spine_sidecar(frame: pd.DataFrame) -> pd.DataFrame:
+    """Rebuild stream-axis course_km / course_m from a prior spine sidecar for re-reprojection."""
+    out = frame.copy()
+    if "activity_course_km" in out.columns:
+        out["course_km"] = pd.to_numeric(out["activity_course_km"], errors="coerce")
+    elif "course_km" not in out.columns:
+        raise ValueError("Spine sidecar lacks activity_course_km / course_km")
+
+    if "activity_course_m" in out.columns:
+        out["course_m"] = pd.to_numeric(out["activity_course_m"], errors="coerce")
+    else:
+        out["course_m"] = pd.to_numeric(out["course_km"], errors="coerce") * 1000.0
+
+    for col in ("ref_chainage_m", "cross_track_m", "subject_id"):
+        if col in out.columns:
+            out = out.drop(columns=[col])
+    return out
+
+
+def load_stream_aligned_frame(
+    donor_id: str,
+    activity_id: str,
+    *,
+    corridor_id: str = SUT43_CORRIDOR_ID,
+    session_type: str,
+) -> tuple[pd.DataFrame, Path, str]:
+    """Load stream-aligned parquet; fall back to prior spine sidecar when non-spine is absent."""
+    session_type = validate_session_type(session_type)
+    in_path = aligned_parquet_path(
+        donor_id,
+        activity_id,
+        corridor_id=corridor_id,
+        session_type=session_type,
+    )
+    if in_path.exists():
+        return pd.read_parquet(in_path), in_path, "stream"
+
+    spine_path = aligned_spine_parquet_path(
+        donor_id,
+        activity_id,
+        corridor_id=corridor_id,
+        session_type=session_type,
+    )
+    if spine_path.exists():
+        return (
+            stream_aligned_frame_from_spine_sidecar(pd.read_parquet(spine_path)),
+            spine_path,
+            "spine_sidecar",
+        )
+
+    raise FileNotFoundError(f"Aligned parquet missing: {in_path} (no spine sidecar at {spine_path})")
+
+
 def reproject_aligned_activity(
     donor_id: str,
     activity_id: str,
@@ -217,16 +270,13 @@ def reproject_aligned_activity(
     write: bool = True,
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     session_type = validate_session_type(session_type)
-    in_path = aligned_parquet_path(
+    frame, in_path, input_mode = load_stream_aligned_frame(
         donor_id,
         activity_id,
         corridor_id=corridor_id,
         session_type=session_type,
     )
-    if not in_path.exists():
-        raise FileNotFoundError(f"Aligned parquet missing: {in_path}")
 
-    frame = pd.read_parquet(in_path)
     reproj = reproject_aligned_frame(
         frame,
         spine,
@@ -244,6 +294,7 @@ def reproject_aligned_activity(
         "subject_id": subject_id or donor_id,
         "session_type": session_type,
         "input_path": str(in_path.relative_to(BASE_DIR)),
+        "input_mode": input_mode,
         "n_rows": int(len(reproj)),
         "ref_chainage_m_min": float(reproj["ref_chainage_m"].min()),
         "ref_chainage_m_max": float(reproj["ref_chainage_m"].max()),

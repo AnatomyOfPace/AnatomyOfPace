@@ -66,6 +66,9 @@ Operator gold: **not started**. Follow Tier 1–3 ladder in `docs/memos/18_gold_
 ```bash
 python3 04_Python_Scripts/spatial/realign_subject_a_race.py   # Subject_A full-lap stitch
 python3 04_Python_Scripts/spatial/build_midcourse_panel.py
+python3 04_Python_Scripts/spatial/build_reference_spine.py --manifest config/spatial_align_manifest_sut43.example.json
+python3 04_Python_Scripts/spatial/reproject_to_spine.py --manifest config/spatial_align_manifest_sut43.example.json --session-type race
+python3 04_Python_Scripts/spatial/build_midcourse_panel.py --spine
 ```
 
 Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8–22, writes:
@@ -100,7 +103,7 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 ## Success criteria
 
 - [x] `panel_midcourse_1m.parquet` with Subject_A + Subject_B race rows km 8.0–21.999 *(Subject_A interpolated)*
-- [ ] `check_spine_coverage.py` union ≥ 99% on km 8–22 after spine reproject *(spine extended km 8–41; reproject pending)*
+- [x] `check_spine_coverage.py` union ≥ 99% on km 8–22 after spine reproject *(100% union; Subject_B per-activity 71% — interpolated spine QC)*
 - [ ] `hitl_chunk_triage.py` queue generated for `chunk_m00`–`chunk_m13`
 - [ ] Seam QC: km 8.0 matches Phase E last metre; km 22.0 abuts upstream chunk_u00
 

@@ -1,8 +1,8 @@
 {
   "schema_version": "reproject_spine_v0",
-  "generated_at": "2026-06-30T20:06:38Z",
+  "generated_at": "2026-07-01T17:59:40Z",
   "corridor_id": "sut43_terrain_ontology",
-  "manifest": "config/spatial_align_manifest_sut43.local.json",
+  "manifest": "config/spatial_align_manifest_sut43.example.json",
   "spine_path": "03_Processed_Data/spatial/sut43_terrain_ontology/reference_spine_1m.parquet",
   "canonical_source": {
     "donor_id": "Subject_A",
@@ -15,8 +15,9 @@
       "subject_id": "Subject_A",
       "session_type": "race",
       "input_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_A_SUT43_20260418_race.parquet",
-      "n_rows": 19001,
-      "ref_chainage_m_min": 22000.0,
+      "input_mode": "stream",
+      "n_rows": 40501,
+      "ref_chainage_m_min": 500.0,
       "ref_chainage_m_max": 41000.0,
       "cross_track_m_median": 0.0,
       "canonical_spine_source": true,
@@ -27,11 +28,12 @@
       "activity_id": "19000570862",
       "subject_id": "Subject_B",
       "session_type": "race",
-      "input_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_19000570862_race.parquet",
+      "input_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_19000570862_race_spine.parquet",
+      "input_mode": "spine_sidecar",
       "n_rows": 40501,
-      "ref_chainage_m_min": 22000.0,
+      "ref_chainage_m_min": 8001.0,
       "ref_chainage_m_max": 40598.0,
-      "cross_track_m_median": 829.69,
+      "cross_track_m_median": 29.55,
       "canonical_spine_source": false,
       "output_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_19000570862_race_spine.parquet"
     }
@@ -40,10 +42,10 @@
     "race": {
       "corridor_id": "sut43_terrain_ontology",
       "session_type": "race",
-      "n_rows": 59502,
+      "n_rows": 81002,
       "n_activities": 2,
       "ref_chainage_m_range": [
-        22000.0,
+        500.0,
         41000.0
       ],
       "panel_path": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet"

@@ -390,6 +390,7 @@
       "Run realign_subject_a_race.py (interim) or corridor_multi_fit on full-lap washed micro (production)",
       "Extend reference_spine.km_window to [8.0, 41.0] via build_reference_spine.py",
       "Run reproject_to_spine.py --session-type race for cross-athlete ref_chainage alignment",
+      "Run build_midcourse_panel.py --spine for panel_midcourse_1m_spine.parquet",
       "Merge panel_start + panel_midcourse + panel_race into unified panel_1m.parquet (km 0.5–41)",
       "QC: check_spine_coverage.py --km-start 8 --km-end 22; cross_track_m median ≤ 30 m",
       "Generate hitl_chunk_triage.py --chunk-priority ground_truth_review/chunk_priority_midcourse.csv",
