@@ -157,8 +157,7 @@
         }
       ],
       "bootstrap_blockers": [
-        "panel_1m.parquet has no race rows km 8–22 (2026-07-01)",
-        "Subject_A aligned race spine clips to km 22+ — full-lap realign required for dual-athlete panel",
+        "Subject_A km 8–22 telemetry is stitch-interpolated — operator gold + washed micro still required",
         "Operator gold not started — seed segments only"
       ],
       "notes": "Phase F mid-course bridge. Noredalen valley through Lifjell summit / Dalevatn descent (Case Study #002). Seam km 8.0 from leg_a_technical; seam km 22.0 into locked dale_paradisskaret_upstream chunk_u00."

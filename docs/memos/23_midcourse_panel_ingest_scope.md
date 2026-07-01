@@ -2,7 +2,7 @@
 
 **Laboratory:** The Anatomy of Pace · **Authority:** Dr. Anatomy Pace  
 **Date:** 2026-07-01 · **Phase:** F1 mid-course bridge  
-**Status:** **SCAFFOLD** — config + build script committed; dual-athlete panel pending Subject_A realign
+**Status:** **INTERIM DUAL-ATHLETE** — `panel_midcourse_1m.parquet` has Subject_A + Subject_B; Subject_A km 8–22 telemetry is stitch-interpolated pending washed micro
 
 ---
 
@@ -13,7 +13,7 @@ SUT_43 panel coverage today is discontinuous on the race axis:
 | Window | km | Panel artifact | Race rows |
 |--------|-----|----------------|-----------|
 | Phase E start | 0.5–8.0 | `panel_start_race_1m.parquet` | Subject_A + Subject_B |
-| **Gap** | **8.0–22.0** | *(none)* | **0** |
+| **Gap** | **8.0–22.0** | `panel_midcourse_1m.parquet` | Subject_A + Subject_B *(Subject_A interpolated)* |
 | Dale upstream + gramstad | 22.0–41.0 | `panel_race_1m.parquet` / `panel_1m.parquet` | Subject_A + Subject_B |
 
 Until km 8–22 is filled, full-lap TI/TPR analysis and continuous sparse-gold ML training are blocked.
@@ -64,6 +64,7 @@ Operator gold: **not started**. Follow Tier 1–3 ladder in `docs/memos/18_gold_
 ### Quick scaffold (stream axis, no spine extension)
 
 ```bash
+python3 04_Python_Scripts/spatial/realign_subject_a_race.py   # Subject_A full-lap stitch
 python3 04_Python_Scripts/spatial/build_midcourse_panel.py
 ```
 
@@ -88,17 +89,17 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 
 | Blocker | Mitigation |
 |---------|------------|
-| Subject_A race spine clips km 22–41 only | Re-run `corridor_multi_fit` on full-lap grid or restore non-spine `aligned_*_race.parquet` |
-| Subject_A race micro not in cloud workspace | Operator must wash from canonical `.fit` locally |
+| Subject_A race spine clips km 22–41 only | **Mitigated (interim):** `realign_subject_a_race.py` stitches start + interpolated gap + spine |
+| Subject_A race micro not in cloud workspace | Operator must wash from canonical `.fit` locally; replace interpolated km 8–22 telemetry |
 | `reference_spine` window still km 22–41 | Extend via `build_reference_spine.py` before cross-athlete NTI |
 
-**Interim:** `build_midcourse_panel.py` can populate **Subject_B-only** race rows km 8–22 from existing aligned spine (stream axis) for pipeline smoke tests.
+**Interim:** `realign_subject_a_race.py` + `build_midcourse_panel.py` populate **dual-athlete** race rows km 8–22 on stream axis. Subject_A gap telemetry is linearly interpolated — not operator gold.
 
 ---
 
 ## Success criteria
 
-- [ ] `panel_midcourse_1m.parquet` with Subject_A + Subject_B race rows km 8.0–21.999
+- [x] `panel_midcourse_1m.parquet` with Subject_A + Subject_B race rows km 8.0–21.999 *(Subject_A interpolated)*
 - [ ] `check_spine_coverage.py` union ≥ 99% on km 8–22 after spine reproject
 - [ ] `hitl_chunk_triage.py` queue generated for `chunk_m00`–`chunk_m13`
 - [ ] Seam QC: km 8.0 matches Phase E last metre; km 22.0 abuts upstream chunk_u00
@@ -111,7 +112,8 @@ Reads aligned race parquets, filters `activity_course_km` / `course_km` to km 8�
 |------|---------|
 | `config/spatial_align_manifest_sut43.example.json` → `phase_f_midcourse` | Manifest block + checklist |
 | `config/spatial_terrain_sectors_sut43.json` | Sector registry entry |
-| `04_Python_Scripts/spatial/corridor_scope.py` | `SUT43_MIDCOURSE_*` constants |
+| `04_Python_Scripts/spatial/realign_subject_a_race.py` | Subject_A full-lap stitch (start + gap + spine) |
+| `04_Python_Scripts/spatial/build_midcourse_panel.py` | Mid-course panel builder |
 | `ground_truth_review/chunk_priority_midcourse.csv` | HITL chunk ledger (pending gold) |
 
 ---

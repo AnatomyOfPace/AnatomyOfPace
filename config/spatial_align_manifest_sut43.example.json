@@ -385,9 +385,9 @@
     "downstream_seam_km": 22.0,
     "scope_memo": "docs/memos/23_midcourse_panel_ingest_scope.md",
     "build_script": "04_Python_Scripts/spatial/build_midcourse_panel.py",
+    "realign_script": "04_Python_Scripts/spatial/realign_subject_a_race.py",
     "promotion_checklist": [
-      "Confirm Subject_A + Subject_B race washed micro Parquet under 03_Processed_Data/micro/",
-      "Run corridor_multi_fit.py --km-start 8.0 --km-end 22.0 --project-course (or build_midcourse_panel.py from aligned race parquets)",
+      "Run realign_subject_a_race.py (interim) or corridor_multi_fit on full-lap washed micro (production)",
       "Extend reference_spine.km_window to [8.0, 41.0] via build_reference_spine.py",
       "Run reproject_to_spine.py --session-type race for cross-athlete ref_chainage alignment",
       "Merge panel_start + panel_midcourse + panel_race into unified panel_1m.parquet (km 0.5–41)",
@@ -408,16 +408,16 @@
         "activity_id": "SUT43_20260418",
         "session_type": "race",
         "align_mode": "stream",
-        "status": "awaiting_full_grid_realign",
-        "note": "Spine-aligned race parquet currently clips activity_course_km to km 22–41; re-run corridor_multi_fit on full lap or build_midcourse_panel from non-spine aligned race parquet"
+        "status": "interim_stitch",
+        "note": "aligned_*_race.parquet restored via realign_subject_a_race.py (km 8.001–21.999 interpolated). Replace with corridor_multi_fit after washed micro."
       }
     ],
     "coverage_gaps": [
       {
         "course_km_start": 8.0,
         "course_km_end": 22.0,
-        "status": "panel_gap",
-        "reason": "No rows in panel_1m.parquet — scaffold via build_midcourse_panel.py until unified merge"
+        "status": "interim_panel",
+        "reason": "panel_midcourse_1m.parquet dual-athlete on stream axis — Subject_A gap interpolated; spine reproject pending"
       }
     ]
   },

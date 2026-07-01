@@ -1,0 +1,28 @@
+{
+  "donor_id": "Subject_A",
+  "activity_id": "SUT43_20260418",
+  "session_type": "race",
+  "align_mode": "stream_stitch_scaffold",
+  "km_window": [
+    0.5,
+    41.0
+  ],
+  "gap_km_interpolated": [
+    8.001,
+    21.999
+  ],
+  "sources": {
+    "start_segment": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_start_race_1m.parquet",
+    "spine_segment": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_A_SUT43_20260418_race_spine.parquet"
+  },
+  "anchors": {
+    "low_km": 7.999,
+    "high_km": 22.001
+  },
+  "row_count": 40501,
+  "expected_row_count": 40501,
+  "km_min": 0.5,
+  "km_max": 41.0,
+  "warning": "km 8.001\u201321.999 telemetry is linearly interpolated between Phase E start and spine anchors \u2014 not operator gold. Replace via corridor_multi_fit after washed race micro is available.",
+  "output": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_A_SUT43_20260418_race.parquet"
+}

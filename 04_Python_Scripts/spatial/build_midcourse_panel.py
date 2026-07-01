@@ -10,6 +10,7 @@ or course_km). Does not require extended reference_spine — stream-distance
 course_km matches Phase E start ingest convention until full-lap spine rebuild.
 
 Usage (from repo root):
+    python3 04_Python_Scripts/spatial/realign_subject_a_race.py   # Subject_A full-lap stitch (if missing)
     python3 04_Python_Scripts/spatial/build_midcourse_panel.py
 
     python3 04_Python_Scripts/spatial/build_midcourse_panel.py \\

@@ -9,8 +9,13 @@
     {
       "donor_id": "Subject_A",
       "activity_id": "SUT43_20260418",
-      "status": "no_rows_in_window",
-      "source": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_A_SUT43_20260418_race_spine.parquet"
+      "session_type": "race",
+      "align_mode": "stream",
+      "status": "ok",
+      "source": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_A_SUT43_20260418_race.parquet",
+      "data_km_min": 8.0,
+      "data_km_max": 21.999,
+      "n_finite": 14000
     },
     {
       "donor_id": "Subject_B",
@@ -25,6 +30,7 @@
     }
   ],
   "donors_in_panel": [
+    "Subject_A",
     "Subject_B"
   ],
   "coverage_pct_any": 100.0,
@@ -46,5 +52,5 @@
     }
   },
   "panel": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_midcourse_1m.parquet",
-  "row_count": 14000
+  "row_count": 28000
 }
