@@ -76,3 +76,36 @@ Når den lokale Python-fabrikken din produserer feilfrie CSV-filer, er dette ste
 * \[ \] **Instagram-oppsett:** Opprett kontoen `@anatomyofpace`. Last opp en mørk graf som profilbilde. Legg en "Linktree" eller direkte lenke til Substack/GitHub i bioen.  
 * \[ \] **Første innholdssyklus (Case Study \#001):** Kjør koden for Bratteli-bakken eller Kjerag-starten. Publiser den tunge analysen på Substack. Ta hovedgrafen og legg ut på Instagram. Sirkelen er i gang.
 
+## **5. EDITORIAL HORIZON — SECOND-WAVE SERIES (English)**
+
+Long-term editorial horizon for the Substack and Instagram layers. Full 22-candidate taxonomy and per-article data/analysis requirements live in [`publication_pipeline.md`](publication_pipeline.md); the two series below extend it into environmental and biomechanical variables that traditional pacing models ignore. Attribution: Dr. Anatomy Pace / the laboratory. Nomenclature: `Kinematic_Scan`, Terrain Index (TI), Terrain Tax. Clinical IDs only (`Subject_*`, `Reference_Elite_*`).
+
+### VIII. Environmental & Cognitive Multipliers
+
+**18. The Dark Tax: Visual Deprivation and Kinematic Atrophy**
+- **Description:** TI measures friction and grade — but what happens when visual input is restricted? Examines the "Dark Tax": how an identical terrain segment extracts a higher metabolic cost at night. Without peripheral horizon lines, stride length shortens, ground-contact time increases, and TI balloons despite identical surface conditions.
+- **Data Requirements:** Multi-lap or multi-year telemetry over the identical route (e.g. `Reference_Elite_B` on SUT_160, contrasting a daylight pass against a 02:00 pass).
+- **Analysis Requirements:** Isolation of identical spatial spans via Snap-to-Route; TI and speed variance plotted chronologically to demonstrate the divergence of physical friction vs cognitive visual load.
+
+**19. The Moisture Multiplier: When Structure Holds but Friction Fails**
+- **Description:** A rock garden is a different biomechanical puzzle when wet. Explores the volatility of the Friction Index (F0–F4), showing how precipitation shifts an S4 (technical) trail from an F1 (dry/grip) to an F3 (slick/yielding) tax rate — proving that static route profiles are insufficient without environmental modeling.
+- **Data Requirements:** Subject telemetry on a known technical course under dry vs saturated/rain conditions (e.g. historical LFI data cross-referenced with meteorological records).
+- **Analysis Requirements:** Comparative `Kinematic_Scan` on paired segments showing the APR/TI delta driven strictly by moisture.
+
+### IX. Biomechanical Flow & Disruption
+
+**20. The Gait-Switch Penalty: The Cost of Fragmented Terrain**
+- **Description:** Most pacing models assume continuous motion. Introduces the "Gait-Switch Penalty": when a trail oscillates rapidly between S1 (smooth) and S4 (technical) — forcing continuous transitions between running gait, power hike, and scramble — metabolic cost exceeds steady state in either extreme. The tax is in the variance.
+- **Data Requirements:** High-resolution multi-FIT panel data (`panel_1m.parquet`) on highly fragmented terrain sections vs homogeneous sections of equal average difficulty.
+- **Analysis Requirements:** Rolling-window variance of TI and speed; correlation between the frequency of categorical S-class changes (the "DNA" mutation rate) and elevated physiological debt.
+
+**21. Negative Gradient, Positive Tax: The Elite Downhill Signature**
+- **Description:** Amateurs brake; elites flow. Applies the Elite Performance Ratio (EPR) exclusively to steep, technical descents, visualizing how amateur subjects incur a large Terrain Tax through eccentric braking forces while reference elites decouple speed from gradient — preserving the quadriceps by minimizing ground-contact time.
+- **Data Requirements:** Paired `.fit` files (`Subject_A` vs `Reference_Elite_A`) mapped to high-grade negative segments (e.g. the descent from Paradisskaret).
+- **Analysis Requirements:** `06_benchmark.py` execution isolated to negative gradients; speed-vs-TI scatter plots contrasting the amateur "braking cluster" against the elite "flow line."
+
+**22. The Ghost Minutes: Aggregating Micro-Halts in Technical Corridors**
+- **Description:** Why does the laboratory insist on zero/halt masking in its visual outputs? Because the illusion of slow movement often masks stationary time. Reveals that in S5/S6 terrain, athletes do not merely move slowly — they spend a material fraction of the segment at 0.0 m/s conducting micro-navigation and line-selection.
+- **Data Requirements:** Raw `.fit` telemetry from highly technical sectors (Class 5/6) processed through `01_vaskemaskinen.py`.
+- **Analysis Requirements:** Temporal aggregation of 0.0 m/s epochs; a visual breakdown of "Time in Motion" vs "Time Navigating" within a specific kilometre block, justifying the laboratory's data-scrubbing protocols.
+
