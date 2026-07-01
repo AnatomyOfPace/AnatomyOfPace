@@ -4,10 +4,10 @@ chunk_01,30,31,1000,1000,1000,380,215,100.0,1000,0,0,operator gold locked 2026-0
 chunk_02,31,32,1000,1000,1000,0,402,100.0,1000,0,0,operator gold locked 2026-06-29 — S4/F3 bedrock lock km 31.0-32.0 (4 spans S4/F3); parent lock extends to ~33.2; seam @ 31.0 from chunk_01 S3/F2 (F2→F3); STILE-31 TRF @ 31.1-31.5 deferred; GMM S5/S6 no_input under parent; seam @ 32.0 continuous into chunk_03
 chunk_03,32,33,1000,1000,1000,0,111,100.0,1000,0,0,operator gold locked 2026-06-29 — S4/F3 bedrock lock km 32.0-33.0 (4 spans S4/F3 + S4/F3 + S3/F2 nested + S4/F3); parent lock extends to ~33.2; seam @ 32.0 continuous from chunk_02; nested S3/F2 dirt pocket @ 32.55-32.65; GMM S5/S6 no_input under parent; seam @ 33.0 into chunk_04 deferred
 chunk_04,33,34,1000,1000,1000,0,68,100.0,1000,0,0,operator gold locked 2026-06-29 — Strategic Command 3-span km 33.0-34.0 (S3/F2 + S4/F3 + S3/F2); supersedes 5-span draft; seam @ 33.0 S3/F2 from chunk_03 S4/F3; granite-entry TRF @ 33.00-33.12 retained; seam @ 34.0 into chunk_05
-chunk_05,34,35,1000,700,1,166,133,86.7,701,197,102,
-chunk_06,35,36,1000,700,0,61,239,76.1,700,125,175,
-chunk_07,36,37,1000,0,0,797,203,79.7,0,942,58,
-chunk_08,37,38,1000,460,1,458,81,91.9,461,458,81,
-chunk_09,38,39,1000,0,3,409,588,41.2,3,707,290,
-chunk_10,39,40,1000,300,0,120,580,42.0,300,268,432,
+chunk_05,34,35,1000,1000,1000,0,0,100.0,1000,0,0,operator gold locked 2026-07-01 — Gramstad approach km 34.0-35.0 (2 spans S3/F2 trail 34.0-34.6 + S2/F1 gravel 34.6-35.0); seam @ 34.0 S3/F2 from locked chunk_04; drink CP TRF @ 34.55-35.05 behavioral exclusion; seam @ 35.0 continuous S2/F1 into chunk_06
+chunk_06,35,36,1000,1000,1000,0,0,100.0,1000,0,0,operator gold locked 2026-07-01 — Gramstad hard-pack gravel road km 35.0-36.0 (S2/F1 parent span 34.6-36.0); seam @ 36.0 F1→F3 coarse gravel transition into chunk_07
+chunk_07,36,37,1000,1000,1000,0,0,100.0,1000,0,0,operator gold locked 2026-07-01 — Gramstad gravel tail + Vassfjellet approach km 36.0-37.0 (5 spans S2/F3 36.0-36.3 + S3/F3 36.3-36.72 + S6/F3 bog entry 36.72-36.81 + S6/F4 bog core 36.81-36.89 + S3/F3 post-bog transition 36.89-37.0); seam @ 37.0 into chunk_08 post-bog forest climb
+chunk_08,37,38,1000,1000,1000,0,0,100.0,1000,0,0,operator gold locked 2026-07-01 — Vassfjellet wet forest corridor km 37.0-38.0 (5 spans S3/F3 climb 37.0-37.072 + S6/F4 mud pocket 37.072-37.13 + S3/F3 wet tread 37.13-37.41 + S6/F4 muddy trail 37.41-37.87 + S5/F4 rocky-muddy descent tail 37.87-38.0); supersedes draft-preservation abstain band; seam @ 38.0 into chunk_09 forest descent
+chunk_09,38,39,1000,1000,1000,0,0,100.0,1000,0,0,operator gold locked 2026-07-01 — forest descent + Paradisskaret gravel km 38.0-39.0 (4 spans S6/F4 mud pocket 38.0-38.05 + S5/F4 rocky-muddy descent 38.05-38.35 + S3/F3 dirt transition 38.35-38.4 + S2/F3 Paradisskaret gravel 38.4-39.0); seam @ 39.0 into chunk_10 stile corridor
+chunk_10,39,40,1000,1000,1000,0,0,100.0,1000,0,0,operator gold locked 2026-07-01 — Paradisskaret stile + Loen-Alsvik asphalt approach km 39.0-40.0 (3 spans S2/F3 gravel 39.0-39.135 + S2/F3 stile flap 39.135-39.14 + S1/F0 asphalt 39.14-40.0); Loen underpass GPS disturbance @ ~39.5 TRF exclusion retained; seam @ 40.0 into chunk_11
 chunk_11,40,41,1000,1000,0,0,0,100.0,1000,0,0,

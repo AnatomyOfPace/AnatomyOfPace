@@ -28,6 +28,7 @@ Standalone Markdown files for attaching to Gemini, ChatGPT, or other sessions.
 | **2026-06-30** | **Dual ontology — telemetry clusters (O₁/O₂ bridge)** | [`19_dual_ontology_telemetry_clusters.md`](19_dual_ontology_telemetry_clusters.md) | **ACTIVE** — v0 `build_telemetry_clusters.py`; Paradisskaret + road anchors |
 | **2026-06-30** | **O₂ anchor run signature library** | [`20_anchor_run_signature_library.md`](20_anchor_run_signature_library.md) | **ACTIVE** — manifest + `build_anchor_features.py`; pole_policy per run |
 | **2026-06-30** | **O₂ anchor run signature library** | [`20_anchor_run_signature_library.md`](20_anchor_run_signature_library.md) | **SCOPED** — manifest + `build_anchor_features.py`; 3 extra runs + Paradisskaret calibration set |
+| **2026-07-01** | **Gramstad lock wave km 34–40** | [`22_gramstad_lock_wave_20260701.md`](22_gramstad_lock_wave_20260701.md) | **COMPLETE** — formalized operator gold ledger chunks 05–10; chunk_08 remains RED in triage |
 
 ## Naming convention
 

@@ -79269,13 +79269,11 @@
         "defer_reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement"
       },
       {
-        "course_km_start": 34.3,
+        "course_km_start": 34.302,
         "course_km_end": 34.335,
         "surface_class": "S2",
         "reason": "operator HITL: easy gravel trail",
-        "mode": "guidance",
-        "deferred": true,
-        "defer_reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement"
+        "mode": "guidance"
       },
       {
         "course_km_start": 34.335,
@@ -79370,11 +79368,18 @@
     ],
     "variance_gaps": [
       {
-        "course_km_start": 39.495,
-        "course_km_end": 39.505,
-        "median_sigma": null,
-        "pct_metres_high_variance": null,
-        "reason": "GPS disturbance \u2014 Loen underpass @ km ~39.5 (Loen-Alsvik asphalt corridor); multipath/reflection artefact on S1/F0 corridor (~10 m). Likely kinematic/GPS seed for false ML S4/F3 REVISE km 39.521\u201339.917; operator rejects REVISE \u2014 substrate remains operator gold S1/F0 asphalt km 39.140\u201341.0."
+        "course_km_start": 34.178,
+        "course_km_end": 34.302,
+        "median_sigma": 0.321,
+        "pct_metres_high_variance": 50.0,
+        "reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement"
+      },
+      {
+        "course_km_start": 36.723,
+        "course_km_end": 36.981,
+        "median_sigma": 0.301,
+        "pct_metres_high_variance": 50.0,
+        "reason": "inter-athlete NTI \u03c3 elevated (median \u03c3 \u2265 threshold or >50% hot metres) \u2014 operator guidance deferred pending GPS revisit or second-athlete agreement"
       }
     ],
     "draft_preservation_spans": [
@@ -79624,7 +79629,9 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "gold_source": "operator",
-        "reason": "operator gold: low friction trail \u2014 compact dirt, runnable tread (km 34.0\u201334.60) downstream of chunk_04 S3/F2 ease band @ 33.8\u201334.0 (Strategic Command 3-span lock 2026-06-29); extends to low\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward). S3/F2 per friction_index_spec. Dashboard HITL QC chunk_05. Subject_A drink CP stop behavioral TRF exclusion. Not S2 hard-pack gravel."
+        "reason": "operator gold: low friction trail \u2014 compact dirt, runnable tread (km 34.0\u201334.60) downstream of chunk_04 S3/F2 ease band @ 33.8\u201334.0 (Strategic Command 3-span lock 2026-06-29); extends to low\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward). S3/F2 per friction_index_spec. Dashboard HITL QC chunk_05. Subject_A drink CP stop behavioral TRF exclusion. Not S2 hard-pack gravel.",
+        "locked_at": "2026-07-01",
+        "mode": "operator_gold"
       },
       {
         "surface_class": "S3",
@@ -79641,7 +79648,9 @@
         "gold_source": "operator",
         "course_km_start": 37.0,
         "course_km_end": 37.072,
-        "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt tread immediately downstream of Vassfjellet approach bog S6/F4 km 36.72\u201336.89; typically wet with localized mud holes (high friction tax corridor, chunk_08). S3/F3 per friction_index_spec (rooty/muddy dirt trail, technical-runnable). GMM S3 cluster km 37.021\u201337.066 upstream of bog pocket."
+        "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt tread immediately downstream of Vassfjellet approach bog S6/F4 km 36.72\u201336.89; typically wet with localized mud holes (high friction tax corridor, chunk_08). S3/F3 per friction_index_spec (rooty/muddy dirt trail, technical-runnable). GMM S3 cluster km 37.021\u201337.066 upstream of bog pocket.",
+        "locked_at": "2026-07-01",
+        "mode": "operator_gold"
       },
       {
         "surface_class": "S6",
@@ -79649,7 +79658,9 @@
         "gold_source": "operator",
         "course_km_start": 37.072,
         "course_km_end": 37.13,
-        "reason": "operator gold: localized bog/mud pocket \u2014 deep mud hole within post-bog forest climb km 37.0\u201337.4; operator field note @ km 37.07\u201337.13, GMM S6 cluster km 37.072\u201337.130. Nested S6/F4 micro-span within S3/F3 parent corridor (chunk_08). S6/F4 per friction_index_spec (vacuum mud / bog extraction)."
+        "reason": "operator gold: localized bog/mud pocket \u2014 deep mud hole within post-bog forest climb km 37.0\u201337.4; operator field note @ km 37.07\u201337.13, GMM S6 cluster km 37.072\u201337.130. Nested S6/F4 micro-span within S3/F3 parent corridor (chunk_08). S6/F4 per friction_index_spec (vacuum mud / bog extraction).",
+        "locked_at": "2026-07-01",
+        "mode": "operator_gold"
       },
       {
         "surface_class": "S3",
@@ -79657,7 +79668,9 @@
         "gold_source": "operator",
         "course_km_start": 37.13,
         "course_km_end": 37.41,
-        "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt trail with frequent localized mud holes; unpleasant high-friction tax corridor per operator field note (chunk_08). S3/F3 per friction_index_spec. GMM mixed S5/S6 pockets retained as draft overlay; operator baseline S3/F3 wet tread to km ~37.4 before Vassfjellet muddy trail band."
+        "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt trail with frequent localized mud holes; unpleasant high-friction tax corridor per operator field note (chunk_08). S3/F3 per friction_index_spec. GMM mixed S5/S6 pockets retained as draft overlay; operator baseline S3/F3 wet tread to km ~37.4 before Vassfjellet muddy trail band.",
+        "locked_at": "2026-07-01",
+        "mode": "operator_gold"
       },
       {
         "surface_class": "S6",
@@ -79665,7 +79678,9 @@
         "gold_source": "operator",
         "course_km_start": 37.41,
         "course_km_end": 37.87,
-        "reason": "operator gold: Vassfjellet muddy trail \u2014 wet forest dirt tread with frequent mud holes and bog-dominant footing; extended/merged from prior km 37.41\u201337.87 baseline (chunk_08). Operator field note: dirt trails in forest, typically wet, localized mud holes frequent, high friction tax corridor. S6/F4 per friction_index_spec (bog/mud dominant; GMM S6 clusters km 37.414\u201337.849). Supersedes open variance gap km 37.87\u201338.0 flank."
+        "reason": "operator gold: Vassfjellet muddy trail \u2014 wet forest dirt tread with frequent mud holes and bog-dominant footing; extended/merged from prior km 37.41\u201337.87 baseline (chunk_08). Operator field note: dirt trails in forest, typically wet, localized mud holes frequent, high friction tax corridor. S6/F4 per friction_index_spec (bog/mud dominant; GMM S6 clusters km 37.414\u201337.849). Supersedes open variance gap km 37.87\u201338.0 flank.",
+        "locked_at": "2026-07-01",
+        "mode": "operator_gold"
       },
       {
         "surface_class": "S5",
@@ -79673,7 +79688,9 @@
         "gold_source": "operator",
         "course_km_start": 37.87,
         "course_km_end": 38.0,
-        "reason": "operator gold: rocky muddy descent \u2014 technical rocky AND muddy tread at end of wet forest corridor near km 38 per operator field note (chunk_08 tail only). S5/F4 per friction_index_spec (severe friction: loose/rocky footing plus vacuum mud; walk/scramble tax). Transitions from upstream S6/F4 Vassfjellet muddy trail; descent ends @ km 38.0 \u2014 downstream operator gold forest descent transition km 38.0\u201338.4 (chunk_09 tier lock 2026-06-28)."
+        "reason": "operator gold: rocky muddy descent \u2014 technical rocky AND muddy tread at end of wet forest corridor near km 38 per operator field note (chunk_08 tail only). S5/F4 per friction_index_spec (severe friction: loose/rocky footing plus vacuum mud; walk/scramble tax). Transitions from upstream S6/F4 Vassfjellet muddy trail; descent ends @ km 38.0 \u2014 downstream operator gold forest descent transition km 38.0\u201338.4 (chunk_09 tier lock 2026-06-28).",
+        "locked_at": "2026-07-01",
+        "mode": "operator_gold"
       },
       {
         "surface_class": "S6",
@@ -79726,7 +79743,8 @@
         "gold_source": "operator",
         "reason": "operator gold: Loen-Alsvik asphalt road (Alsvik asphalt tail, dossier sector #1) \u2014 sealed S1/F0 corridor km 39.140\u201340.0; begins ~5 m downstream of Paradisskaret stile @ km 39.135 after S2/F3 gravel transition flap km 39.135\u201339.140. Prior lock start @ km 39.7 pulled upstream per operator field note (gravel\u2192asphalt transition QC chunk_10). Flat grade, low NTI confirmation; friction tier F0 per friction_index_spec; dashboard HITL QC chunk_10.",
         "course_km_start": 39.14,
-        "course_km_end": 40.0
+        "course_km_end": 40.0,
+        "locked_at": "2026-07-01"
       },
       {
         "surface_class": "S1",
