@@ -94216,7 +94216,138 @@
   "hitl": {
     "status": "draft",
     "sector_id": "dalevatn_band",
-    "operator_gold_spans": [],
+    "operator_gold_spans": [
+      {
+        "course_km_start": 8.0,
+        "course_km_end": 8.2,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Noredalen descent tail to valley floor (km 8.0\u20138.2). S4/F3 per seamless seam @ km 8.0 from locked start terminal S4/F3 Noredalen opening descent (km 7.5\u20138.0); race_corridors noredalen_valley_flat atlas start @ 8.0 with evidence-tightened tread transition @ 8.2 where grade med crosses flat gate (\u221222%\u2192\u22123%). Race TI med ~4.1 (F4 85%); grade med \u221222%; alt 285\u2192247 m. Dale timing index organiser anchor @ km 8.1 (calibration checkpoint, not tread transition). Hommersak training TI med deferred (effort mixing on brake). ML S4/F3 gap fill km 8.001\u20138.175 corroborates; GMM S1\u2013S6 micro-pockets deferred Tier 3 per memo 18."
+      },
+      {
+        "course_km_start": 8.2,
+        "course_km_end": 9.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Noredalen valley floor roll (km 8.2\u20139.0). S3/F2 per race_corridors noredalen_valley_flat atlas (km 8.0\u201310.4) and operator topo: runnable dirt trail on valley floor; seamless seam @ km 8.2 from locked descent tail S4/F3 (F3\u2192F2 tread step). Race TI med ~1.7 (F3 75%); grade med \u22121.5%; alt 246\u2192228 m. GMM S1/S2 gravel micro-pockets km 8.3\u20138.9 deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. Mild descent roller @ 8.7\u20139.0 retained under valley roll; steep brake onset @ 9.0+ deferred to chunk_01 HITL."
+      },
+      {
+        "course_km_start": 9.0,
+        "course_km_end": 9.08,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Noredalen valley floor roll tail (km 9.0\u20139.08). S3/F2 per seamless seam @ km 9.0 from locked chunk_00 S3/F2; race_corridors noredalen_valley_flat atlas (km 8.0\u201310.4). Race TI med ~2.1 (F3 70%); grade med \u22127.7%; alt 224\u2192217 m. Evidence-tightened tread transition @ km 9.08 where grade med crosses \u221210% brake gate. GMM S1/S2 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent."
+      },
+      {
+        "course_km_start": 9.08,
+        "course_km_end": 9.78,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Kyllesvatnet approach steep brake (km 9.08\u20139.78). S4/F3 per telemetry brake onset: grade med \u221210% @ 9.08 escalating to \u221224%\u2013\u221230% core; race TI med ~3.3 (F4 85%); alt 217\u219288 m. noredalen_valley_flat atlas ends @ 10.4 but physics brake sub-span overrides flat parent lock (match chunk_00 S4/F3 descent-tail pattern). ML S4/F3 gap fill km 9.156\u20139.248 corroborates; ML S2/F3 gap fills km 9.248\u20139.656 rejected (Tier 3 defer per memo 18). GMM S3/S4 micro-pockets deferred Tier 3 \u2014 absorb under S4/F3 parent."
+      },
+      {
+        "course_km_start": 9.78,
+        "course_km_end": 10.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Kyllesvatnet approach easing roll (km 9.78\u201310.0). S3/F2 per race_corridors noredalen_valley_flat tail and grade/TI easing: grade med \u22127.4%, race TI med ~1.8 (F3 75%); alt 88\u219271 m. Seam @ km 9.78 from locked brake S4/F3 (F3\u2192F2 tread step). Dalsnuten timing index organiser anchor @ km 10.37 downstream (not tread transition). ML S2/F1 gap fill km 9.713\u201310.0 rejected (Tier 3 defer per memo 18). Steep climb onset @ 10.4+ deferred to chunk_02 HITL."
+      },
+      {
+        "course_km_start": 10.0,
+        "course_km_end": 10.4,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Noredalen valley floor roll tail (km 10.0\u201310.4). S3/F2 per seamless seam @ km 10.0 from locked chunk_01 S3/F2; race_corridors noredalen_valley_flat atlas (km 8.0\u201310.4). Race TI med ~1.3 (F2\u2013F3 70%); grade med \u22121.5% easing to flat; alt 68\u219280 m. Evidence-tightened tread transition @ km 10.4 where atlas ends and grade crosses +8% climb gate. Dalsnuten timing index organiser anchor @ km 10.37 (calibration checkpoint, not tread transition). ML S2/F1 gap fill km 10.0\u201310.28 rejected (Tier 3 defer per memo 18). GMM S1\u2013S6 micro-pockets deferred Tier 3 \u2014 absorb under S3/F2 parent. Steep climb onset @ 10.4+ deferred to downstream span."
+      },
+      {
+        "course_km_start": 10.4,
+        "course_km_end": 11.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Dalsnuten approach climb tread (km 10.4\u201311.0). S3/F2 per telemetry climb onset: grade med +8%\u2013+14% core @ 10.35\u201310.45 then variable +3%\u2013+10%; race TI med ~1.4 (F2\u2013F3 70%); alt 80\u2192108 m. Seam @ km 10.4 from locked valley flat S3/F2 (no S/F step \u2014 tread class holds on runnable dirt climb). ML S3/F2 gap fill km 10.35\u201310.84 partially corroborates; ML S2/F1 gap fill km 10.84\u201310.90 rejected (Tier 3 defer per memo 18). GMM S1\u2013S6 gravel/technical micro-pockets km 10.29\u201310.99 deferred Tier 3 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI remains sub-F4 throughout climb band."
+      },
+      {
+        "course_km_start": 11.0,
+        "course_km_end": 11.4,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Dalsnuten climb continuation plateau roller (km 11.0\u201311.4). S3/F2 per seamless seam @ km 11.0 from locked chunk_02 S3/F2; race_corridors noredalen_valley_flat atlas ended @ 10.4 \u2014 climb tread continues on runnable dirt east of Dalsnuten timing index @ 10.37. Race TI med ~1.3\u20131.5 (F2\u2013F3 70%); grade med \u22120.04% to +3.4% with brief plateau dip @ 10.9\u201311.0 absorbed under parent; alt 108\u2192120 m. Evidence-tightened tread transition @ km 11.4 where grade med crosses +7% steep-climb gate. ML gap fills abstain (HMM out of window); GMM S1\u2013S6 gravel micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI sub-F4."
+      },
+      {
+        "course_km_start": 11.4,
+        "course_km_end": 12.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Dalsnuten sustained steep climb tread (km 11.4\u201312.0). S3/F2 per telemetry steep-climb onset: grade med +7%\u2013+23% core @ 11.4\u201312.0; race TI med ~1.2\u20131.4 (F2 85%); alt 120\u2192196 m. Seam @ km 11.4 from locked plateau roller S3/F2 (no S/F step \u2014 tread class holds on runnable dirt climb). Bj\u00f8rndalsfjellet timing index organiser anchor @ km 14.39 downstream (not tread transition). ML gap fills abstain (HMM out of window); GMM S2/S3 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI remains sub-F4 throughout steep band. Steep core @ 11.8+ deferred to chunk_04 HITL preview."
+      },
+      {
+        "course_km_start": 12.0,
+        "course_km_end": 12.5,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Bj\u00f8rndalsfjellet approach sustained steep climb tread (km 12.0\u201312.5). S3/F2 per seamless seam @ km 12.0 from locked chunk_03 S3/F2; race_corridors Bj\u00f8rndalsfjellet timing index organiser anchor @ km 14.39 downstream (not tread transition). Race TI med ~1.2\u20131.6 (F2 85%); grade med +22%\u2013+30% core @ 12.0\u201312.2 then easing +8% @ 12.4; alt 196\u2192283 m. Evidence-tightened tread transition @ km 12.5 where grade med crosses summit inflection (climb\u2192roller dip). ML gap fills abstain (HMM out of window); GMM S1\u2013S4 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI remains sub-F4 throughout steep climb band."
+      },
+      {
+        "course_km_start": 12.5,
+        "course_km_end": 13.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Bj\u00f8rndalsfjellet approach ridge roller dip + re-climb tread (km 12.5\u201313.0). S3/F2 per seamless seam @ km 12.5 from locked steep-climb S3/F2 (no S/F step \u2014 tread class holds on runnable dirt). Grade reversal dip \u221224% core @ 12.5\u201312.8 absorbed under parent; alt 283\u2192237\u2192255 m; race TI med ~1.3\u20132.9 on brake dip (effort mixing, not technical rock). dalevatn_band_ontology window begins @ km 13.0 downstream. ML gap fills abstain (HMM out of window); GMM S1/S2 gravel micro-pockets @ 12.7\u201312.8 deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: elevated TI on descent dip is braking physics, not F4 technical tread."
+      },
+      {
+        "course_km_start": 13.0,
+        "course_km_end": 13.8,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Bj\u00f8rndalsfjellet approach sustained climb tread (km 13.0\u201313.8). S3/F2 per seamless seam @ km 13.0 from locked chunk_04 S3/F2 ridge re-climb (no S/F step \u2014 tread class holds on runnable dirt). dalevatn_band_ontology traverse onset @ km 13.0 per race_corridors; Bj\u00f8rndalsfjellet timing index organiser anchor @ km 14.39 downstream (not tread transition). Race TI med ~1.3\u20131.5 (F2 85%); grade med +6%\u2013+15% core @ 13.0\u201313.7; alt 255\u2192340 m. Evidence-tightened tread transition @ km 13.8 where grade med crosses summit inflection (climb\u2192plateau). ML gap fills abstain (HMM out of window); GMM S1\u2013S6 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI remains sub-F4 throughout climb band."
+      },
+      {
+        "course_km_start": 13.8,
+        "course_km_end": 14.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Bj\u00f8rndalsfjellet summit plateau + lip brake tread (km 13.8\u201314.0). S3/F2 per seamless seam @ km 13.8 from locked sustained-climb S3/F2 (no S/F step \u2014 tread class holds on runnable dirt summit traverse). Grade eases +7%\u2192+2% @ 13.8\u201313.9 then \u221210% lip brake @ 14.0; alt 340\u2192333 m; race TI med ~1.8\u20133.1 on brake lip (effort mixing, not technical rock). Mattirudla timing index @ 15.67 and dale_descent corridor @ 14.5 downstream. ML gap fills abstain (HMM out of window); GMM S4/S5 micro-pockets @ 13.8\u201314.0 deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: elevated TI on lip brake is braking physics, not F4 technical tread."
+      }
+    ],
     "manual_overrides": [],
     "friction_spans": [],
     "authority": "gmm_draft",
