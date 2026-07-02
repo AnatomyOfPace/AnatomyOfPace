@@ -27,7 +27,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import HistGradientBoostingClassifier
-from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 
 _SCRIPTS = Path(__file__).resolve().parent.parent
@@ -81,12 +81,110 @@ def _active_feature_columns(df: pd.DataFrame, feature_cols: list[str]) -> list[s
     return active
 
 
+def _make_classifier() -> HistGradientBoostingClassifier:
+    return HistGradientBoostingClassifier(
+        max_depth=8,
+        learning_rate=0.08,
+        max_iter=200,
+        random_state=RANDOM_STATE,
+    )
+
+
+def _fit_classifier(
+    x: pd.DataFrame,
+    y: pd.Series,
+    *,
+    sample_weight: np.ndarray | None = None,
+) -> HistGradientBoostingClassifier:
+    clf = _make_classifier()
+    if sample_weight is not None:
+        clf.fit(x, y, sample_weight=sample_weight)
+    else:
+        clf.fit(x, y)
+    return clf
+
+
+def _accuracy_report(y_true: pd.Series, y_pred: np.ndarray) -> dict[str, Any]:
+    report = classification_report(y_true, y_pred, output_dict=True, zero_division=0)
+    return {
+        "accuracy": float(accuracy_score(y_true, y_pred)),
+        "n": int(len(y_true)),
+        "classification_report": report,
+    }
+
+
+def _per_source_accuracy(
+    y_true: pd.Series,
+    y_pred: np.ndarray,
+    sources: pd.Series,
+) -> dict[str, dict[str, float]]:
+    out: dict[str, dict[str, float]] = {}
+    aligned = sources.reindex(y_true.index)
+    for anchor in sorted(aligned.dropna().unique()):
+        mask = aligned == anchor
+        if not mask.any():
+            continue
+        out[str(anchor)] = {
+            "accuracy": float(accuracy_score(y_true[mask], y_pred[mask.to_numpy()])),
+            "n": int(mask.sum()),
+        }
+    return out
+
+
+def _source_holdout_eval(
+    x: pd.DataFrame,
+    y: pd.Series,
+    sources: pd.Series,
+    *,
+    train_sources: set[str],
+    test_sources: set[str],
+    sample_weight: np.ndarray | None = None,
+) -> dict[str, Any] | None:
+    src = sources.reindex(x.index)
+    train_mask = src.isin(train_sources)
+    test_mask = src.isin(test_sources)
+    if not train_mask.any() or not test_mask.any():
+        return None
+    w_train = sample_weight[train_mask.to_numpy()] if sample_weight is not None else None
+    clf = _fit_classifier(x.loc[train_mask], y.loc[train_mask], sample_weight=w_train)
+    y_pred = clf.predict(x.loc[test_mask])
+    metrics = _accuracy_report(y.loc[test_mask], y_pred)
+    metrics["train_sources"] = sorted(train_sources)
+    metrics["test_sources"] = sorted(test_sources)
+    metrics["n_train"] = int(train_mask.sum())
+    return metrics
+
+
+def _apply_source_weights(
+    df: pd.DataFrame,
+    weights: dict[str, float],
+) -> pd.Series:
+    base = pd.Series(1.0, index=df.index, dtype=float)
+    if "source_anchor" not in df.columns or not weights:
+        return base
+    for anchor, mult in weights.items():
+        mask = df["source_anchor"] == anchor
+        base.loc[mask] *= float(mult)
+    return base
+
+
+def _parse_source_weight(spec: str) -> tuple[str, float]:
+    if ":" not in spec:
+        raise ValueError(f"Invalid --source-weight '{spec}'; expected SOURCE:WEIGHT")
+    anchor, raw = spec.split(":", 1)
+    anchor = anchor.strip()
+    if not anchor:
+        raise ValueError(f"Invalid --source-weight '{spec}'; empty source anchor")
+    return anchor, float(raw)
+
+
 def _train_classifier(
     x: pd.DataFrame,
     y: pd.Series,
     *,
     classes: tuple[str, ...],
     sample_weight: np.ndarray | None = None,
+    sources: pd.Series | None = None,
 ) -> tuple[HistGradientBoostingClassifier, dict[str, Any]]:
     present_classes = sorted(set(y.unique()) & set(classes))
     if len(present_classes) < 2:
@@ -108,16 +206,7 @@ def _train_classifier(
     else:
         x_train, x_test, y_train, y_test = train_test_split(x, y, **split_kwargs)
         w_train = None
-    clf = HistGradientBoostingClassifier(
-        max_depth=8,
-        learning_rate=0.08,
-        max_iter=200,
-        random_state=RANDOM_STATE,
-    )
-    if w_train is not None:
-        clf.fit(x_train, y_train, sample_weight=w_train)
-    else:
-        clf.fit(x_train, y_train)
+    clf = _fit_classifier(x_train, y_train, sample_weight=w_train)
     y_pred = clf.predict(x_test)
     report = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
     metrics: dict[str, Any] = {
@@ -127,6 +216,11 @@ def _train_classifier(
         "classification_report": report,
         "accuracy": float(report.get("accuracy", 0.0)),
     }
+    if sources is not None:
+        test_idx = y_test.index
+        metrics["per_source_accuracy"] = _per_source_accuracy(
+            y_test, y_pred, sources.reindex(test_idx)
+        )
     return clf, metrics
 
 
@@ -194,6 +288,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=3.0,
         help="Sample-weight multiplier for metres overlapping negative spans",
     )
+    parser.add_argument(
+        "--source-weight",
+        action="append",
+        default=[],
+        metavar="ANCHOR:WEIGHT",
+        help="Per-source_anchor sample-weight multiplier (repeatable)",
+    )
+    parser.add_argument(
+        "--no-source-holdout-eval",
+        action="store_true",
+        help="Skip source-stratified holdout evaluation",
+    )
     return parser.parse_args(argv)
 
 
@@ -223,6 +329,14 @@ def main(argv: list[str] | None = None) -> int:
 
     negatives_meta: dict[str, Any] | None = None
     sample_weights = pd.Series(1.0, index=df.index, dtype=float)
+    source_weight_map: dict[str, float] = {}
+    for spec in args.source_weight:
+        anchor, mult = _parse_source_weight(spec)
+        source_weight_map[anchor] = mult
+    if source_weight_map:
+        sample_weights *= _apply_source_weights(df, source_weight_map)
+        print(f"Source weights: {source_weight_map}")
+
     if args.negative_set:
         try:
             negatives = _load_negative_set(args.negative_set)
@@ -247,13 +361,68 @@ def main(argv: list[str] | None = None) -> int:
 
     x_surf, y_surf, w_surf = _prepare_xy(df, feature_cols, "label_surface", sample_weights=sample_weights)
     x_fric, y_fric, w_fric = _prepare_xy(df, feature_cols, "label_friction", sample_weights=sample_weights)
+    labeled = df[df["is_labeled"]].copy()
+    surf_sources = labeled.loc[x_surf.index, "source_anchor"] if "source_anchor" in labeled.columns else None
+    fric_sources = labeled.loc[x_fric.index, "source_anchor"] if "source_anchor" in labeled.columns else None
 
     surface_clf, surface_metrics = _train_classifier(
-        x_surf, y_surf, classes=SURFACE_CLASSES, sample_weight=w_surf
+        x_surf,
+        y_surf,
+        classes=SURFACE_CLASSES,
+        sample_weight=w_surf,
+        sources=surf_sources,
     )
     friction_clf, friction_metrics = _train_classifier(
-        x_fric, y_fric, classes=FRICTION_TIERS, sample_weight=w_fric
+        x_fric,
+        y_fric,
+        classes=FRICTION_TIERS,
+        sample_weight=w_fric,
+        sources=fric_sources,
     )
+
+    source_holdout_eval: dict[str, Any] | None = None
+    if not args.no_source_holdout_eval and surf_sources is not None:
+        anchors = set(surf_sources.dropna().unique())
+        if {"calibration_pool", "sut43", "start"}.issubset(anchors):
+            cal_sut = {"calibration_pool", "sut43"}
+            source_holdout_eval = {
+                "train_cal_sut_test_start": {
+                    "surface": _source_holdout_eval(
+                        x_surf,
+                        y_surf,
+                        surf_sources,
+                        train_sources=cal_sut,
+                        test_sources={"start"},
+                        sample_weight=w_surf,
+                    ),
+                    "friction": _source_holdout_eval(
+                        x_fric,
+                        y_fric,
+                        fric_sources,
+                        train_sources=cal_sut,
+                        test_sources={"start"},
+                        sample_weight=w_fric,
+                    ),
+                },
+                "train_start_test_cal_sut": {
+                    "surface": _source_holdout_eval(
+                        x_surf,
+                        y_surf,
+                        surf_sources,
+                        train_sources={"start"},
+                        test_sources=cal_sut,
+                        sample_weight=w_surf,
+                    ),
+                    "friction": _source_holdout_eval(
+                        x_fric,
+                        y_fric,
+                        fric_sources,
+                        train_sources={"start"},
+                        test_sources=cal_sut,
+                        sample_weight=w_fric,
+                    ),
+                },
+            }
 
     feature_medians = df[feature_cols].median(numeric_only=True).to_dict()
     bundle = {
@@ -284,6 +453,12 @@ def main(argv: list[str] | None = None) -> int:
     }
     if negatives_meta:
         metadata["negative_reinforcement"] = negatives_meta
+    if source_weight_map:
+        metadata["source_weights"] = source_weight_map
+    if source_holdout_eval:
+        metadata["source_holdout_eval"] = source_holdout_eval
+    if "source_anchor" in df.columns:
+        metadata["source_anchor_counts"] = df["source_anchor"].value_counts().to_dict()
     args.metadata_out.parent.mkdir(parents=True, exist_ok=True)
     args.metadata_out.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
 
@@ -297,6 +472,25 @@ def main(argv: list[str] | None = None) -> int:
         f"Friction holdout accuracy: {friction_metrics['accuracy']:.3f} "
         f"(n_train={friction_metrics['n_train']}, n_test={friction_metrics['n_test']})"
     )
+    if source_holdout_eval:
+        cal_sut = source_holdout_eval.get("train_cal_sut_test_start", {})
+        if cal_sut.get("surface"):
+            print(
+                "Source holdout (train cal+sut43 → test start): "
+                f"surface={cal_sut['surface']['accuracy']:.3f} "
+                f"friction={cal_sut['friction']['accuracy']:.3f}"
+            )
+        start_cal = source_holdout_eval.get("train_start_test_cal_sut", {})
+        if start_cal.get("surface"):
+            print(
+                "Source holdout (train start → test cal+sut43): "
+                f"surface={start_cal['surface']['accuracy']:.3f} "
+                f"friction={start_cal['friction']['accuracy']:.3f}"
+            )
+    if surface_metrics.get("per_source_accuracy"):
+        print("Per-source surface accuracy (random 80/20 holdout):")
+        for anchor, row in sorted(surface_metrics["per_source_accuracy"].items()):
+            print(f"  {anchor}: {row['accuracy']:.3f} (n={row['n']})")
     return 0
 
 
