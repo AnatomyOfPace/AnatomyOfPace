@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T13:50:13.439476+00:00",
+  "generated_at": "2026-07-02T13:58:53.542247+00:00",
   "panel": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_bridge_1m.parquet",
   "terrain_map": "config/spatial_terrain_map_sut43_bridge.json",
   "extra_terrain_maps": [
@@ -7,18 +7,18 @@
   ],
   "hmm_draft": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
   "km_start": 8.0,
-  "km_end": 18.0,
-  "total_metres": 10000,
-  "labeled_metres": 10000,
+  "km_end": 19.0,
+  "total_metres": 11000,
+  "labeled_metres": 11000,
   "unlabeled_metres": 0,
   "labeled_pct": 100.0,
   "label_surface_counts": {
-    "S3": 7050,
-    "S4": 2950
+    "S3": 7850,
+    "S4": 3150
   },
   "label_friction_counts": {
-    "F2": 7050,
-    "F3": 2950
+    "F2": 7850,
+    "F3": 3150
   },
   "feature_columns": [
     "consensus_nti",
