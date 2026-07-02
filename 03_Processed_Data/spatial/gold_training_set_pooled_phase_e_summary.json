@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-07-02T09:24:27.327844+00:00",
+  "output": "03_Processed_Data/spatial/gold_training_set_pooled_phase_e.parquet",
+  "total_rows": 88630,
+  "total_labeled": 88630,
+  "sources": {
+    "calibration_pool": {
+      "rows": 62130,
+      "labeled": 62130
+    },
+    "sut43": {
+      "rows": 19000,
+      "labeled": 19000
+    },
+    "start": {
+      "rows": 7500,
+      "labeled": 7500
+    }
+  },
+  "inputs": [
+    "03_Processed_Data/spatial/gold_training_set_calibration_pool.parquet",
+    "03_Processed_Data/spatial/gold_training_set_sut43.parquet",
+    "03_Processed_Data/spatial/sut43_terrain_ontology/gold_training_set_start.parquet"
+  ]
+}

@@ -1,59 +1,12 @@
 {
   "schema_version": "gold_suggester_v0",
-  "generated_at": "2026-06-30T19:23:21.079510+00:00",
-  "training_set": null,
+  "generated_at": "2026-07-02T09:43:38.229553+00:00",
+  "training_set": "03_Processed_Data/spatial/gold_training_set_pooled_phase_e.parquet",
   "training_sets": [
-    "03_Processed_Data/spatial/gold_training_set_calibration_pool.parquet",
-    "03_Processed_Data/spatial/gold_training_set_sut43.parquet"
+    "03_Processed_Data/spatial/gold_training_set_pooled_phase_e.parquet"
   ],
-  "labeled_metres": 81130,
-  "total_metres": 81130,
-  "label_friction_counts": {
-    "F0": 26040,
-    "F1": 39900,
-    "F2": 6250,
-    "F3": 7772,
-    "F4": 1168
-  },
-  "retrain_provenance": {
-    "trigger": "SUT43 chunk_07 F3 adjudication (km 36.0–36.81); chunk_05 pin @ 34.60; Loen underpass variance_gap annotations; locked km 22–41 gold rebuild",
-    "prior_generated_at": "2026-06-30T16:47:59.941262+00:00",
-    "sut43_friction_f3_delta": {
-      "prior_metres": 6962,
-      "current_metres": 7772,
-      "delta_metres": 810
-    },
-    "holdout_vs_prior": {
-      "surface_accuracy": {
-        "prior": 0.9772587205719216,
-        "current": 0.9772587205719216,
-        "delta": 0.0
-      },
-      "friction_accuracy": {
-        "prior": 0.9938986811290521,
-        "current": 0.9926044619746086,
-        "delta": -0.0012942191544435
-      },
-      "friction_f3_holdout_support": {
-        "prior": 1392,
-        "current": 1554,
-        "delta": 162
-      }
-    },
-    "smoke_test": {
-      "chunk_07_km_36.0_36.81": {
-        "prior_revise_f3_bands": 5,
-        "current_revise_f3_bands": 2,
-        "current_keep_f3_bands": 4,
-        "note": "F3 adjudication bands now KEEP (S2/F3, S3/F3, S6/F3); residual LOW/MED REVISE on edge metres only"
-      },
-      "chunk_05_pin_34.60": {
-        "keep_span_km": "34.600–35.000 S2/F1 HIGH",
-        "pin_window_km_34.55_34.65": "0 suggestions (fully golded)",
-        "note": "Residual REVISE 34.604–34.985 S2/F1→S2/F2 overlaps pin edge; core pin @ 34.60 within KEEP band"
-      }
-    }
-  },
+  "labeled_metres": 88630,
+  "total_metres": 88630,
   "feature_columns": [
     "consensus_nti",
     "nti_std",
@@ -71,8 +24,8 @@
   ],
   "dropped_features": [],
   "surface_metrics": {
-    "n_train": 64904,
-    "n_test": 16226,
+    "n_train": 70904,
+    "n_test": 17726,
     "classes": [
       "S1",
       "S2",
@@ -83,33 +36,33 @@
     ],
     "classification_report": {
       "S1": {
-        "precision": 0.9723710649698594,
-        "recall": 0.9697728790915163,
-        "f1-score": 0.9710702341137124,
-        "support": 5988.0
+        "precision": 0.9733155436957972,
+        "recall": 0.9694352159468439,
+        "f1-score": 0.9713715046604527,
+        "support": 6020.0
       },
       "S2": {
-        "precision": 0.9762928227172072,
-        "recall": 0.9782041242495432,
-        "f1-score": 0.9772475389529957,
-        "support": 7662.0
+        "precision": 0.9767500314188765,
+        "recall": 0.9800756620428751,
+        "f1-score": 0.9784100207717001,
+        "support": 7930.0
       },
       "S3": {
-        "precision": 0.9926229508196721,
-        "recall": 0.9909983633387889,
-        "f1-score": 0.9918099918099919,
-        "support": 1222.0
+        "precision": 0.9925925925925926,
+        "recall": 0.9913686806411838,
+        "f1-score": 0.9919802590993214,
+        "support": 1622.0
       },
       "S4": {
-        "precision": 0.9891891891891892,
-        "recall": 0.9963702359346642,
-        "f1-score": 0.9927667269439421,
-        "support": 1102.0
+        "precision": 0.9926354550236718,
+        "recall": 0.9921135646687698,
+        "f1-score": 0.9923744412306074,
+        "support": 1902.0
       },
       "S5": {
-        "precision": 1.0,
-        "recall": 0.9615384615384616,
-        "f1-score": 0.9803921568627451,
+        "precision": 0.9904761904761905,
+        "recall": 1.0,
+        "f1-score": 0.9952153110047847,
         "support": 104.0
       },
       "S6": {
@@ -118,25 +71,39 @@
         "f1-score": 0.9898305084745763,
         "support": 148.0
       },
-      "accuracy": 0.9772587205719216,
+      "accuracy": 0.9789574636127722,
       "macro avg": {
-        "precision": 0.987278884434582,
-        "recall": 0.9805617584399102,
-        "f1-score": 0.9838528595263273,
-        "support": 16226.0
+        "precision": 0.9864945153531154,
+        "recall": 0.9865799349643599,
+        "f1-score": 0.9865303408735738,
+        "support": 17726.0
       },
       "weighted avg": {
-        "precision": 0.9772573939582028,
-        "recall": 0.9772587205719216,
-        "f1-score": 0.9772535220006632,
-        "support": 16226.0
+        "precision": 0.9789556506786097,
+        "recall": 0.9789574636127722,
+        "f1-score": 0.9789537062988805,
+        "support": 17726.0
       }
     },
-    "accuracy": 0.9772587205719216
+    "accuracy": 0.9789574636127722,
+    "per_source_accuracy": {
+      "calibration_pool": {
+        "accuracy": 0.9725673713086977,
+        "n": 12394
+      },
+      "start": {
+        "accuracy": 0.9946984758117959,
+        "n": 1509
+      },
+      "sut43": {
+        "accuracy": 0.9934606330107245,
+        "n": 3823
+      }
+    }
   },
   "friction_metrics": {
-    "n_train": 64904,
-    "n_test": 16226,
+    "n_train": 70904,
+    "n_test": 17726,
     "classes": [
       "F0",
       "F1",
@@ -146,50 +113,378 @@
     ],
     "classification_report": {
       "F0": {
-        "precision": 0.9876119687440442,
-        "recall": 0.9950076804915514,
-        "f1-score": 0.9912960306073649,
-        "support": 5208.0
+        "precision": 0.9856060606060606,
+        "recall": 0.9931297709923664,
+        "f1-score": 0.9893536121673003,
+        "support": 5240.0
       },
       "F1": {
-        "precision": 0.9965994962216624,
-        "recall": 0.9916040100250627,
-        "f1-score": 0.9940954773869347,
-        "support": 7980.0
+        "precision": 0.9956135006701596,
+        "recall": 0.9906644034917556,
+        "f1-score": 0.9931327863871163,
+        "support": 8248.0
       },
       "F2": {
-        "precision": 0.9896414342629483,
-        "recall": 0.9936,
-        "f1-score": 0.9916167664670659,
-        "support": 1250.0
+        "precision": 0.9945553539019963,
+        "recall": 0.9963636363636363,
+        "f1-score": 0.9954586739327884,
+        "support": 1650.0
       },
       "F3": {
-        "precision": 0.9922779922779923,
-        "recall": 0.9922779922779923,
-        "f1-score": 0.9922779922779923,
-        "support": 1554.0
+        "precision": 0.9919559695173582,
+        "recall": 0.9953271028037384,
+        "f1-score": 0.9936386768447837,
+        "support": 2354.0
       },
       "F4": {
-        "precision": 0.9869565217391304,
-        "recall": 0.9700854700854701,
-        "f1-score": 0.978448275862069,
+        "precision": 0.9866071428571429,
+        "recall": 0.9444444444444444,
+        "f1-score": 0.9650655021834061,
         "support": 234.0
       },
-      "accuracy": 0.9926044619746086,
+      "accuracy": 0.9919327541464515,
       "macro avg": {
-        "precision": 0.9906174826491556,
-        "recall": 0.9885150305760153,
-        "f1-score": 0.9895469085202853,
-        "support": 16226.0
+        "precision": 0.9908676055105436,
+        "recall": 0.9839858716191883,
+        "f1-score": 0.9873298503030791,
+        "support": 17726.0
       },
       "weighted avg": {
-        "precision": 0.9926258308876797,
-        "recall": 0.9926044619746086,
-        "f1-score": 0.9926062795258507,
-        "support": 16226.0
+        "precision": 0.9919520855643665,
+        "recall": 0.9919327541464515,
+        "f1-score": 0.9919287901765895,
+        "support": 17726.0
       }
     },
-    "accuracy": 0.9926044619746086
+    "accuracy": 0.9919327541464515,
+    "per_source_accuracy": {
+      "calibration_pool": {
+        "accuracy": 0.9910714285714286,
+        "n": 12432
+      },
+      "start": {
+        "accuracy": 0.9986919555264879,
+        "n": 1529
+      },
+      "sut43": {
+        "accuracy": 0.9920318725099602,
+        "n": 3765
+      }
+    }
   },
-  "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib"
+  "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib",
+  "source_weights": {
+    "start": 0.35
+  },
+  "source_holdout_eval": {
+    "train_cal_sut_test_start": {
+      "surface": {
+        "accuracy": 0.1988,
+        "n": 7500,
+        "classification_report": {
+          "S1": {
+            "precision": 0.07954545454545454,
+            "recall": 0.7,
+            "f1-score": 0.14285714285714285,
+            "support": 160.0
+          },
+          "S2": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1340.0
+          },
+          "S3": {
+            "precision": 0.25155213016484695,
+            "recall": 0.5875,
+            "f1-score": 0.3522710238345076,
+            "support": 2000.0
+          },
+          "S4": {
+            "precision": 0.6415094339622641,
+            "recall": 0.051,
+            "f1-score": 0.09448818897637795,
+            "support": 4000.0
+          },
+          "S5": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 0.0
+          },
+          "accuracy": 0.1988,
+          "macro avg": {
+            "precision": 0.19452140373451313,
+            "recall": 0.2677,
+            "f1-score": 0.11792327113360568,
+            "support": 7500.0
+          },
+          "weighted avg": {
+            "precision": 0.41091590252080307,
+            "recall": 0.1988,
+            "f1-score": 0.14738025952422268,
+            "support": 7500.0
+          }
+        },
+        "train_sources": [
+          "calibration_pool",
+          "sut43"
+        ],
+        "test_sources": [
+          "start"
+        ],
+        "n_train": 81130
+      },
+      "friction": {
+        "accuracy": 0.28773333333333334,
+        "n": 7500,
+        "classification_report": {
+          "F0": {
+            "precision": 0.08081517919887561,
+            "recall": 0.71875,
+            "f1-score": 0.14529374605180037,
+            "support": 160.0
+          },
+          "F1": {
+            "precision": 0.09234828496042216,
+            "recall": 0.026119402985074626,
+            "f1-score": 0.04072134962187318,
+            "support": 1340.0
+          },
+          "F2": {
+            "precision": 0.27019961977186313,
+            "recall": 0.5685,
+            "f1-score": 0.36630154639175255,
+            "support": 2000.0
+          },
+          "F3": {
+            "precision": 0.5961670088980151,
+            "recall": 0.21775,
+            "f1-score": 0.31898919611792714,
+            "support": 4000.0
+          },
+          "F4": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 0.0
+          },
+          "accuracy": 0.28773333333333334,
+          "macro avg": {
+            "precision": 0.20790601856583518,
+            "recall": 0.3062238805970149,
+            "f1-score": 0.17426116763667063,
+            "support": 7500.0
+          },
+          "weighted avg": {
+            "precision": 0.40823258742060964,
+            "recall": 0.28773333333333334,
+            "f1-score": 0.27818313134890826,
+            "support": 7500.0
+          }
+        },
+        "train_sources": [
+          "calibration_pool",
+          "sut43"
+        ],
+        "test_sources": [
+          "start"
+        ],
+        "n_train": 81130
+      }
+    },
+    "train_start_test_cal_sut": {
+      "surface": {
+        "accuracy": 0.39654874892148406,
+        "n": 81130,
+        "classification_report": {
+          "S1": {
+            "precision": 0.4313264105580848,
+            "recall": 0.8448897795591183,
+            "f1-score": 0.5710995970063327,
+            "support": 29940.0
+          },
+          "S2": {
+            "precision": 0.33113238692637836,
+            "recall": 0.052360940721985855,
+            "f1-score": 0.09042349388086277,
+            "support": 38311.0
+          },
+          "S3": {
+            "precision": 0.2683198662580106,
+            "recall": 0.15758468335787923,
+            "f1-score": 0.19855670103092785,
+            "support": 6111.0
+          },
+          "S4": {
+            "precision": 0.3043783110003116,
+            "recall": 0.7090744101633394,
+            "f1-score": 0.42592390711871797,
+            "support": 5510.0
+          },
+          "S5": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 520.0
+          },
+          "S6": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 738.0
+          },
+          "accuracy": 0.39654874892148406,
+          "macro avg": {
+            "precision": 0.2225261624571309,
+            "recall": 0.2939849689670538,
+            "f1-score": 0.21433394983947354,
+            "support": 81130.0
+          },
+          "weighted avg": {
+            "precision": 0.35642490822087963,
+            "recall": 0.39654874892148406,
+            "f1-score": 0.29733954316114225,
+            "support": 81130.0
+          }
+        },
+        "train_sources": [
+          "start"
+        ],
+        "test_sources": [
+          "calibration_pool",
+          "sut43"
+        ],
+        "n_train": 7500
+      },
+      "friction": {
+        "accuracy": 0.3697152717860224,
+        "n": 81130,
+        "classification_report": {
+          "F0": {
+            "precision": 0.36593517144952004,
+            "recall": 0.8241551459293395,
+            "f1-score": 0.5068310366408068,
+            "support": 26040.0
+          },
+          "F1": {
+            "precision": 0.34186200066028394,
+            "recall": 0.051904761904761905,
+            "f1-score": 0.09012576700465642,
+            "support": 39900.0
+          },
+          "F2": {
+            "precision": 0.24017832265254946,
+            "recall": 0.13792,
+            "f1-score": 0.17522105905071653,
+            "support": 6250.0
+          },
+          "F3": {
+            "precision": 0.4363508881271424,
+            "recall": 0.720663921770458,
+            "f1-score": 0.5435753105590062,
+            "support": 7772.0
+          },
+          "F4": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 1168.0
+          },
+          "accuracy": 0.3697152717860224,
+          "macro avg": {
+            "precision": 0.27686527657789917,
+            "recall": 0.3469287659209119,
+            "f1-score": 0.26315063465103716,
+            "support": 81130.0
+          },
+          "weighted avg": {
+            "precision": 0.3458853606556565,
+            "recall": 0.3697152717860224,
+            "f1-score": 0.27257114791500026,
+            "support": 81130.0
+          }
+        },
+        "train_sources": [
+          "start"
+        ],
+        "test_sources": [
+          "calibration_pool",
+          "sut43"
+        ],
+        "n_train": 7500
+      }
+    }
+  },
+  "source_anchor_counts": {
+    "calibration_pool": 62130,
+    "sut43": 19000,
+    "start": 7500
+  },
+  "retrain_provenance": {
+    "trigger": "Phase F pooled retrain with source-weighted start downweight (start:0.35)",
+    "prior_generated_at": "2026-06-30T19:23:21.079510+00:00",
+    "training_data": {
+      "pooled": "03_Processed_Data/spatial/gold_training_set_pooled_phase_e.parquet",
+      "labeled_metres": 88630,
+      "sources": {
+        "calibration_pool": 62130,
+        "sut43": 19000,
+        "start": 7500
+      }
+    },
+    "source_weights": {
+      "start": 0.35
+    },
+    "holdout_vs_prior_v0": {
+      "surface_accuracy": {
+        "prior": 0.9772587205719216,
+        "current": 0.9789574636127722,
+        "delta": 0.0016987430408506032
+      },
+      "friction_accuracy": {
+        "prior": 0.9926044619746086,
+        "current": 0.9919327541464515,
+        "delta": -0.0006717078281570643
+      }
+    },
+    "holdout_vs_phase_e_experiment": {
+      "surface_accuracy": {
+        "phase_e": 0.9062394223174998,
+        "current": 0.9789574636127722,
+        "delta": 0.07271804129527248
+      }
+    },
+    "smoke_test": {
+      "start_panel_km_0.5_8.0": {
+        "prior_v0": {
+          "REVISE": 18
+        },
+        "phase_e": {
+          "KEEP": 12,
+          "REVISE": 3
+        },
+        "current": {
+          "KEEP": 12,
+          "REVISE": 2
+        }
+      },
+      "gramstad_km_29_41": {
+        "prior_v0": {
+          "KEEP": 38,
+          "REVISE": 15
+        },
+        "phase_e": {
+          "KEEP": 33,
+          "REVISE": 33
+        },
+        "current": {
+          "KEEP": 37,
+          "REVISE": 13
+        }
+      }
+    },
+    "promotion": "gold_suggester_v0.joblib replaced",
+    "backup": "07_ML_Models/spatial/gold_suggester_v0_pre_phase_f.joblib"
+  }
 }
