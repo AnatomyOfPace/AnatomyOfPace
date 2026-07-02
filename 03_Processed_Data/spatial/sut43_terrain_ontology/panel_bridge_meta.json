@@ -1,0 +1,31 @@
+{
+  "phase": "E3_bridge_ingest",
+  "km_window": [
+    8.0,
+    22.0
+  ],
+  "panel_path": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_bridge_1m.parquet",
+  "activities": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "SUT43_20260418",
+      "session_type": "race",
+      "align_mode": "stream",
+      "data_km_min": 8.0,
+      "data_km_max": 22.0,
+      "n_finite": 13998
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "19000570862",
+      "session_type": "race",
+      "align_mode": "stream",
+      "data_km_min": 8.0,
+      "data_km_max": 22.0,
+      "n_finite": 13999
+    }
+  ],
+  "coverage_pct_any": 100.01,
+  "coverage_pct_both_athletes": 100.01,
+  "note": "Race-only bootstrap panel km 8.0-22.0 (Subject_A + Subject_B SUT43 race streams). Training tiles deferred \u2014 no washed traverse on Dalevatn band. Seam @ km 8.0 defers to locked Phase E start gold; seam @ km 22.0 defers to locked upstream operator gold."
+}
