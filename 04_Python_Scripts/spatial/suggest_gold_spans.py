@@ -104,6 +104,7 @@ ML_OUTPUT_COLUMNS = [
 REVISE_PROBA_THRESHOLD = 0.55
 ROAD_LIKE_SURFACE_CLASSES = frozenset({"S1", "S2"})
 VARIANCE_GAP_SUPPRESS_NOTE = "suppressed: variance_gap gps_disturbance"
+LOCKED_MONO_CLASS_NOTE = "operator_locked_mono: ML revise suppressed"
 
 
 def operator_gold_spans(terrain_map: dict[str, Any]) -> list[dict[str, Any]]:
@@ -149,6 +150,74 @@ def _revise_on_variance_gap_gold(
         if _gold_span_overlaps_variance_gap(span, gaps):
             return True
     return False
+
+
+def operator_gold_surface_classes(terrain_map: dict[str, Any]) -> set[str]:
+    classes = {
+        str(span.get("surface_class", "")).strip().upper()
+        for span in operator_gold_spans(terrain_map)
+    }
+    return {c for c in classes if c}
+
+
+def is_operator_locked_mono_class(terrain_map: dict[str, Any]) -> bool:
+    """True when HITL is locked and every operator span shares one surface class."""
+    hitl = terrain_map.get("hitl") or {}
+    if str(hitl.get("status", "")).lower() != "locked":
+        return False
+    classes = operator_gold_surface_classes(terrain_map)
+    return len(classes) == 1
+
+
+def apply_locked_mono_class_suppression(
+    rows: list[dict[str, Any]],
+    terrain_map: dict[str, Any],
+    *,
+    gold_spans: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    """Drop ML REVISE on locked mono-class operator gold; spurious surface noise only."""
+    if not is_operator_locked_mono_class(terrain_map):
+        return rows
+    return [row for row in rows if str(row.get("action", "")) != "REVISE"]
+
+
+def suggest_ml_keep_locked_operator(
+    gold_spans: list[dict[str, Any]],
+    km_lo: float,
+    km_hi: float,
+    *,
+    chunk_id: str,
+) -> list[dict[str, Any]]:
+    """Force KEEP for operator spans when locked mono-class band (no ML agreement gate)."""
+    rows: list[dict[str, Any]] = []
+    for span in gold_spans:
+        s0, s1 = span_km_bounds(span)
+        if s1 <= km_lo or s0 >= km_hi:
+            continue
+        win_lo = max(s0, km_lo)
+        win_hi = min(s1, km_hi)
+        gold_s = str(span.get("surface_class", ""))
+        gold_f = str(span.get("friction_tier", ""))
+        rows.append(
+            {
+                "action": "KEEP",
+                "chunk_id": chunk_id,
+                "km_start": round(win_lo, 3),
+                "km_end": round(win_hi, 3),
+                "surface_class": gold_s,
+                "friction_tier": gold_f,
+                "confidence": "HIGH",
+                "gold_surface": gold_s,
+                "gold_friction": gold_f,
+                "surface_proba": "",
+                "friction_proba": "",
+                "rationale": (
+                    f"Operator locked mono-class {gold_s}; "
+                    f"ML revise path skipped ({LOCKED_MONO_CLASS_NOTE})"
+                ),
+            }
+        )
+    return rows
 
 
 def apply_variance_gap_suppression(
@@ -749,6 +818,7 @@ def run_ml_suggest(args: argparse.Namespace) -> pd.DataFrame:
     terrain_map = load_terrain_map(args.terrain_map)
     gold_spans = operator_gold_spans(terrain_map)
     variance_gaps = variance_gap_spans(terrain_map)
+    locked_mono = is_operator_locked_mono_class(terrain_map)
     all_rows: list[dict[str, Any]] = []
     mode: SuggestMode = args.mode
     for chunk_id, km_lo, km_hi in windows:
@@ -775,7 +845,7 @@ def run_ml_suggest(args: argparse.Namespace) -> pd.DataFrame:
                     min_span_km=MIN_SPAN_KM,
                 )
             )
-        if mode in ("revise", "all"):
+        if mode in ("revise", "all") and not locked_mono:
             all_rows.extend(
                 suggest_ml_revise(
                     predicted,
@@ -788,15 +858,26 @@ def run_ml_suggest(args: argparse.Namespace) -> pd.DataFrame:
                 )
             )
         if mode == "all":
-            all_rows.extend(
-                suggest_ml_keep_summary(
-                    predicted,
-                    gold_spans,
-                    km_lo,
-                    km_hi,
-                    chunk_id=chunk_id,
+            if locked_mono:
+                all_rows.extend(
+                    suggest_ml_keep_locked_operator(
+                        gold_spans,
+                        km_lo,
+                        km_hi,
+                        chunk_id=chunk_id,
+                    )
                 )
-            )
+            else:
+                all_rows.extend(
+                    suggest_ml_keep_summary(
+                        predicted,
+                        gold_spans,
+                        km_lo,
+                        km_hi,
+                        chunk_id=chunk_id,
+                    )
+                )
+    all_rows = apply_locked_mono_class_suppression(all_rows, terrain_map, gold_spans=gold_spans)
     all_rows = apply_variance_gap_suppression(all_rows, variance_gaps, gold_spans=gold_spans)
     return pd.DataFrame(all_rows, columns=ML_OUTPUT_COLUMNS)
 
@@ -827,6 +908,47 @@ def run_hmm_suggest(args: argparse.Namespace) -> pd.DataFrame:
 
 def run_self_test() -> None:
     """Synthetic pipeline check — no production files required."""
+    mono_map = {
+        "hitl": {
+            "status": "locked",
+            "operator_gold_spans": [
+                {"course_km_start": 41.0, "course_km_end": 41.6, "surface_class": "S1", "friction_tier": "F0"},
+                {"course_km_start": 41.6, "course_km_end": 42.5, "surface_class": "S1", "friction_tier": "F0"},
+            ],
+        }
+    }
+    assert is_operator_locked_mono_class(mono_map)
+    multi_map = {
+        "hitl": {
+            "status": "locked",
+            "operator_gold_spans": [
+                {"course_km_start": 0.5, "course_km_end": 1.0, "surface_class": "S1", "friction_tier": "F0"},
+                {"course_km_start": 1.0, "course_km_end": 2.0, "surface_class": "S4", "friction_tier": "F3"},
+            ],
+        }
+    }
+    assert not is_operator_locked_mono_class(multi_map)
+    revise_rows = [
+        {
+            "action": "REVISE",
+            "km_start": 41.0,
+            "km_end": 41.6,
+            "surface_class": "S2",
+            "friction_tier": "F1",
+            "rationale": "ML revise",
+        }
+    ]
+    suppressed = apply_locked_mono_class_suppression(revise_rows, mono_map)
+    assert suppressed == [], "locked mono-class should drop REVISE rows"
+    keep_rows = suggest_ml_keep_locked_operator(
+        operator_gold_spans(mono_map),
+        41.0,
+        42.5,
+        chunk_id="chunk_selftest",
+    )
+    assert len(keep_rows) == 2
+    assert all(r["action"] == "KEEP" for r in keep_rows)
+
     hmm_rows = []
     profile_rows = []
     for i in range(120):
