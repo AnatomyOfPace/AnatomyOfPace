@@ -1,0 +1,44 @@
+{
+  "phase": "E4_panel_full_concat",
+  "km_window": [
+    0.5,
+    41.0
+  ],
+  "row_count": 202508,
+  "unique_course_m": 40501,
+  "course_km_min": 0.5,
+  "course_km_max": 41.0,
+  "donors": [
+    {
+      "panel": "panel_start_1m.parquet",
+      "km_window": [
+        0.5,
+        8.0
+      ],
+      "rows_in": 22503,
+      "rows_after_seam": 22500,
+      "seam_rule": "drop course_km >= 8.0"
+    },
+    {
+      "panel": "panel_bridge_1m.parquet",
+      "km_window": [
+        8.0,
+        22.0
+      ],
+      "rows_in": 28002,
+      "rows_after_seam": 28000,
+      "seam_rule": "drop course_km >= 22.0"
+    },
+    {
+      "panel": "panel_1m.parquet",
+      "km_window": [
+        22.0,
+        41.0
+      ],
+      "rows_in": 152008,
+      "rows_after_seam": 152008,
+      "seam_rule": "owns km 22-41"
+    }
+  ],
+  "generated_at": "2026-07-03T08:46:25.785095+00:00"
+}
