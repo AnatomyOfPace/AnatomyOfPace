@@ -117,7 +117,7 @@
     }
   ],
   "hitl": {
-    "status": "draft",
+    "status": "locked",
     "sector_id": "leg_a_technical",
     "manual_overrides": [],
     "operator_gold_spans": [
@@ -253,6 +253,7 @@
         "pct_metres_high_variance": null
       }
     ],
-    "notes": "Append-only operator_gold_spans[] \u2014 use hitl_annotator_app.py with this file only. Do not write start-sector locks into spatial_terrain_map_sut43.json or spatial_terrain_map_sut43_upstream.json."
+    "authority": "operator_gold",
+    "notes": "Phase E start operator gold km 0.5\u20138.0 locked 2026-07-03 (12 spans). Seam @ km 8.0 defers to spatial_terrain_map_sut43_bridge.json (S4/F3 chunk_00 entry @ 8.0\u20138.2). Append-only operator_gold_spans[] \u2014 use hitl_annotator_app.py with this file only. Do not write start-sector locks into spatial_terrain_map_sut43.json or spatial_terrain_map_sut43_upstream.json."
   }
 }
