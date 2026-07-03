@@ -224,6 +224,26 @@ def _train_classifier(
     return clf, metrics
 
 
+def _filter_training_frame(
+    df: pd.DataFrame,
+    *,
+    km_start: float | None,
+    km_end: float | None,
+    include_anchors: set[str] | None,
+    exclude_anchors: set[str] | None,
+) -> pd.DataFrame:
+    out = df
+    if km_start is not None:
+        out = out[out["course_km"] >= km_start]
+    if km_end is not None:
+        out = out[out["course_km"] < km_end]
+    if include_anchors is not None and "source_anchor" in out.columns:
+        out = out[out["source_anchor"].isin(include_anchors)]
+    if exclude_anchors is not None and "source_anchor" in out.columns:
+        out = out[~out["source_anchor"].isin(exclude_anchors)]
+    return out.reset_index(drop=True)
+
+
 def _load_training_frames(paths: list[Path]) -> tuple[pd.DataFrame, list[Path]]:
     frames: list[pd.DataFrame] = []
     loaded: list[Path] = []
@@ -300,6 +320,28 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="Skip source-stratified holdout evaluation",
     )
+    parser.add_argument("--km-start", type=float, default=None, help="Keep rows with course_km >= bound")
+    parser.add_argument("--km-end", type=float, default=None, help="Keep rows with course_km < bound")
+    parser.add_argument(
+        "--include-source-anchor",
+        action="append",
+        default=[],
+        dest="include_source_anchors",
+        help="Keep only listed source_anchor values (repeatable)",
+    )
+    parser.add_argument(
+        "--exclude-source-anchor",
+        action="append",
+        default=[],
+        dest="exclude_source_anchors",
+        help="Drop listed source_anchor values (repeatable)",
+    )
+    parser.add_argument(
+        "--sector-id",
+        type=str,
+        default=None,
+        help="Sector label stored in metadata (e.g. start, bridge, downstream)",
+    )
     return parser.parse_args(argv)
 
 
@@ -310,6 +352,15 @@ def main(argv: list[str] | None = None) -> int:
         df, training_paths = _load_training_frames(training_paths)
     except FileNotFoundError:
         return 1
+    include_anchors = set(args.include_source_anchors) if args.include_source_anchors else None
+    exclude_anchors = set(args.exclude_source_anchors) if args.exclude_source_anchors else None
+    df = _filter_training_frame(
+        df,
+        km_start=args.km_start,
+        km_end=args.km_end,
+        include_anchors=include_anchors,
+        exclude_anchors=exclude_anchors,
+    )
     labeled_n = int(df["is_labeled"].sum())
     if labeled_n < args.min_labeled:
         print(
@@ -443,6 +494,10 @@ def main(argv: list[str] | None = None) -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "training_set": str(training_paths[0]) if len(training_paths) == 1 else None,
         "training_sets": [str(p) for p in training_paths],
+        "sector_id": args.sector_id,
+        "km_filter": {"km_start": args.km_start, "km_end": args.km_end},
+        "include_source_anchors": sorted(include_anchors) if include_anchors else None,
+        "exclude_source_anchors": sorted(exclude_anchors) if exclude_anchors else None,
         "labeled_metres": labeled_n,
         "total_metres": len(df),
         "feature_columns": feature_cols,

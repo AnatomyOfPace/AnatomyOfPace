@@ -14,8 +14,10 @@ Usage (from repo root):
         --output 03_Processed_Data/spatial/suggested_locks_sut43.csv
 
     python3 04_Python_Scripts/spatial/suggest_gold_spans.py \\
-        --engine hmm --queue RED \\
-        --output 03_Processed_Data/spatial/suggested_locks_sut43.csv
+        --engine ml --mode all \\
+        --km-start 8 --km-end 22 \\
+        --sector-routing \\
+        --output 03_Processed_Data/spatial/suggested_locks_bridge.csv
 """
 
 from __future__ import annotations
@@ -51,6 +53,7 @@ DEFAULT_TRIAGE_QUEUE = (
 DEFAULT_HMM_DRAFT = BASE_DIR / "07_ML_Models" / "terrain_hmm_sut43_draft_predictions.parquet"
 DEFAULT_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "suggested_locks_sut43.csv"
 DEFAULT_MODEL = BASE_DIR / "07_ML_Models" / "spatial" / "gold_suggester_v0.joblib"
+DEFAULT_ROUTING_MANIFEST = BASE_DIR / "config" / "gold_suggester_routing.json"
 
 SuggestMode = Literal["gaps-only", "revise", "all"]
 SuggestEngine = Literal["hmm", "ml"]
@@ -693,6 +696,16 @@ def suggest_ml_keep_summary(
     return rows
 
 
+def _predict_bundle_routed(
+    frame: pd.DataFrame,
+    routes,
+    cache,
+) -> pd.DataFrame:
+    from spatial.gold_suggester_routing import predict_frame_routed
+
+    return predict_frame_routed(frame, routes, cache=cache)
+
+
 def resolve_windows(args: argparse.Namespace) -> list[tuple[str, float, float]]:
     """Return (chunk_id, km_lo, km_hi) windows for suggestion."""
     if args.km_start is not None and args.km_end is not None:
@@ -715,9 +728,20 @@ def resolve_windows(args: argparse.Namespace) -> list[tuple[str, float, float]]:
 
 
 def run_ml_suggest(args: argparse.Namespace) -> pd.DataFrame:
-    if not args.model.exists():
-        raise FileNotFoundError(f"Model not found: {args.model}")
-    bundle = joblib.load(args.model)
+    use_routing = bool(getattr(args, "sector_routing", False))
+    routes = None
+    model_cache = None
+    bundle = None
+    if use_routing:
+        from spatial.gold_suggester_routing import SectorModelCache, load_routing_manifest
+
+        manifest = getattr(args, "routing_manifest", None) or DEFAULT_ROUTING_MANIFEST
+        routes = load_routing_manifest(manifest)
+        model_cache = SectorModelCache(routes)
+    else:
+        if not args.model.exists():
+            raise FileNotFoundError(f"Model not found: {args.model}")
+        bundle = joblib.load(args.model)
     windows = resolve_windows(args)
     if not windows:
         raise ValueError("No km windows to process (set --km-start/--km-end or triage filters)")
@@ -735,7 +759,11 @@ def run_ml_suggest(args: argparse.Namespace) -> pd.DataFrame:
             km_lo=km_lo,
             km_hi=km_hi,
         )
-        predicted = _predict_bundle(frame, bundle)
+        predicted = (
+            _predict_bundle_routed(frame, routes, model_cache)
+            if use_routing
+            else _predict_bundle(frame, bundle)
+        )
         if mode in ("gaps-only", "all"):
             all_rows.extend(
                 suggest_ml_gaps(
@@ -827,7 +855,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default="gaps-only",
         help="ML mode: fill gaps, flag revisions, or both (+ KEEP summary)",
     )
-    parser.add_argument("--model", type=Path, default=DEFAULT_MODEL, help="ML model joblib (engine=ml)")
+    parser.add_argument("--model", type=Path, default=DEFAULT_MODEL, help="ML model joblib (engine=ml, ignored with --sector-routing)")
+    parser.add_argument(
+        "--sector-routing",
+        action="store_true",
+        help="Route predictions by course km using config/gold_suggester_routing.json sector models",
+    )
+    parser.add_argument(
+        "--routing-manifest",
+        type=Path,
+        default=DEFAULT_ROUTING_MANIFEST,
+        help="Sector routing manifest (used with --sector-routing)",
+    )
     parser.add_argument("--revise-threshold", type=float, default=REVISE_PROBA_THRESHOLD)
     parser.add_argument("--km-start", type=float, default=None, help="Course-wide window start (inclusive)")
     parser.add_argument("--km-end", type=float, default=None, help="Course-wide window end (exclusive)")
@@ -862,6 +901,10 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     global MIN_SPAN_KM
     MIN_SPAN_KM = max(0.001, float(args.min_span_m) / 1000.0)
+
+    if args.engine == "ml" and not args.sector_routing and not args.model.exists():
+        print(f"Model not found: {args.model}", file=sys.stderr)
+        return 1
 
     if not args.panel.exists():
         print(f"Panel not found: {args.panel}", file=sys.stderr)

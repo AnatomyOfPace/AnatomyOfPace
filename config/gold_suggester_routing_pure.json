@@ -1,0 +1,25 @@
+{
+  "schema_version": "gold_suggester_routing_v0",
+  "course_id": "SUT_43",
+  "routing_mode": "pure_sector",
+  "sectors": [
+    {
+      "sector_id": "start",
+      "km_lo": 0.5,
+      "km_hi": 8.0,
+      "model_path": "07_ML_Models/spatial/gold_suggester_sector_start.joblib"
+    },
+    {
+      "sector_id": "bridge",
+      "km_lo": 8.0,
+      "km_hi": 22.0,
+      "model_path": "07_ML_Models/spatial/gold_suggester_sector_bridge.joblib"
+    },
+    {
+      "sector_id": "downstream",
+      "km_lo": 22.0,
+      "km_hi": 41.0,
+      "model_path": "07_ML_Models/spatial/gold_suggester_sector_downstream.joblib"
+    }
+  ]
+}
