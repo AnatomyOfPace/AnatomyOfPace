@@ -1,0 +1,63 @@
+{
+  "span_count": 111,
+  "sector_span_counts": {
+    "leg_a_technical": 12,
+    "dalevatn_band": 33,
+    "dale_paradisskaret_upstream": 27,
+    "dale_to_paradisskaret": 39
+  },
+  "km_start": 0.5,
+  "km_end": 41.0,
+  "coverage_gaps": [],
+  "overlaps": [],
+  "seam_checks": [
+    {
+      "boundary_km": 8.0,
+      "upstream_end": {
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "source_sector": "leg_a_technical"
+      },
+      "downstream_start": {
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "source_sector": "dalevatn_band"
+      },
+      "surface_continuous": true,
+      "friction_continuous": true,
+      "gap_km": 0.0
+    },
+    {
+      "boundary_km": 22.0,
+      "upstream_end": {
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "source_sector": "dalevatn_band"
+      },
+      "downstream_start": {
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      "surface_continuous": true,
+      "friction_continuous": true,
+      "gap_km": 0.0
+    },
+    {
+      "boundary_km": 29.0,
+      "upstream_end": {
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      "downstream_start": {
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      "surface_continuous": true,
+      "friction_continuous": true,
+      "gap_km": 0.0
+    }
+  ]
+}

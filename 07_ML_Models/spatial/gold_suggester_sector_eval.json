@@ -114,5 +114,40 @@
   "reproduction_cli": {
     "train_all": "python3 04_Python_Scripts/spatial/eval_gold_suggester_sectors.py",
     "suggest_bridge_routed": "python3 04_Python_Scripts/spatial/suggest_gold_spans.py --engine ml --mode all --km-start 8 --km-end 22 --terrain-map config/spatial_terrain_map_sut43_bridge.json --sector-routing"
+  },
+  "unified_terrain_map": {
+    "path": "config/spatial_terrain_map_sut43_full.json",
+    "km_window": [0.5, 41.0],
+    "operator_gold_span_count": 111,
+    "sector_span_counts": {
+      "leg_a_technical": 12,
+      "dalevatn_band": 33,
+      "dale_paradisskaret_upstream": 27,
+      "dale_to_paradisskaret": 39
+    },
+    "merge_script": "04_Python_Scripts/spatial/merge_terrain_maps.py",
+    "merge_report": "07_ML_Models/spatial/merge_terrain_map_sut43_full_report.json",
+    "build_gold_training_set_validated": true,
+    "labeled_metres_match_multi_map": 40500
+  },
+  "finish_band_scope_km_41_42_5": {
+    "note": "Finish descent band (Paradisskaret/Vassfjellet → Alsvik), not early-lap dalevatn_band sector (km 8–22).",
+    "exists": {
+      "race_corridors_SUT_43_finish_km": 43.0,
+      "full_course_window_align_meta": [0.5, 42.5],
+      "spatial_align_manifest_start_anchor": "downstream ~km 41 (Alsvik asphalt tail / Paradisskaret sector)",
+      "gramstad_last_gold_span": "40.0–41.0 S1/F0 asphalt tail"
+    },
+    "missing": {
+      "terrain_map_json": "no spatial_terrain_map for km 41–42.5",
+      "operator_gold_spans": "none beyond km 41.0",
+      "panel_full_1m_extent": "ends at km 41.0 (1500 m short of 42.5 window)",
+      "sector_registry_entry": "not in spatial_terrain_sectors_sut43.json"
+    },
+    "blockers": [
+      "Extend panel ingest / align to km 42.5 before HITL",
+      "Operator gold for Paradisskaret downhill + finish asphalt",
+      "No GMM draft or sector model for finish band"
+    ]
   }
 }
