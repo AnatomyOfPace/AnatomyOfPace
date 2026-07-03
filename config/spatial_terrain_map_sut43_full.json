@@ -1,0 +1,2248 @@
+{
+  "schema_version": "spatial_terrain_map_v0",
+  "ontology_version": "s6_v0",
+  "generated_at": "2026-07-03T10:05:17.504597+00:00",
+  "corridor": {
+    "corridor_id": "sut43_terrain_ontology",
+    "sector_id": "sut43_full_course",
+    "sector_lock_version": null,
+    "race_id": "SUT_43",
+    "km_start": 0.5,
+    "km_end": 41.0,
+    "sector_viewport_km_end": 41.5,
+    "finish_km": 43.0,
+    "full_course_window": [
+      0.5,
+      42.5
+    ],
+    "course_axis": "stream_distance",
+    "gpx_reference": "COURSE_SUT43_official_2027.gpx",
+    "downstream_sector_boundary_km": 8.0,
+    "geographic_anchors": [
+      {
+        "anchor_id": "hogstad_timing_index",
+        "display_name": "Hogstad timing index",
+        "course_km": 0.66,
+        "role": "organiser_checkpoint",
+        "registry_ref": "race_corridors.json \u2192 SUT_43.checkpoints.Hogstad"
+      },
+      {
+        "anchor_id": "lifjell_timing_index",
+        "display_name": "Lifjell timing index (start hills)",
+        "course_km": 5.87,
+        "role": "organiser_checkpoint",
+        "note": "Timing CP on shared start \u2014 not geographic Lifjell summit (~km 18)"
+      },
+      {
+        "anchor_id": "oykjafjellet_climb_entry",
+        "display_name": "\u00d8ykjafjellet climb entry",
+        "course_km": 1.43,
+        "registry_ref": "race_corridors.json \u2192 SUT_160.sub_corridors.start_hills"
+      },
+      {
+        "anchor_id": "noredalen_descent_lip",
+        "display_name": "Noredalen descent lip",
+        "course_km": 6.63,
+        "registry_ref": "race_corridors.json \u2192 SUT_160.sub_corridors.noredalen_descent"
+      }
+    ],
+    "notes": "Unified operator-gold map km 0.5\u201341.0 merged from 4 locked sector maps. Finish band km 41\u201342.5 deferred.",
+    "source_sectors": [
+      {
+        "sector_id": "leg_a_technical",
+        "terrain_map": "config/spatial_terrain_map_sut43_start.json",
+        "km_start": 0.5,
+        "km_end": 8.0,
+        "span_count": 12,
+        "hitl_status": "locked"
+      },
+      {
+        "sector_id": "dalevatn_band",
+        "terrain_map": "config/spatial_terrain_map_sut43_bridge.json",
+        "km_start": 8.0,
+        "km_end": 22.0,
+        "span_count": 33,
+        "hitl_status": "locked"
+      },
+      {
+        "sector_id": "dale_paradisskaret_upstream",
+        "terrain_map": "config/spatial_terrain_map_sut43_upstream.json",
+        "km_start": 22.0,
+        "km_end": 29.0,
+        "span_count": 27,
+        "hitl_status": "locked"
+      },
+      {
+        "sector_id": "dale_to_paradisskaret",
+        "terrain_map": "config/spatial_terrain_map_sut43.json",
+        "km_start": 29.0,
+        "km_end": 41.0,
+        "span_count": 39,
+        "hitl_status": "locked"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "course_km_start": 0.5,
+      "course_km_end": 0.66,
+      "course_m_start": 500.0,
+      "course_m_end": 660.0,
+      "surface_class": "S1",
+      "friction_tier": "F0",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 0.66,
+      "course_km_end": 2.0,
+      "course_m_start": 660.0,
+      "course_m_end": 2000.0,
+      "surface_class": "S2",
+      "friction_tier": "F1",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 2.0,
+      "course_km_end": 3.0,
+      "course_m_start": 2000.0,
+      "course_m_end": 3000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 3.0,
+      "course_km_end": 3.5,
+      "course_m_start": 3000.0,
+      "course_m_end": 3500.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 3.5,
+      "course_km_end": 4.5,
+      "course_m_start": 3500.0,
+      "course_m_end": 4500.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 4.5,
+      "course_km_end": 5.0,
+      "course_m_start": 4500.0,
+      "course_m_end": 5000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 5.0,
+      "course_km_end": 5.45,
+      "course_m_start": 5000.0,
+      "course_m_end": 5450.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 5.45,
+      "course_km_end": 6.0,
+      "course_m_start": 5450.0,
+      "course_m_end": 6000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 6.0,
+      "course_km_end": 6.63,
+      "course_m_start": 6000.0,
+      "course_m_end": 6630.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 6.63,
+      "course_km_end": 7.0,
+      "course_m_start": 6630.0,
+      "course_m_end": 7000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 7.0,
+      "course_km_end": 7.5,
+      "course_m_start": 7000.0,
+      "course_m_end": 7500.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 7.5,
+      "course_km_end": 8.0,
+      "course_m_start": 7500.0,
+      "course_m_end": 8000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 8.0,
+      "course_km_end": 8.2,
+      "course_m_start": 8000.0,
+      "course_m_end": 8200.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 8.2,
+      "course_km_end": 9.0,
+      "course_m_start": 8200.0,
+      "course_m_end": 9000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 9.0,
+      "course_km_end": 9.08,
+      "course_m_start": 9000.0,
+      "course_m_end": 9080.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 9.08,
+      "course_km_end": 9.78,
+      "course_m_start": 9080.0,
+      "course_m_end": 9780.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 9.78,
+      "course_km_end": 10.0,
+      "course_m_start": 9780.0,
+      "course_m_end": 10000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 10.0,
+      "course_km_end": 10.4,
+      "course_m_start": 10000.0,
+      "course_m_end": 10400.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 10.4,
+      "course_km_end": 11.0,
+      "course_m_start": 10400.0,
+      "course_m_end": 11000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 11.0,
+      "course_km_end": 11.4,
+      "course_m_start": 11000.0,
+      "course_m_end": 11400.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 11.4,
+      "course_km_end": 12.0,
+      "course_m_start": 11400.0,
+      "course_m_end": 12000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 12.0,
+      "course_km_end": 12.5,
+      "course_m_start": 12000.0,
+      "course_m_end": 12500.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 12.5,
+      "course_km_end": 13.0,
+      "course_m_start": 12500.0,
+      "course_m_end": 13000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 13.0,
+      "course_km_end": 13.8,
+      "course_m_start": 13000.0,
+      "course_m_end": 13800.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 13.8,
+      "course_km_end": 14.0,
+      "course_m_start": 13800.0,
+      "course_m_end": 14000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 14.0,
+      "course_km_end": 14.5,
+      "course_m_start": 14000.0,
+      "course_m_end": 14500.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 14.5,
+      "course_km_end": 14.85,
+      "course_m_start": 14500.0,
+      "course_m_end": 14850.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 14.85,
+      "course_km_end": 15.8,
+      "course_m_start": 14850.0,
+      "course_m_end": 15800.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 15.8,
+      "course_km_end": 16.0,
+      "course_m_start": 15800.0,
+      "course_m_end": 16000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 16.0,
+      "course_km_end": 16.9,
+      "course_m_start": 16000.0,
+      "course_m_end": 16900.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 16.9,
+      "course_km_end": 17.0,
+      "course_m_start": 16900.0,
+      "course_m_end": 17000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 17.0,
+      "course_km_end": 17.1,
+      "course_m_start": 17000.0,
+      "course_m_end": 17100.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 17.1,
+      "course_km_end": 17.5,
+      "course_m_start": 17100.0,
+      "course_m_end": 17500.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 17.5,
+      "course_km_end": 17.9,
+      "course_m_start": 17500.0,
+      "course_m_end": 17900.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 17.9,
+      "course_km_end": 18.0,
+      "course_m_start": 17900.0,
+      "course_m_end": 18000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 18.0,
+      "course_km_end": 18.5,
+      "course_m_start": 18000.0,
+      "course_m_end": 18500.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 18.5,
+      "course_km_end": 18.8,
+      "course_m_start": 18500.0,
+      "course_m_end": 18800.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 18.8,
+      "course_km_end": 19.0,
+      "course_m_start": 18800.0,
+      "course_m_end": 19000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 19.0,
+      "course_km_end": 20.0,
+      "course_m_start": 19000.0,
+      "course_m_end": 20000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 20.0,
+      "course_km_end": 20.2,
+      "course_m_start": 20000.0,
+      "course_m_end": 20200.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 20.2,
+      "course_km_end": 21.0,
+      "course_m_start": 20200.0,
+      "course_m_end": 21000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 21.0,
+      "course_km_end": 21.2,
+      "course_m_start": 21000.0,
+      "course_m_end": 21200.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 21.2,
+      "course_km_end": 21.5,
+      "course_m_start": 21200.0,
+      "course_m_end": 21500.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 21.5,
+      "course_km_end": 21.9,
+      "course_m_start": 21500.0,
+      "course_m_end": 21900.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 21.9,
+      "course_km_end": 22.0,
+      "course_m_start": 21900.0,
+      "course_m_end": 22000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 22.0,
+      "course_km_end": 22.5,
+      "course_m_start": 22000.0,
+      "course_m_end": 22500.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 22.5,
+      "course_km_end": 22.9,
+      "course_m_start": 22500.0,
+      "course_m_end": 22900.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 22.9,
+      "course_km_end": 23.0,
+      "course_m_start": 22900.0,
+      "course_m_end": 23000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 23.0,
+      "course_km_end": 23.17,
+      "course_m_start": 23000.0,
+      "course_m_end": 23170.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 23.17,
+      "course_km_end": 23.29,
+      "course_m_start": 23170.0,
+      "course_m_end": 23290.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 23.29,
+      "course_km_end": 23.48,
+      "course_m_start": 23290.0,
+      "course_m_end": 23480.0,
+      "surface_class": "S2",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 23.48,
+      "course_km_end": 23.55,
+      "course_m_start": 23480.0,
+      "course_m_end": 23550.0,
+      "surface_class": "S2",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 23.55,
+      "course_km_end": 23.68,
+      "course_m_start": 23550.0,
+      "course_m_end": 23680.0,
+      "surface_class": "S2",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 23.68,
+      "course_km_end": 23.8,
+      "course_m_start": 23680.0,
+      "course_m_end": 23800.0,
+      "surface_class": "S2",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 23.8,
+      "course_km_end": 24.0,
+      "course_m_start": 23800.0,
+      "course_m_end": 24000.0,
+      "surface_class": "S1",
+      "friction_tier": "F1",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 24.0,
+      "course_km_end": 24.35,
+      "course_m_start": 24000.0,
+      "course_m_end": 24350.0,
+      "surface_class": "S1",
+      "friction_tier": "F1",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 24.35,
+      "course_km_end": 24.55,
+      "course_m_start": 24350.0,
+      "course_m_end": 24550.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 24.55,
+      "course_km_end": 24.72,
+      "course_m_start": 24550.0,
+      "course_m_end": 24720.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 24.72,
+      "course_km_end": 25.0,
+      "course_m_start": 24720.0,
+      "course_m_end": 25000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 25.0,
+      "course_km_end": 25.15,
+      "course_m_start": 25000.0,
+      "course_m_end": 25150.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 25.15,
+      "course_km_end": 25.4,
+      "course_m_start": 25150.0,
+      "course_m_end": 25400.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 25.4,
+      "course_km_end": 25.475,
+      "course_m_start": 25400.0,
+      "course_m_end": 25475.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 25.475,
+      "course_km_end": 25.565,
+      "course_m_start": 25475.0,
+      "course_m_end": 25565.0,
+      "surface_class": "S5",
+      "friction_tier": "F4",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 25.565,
+      "course_km_end": 25.8,
+      "course_m_start": 25565.0,
+      "course_m_end": 25800.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 25.8,
+      "course_km_end": 26.0,
+      "course_m_start": 25800.0,
+      "course_m_end": 26000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 26.0,
+      "course_km_end": 26.3,
+      "course_m_start": 26000.0,
+      "course_m_end": 26300.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 26.3,
+      "course_km_end": 26.4,
+      "course_m_start": 26300.0,
+      "course_m_end": 26400.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 26.4,
+      "course_km_end": 27.0,
+      "course_m_start": 26400.0,
+      "course_m_end": 27000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 27.0,
+      "course_km_end": 27.99,
+      "course_m_start": 27000.0,
+      "course_m_end": 27990.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 27.99,
+      "course_km_end": 28.0,
+      "course_m_start": 27990.0,
+      "course_m_end": 28000.0,
+      "surface_class": "S2",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 28.0,
+      "course_km_end": 28.751,
+      "course_m_start": 28000.0,
+      "course_m_end": 28751.0,
+      "surface_class": "S2",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 28.751,
+      "course_km_end": 29.0,
+      "course_m_start": 28751.0,
+      "course_m_end": 29000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 29.0,
+      "course_km_end": 29.4,
+      "course_m_start": 29000.0,
+      "course_m_end": 29400.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 29.4,
+      "course_km_end": 29.6,
+      "course_m_start": 29400.0,
+      "course_m_end": 29600.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 29.6,
+      "course_km_end": 29.8,
+      "course_m_start": 29600.0,
+      "course_m_end": 29800.0,
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 29.8,
+      "course_km_end": 30.0,
+      "course_m_start": 29800.0,
+      "course_m_end": 30000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 30.0,
+      "course_km_end": 30.1,
+      "course_m_start": 30000.0,
+      "course_m_end": 30100.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 30.1,
+      "course_km_end": 30.35,
+      "course_m_start": 30100.0,
+      "course_m_end": 30350.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 30.35,
+      "course_km_end": 30.55,
+      "course_m_start": 30350.0,
+      "course_m_end": 30550.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 30.55,
+      "course_km_end": 31.0,
+      "course_m_start": 30550.0,
+      "course_m_end": 31000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 31.0,
+      "course_km_end": 31.15,
+      "course_m_start": 31000.0,
+      "course_m_end": 31150.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 31.15,
+      "course_km_end": 31.5,
+      "course_m_start": 31150.0,
+      "course_m_end": 31500.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 31.5,
+      "course_km_end": 31.75,
+      "course_m_start": 31500.0,
+      "course_m_end": 31750.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 31.75,
+      "course_km_end": 32.0,
+      "course_m_start": 31750.0,
+      "course_m_end": 32000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 32.0,
+      "course_km_end": 32.25,
+      "course_m_start": 32000.0,
+      "course_m_end": 32250.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 32.25,
+      "course_km_end": 32.55,
+      "course_m_start": 32250.0,
+      "course_m_end": 32550.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 32.55,
+      "course_km_end": 32.65,
+      "course_m_start": 32550.0,
+      "course_m_end": 32650.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 32.65,
+      "course_km_end": 33.0,
+      "course_m_start": 32650.0,
+      "course_m_end": 33000.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 33.0,
+      "course_km_end": 33.2,
+      "course_m_start": 33000.0,
+      "course_m_end": 33200.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 33.2,
+      "course_km_end": 33.8,
+      "course_m_start": 33200.0,
+      "course_m_end": 33800.0,
+      "surface_class": "S4",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 33.8,
+      "course_km_end": 34.0,
+      "course_m_start": 33800.0,
+      "course_m_end": 34000.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 34.0,
+      "course_km_end": 34.6,
+      "course_m_start": 34000.0,
+      "course_m_end": 34600.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 34.6,
+      "course_km_end": 36.0,
+      "course_m_start": 34600.0,
+      "course_m_end": 36000.0,
+      "surface_class": "S2",
+      "friction_tier": "F1",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 36.0,
+      "course_km_end": 36.3,
+      "course_m_start": 36000.0,
+      "course_m_end": 36300.0,
+      "surface_class": "S2",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 36.3,
+      "course_km_end": 36.6,
+      "course_m_start": 36300.0,
+      "course_m_end": 36600.0,
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 36.6,
+      "course_km_end": 36.72,
+      "course_m_start": 36600.0,
+      "course_m_end": 36720.0,
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 36.72,
+      "course_km_end": 36.81,
+      "course_m_start": 36720.0,
+      "course_m_end": 36810.0,
+      "surface_class": "S6",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 36.81,
+      "course_km_end": 36.89,
+      "course_m_start": 36810.0,
+      "course_m_end": 36890.0,
+      "surface_class": "S6",
+      "friction_tier": "F4",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 36.89,
+      "course_km_end": 37.0,
+      "course_m_start": 36890.0,
+      "course_m_end": 37000.0,
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 37.0,
+      "course_km_end": 37.072,
+      "course_m_start": 37000.0,
+      "course_m_end": 37072.0,
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 37.072,
+      "course_km_end": 37.13,
+      "course_m_start": 37072.0,
+      "course_m_end": 37130.0,
+      "surface_class": "S6",
+      "friction_tier": "F4",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 37.13,
+      "course_km_end": 37.41,
+      "course_m_start": 37130.0,
+      "course_m_end": 37410.0,
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 37.41,
+      "course_km_end": 37.87,
+      "course_m_start": 37410.0,
+      "course_m_end": 37870.0,
+      "surface_class": "S6",
+      "friction_tier": "F4",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 37.87,
+      "course_km_end": 38.0,
+      "course_m_start": 37870.0,
+      "course_m_end": 38000.0,
+      "surface_class": "S5",
+      "friction_tier": "F4",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 38.0,
+      "course_km_end": 38.05,
+      "course_m_start": 38000.0,
+      "course_m_end": 38050.0,
+      "surface_class": "S6",
+      "friction_tier": "F4",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 38.05,
+      "course_km_end": 38.35,
+      "course_m_start": 38050.0,
+      "course_m_end": 38350.0,
+      "surface_class": "S5",
+      "friction_tier": "F4",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 38.35,
+      "course_km_end": 38.4,
+      "course_m_start": 38350.0,
+      "course_m_end": 38400.0,
+      "surface_class": "S3",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 38.4,
+      "course_km_end": 39.135,
+      "course_m_start": 38400.0,
+      "course_m_end": 39135.0,
+      "surface_class": "S2",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 39.135,
+      "course_km_end": 39.14,
+      "course_m_start": 39135.0,
+      "course_m_end": 39140.0,
+      "surface_class": "S2",
+      "friction_tier": "F3",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 39.14,
+      "course_km_end": 40.0,
+      "course_m_start": 39140.0,
+      "course_m_end": 40000.0,
+      "surface_class": "S1",
+      "friction_tier": "F0",
+      "source": "operator_gold"
+    },
+    {
+      "course_km_start": 40.0,
+      "course_km_end": 41.0,
+      "course_m_start": 40000.0,
+      "course_m_end": 41000.0,
+      "surface_class": "S1",
+      "friction_tier": "F0",
+      "source": "operator_gold"
+    }
+  ],
+  "hitl": {
+    "status": "locked",
+    "reviewed_at": "2026-07-03T10:05:17.504665+00:00",
+    "reviewer": "merge_terrain_maps.py",
+    "authority": "operator_gold",
+    "operator_gold_spans": [
+      {
+        "course_km_start": 0.5,
+        "course_km_end": 0.66,
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Hommers\u00e5k start chute sealed roll (km 0.5\u20130.66). S1/F0 Tier 1 map-first; Hogstad timing index calibration anchor @ km 0.66. TI \u22481.1 both race donors; matches sealed_road \u00d7 run anchor family (Halvmarathon S1/F0).",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 0.66,
+        "course_km_end": 2.0,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Fr\u00f8ylandsvatnet lakeshore gravel road (km 0.66\u20132.0). S2/F1 per operator topo review: compacted gravel along Fr\u00f8ylandsvatnet from Hogstad timing index through lakeshore departure near km 2.0; supersedes prior S3/F2 grass/hard-dirt lock. Race TI median 1.23 (consensus NTI 0.85) aligns with Sunderunde S2/F1 calibration ~1.33; flat grade med 0.4%; F1 low-friction band per friction_index_spec.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 2.0,
+        "course_km_end": 3.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: post-lake trail tread after Fr\u00f8ylandsvatnet departure (km 2.0\u20133.0). S3/F2 per operator topo review: runnable dirt trail ascending toward Eilevfjellet \u2014 not S4/F3 technical rock. TI median 1.46 (consensus NTI 1.06) sits in F2 moderate band; grade step at km 2.0 (+12% med) marks departure from lakeshore gravel not bedrock tread. Supersedes prior S4/F3 \u00d8ykjafjellet rock lock and background S4/F3 traverse stub; defers seed technical traverse until operator HITL km 3.0+.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 3.0,
+        "course_km_end": 3.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: start-hills technical traverse toward Eilevfjellet (km 3.0\u20133.5). S4/F3 per friction_index_spec and seed start-hills traverse; operator topo: rocky/technical tread after post-lake trail departure @ km 3.0 \u2014 F3 bedrock/rock tread (not F2 trail). Seam @ km 3.0: S3/F2 trail \u2192 S4/F3 technical (F2\u2192F3 tread step). Race TI median ~1.55 (F2\u2013F3 band); hommersak training overlap TI med ~1.80 (81% F3+F4) corroborates technical character. Supersedes prior S3/F2 continuation lock km 3.0\u20134.0.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 3.5,
+        "course_km_end": 4.5,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: ascending trail continuation toward Eilevfjellet (km 3.5\u20134.5). S3/F2 per established operator pattern: runnable dirt trail after technical traverse; seamless seam @ km 3.5 from locked S4/F3 (F3\u2192F2 tread step). Race TI median ~1.38 (F2 moderate band); altitude climb 287\u2192~350 m confirms trail tread not bedrock. ML S3/F2 gap fills corroborate; Tier 3 micro-pockets absorbed under parent. S4/F3 technical rock deferred to km 4.5+ HITL.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 4.5,
+        "course_km_end": 5.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: start-hills technical descent toward Lifjell rim (km 4.5\u20135.0). S4/F3 per seed leg_a_technical traverse and friction_index_spec; seam @ km 4.5: S3/F2 trail \u2192 S4/F3 technical (F2\u2192F3 tread step). Race TI median ~3.86 (F3\u2013F4 band; grade-braking on \u221220% descent); hommersak training TI med ~4.90 corroborates high-friction character. Steep descent 295\u2192195 m alt confirms technical brake zone not runnable trail. ML S3/F2 gap fill deferred (Tier 3 REVISE per memo 18 \u2014 road-first model on trail gap).",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 5.0,
+        "course_km_end": 5.45,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: post-descent technical tread continuation (km 5.0\u20135.45). S4/F3 per seed leg_a_technical traverse through km 5.45; seamless seam @ km 5.0 from locked chunk_04 S4/F3 descent. Race TI med ~2.26 (F3 moderate-high; descent braking clears by km 5.15); hommersak training TI med ~2.96 (50% F3 + 41% F4) corroborates technical tread not runnable trail. Altitude floor ~182\u2013201 m; grade med \u22121.5% post-brake. ML S3/F2 gap fill km 5.005\u20135.827 deferred (Tier 3 per memo 18 \u2014 telemetry non-identifiable on trail; absorb under S4/F3 parent).",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 5.45,
+        "course_km_end": 6.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Skrussfjell climb / rim approach (km 5.45\u20136.0). S4/F3 per seed leg_a_technical Skrussfjell band; seam @ km 5.45 from post-descent tread (seed transition @ 5.45). Lifjell timing index organiser anchor @ km 5.87 \u2014 calibration checkpoint, not tread transition. Race TI med ~1.79 (5.5\u20136.0) grade-dominated on climb flank (+7\u2013+24% med); rim traverse TI ~2.0\u20132.5 pre-climb. Hommersak training TI med ~1.78 deferred (effort mixing on climb). ML S3/F2 pockets km 5.921\u20136.119 deferred Tier 3. Operator topo confirmation requested for rim tread vs trail at km ~5.2\u20135.45 seam.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 6.0,
+        "course_km_end": 6.63,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Skrussfjell rim climb finish + Skrussfjell descent (km 6.0\u20136.63). S4/F3 per seed leg_a_technical Skrussfjell band through skrussfjell_descent (Strava seg 18184593 @ 6.29\u20136.63); seamless seam @ km 6.0 from locked chunk_05 S4/F3 rim. Race TI med ~1.24 (6.0\u20136.29 climb; grade +21% med, F1/F0 grade-dominated) / ~2.30 (6.29\u20136.63 DH; grade \u22125% med, F4 51% grade-brake). Altitude 218\u2192302 m summit then DH lip. Hommersak training TI med ~2.23 deferred (effort mixing). ML S3/F2 gap fills km 5.921\u20136.119 + 6.379\u20136.694 deferred Tier 3 per memo 18.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 6.63,
+        "course_km_end": 7.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Noredalen opening descent (km 6.63\u20137.0). S4/F3 per seed noredalen_opening_descent + race_corridors noredalen_descent_lip organiser anchor @ km 6.63; seam @ 6.63 Skrussfjell DH end \u2192 valley brake lip (grade step \u221212% @ 6.35\u20136.40). Race TI med ~2.13 (F4 47% + F3 25%); grade med \u22123% widening to \u221221.7% @ 6.7; alt 278\u2192243 m. Hommersak training TI med ~3.91 (74% F4) corroborates steep brake. ML S3/F2 gap fills km 6.379\u20136.866 deferred Tier 3 per memo 18.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 7.0,
+        "course_km_end": 7.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Noredalen rim climb (km 7.0\u20137.5). S4/F3 per seed noredalen_opening_descent + leg_a_technical; seamless seam @ km 7.0 from locked chunk_06 Noredalen lip descent. Race TI med ~1.35 (F1 36% + F2 30% grade-dominated on climb flank); grade med +14.4% (+26% @ 7.0\u20137.1); alt 274\u2192349 m summit. Hommersak training TI med ~2.93 deferred (effort mixing on climb). ML S3/F2 gap fills deferred Tier 3 per memo 18 \u2014 absorb under S4/F3 parent.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 7.5,
+        "course_km_end": 8.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-01",
+        "reason": "operator gold: Noredalen opening descent to valley floor (km 7.5\u20138.0). S4/F3 per seed noredalen_opening_descent + race_corridors atlas (ends @ 8.0 abuts noredalen_valley_flat); seam @ km 7.5 summit lip (grade flip +10% \u2192 \u221217%). Race TI med ~2.91 (F4 88%); grade med \u221212.4%; alt 349\u2192302 m. Hommersak training TI med ~3.62 (92% F4) corroborates steep brake. ML S3/F2 gap fills deferred Tier 3 per memo 18. Phase E start viewport terminus @ km 8.0.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 8.0,
+        "course_km_end": 8.2,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Noredalen descent tail to valley floor (km 8.0\u20138.2). S4/F3 per seamless seam @ km 8.0 from locked start terminal S4/F3 Noredalen opening descent (km 7.5\u20138.0); race_corridors noredalen_valley_flat atlas start @ 8.0 with evidence-tightened tread transition @ 8.2 where grade med crosses flat gate (\u221222%\u2192\u22123%). Race TI med ~4.1 (F4 85%); grade med \u221222%; alt 285\u2192247 m. Dale timing index organiser anchor @ km 8.1 (calibration checkpoint, not tread transition). Hommersak training TI med deferred (effort mixing on brake). ML S4/F3 gap fill km 8.001\u20138.175 corroborates; GMM S1\u2013S6 micro-pockets deferred Tier 3 per memo 18.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 8.2,
+        "course_km_end": 9.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Noredalen valley floor roll (km 8.2\u20139.0). S3/F2 per race_corridors noredalen_valley_flat atlas (km 8.0\u201310.4) and operator topo: runnable dirt trail on valley floor; seamless seam @ km 8.2 from locked descent tail S4/F3 (F3\u2192F2 tread step). Race TI med ~1.7 (F3 75%); grade med \u22121.5%; alt 246\u2192228 m. GMM S1/S2 gravel micro-pockets km 8.3\u20138.9 deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. Mild descent roller @ 8.7\u20139.0 retained under valley roll; steep brake onset @ 9.0+ deferred to chunk_01 HITL.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 9.0,
+        "course_km_end": 9.08,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Noredalen valley floor roll tail (km 9.0\u20139.08). S3/F2 per seamless seam @ km 9.0 from locked chunk_00 S3/F2; race_corridors noredalen_valley_flat atlas (km 8.0\u201310.4). Race TI med ~2.1 (F3 70%); grade med \u22127.7%; alt 224\u2192217 m. Evidence-tightened tread transition @ km 9.08 where grade med crosses \u221210% brake gate. GMM S1/S2 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 9.08,
+        "course_km_end": 9.78,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Kyllesvatnet approach steep brake (km 9.08\u20139.78). S4/F3 per telemetry brake onset: grade med \u221210% @ 9.08 escalating to \u221224%\u2013\u221230% core; race TI med ~3.3 (F4 85%); alt 217\u219288 m. noredalen_valley_flat atlas ends @ 10.4 but physics brake sub-span overrides flat parent lock (match chunk_00 S4/F3 descent-tail pattern). ML S4/F3 gap fill km 9.156\u20139.248 corroborates; ML S2/F3 gap fills km 9.248\u20139.656 rejected (Tier 3 defer per memo 18). GMM S3/S4 micro-pockets deferred Tier 3 \u2014 absorb under S4/F3 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 9.78,
+        "course_km_end": 10.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Kyllesvatnet approach easing roll (km 9.78\u201310.0). S3/F2 per race_corridors noredalen_valley_flat tail and grade/TI easing: grade med \u22127.4%, race TI med ~1.8 (F3 75%); alt 88\u219271 m. Seam @ km 9.78 from locked brake S4/F3 (F3\u2192F2 tread step). Dalsnuten timing index organiser anchor @ km 10.37 downstream (not tread transition). ML S2/F1 gap fill km 9.713\u201310.0 rejected (Tier 3 defer per memo 18). Steep climb onset @ 10.4+ deferred to chunk_02 HITL.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 10.0,
+        "course_km_end": 10.4,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Noredalen valley floor roll tail (km 10.0\u201310.4). S3/F2 per seamless seam @ km 10.0 from locked chunk_01 S3/F2; race_corridors noredalen_valley_flat atlas (km 8.0\u201310.4). Race TI med ~1.3 (F2\u2013F3 70%); grade med \u22121.5% easing to flat; alt 68\u219280 m. Evidence-tightened tread transition @ km 10.4 where atlas ends and grade crosses +8% climb gate. Dalsnuten timing index organiser anchor @ km 10.37 (calibration checkpoint, not tread transition). ML S2/F1 gap fill km 10.0\u201310.28 rejected (Tier 3 defer per memo 18). GMM S1\u2013S6 micro-pockets deferred Tier 3 \u2014 absorb under S3/F2 parent. Steep climb onset @ 10.4+ deferred to downstream span.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 10.4,
+        "course_km_end": 11.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Dalsnuten approach climb tread (km 10.4\u201311.0). S3/F2 per telemetry climb onset: grade med +8%\u2013+14% core @ 10.35\u201310.45 then variable +3%\u2013+10%; race TI med ~1.4 (F2\u2013F3 70%); alt 80\u2192108 m. Seam @ km 10.4 from locked valley flat S3/F2 (no S/F step \u2014 tread class holds on runnable dirt climb). ML S3/F2 gap fill km 10.35\u201310.84 partially corroborates; ML S2/F1 gap fill km 10.84\u201310.90 rejected (Tier 3 defer per memo 18). GMM S1\u2013S6 gravel/technical micro-pockets km 10.29\u201310.99 deferred Tier 3 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI remains sub-F4 throughout climb band.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 11.0,
+        "course_km_end": 11.4,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Dalsnuten climb continuation plateau roller (km 11.0\u201311.4). S3/F2 per seamless seam @ km 11.0 from locked chunk_02 S3/F2; race_corridors noredalen_valley_flat atlas ended @ 10.4 \u2014 climb tread continues on runnable dirt east of Dalsnuten timing index @ 10.37. Race TI med ~1.3\u20131.5 (F2\u2013F3 70%); grade med \u22120.04% to +3.4% with brief plateau dip @ 10.9\u201311.0 absorbed under parent; alt 108\u2192120 m. Evidence-tightened tread transition @ km 11.4 where grade med crosses +7% steep-climb gate. ML gap fills abstain (HMM out of window); GMM S1\u2013S6 gravel micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI sub-F4.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 11.4,
+        "course_km_end": 12.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Dalsnuten sustained steep climb tread (km 11.4\u201312.0). S3/F2 per telemetry steep-climb onset: grade med +7%\u2013+23% core @ 11.4\u201312.0; race TI med ~1.2\u20131.4 (F2 85%); alt 120\u2192196 m. Seam @ km 11.4 from locked plateau roller S3/F2 (no S/F step \u2014 tread class holds on runnable dirt climb). Bj\u00f8rndalsfjellet timing index organiser anchor @ km 14.39 downstream (not tread transition). ML gap fills abstain (HMM out of window); GMM S2/S3 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI remains sub-F4 throughout steep band. Steep core @ 11.8+ deferred to chunk_04 HITL preview.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 12.0,
+        "course_km_end": 12.5,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Bj\u00f8rndalsfjellet approach sustained steep climb tread (km 12.0\u201312.5). S3/F2 per seamless seam @ km 12.0 from locked chunk_03 S3/F2; race_corridors Bj\u00f8rndalsfjellet timing index organiser anchor @ km 14.39 downstream (not tread transition). Race TI med ~1.2\u20131.6 (F2 85%); grade med +22%\u2013+30% core @ 12.0\u201312.2 then easing +8% @ 12.4; alt 196\u2192283 m. Evidence-tightened tread transition @ km 12.5 where grade med crosses summit inflection (climb\u2192roller dip). ML gap fills abstain (HMM out of window); GMM S1\u2013S4 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI remains sub-F4 throughout steep climb band.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 12.5,
+        "course_km_end": 13.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Bj\u00f8rndalsfjellet approach ridge roller dip + re-climb tread (km 12.5\u201313.0). S3/F2 per seamless seam @ km 12.5 from locked steep-climb S3/F2 (no S/F step \u2014 tread class holds on runnable dirt). Grade reversal dip \u221224% core @ 12.5\u201312.8 absorbed under parent; alt 283\u2192237\u2192255 m; race TI med ~1.3\u20132.9 on brake dip (effort mixing, not technical rock). dalevatn_band_ontology window begins @ km 13.0 downstream. ML gap fills abstain (HMM out of window); GMM S1/S2 gravel micro-pockets @ 12.7\u201312.8 deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: elevated TI on descent dip is braking physics, not F4 technical tread.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 13.0,
+        "course_km_end": 13.8,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Bj\u00f8rndalsfjellet approach sustained climb tread (km 13.0\u201313.8). S3/F2 per seamless seam @ km 13.0 from locked chunk_04 S3/F2 ridge re-climb (no S/F step \u2014 tread class holds on runnable dirt). dalevatn_band_ontology traverse onset @ km 13.0 per race_corridors; Bj\u00f8rndalsfjellet timing index organiser anchor @ km 14.39 downstream (not tread transition). Race TI med ~1.3\u20131.5 (F2 85%); grade med +6%\u2013+15% core @ 13.0\u201313.7; alt 255\u2192340 m. Evidence-tightened tread transition @ km 13.8 where grade med crosses summit inflection (climb\u2192plateau). ML gap fills abstain (HMM out of window); GMM S1\u2013S6 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: TI remains sub-F4 throughout climb band.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 13.8,
+        "course_km_end": 14.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Bj\u00f8rndalsfjellet summit plateau + lip brake tread (km 13.8\u201314.0). S3/F2 per seamless seam @ km 13.8 from locked sustained-climb S3/F2 (no S/F step \u2014 tread class holds on runnable dirt summit traverse). Grade eases +7%\u2192+2% @ 13.8\u201313.9 then \u221210% lip brake @ 14.0; alt 340\u2192333 m; race TI med ~1.8\u20133.1 on brake lip (effort mixing, not technical rock). Mattirudla timing index @ 15.67 and dale_descent corridor @ 14.5 downstream. ML gap fills abstain (HMM out of window); GMM S4/S5 micro-pockets @ 13.8\u201314.0 deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected: elevated TI on lip brake is braking physics, not F4 technical tread.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 14.0,
+        "course_km_end": 14.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Bj\u00f8rndalsfjellet post-summit steep brake / Dalevatn approach descent tread (km 14.0\u201314.5). S4/F3 per seamless seam @ km 14.0 tread step from locked chunk_05 S3/F2 summit lip at \u221210% brake gate (Kyllesvatnet pattern); race_corridors dale_descent corridor onset @ km 14.5 downstream boundary. Race TI med ~3.0 (F4 100%); grade med \u22129% to \u221219% core; alt 333\u2192291 m. Bj\u00f8rndalsfjellet timing index organiser anchor @ km 14.39 (calibration checkpoint, not tread transition). mattirudla_descent corridor overlap @ 14.39 downstream. ML gap fills abstain (HMM out of window); GMM S1\u2013S6 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S4/F3 parent. Evidence-tightened tread transition @ km 14.5 where grade med crosses climb inflection (+7%).",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 14.5,
+        "course_km_end": 14.85,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Dalevatn traverse roller / re-climb tread (km 14.5\u201314.85). S3/F2 per seamless seam @ km 14.5 tread step from locked S4/F3 brake (F3\u2192F2); race_corridors dale_descent + mattirudla_descent corridor overlap onset (organiser anchors, not tread transitions). Race TI med ~2.3 (F3\u2013F4 effort mixing on grade roller); grade med +3% with +11% peak @ 14.55 then easing; alt 291\u2192285 m. Evidence-tightened tread transition @ km 14.85 where grade med crosses steep-descent inflection (\u221216% @ 14.85; steep dale descent core deferred to chunk_07 S4/F3 lock). ML gap fills abstain (HMM out of window); GMM S1\u2013S6 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 14.85,
+        "course_km_end": 15.8,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Downhill Dalevatn steep descent core + easing tail (km 14.85\u201315.8; Case Study #002). S4/F3 per evidence-tightened tread step @ km 14.85 from locked S3/F2 roller (S3\u2192S4, F2\u2192F3 at grade inflection \u221216% brake gate); race_corridors dale_descent corridor (km 14.5\u201317.0) + mattirudla_descent overlap. Race TI med ~3.2\u20134.8 (F4\u2013F5+ 100% on steep core); grade med \u221228% to \u221236% core @ 15.1\u201315.3; alt 311\u2192146 m. Strava Downhill Dalevatn seg window ~15.1\u201315.7; Mattirudl\u00e5 timing index @ 15.67 organiser anchor (calibration checkpoint, not tread transition). Seamless continuation @ km 15.0 chunk boundary (no S/F step). ML gap fills abstain (HMM out of window); GMM S1\u2013S6 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S4/F3 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 15.8,
+        "course_km_end": 16.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: post-Dalevatn descent roller / re-climb tread onset (km 15.8\u201316.0). S3/F2 per seamless seam @ km 15.8 tread step from locked S4/F3 descent easing (S4\u2192S3, F3\u2192F2 at +4% climb gate); race_corridors post_mattirudla grind corridor downstream. Race TI med ~1.5\u20132.1 (F1\u2013F2 runnable tread); grade med +4% climb onset @ 15.8; alt 146\u2192148 m. dale_descent corridor tail eases @ 15.5\u201315.7 (absorbed under parent S4/F3). ML gap fills abstain (HMM out of window); GMM S1\u2013S6 micro-pockets deferred Tier 3 per memo 18 \u2014 absorb under S3/F2 parent. S4/F3 rejected on roller band: grade climb inflection dominates tread physics despite trailing elevated TI on descent lip.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 16.0,
+        "course_km_end": 16.9,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: post-Mattirudla grind sustained climb tread (km 16.0-16.9). S3/F2 per seamless seam @ km 16.0 from locked chunk_07 S3/F2 post-Dalevatn roller onset (no S/F step - tread class holds on runnable dirt climb). race_corridors post_mattirudla grind corridor (km 15.67-25.0); dale_descent corridor tail ends @ km 17.0 downstream. Race TI med ~1.1-1.8 (F1-F2 runnable tread); grade med +8% to +39% core @ 16.1-16.8; alt 147-293 m. Brief roller tail @ 16.0-16.1 absorbed under parent. Evidence-tightened tread transition @ km 16.9 where grade med crosses steep-brake inflection (climb to lip). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent. S4/F3 rejected on climb band: TI remains sub-F4 throughout sustained grind.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 16.9,
+        "course_km_end": 17.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Lifjell approach summit lip brake tread / dale_descent corridor end (km 16.9-17.0). S4/F3 per evidence-tightened tread step @ km 16.9 from locked S3/F2 grind climb (S3 to S4, F2 to F3 at -16% brake gate @ 16.95); race_corridors dale_descent corridor end @ km 17.0 + lifjell_summit approach downstream @ km 17.5. Race TI med ~3.3 (F4 100% on brake lip); grade med -17% to -36% core @ 16.95; alt 293-268 m. ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 17.0,
+        "course_km_end": 17.1,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Lifjell approach post-lip brake easing tread (km 17.0-17.1). S4/F3 per seamless seam @ km 17.0 from locked chunk_08 S4/F3 lip brake (no S/F step - brake physics holds on technical descent easing). race_corridors dale_descent corridor ended @ km 17.0; post_mattirudla grind corridor downstream. Race TI med ~2.9 (F4-F5+ on easing brake); grade med -8.8%; alt 272 m. ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 17.1,
+        "course_km_end": 17.5,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: post-Mattirudla grind re-climb tread toward Lifjell summit lip (km 17.1-17.5). S3/F2 per seamless tread step @ km 17.1 from locked S4/F3 brake easing (S4 to S3, F3 to F2 at +10% climb gate); race_corridors post_mattirudla grind corridor (km 15.67-25.0); lifjell_summit corridor onset @ km 17.5 downstream. Race TI med ~1.3-1.9 (F2-F3 runnable tread); grade med +8% to +15%; alt 270-288 m. ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent. S4/F3 rejected on climb band: TI remains sub-F4 throughout sustained grind.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 17.5,
+        "course_km_end": 17.9,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Lifjell summit steep brake tread - lifjell_summit corridor onset (km 17.5-17.9). S4/F3 per evidence-tightened tread step @ km 17.5 from locked S3/F2 re-climb (S3 to S4, F2 to F3 at -20% brake gate); race_corridors lifjell_summit corridor (km 17.5-18.5); geographic anchor @ km 18.0 downstream. Race TI med ~3.6-4.4 (F5+ on steep brake); grade med -9% to -20% core @ 17.5-17.8; alt 288-240 m. ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 17.9,
+        "course_km_end": 18.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: Lifjell summit trough roller / post-summit re-climb tread at geographic anchor (km 17.9-18.0). S3/F2 per evidence-tightened tread step @ km 17.9 from locked S4/F3 summit brake (S4 to S3, F3 to F2 at +17% climb gate); lifjell_summit geographic anchor @ km 18.0; post_mattirudla grind corridor continues downstream. Race TI med ~1.1 (F1 runnable tread); grade med +17%; alt 249 m. ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent. S4/F3 rejected on trough band: TI sub-F4 on post-summit roller.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 18.0,
+        "course_km_end": 18.5,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: post-Lifjell summit grind climb tread (km 18.0-18.5). S3/F2 per seamless seam @ km 18.0 from locked chunk_09 S3/F2 summit trough (no S/F step - grind climb holds on runnable dirt tread); race_corridors lifjell_summit corridor tail (km 17.5-18.5); post_mattirudla grind corridor continues downstream. Race TI med ~1.2-1.6 (F1-F2 runnable tread); grade med +5% to +9% core @ 18.0-18.25; alt 266-281 m. ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent. Brief brake dip @ 18.3 absorbed under climb parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 18.5,
+        "course_km_end": 18.8,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: post-summit plateau roller / mild brake easing tread (km 18.5-18.8). S3/F2 per seamless seam @ km 18.5 from locked grind climb (no S/F step - plateau roller holds on runnable tread); lifjell_summit corridor ended @ km 18.5; post_mattirudla grind corridor continues. Race TI med ~1.1-2.7 (F1-F3 on variable roller); grade med -11% to +14% variable; alt 279-256 m. Braking physics dips @ 18.6-18.7 absorbed under S3/F2 parent (match chunk_05 lip-brake precedent). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18. S4/F3 rejected: TI remains sub-F4 on easing roller band.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 18.8,
+        "course_km_end": 19.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: mid-race descent steep brake onset tread (km 18.8-19.0). S4/F3 per evidence-tightened tread step @ km 18.8 from locked S3/F2 plateau roller (S3 to S4, F2 to F3 at -14% brake gate); race_corridors mid_race_descent corridor onset @ km 19.0 (Lifjell summit to coast). Race TI med ~3.6-4.3 (F5+ on steep brake); grade med -14% to -37% core @ 18.85-19.0; alt 256-193 m. ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent. Steep descent core @ 19.0+ deferred to chunk_11 HITL.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 19.0,
+        "course_km_end": 20.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: mid-race descent steep core + easing tail tread (km 19.0-20.0). S4/F3 per seamless seam @ km 19.0 from locked chunk_10 S4/F3 brake onset (no S/F step - steep descent core holds on technical tread); race_corridors mid_race_descent corridor (km 19.0-20.0 Lifjell summit to coast). Race TI med ~4.2-5.1 (F4-F5+ on steep core); grade med -24% to -37% core @ 19.0-19.35 and 19.65-19.8; alt 219-41 m (-178 m). Brief grade roller / braking dip @ 19.4-19.65 absorbed under S4/F3 parent (match chunk_10 plateau-roller precedent). Easing tail @ 19.85-20.0 retained under S4/F3 (grade -12% to -10%; TI still F4 band). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 20.0,
+        "course_km_end": 20.2,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: post-descent easing brake tread (km 20.0-20.2). S4/F3 per seamless seam @ km 20.0 from locked chunk_11 S4/F3 mid-race descent easing tail (no S/F step - braking physics tail holds on technical tread); race_corridors mid_race_descent corridor ended @ km 20.0. Race TI med ~3.7-4.5 (F4 band @ 20.0-20.15); grade med ~-10% @ 20.0-20.15; alt 44-29 m. Evidence-tightened tread transition @ km 20.2 where TI med crosses F3 gate (~2.5) and grade crosses +4% climb gate (S4 to S3, F3 to F2). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent. Coast approach roller @ 20.2+ deferred to downstream span.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 20.2,
+        "course_km_end": 21.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: post-descent coast approach roller tread (km 20.2-21.0). S3/F2 per evidence-tightened tread step @ km 20.2 from locked S4/F3 easing brake (S4 to S3, F3 to F2 at +4% climb gate); post-mid_race_descent coastal approach band pre-coastal transition. Race TI med ~1.7-3.3 (F2-F3 band); grade variable roller +/-10%; alt 29-27 m. Brief brake dips @ 20.3, 20.5, 20.8-20.9 absorbed under S3/F2 parent (match chunk_10 plateau-roller precedent). Seam holds S3/F2 @ km 21.0 for chunk_13 handoff (steep coastal brake onset deferred @ 21.2+; upstream S4/F3 @ km 22.0). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 21.0,
+        "course_km_end": 21.2,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-03",
+        "reason": "operator gold: coast approach roller tail tread (km 21.0-21.2). S3/F2 per seamless seam @ km 21.0 from locked chunk_12 S3/F2 coast approach roller (no S/F step - variable roller holds on runnable tread); pre-coastal transition band upstream of steep coastal brake onset. Race TI med ~1.7-2.2 (F2 band); grade variable roller +/-6%; alt 27-24 m. Evidence-tightened tread transition @ km 21.2 where TI med crosses F3 gate (~2.5) and grade crosses -9% brake gate (S3 to S4, F2 to F3). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 21.2,
+        "course_km_end": 21.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-03",
+        "reason": "operator gold: steep coastal brake tread (km 21.2-21.5). S4/F3 per evidence-tightened tread step @ km 21.2 from locked S3/F2 roller tail (S3 to S4, F2 to F3 at -9% brake gate); steep coastal descent onset bridging toward dale_paradisskaret_upstream sector entry. Race TI med ~2.8-3.7 (F3-F4 band @ 21.2-21.45); grade med -9% to -16% core @ 21.2-21.45; alt 24-7 m. Evidence-tightened end @ km 21.5 where TI med drops to F2 band (~1.5) and grade crosses +4% climb gate (S4 to S3, F3 to F2). ML gap fills abstain (HMM out of window); GMM S5/S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 21.5,
+        "course_km_end": 21.9,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-03",
+        "reason": "operator gold: coastal roll / pre-sector climb tread (km 21.5-21.9). S3/F2 per evidence-tightened tread step @ km 21.5 from locked S4/F3 steep coastal brake (S4 to S3, F3 to F2 at +4% climb gate); runnable hard-dirt roller between steep brake core and upstream coastal sector entry. Race TI med ~1.5-1.8 (F2 band); grade med +3% to +7%; alt 7-22 m. Brief TI spike @ 21.8 absorbed under S3/F2 parent (match chunk_10 plateau-roller precedent). Seam holds S3/F2 through km 21.9 for final upstream bridge span. ML gap fills abstain (HMM out of window); GMM S1/S2/S5/S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 21.9,
+        "course_km_end": 22.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-03",
+        "reason": "operator gold: coastal sector entry bridge to upstream (km 21.9-22.0). S4/F3 per evidence-tightened tread step @ km 21.9 from locked S3/F2 coastal roll (S3 to S4, F2 to F3 at +10% climb gate); intentional seam @ km 22.0 into locked upstream chunk_u00 S4/F3 technical coastal tread @ 22.0-22.5 (dale_paradisskaret_upstream). Race TI med ~2.0-2.5 rising toward upstream F3 band; grade med +5% to +17% @ 21.9; alt 22-28 m. Matches upstream operator gold entry: grade med ~+10%, consensus TI rising toward coastal sector. ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent.",
+        "source_sector": "dalevatn_band"
+      },
+      {
+        "course_km_start": 22.0,
+        "course_km_end": 22.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: technical coastal tread \u2014 sector entry roll, steep descent core, and SUT_160 Dale aid bridge crosswalk @ km 22.43 absorbed into unified S4/F3 parent (no paved/gravel tread). S3/S4-only corridor km 22.0\u201323.0; draft_preservation suppresses S1/S2/S5/S6. Consensus TI peak ~5.0\u20136.0 @ 22.2\u201322.3; grade med ~+10% entry \u2192 steep negative descent. 3-span simplification; seam @ 22.5 \u2192 S3/F2 roll (chunk_u00). Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 22.5,
+        "course_km_end": 22.9,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: rocky/dirt coastal roll \u2014 post-bridge climb and hard-dirt roll; field read excludes paved and gravel tread in km 22\u201323. TI med ~1.2\u20133.6; override TI-band S1 dominant 22.467\u201322.745 and GMM S1/S2/S5/S6 via draft_preservation parent lock. 3-span simplification; seams @ 22.5 and 22.9 (chunk_u00). Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 22.9,
+        "course_km_end": 23.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: technical coastal descent approach \u2014 grade med ~\u221215%, altitude ~59 m; intentional seam @ km 23.0 into locked u01 S4/F3 @ 23.0\u201323.17. TI med ~3.9 rising toward u01 band. S3/S4-only parent lock (chunk_u00). Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 23.0,
+        "course_km_end": 23.17,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: technical coastal descent \u2014 rocky/rooty tread on steep negative-grade approach to Dale (chunk_u01). Consensus TI median ~3.9\u20134.5, grade \u221213% to \u221217%; S4/F3 per friction_index_spec. SUT_160 bridge crosswalk: late-loop coastal approach band upstream of Dale aid (~km 141). GMM S5/S6 micro-pockets @ km 23.02\u201323.14 retained under draft_preservation within S4/F3 parent lock. Subject_A fall behavioral_stop + TRF exclusion @ km 23.123\u201323.135 (FIT-tight; Subject_A_only); Subject_B through-running at spine co-location. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 23.17,
+        "course_km_end": 23.29,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: coastal dirt trail descent \u2014 compacted hard-dirt tread, TI declining ~3.4\u21922.7 (chunk_u01). S3/F2 per friction_index_spec. Transition band between technical coastal descent and gravel approach to Dale village. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 23.29,
+        "course_km_end": 23.48,
+        "surface_class": "S2",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: gravel approach to Dale \u2014 hard-pack gravel tread on descent toe upstream of CP compound (chunk_u01). S2/F2 per friction_index_spec. Runnable ~2.0\u20132.7 m/s both athletes; Subject_A TI ~1.16\u20131.18; elev minimum ~16 m @ km 23.38. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 23.48,
+        "course_km_end": 23.55,
+        "surface_class": "S2",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: Dale CP halt (gravel) \u2014 hard-pack gravel path through geographic Dale @ km 23.5 (race_corridors.json dale_coastal; Garmin marker 24). S2/F2 per friction_index_spec. Co-stop at Dale aid; behavioral_stops/trf_exclusions (anchor dale_cp). Distinct from organiser timing Dale index (~8.1 km). SUT_160 bridge: Dale aid ~km 141.0. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 23.55,
+        "course_km_end": 23.68,
+        "surface_class": "S2",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: Dale CP walk-out (gravel) \u2014 gravel path climb exiting Dale aid compound (chunk_u01). S2/F2 per friction_index_spec. Subject_A race FIT sustained low speed ~1.06\u20131.50 m/s; behavioral walk excluded from paired TRF (dale_cp). Grade inflection >+10% from km 23.55. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 23.68,
+        "course_km_end": 23.8,
+        "surface_class": "S2",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: coastal gravel climb resume \u2014 hard-pack gravel path from Dale through Dalsnuten foot approach (chunk_u01). Runnable ~2.1\u20132.6 m/s both athletes post walk-out; TI ~1.3; S2/F2 per friction_index_spec. Gravel\u2192asphalt seam @ km 23.8. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 23.8,
+        "course_km_end": 24.0,
+        "surface_class": "S1",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "reason": "operator gold: coastal asphalt road \u2014 paved tread on climb toward Dalsnuten foot through chunk_u01 end (chunk_u01). S1/F1 per friction_index_spec from km 23.8; consensus TI ~1.2\u20131.3; runnable ~2.0 m/s both athletes. Intentional asphalt\u2192dirt seam @ km 24.0 into chunk_u02 S3/F2. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 24.0,
+        "course_km_end": 24.35,
+        "surface_class": "S1",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "reason": "operator gold: coastal asphalt road continuation \u2014 paved tread from chunk_u01 S1/F1 @ km 23.8\u201324.0 through km 24.35 (chunk_u02). Continuous asphalt band; dirt tread onset @ km 24.35. S1/F1 per friction_index_spec; consensus TI ~1.2\u20131.9; runnable ~1.6\u20132.4 m/s both athletes on flat-to-mild grade. GMM S3/S4 rocky misclass @ km 24.07\u201324.15 removed from draft_preservation (paved tread, cluster noise). Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 24.35,
+        "course_km_end": 24.55,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: Dalsnuten mid climb \u2014 hard-dirt tread from asphalt\u2192dirt seam @ km 24.35, grade +3\u201310%, altitude ~34\u219257 m (chunk_u02). Consensus TI ~1.4\u20131.6; both athletes ~1.2\u20131.8 m/s. S3/F2 per friction_index_spec. GMM S1/S2 road-gravel misclass @ km 24.52\u201324.63 deferred \u2014 draft_preservation; no paved connector on topo. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 24.55,
+        "course_km_end": 24.72,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: Dalsnuten steep dirt climb \u2014 power-hike tread, grade >+15% from km 24.56 (rolling median inflection). Speed decay both athletes (~1.5\u21920.8 m/s); Subject_A brief 0 m/s windows on steep steps \u2014 not tagged TRF (no co-runner halt, no CP). S3/F2 per friction_index_spec. GMM S4 micro-pockets @ km 24.65\u201324.71 deferred \u2014 draft_preservation. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 24.72,
+        "course_km_end": 25.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: Dalsnuten summit approach \u2014 technical rocky tread on steepest final push to geographic Dalsnuten summit @ km 25.0 (Garmin marker 25; race_corridors.json dalsnuten_summit). Grade +18\u201325%, altitude ~102\u2192151 m; consensus TI ~1.4\u20131.7 rising toward crest. Subject_A extended power-hike @ km 24.74\u201324.95. S4/F3 per friction_index_spec. SUT_160 crosswalk ~km 142.25 summit. GMM S2/S3 micro-pockets @ km 24.97\u201325.0 deferred \u2014 draft_preservation; boundary @ km 25.0 for chunk_u03 resume. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 25.0,
+        "course_km_end": 25.15,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: post-summit crest continuation from operator gold S4/F3 seam @ km 25.0 \u2014 rocky tread on steep positive grade (+20\u201331%), altitude ~151\u2192185 m (chunk_u03). Both athletes brief 0 m/s power-hike @ km 25.02\u201325.11; not tagged TRF (terrain-driven hike, no CP). Entire km 25.0\u201326.0 rocky/technical only (S4/S5); GMM S1/S2/S3/S6 misclass overridden. S4/F3 per friction_index_spec. GMM S5 micro-pocket @ km 25.060\u201325.110 retained under draft_preservation within S4/F3 parent lock. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 25.15,
+        "course_km_end": 25.4,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: post-summit traverse climb \u2014 rocky/technical tread, grade +10\u201320%, altitude ~185\u2192221 m (chunk_u03). Subject_A/B TI ~1.2\u20131.9, speed ~0.8\u20131.3 m/s with scattered power-hike windows. Ends upstream of stone steps (sherpa steps) band @ km 25.475. Reclassified from S3/F2 draft \u2014 no S1/S2/S3/S6 in km 25.0\u201326.0. S4/F3 per friction_index_spec; GMM S3/S2 misclass overridden. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 25.4,
+        "course_km_end": 25.475,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: rocky plateau roll before stone steps \u2014 brief grade inflection near 0% @ km 25.403 (min ~\u22122.3%), altitude ~219\u2192233 m; runnable tread ~0.9\u20131.3 m/s before sherpa-step onset (chunk_u03). S4/F3 per friction_index_spec; GMM S2/S3 misclass overridden. No S1/S2/S3/S6 in km 25.0\u201326.0. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 25.475,
+        "course_km_end": 25.565,
+        "surface_class": "S5",
+        "friction_tier": "F4",
+        "gold_source": "operator",
+        "reason": "operator gold: stone steps (sherpa steps) @ km ~25.5 \u2014 technical stepped tread on rocky Dalsnuten flank (chunk_u03). Telemetry window km 25.475\u201325.565 (~90 m): grade +37\u201344% (med ~+39%); Subject_A extended 0 m/s power-hike @ km 25.475\u201325.564 on steep step risers; Subject_B runnable ~1.0 m/s (staggered, not simultaneous co-halt). TI med ~1.06 (Subject_A) / ~1.65 (Subject_B). S5/F4 per friction_index_spec (technical rock difficult / stepped tread). GMM S1/S2/S3/S6 misclass overridden. No S1/S2/S3/S6 in km 25.0\u201326.0. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 25.565,
+        "course_km_end": 25.8,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: upper Dalsnuten flank \u2014 sustained steep rocky climb (+30\u201343%), altitude ~262\u2192326 m; telemetric crest @ km 25.801 (distinct from Garmin marker @ km 25.0) (chunk_u03). Both athletes extended co-power-hike @ km 25.565\u201325.76 \u2014 terrain-driven, not TRF. S4/F3 per friction_index_spec; GMM S1/S2/S3/S6 misclass overridden. GMM S5 loose-rock micro-pocket @ km 25.794\u201325.814 retained under draft_preservation within S4/F3 parent lock. SUT_160 crosswalk: post-summit traverse band upstream of dalsnuten_descent. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 25.8,
+        "course_km_end": 26.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: post-crest technical descent onset \u2014 grade flip negative @ km 25.804, TI spike ~3.0\u20134.5 (Subject_B peak 4.50 @ km 25.8\u201325.9), speed recovery ~1.3\u20132.1 m/s (chunk_u03). Technical rocky braking descent toward Revhol traverse. Summit @ km 25.8 is terrain S4/F3 only \u2014 not behavioral stop; no TRF tag. S4/F3 per friction_index_spec (runnable technical; not F4 scramble). GMM S1/S2/S3/S6 misclass overridden. Boundary @ km 26.0 for chunk_u04 resume. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 26.0,
+        "course_km_end": 26.3,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: technical rocky descent \u2014 Dalsnuten post-crest descent alternates S4\u2194S5 per field read; grade \u221210% to \u221224% (med ~\u221218%), altitude ~299\u2192255 m; speed recovery ~0.7\u21921.5 m/s; TI med ~3.2\u20134.6 (chunk_u04). S4/F3 parent per friction_index_spec; GMM S5/F4 (or S5/F3) difficult-rock micro-pockets retained under draft_preservation within S4/F3 parent lock \u2014 not monolithic S4. Seam @ 26.0: continuous S4/F3 from chunk_u03 locked descent onset. S6 bog overridden; S1/S2/S3 cluster noise overridden. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 26.3,
+        "course_km_end": 26.4,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: rocky tread transition band \u2014 grade \u221210% to \u221216% (med ~\u221214%), altitude ~255\u2192248 m; rocky tread easing before S3/F2 seam @ 26.4 (chunk_u04). S4/F3 per friction_index_spec; GMM S5 pockets @ 26.301\u201326.306, 26.314\u201326.367 retained under draft_preservation; S6 @ 26.306\u201326.314 overridden. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 26.4,
+        "course_km_end": 27.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: hard-dirt main tread \u2014 Revhol traverse roll toward Gramstadtj\u00f8rn (Garmin marker 27); grade \u22122% to \u221214% (med ~\u22125% @ 26.85\u201327.0), altitude ~248\u2192212 m; runnable ~1.3\u20132.2 m/s; TI med ~1.8\u20132.8 declining (chunk_u04). S3/F2 per friction_index_spec. Seam @ 26.4: S4/F3 \u2192 S3/F2 tread change. GMM S2 gravel / S4 rocky micro-pockets accepted within S3/F2 parent; S5/S6 overridden. Boundary @ km 27.0 for chunk_u05 resume. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 27.0,
+        "course_km_end": 27.99,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: Gramstadtj\u00f8rn traverse / lakeshore \u2014 hard-dirt / rocky tread continuous from u04 locked S3/F2 @ km 27.0 through south rise, lakeshore descent, and post-lakeshore roll (Garmin marker 27); altitude ~206\u2192~160 m; grade \u221229% to +35% across behavioral sub-bands (chunk_u05). Entire band hard dirt / rocky tread \u2014 zero S1, zero S2 in km 27.0\u201327.8. S3/F2 per friction_index_spec. GMM S4/S5 micro-pockets via draft_preservation within S3/F2 parent; S1/S2 gravel-asphalt cluster noise overridden. Seam @ 27.0: continuous S3/F2 from chunk_u04. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 27.99,
+        "course_km_end": 28.0,
+        "surface_class": "S2",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: gravel road tail \u2014 narrow S2/F2 forest gravel tread @ km 27.99\u201328.0 easing toward Revholstj\u00f8rn loop; seam @ km 28.0 continuous S2/F2 into chunk_u06 operator gold. GMM S1 asphalt transition noise via draft_preservation within S2/F2 parent. revholstjorn_gate_km279 @ 27.9\u201328.0: staggered passage confirmed \u2014 no TRF (downstream revholstjorn_gravel_gate in u06). Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 28.0,
+        "course_km_end": 28.751,
+        "surface_class": "S2",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: Revholstj\u00f8rn gravel road \u2014 forest gravel tread continuous from chunk_u05 operator gold S2/F2 @ 27.99\u201328.0 through Revholstj\u00f8rn sector (Garmin marker 28); grade med ~+4\u20135%; altitude ~158\u2192~190 m (chunk_u06). S2/F2 per friction_index_spec. Operator field correction 2026-06-29: unified gravel band km 28.0\u201328.751. GMM S1 asphalt clusters overridden (no paved tread on field read). GMM S3 dirt micro-pockets overridden. revholstjorn_gravel_gate TRF co_wait @ km 28.660\u201328.675 (both athletes). Seam @ 28.0: continuous S2/F2 from chunk_u05. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 28.751,
+        "course_km_end": 29.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: easy trail / gramstad approach \u2014 compacted hard-dirt tread easing toward gramstad_band operator gold S3/F2 @ km 29.0 (chunk_00). Operator field correction 2026-06-29: tread transition @ km 28.751 (S2/F2 gravel \u2192 S3/F2 hard dirt). TI peak Subject_A 3.86 @ km 28.751. GMM S4/S5 pockets via draft_preservation within S3/F2 parent. Seam @ 29.0: S3/F2 continuous into gramstad_band lock \u2014 no S2 gravel at sector boundary. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_paradisskaret_upstream"
+      },
+      {
+        "course_km_start": 29.0,
+        "course_km_end": 29.4,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: easy dirt trail baseline (chunk_00). S3/F2 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 29.4,
+        "course_km_end": 29.6,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: minor rocky interval (chunk_00). S4/F3 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 29.6,
+        "course_km_end": 29.8,
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: plank/muddy nested pocket (chunk_00). S3/F3 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 29.8,
+        "course_km_end": 30.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: rocky approach interval (chunk_00). S4/F3 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 30.0,
+        "course_km_end": 30.1,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: easy descent Fjogstadnuten flank (chunk_01). S3/F2 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 30.1,
+        "course_km_end": 30.35,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: technical rocky core (chunk_01). S4/F3 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 30.35,
+        "course_km_end": 30.55,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: ease before CP (chunk_01). S3/F2 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 30.55,
+        "course_km_end": 31.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: easy dirt toward stile (chunk_01). S3/F2 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "locked_at": "2026-06-29",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 31.0,
+        "course_km_end": 31.15,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: bedrock lock onset @ seam (chunk_02). S4/F3 per friction_index_spec. F2\u2192F3 tread step from chunk_01 S3/F2 @ km 31.0. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 31.15,
+        "course_km_end": 31.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: stile / gjerdeklyver corridor (chunk_02). S4/F3 per friction_index_spec. STILE-31 co-wait TRF exclusion 31.1\u201331.5; friction tier unchanged on behavioral halt. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 31.5,
+        "course_km_end": 31.75,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: mid bedrock climb band (chunk_02). S4/F3 per friction_index_spec. GMM S5/S6 micro-pockets absorbed under parent. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 31.75,
+        "course_km_end": 32.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: downstream bedrock toward Dalevatn / Fjogstadnuten corridor (chunk_02). S4/F3 per friction_index_spec. Seam @ km 32.0 continuous S4/F3 into chunk_03. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 32.0,
+        "course_km_end": 32.25,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: upstream bedrock continuation @ seam (chunk_03). S4/F3 per friction_index_spec. Seamless from chunk_02 @ km 32.0; override GMM S6/S5 majority. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 32.25,
+        "course_km_end": 32.55,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: mid bedrock roll toward nested dirt pocket (chunk_03). S4/F3 per friction_index_spec. GMM S6/S5 micro-pockets absorbed under parent. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 32.55,
+        "course_km_end": 32.65,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: nested pure-dirt pocket within S4/F3 parent lock km 31.0\u201333.2 (chunk_03). Only pure-dirt section in rocky/granite band; muddy when wet (dirt pocket, not full bog/marsh). S3/F2 per friction_index_spec. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 32.65,
+        "course_km_end": 33.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: downstream bedrock toward Rinna ridge (chunk_03). S4/F3 per friction_index_spec. Resume S4/F3 after nested pocket; parent lock continues to km 33.2. Seam @ km 33.0 continuous S4/F3 into chunk_04. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 33.0,
+        "course_km_end": 33.2,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: easy dirt/trail entry to late_braking corridor (chunk_04 Strategic Command 3-span). S3/F2 per friction_index_spec. Seam @ km 33.0 from locked chunk_03 S4/F3 (F3\u2192F2 tread step); granite-entry TRF exclusion @ 33.00\u201333.12 retained. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 33.2,
+        "course_km_end": 33.8,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: late_braking core \u2014 technical bedrock/granite band (chunk_04 Strategic Command 3-span). S4/F3 per friction_index_spec. Supersedes 5-span draft (S5/F3 granite, S2/F3 Paradisskaret crossing, S4/F3 post-crossing) \u2014 unified S4/F3 parent absorbs GMM S5/S6 micro-pockets. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 33.8,
+        "course_km_end": 34.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "locked_at": "2026-06-29",
+        "reason": "operator gold: ease band toward chunk_05 (chunk_04 Strategic Command 3-span). S3/F2 per friction_index_spec. High\u2192low friction transition pulled upstream from 5-span draft @ 33.97; seam @ km 34.0 continuous S3/F2 into chunk_05. Operator walkthrough accepted 2026-06-29. Locked 2026-06-29.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 34.0,
+        "course_km_end": 34.6,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "reason": "operator gold: low friction trail \u2014 compact dirt, runnable tread (km 34.0\u201334.60) downstream of chunk_04 S3/F2 ease band @ 33.8\u201334.0 (Strategic Command 3-span lock 2026-06-29); extends to low\u2192gravel transition pinned @ km 34.60 (norgeskart pin UTM-32 E 315526.13 N 6531456.32 elev 161.3 m (Gramstad farm; trail meets F4504 gravel road); SUT43 forward). S3/F2 per friction_index_spec. Dashboard HITL QC chunk_05. Subject_A drink CP stop behavioral TRF exclusion. Not S2 hard-pack gravel.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 34.6,
+        "course_km_end": 36.0,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Gramstad area hard-pack gravel road / tractor road (dossier sector #2) km 34.60-36.00; tail trimmed @ km 36.0 for F3 transition band chunk_07 adjudication 2026-06-30. S2/F1 per friction_index_spec.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 36.0,
+        "course_km_end": 36.3,
+        "surface_class": "S2",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Gramstad gravel road tail km 36.0-36.30; F3 coarse gravel approaching trail exit @ km 36.30 (chunk_07 adjudication 2026-06-30). S2/F3 per friction_index_spec; operator band F3 km 36.0-36.72.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 36.3,
+        "course_km_end": 36.6,
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Vassfjellet traverse upstream tread km 36.30-36.60; F3 wet/coarse dirt-grass trail (chunk_07 adjudication 2026-06-30). S3/F3 per friction_index_spec; operator band F3 km 36.0-36.72.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 36.6,
+        "course_km_end": 36.72,
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Vassfjellet gravel-to-trail transition tread km 36.60-36.72 approach to bog; F3 (chunk_07 adjudication 2026-06-30). S3/F3 per friction_index_spec; operator band F3 km 36.0-36.72.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 36.72,
+        "course_km_end": 36.81,
+        "surface_class": "S6",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Vassfjellet approach bog entry km 36.72-36.81; S6/F3 bog tread at entry (chunk_07 adjudication 2026-06-30). Accepts ML F4-to-F3 downgrade at bog entry; norgeskart bog pin @ km 36.833 downstream.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 36.81,
+        "course_km_end": 36.89,
+        "surface_class": "S6",
+        "friction_tier": "F4",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-06-30",
+        "reason": "operator gold: Vassfjellet approach bog core km 36.81-36.89 deep bog/marsh tread (S6/F4 per friction_index_spec). norgeskart bog pin @ km 36.833; upstream entry S6/F3 km 36.72-36.81 per chunk_07 adjudication 2026-06-30.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-28",
+        "course_km_start": 36.89,
+        "course_km_end": 37.0,
+        "reason": "operator gold: post-bog forest dirt transition \u2014 wet forest dirt tread immediately downstream of Vassfjellet approach bog S6/F4 km 36.72\u201336.89; upstream flank of post-bog forest climb S3/F3 km 37.0\u201337.072 before chunk_08 rocky-muddy descent. S3/F3 per friction_index_spec (rooty/muddy dirt trail). GMM S3 cluster km 36.888\u201337.0; NTI \u03c3 spike at bog exit on cross-athlete panel. Non-overlapping boundary @ km 37.0; tier lock 2026-06-28.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "course_km_start": 37.0,
+        "course_km_end": 37.072,
+        "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt tread immediately downstream of Vassfjellet approach bog S6/F4 km 36.72\u201336.89; typically wet with localized mud holes (high friction tax corridor, chunk_08). S3/F3 per friction_index_spec (rooty/muddy dirt trail, technical-runnable). GMM S3 cluster km 37.021\u201337.066 upstream of bog pocket.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S6",
+        "friction_tier": "F4",
+        "gold_source": "operator",
+        "course_km_start": 37.072,
+        "course_km_end": 37.13,
+        "reason": "operator gold: localized bog/mud pocket \u2014 deep mud hole within post-bog forest climb km 37.0\u201337.4; operator field note @ km 37.07\u201337.13, GMM S6 cluster km 37.072\u201337.130. Nested S6/F4 micro-span within S3/F3 parent corridor (chunk_08). S6/F4 per friction_index_spec (vacuum mud / bog extraction).",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "course_km_start": 37.13,
+        "course_km_end": 37.41,
+        "reason": "operator gold: post-bog forest dirt climb \u2014 wet forest dirt trail with frequent localized mud holes; unpleasant high-friction tax corridor per operator field note (chunk_08). S3/F3 per friction_index_spec. GMM mixed S5/S6 pockets retained as draft overlay; operator baseline S3/F3 wet tread to km ~37.4 before Vassfjellet muddy trail band.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S6",
+        "friction_tier": "F4",
+        "gold_source": "operator",
+        "course_km_start": 37.41,
+        "course_km_end": 37.87,
+        "reason": "operator gold: Vassfjellet muddy trail \u2014 wet forest dirt tread with frequent mud holes and bog-dominant footing; extended/merged from prior km 37.41\u201337.87 baseline (chunk_08). Operator field note: dirt trails in forest, typically wet, localized mud holes frequent, high friction tax corridor. S6/F4 per friction_index_spec (bog/mud dominant; GMM S6 clusters km 37.414\u201337.849). Supersedes open variance gap km 37.87\u201338.0 flank.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S5",
+        "friction_tier": "F4",
+        "gold_source": "operator",
+        "course_km_start": 37.87,
+        "course_km_end": 38.0,
+        "reason": "operator gold: rocky muddy descent \u2014 technical rocky AND muddy tread at end of wet forest corridor near km 38 per operator field note (chunk_08 tail only). S5/F4 per friction_index_spec (severe friction: loose/rocky footing plus vacuum mud; walk/scramble tax). Transitions from upstream S6/F4 Vassfjellet muddy trail; descent ends @ km 38.0 \u2014 downstream operator gold forest descent transition km 38.0\u201338.4 (chunk_09 tier lock 2026-06-28).",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S6",
+        "friction_tier": "F4",
+        "gold_source": "operator",
+        "locked_at": "2026-06-28",
+        "course_km_start": 38.0,
+        "course_km_end": 38.05,
+        "reason": "operator gold: localized bog/mud pocket \u2014 deep mud tread at forest descent tail immediately downstream of rocky-muddy descent S5/F4 km 37.87\u201338.0 (chunk_09). GMM S6 cluster @ km 38.0\u201338.05; NTI \u03c3 spike on cross-athlete panel. S6/F4 per friction_index_spec (vacuum mud / bog extraction). Nested within Paradisskaret approach corridor; upstream flank ends @ km 38.0.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S5",
+        "friction_tier": "F4",
+        "gold_source": "operator",
+        "locked_at": "2026-06-28",
+        "course_km_start": 38.05,
+        "course_km_end": 38.35,
+        "reason": "operator gold: forest rocky-muddy descent \u2014 technical rocky and muddy forest tread between Vassfjellet descent tail and Paradisskaret gravel road entry @ km 38.4 (chunk_09). GMM S4/S5 clusters km 38.05\u201338.35; sustained NTI elevation on cross-athlete panel. S5/F4 per friction_index_spec (severe friction: loose/rocky footing plus vacuum mud). Supersedes variance-gap draft-preservation km 38.0\u201339.135 flank.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S3",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "locked_at": "2026-06-28",
+        "course_km_start": 38.35,
+        "course_km_end": 38.4,
+        "reason": "operator gold: dirt transition tread \u2014 runnable wet forest dirt approach immediately upstream of Paradisskaret gravel road S2/F3 @ km 38.4 (chunk_09). GMM S3 cluster km 38.35\u201338.40; low-friction transition before coarse gravel road. S3/F3 per friction_index_spec (rooty/muddy dirt trail). Non-overlapping boundary @ km 38.4 before Paradisskaret gravel lock.",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S2",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: Paradisskaret gravel road \u2014 coarse gravel road tread upstream through stile (gjerdeklyver) @ km 39.135 (chunk_09/chunk_10). Rocky gravel road toward Bj\u00f8rndalsfjellet km 38.4\u201338.9 through Paradisskaret gravel corridor to stile boundary. S2/F3 per friction_index_spec (chunky coarse gravel; matches Paradisskaret gravel crossing @ km 33.39). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m; panel snap raw 39.135 km, residual 1.4 m (Subject_A race GPS), elev \u0394 +9.8 m vs pin cartography. Subject_A SUT43_20260418 race stop/wait cluster km 39.125\u201339.132 (7 m, 0 m/s; stile crossing). Supersedes variance-gap km 38.0\u201339.135; tier lock 2026-06-28.",
+        "course_km_start": 38.4,
+        "course_km_end": 39.135,
+        "locked_at": "2026-06-28",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "course_km_start": 39.135,
+        "course_km_end": 39.14,
+        "surface_class": "S2",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "reason": "operator gold: Paradisskaret gravel\u2192asphalt transition flap \u2014 ~5 m coarse gravel tread immediately downstream of stile (gjerdeklyver) @ km 39.135; asphalt begins @ km 39.140. S2/F3 per friction_index_spec (short gravel buffer before sealed road). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m; operator field note chunk_10.",
+        "locked_at": "2026-06-28",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "gold_source": "operator",
+        "reason": "operator gold: Loen-Alsvik asphalt road (Alsvik asphalt tail, dossier sector #1) \u2014 sealed S1/F0 corridor km 39.140\u201340.0; begins ~5 m downstream of Paradisskaret stile @ km 39.135 after S2/F3 gravel transition flap km 39.135\u201339.140. Prior lock start @ km 39.7 pulled upstream per operator field note (gravel\u2192asphalt transition QC chunk_10). Flat grade, low NTI confirmation; friction tier F0 per friction_index_spec; dashboard HITL QC chunk_10.",
+        "course_km_start": 39.14,
+        "course_km_end": 40.0,
+        "source_sector": "dale_to_paradisskaret"
+      },
+      {
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "gold_source": "operator",
+        "reason": "operator gold: Loen-Alsvik asphalt road (Alsvik asphalt tail, dossier sector #1) \u2014 pure sealed S1/F0 corridor km 40.0\u201341.0 per operator field confirmation (chunk_11). Continuous downstream of chunk_10 asphalt lock km 39.140\u201340.0; flat grade, low NTI; friction tier F0 per friction_index_spec; dashboard HITL QC chunk_11.",
+        "course_km_start": 40.0,
+        "course_km_end": 41.0,
+        "source_sector": "dale_to_paradisskaret"
+      }
+    ],
+    "notes": "Full-course operator gold km 0.5\u201341.0 \u2014 111 spans from 4 sector maps."
+  }
+}
