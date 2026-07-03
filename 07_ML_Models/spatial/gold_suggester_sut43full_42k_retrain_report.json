@@ -1,0 +1,253 @@
+{
+  "generated_at": "2026-07-03T10:57:56.206932+00:00",
+  "sut43_full_labeled_metres": 42000,
+  "v0_surface_holdout_threshold": 0.9789574636127722,
+  "hybrid_baseline_smoke": {
+    "start_panel_km_0.5_8.0": {
+      "KEEP": 12,
+      "REVISE": 2
+    },
+    "bridge_panel_km_8_22": {
+      "KEEP": 33,
+      "REVISE": 4
+    },
+    "gramstad_km_29_41": {
+      "KEEP": 37,
+      "REVISE": 13
+    },
+    "finish_panel_km_41_42.5": {
+      "REVISE": 6
+    }
+  },
+  "bridge_gold_check": {
+    "bridge_metres": 14000,
+    "bridge_labeled": 14000,
+    "prior_bridge_labeled": 14000,
+    "unchanged": true,
+    "retrain_skipped": true,
+    "rationale": "Bridge gold km 8–22 still 14,000 m; production gold_suggester_sector_bridge retained."
+  },
+  "finish_sector_training": {
+    "attempted": true,
+    "training_set": "03_Processed_Data/spatial/gold_training_set_sector_finish.parquet",
+    "labeled_metres": 29030,
+    "finish_gold_metres": 1500,
+    "cal_asphalt_s1_metres": 27530,
+    "status": "failed",
+    "reason": "Surface labels mono-class S1 in finish band; classifier requires ≥2 classes.",
+    "hybrid_finish_sector_eval": "skipped"
+  },
+  "experiments": {
+    "sut43full_only": {
+      "smoke": {
+        "start_panel_km_0.5_8.0": {
+          "KEEP": 11,
+          "REVISE": 9
+        },
+        "bridge_panel_km_8_22": {
+          "KEEP": 31,
+          "REVISE": 8
+        },
+        "gramstad_km_29_41": {
+          "KEEP": 39,
+          "REVISE": 12
+        },
+        "finish_panel_km_41_42.5": {
+          "REVISE": 3,
+          "KEEP": 1
+        }
+      },
+      "meta": {
+        "surface_holdout": 0.9901190476190476,
+        "friction_holdout": 0.9883333333333333,
+        "labeled_metres": 42000,
+        "per_source_surface": {}
+      },
+      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_only.joblib",
+      "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_only.json",
+      "promote": false,
+      "promotion_issues": [
+        "start_panel_km_0.5_8.0: REVISE 2\u21929",
+        "start_panel_km_0.5_8.0: KEEP 12\u219211",
+        "bridge_panel_km_8_22: REVISE 4\u21928",
+        "bridge_panel_km_8_22: KEEP 33\u219231"
+      ],
+      "sector_wins": [
+        "gramstad_km_29_41: REVISE 13\u219212",
+        "finish_panel_km_41_42.5: REVISE 6\u21923"
+      ]
+    },
+    "sut43full_cal": {
+      "smoke": {
+        "start_panel_km_0.5_8.0": {
+          "KEEP": 11,
+          "REVISE": 4
+        },
+        "bridge_panel_km_8_22": {
+          "KEEP": 32,
+          "REVISE": 9
+        },
+        "gramstad_km_29_41": {
+          "KEEP": 38,
+          "REVISE": 20
+        },
+        "finish_panel_km_41_42.5": {
+          "KEEP": 3
+        }
+      },
+      "meta": {
+        "surface_holdout": 0.9751272447901661,
+        "friction_holdout": 0.9881398252184769,
+        "labeled_metres": 104130,
+        "per_source_surface": {
+          "calibration_pool": {
+            "accuracy": 0.9667851947632132,
+            "n": 12374
+          },
+          "sut43": {
+            "accuracy": 0.9873402744912447,
+            "n": 8452
+          }
+        }
+      },
+      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal.joblib",
+      "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_cal.json",
+      "promote": false,
+      "promotion_issues": [
+        "start_panel_km_0.5_8.0: REVISE 2\u21924",
+        "start_panel_km_0.5_8.0: KEEP 12\u219211",
+        "bridge_panel_km_8_22: REVISE 4\u21929",
+        "bridge_panel_km_8_22: KEEP 33\u219232",
+        "gramstad_km_29_41: REVISE 13\u219220",
+        "surface holdout 0.9751 < 0.9790"
+      ],
+      "sector_wins": []
+    },
+    "sut43full_cal_dw_start035": {
+      "smoke": {
+        "start_panel_km_0.5_8.0": {
+          "KEEP": 11,
+          "REVISE": 4
+        },
+        "bridge_panel_km_8_22": {
+          "KEEP": 32,
+          "REVISE": 9
+        },
+        "gramstad_km_29_41": {
+          "KEEP": 38,
+          "REVISE": 20
+        },
+        "finish_panel_km_41_42.5": {
+          "KEEP": 3
+        }
+      },
+      "meta": {
+        "surface_holdout": 0.9751272447901661,
+        "friction_holdout": 0.9881398252184769,
+        "labeled_metres": 104130,
+        "per_source_surface": {
+          "calibration_pool": {
+            "accuracy": 0.9667851947632132,
+            "n": 12374
+          },
+          "sut43": {
+            "accuracy": 0.9873402744912447,
+            "n": 8452
+          }
+        }
+      },
+      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035.joblib",
+      "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_cal_dw_start035.json",
+      "promote": false,
+      "promotion_issues": [
+        "start_panel_km_0.5_8.0: REVISE 2\u21924",
+        "start_panel_km_0.5_8.0: KEEP 12\u219211",
+        "bridge_panel_km_8_22: REVISE 4\u21929",
+        "bridge_panel_km_8_22: KEEP 33\u219232",
+        "gramstad_km_29_41: REVISE 13\u219220",
+        "surface holdout 0.9751 < 0.9790"
+      ],
+      "sector_wins": []
+    },
+    "sut43full_cal_dw_start035_finish035": {
+      "smoke": {
+        "start_panel_km_0.5_8.0": {
+          "KEEP": 11,
+          "REVISE": 4
+        },
+        "bridge_panel_km_8_22": {
+          "KEEP": 32,
+          "REVISE": 9
+        },
+        "gramstad_km_29_41": {
+          "KEEP": 38,
+          "REVISE": 20
+        },
+        "finish_panel_km_41_42.5": {
+          "KEEP": 3
+        }
+      },
+      "meta": {
+        "surface_holdout": 0.9751272447901661,
+        "friction_holdout": 0.9881398252184769,
+        "labeled_metres": 104130,
+        "per_source_surface": {
+          "calibration_pool": {
+            "accuracy": 0.9667851947632132,
+            "n": 12374
+          },
+          "sut43": {
+            "accuracy": 0.9873402744912447,
+            "n": 8452
+          }
+        }
+      },
+      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035_finish035.joblib",
+      "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_cal_dw_start035_finish035.json",
+      "promote": false,
+      "promotion_issues": [
+        "start_panel_km_0.5_8.0: REVISE 2\u21924",
+        "start_panel_km_0.5_8.0: KEEP 12\u219211",
+        "bridge_panel_km_8_22: REVISE 4\u21929",
+        "bridge_panel_km_8_22: KEEP 33\u219232",
+        "gramstad_km_29_41: REVISE 13\u219220",
+        "surface holdout 0.9751 < 0.9790"
+      ],
+      "sector_wins": []
+    }
+  },
+  "best_candidate": null,
+  "promote": false,
+  "routing_manifest_updated": false,
+  "promotion_issues": [],
+  "reproduction_cli": {
+    "full_eval": "python3 04_Python_Scripts/spatial/eval_sut43full_42k_retrain.py",
+    "train_sut43full_only": "python3 04_Python_Scripts/spatial/train_gold_suggester.py --training-set 03_Processed_Data/spatial/gold_training_set_sut43_full.parquet --model-out 07_ML_Models/spatial/gold_suggester_exp_sut43full_only.joblib --metadata-out 07_ML_Models/spatial/gold_suggester_exp_sut43full_only_metadata.json",
+    "train_merged_dw": "python3 04_Python_Scripts/spatial/train_gold_suggester.py --training-set 03_Processed_Data/spatial/gold_training_set_pooled_sut43full_cal.parquet --source-weight start:0.35 --source-weight finish:0.35 --model-out 07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035_finish035.joblib --metadata-out 07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035_finish035_metadata.json",
+    "smoke_finish_hybrid": "python3 04_Python_Scripts/spatial/suggest_gold_spans.py --engine ml --mode all --km-start 41 --km-end 42.5 --panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_finish_1m.parquet --terrain-map config/spatial_terrain_map_sut43_finish.json --sector-routing --routing-manifest config/gold_suggester_routing.json"
+  },
+  "locked_mono_class_suppression": {
+    "implemented_at": "2026-07-03",
+    "approach": "terrain_map_rule",
+    "description": "When hitl.status is locked and all operator_gold_spans share one surface class, skip suggest_ml_revise and emit forced KEEP per operator span. Mirrors variance_gap suppression in suggest_gold_spans.py.",
+    "rationale": "Finish sector ML training failed (mono-class S1); v0 model spuriously REVISEs S2/F1 on locked S1/F0 asphalt. Multi-class locked sectors (start, bridge, gramstad) unchanged.",
+    "hybrid_baseline_smoke_before": {
+      "start_panel_km_0.5_8.0": {"KEEP": 12, "REVISE": 2},
+      "bridge_panel_km_8_22": {"KEEP": 33, "REVISE": 4},
+      "gramstad_km_29_41": {"KEEP": 37, "REVISE": 13},
+      "finish_panel_km_41_42.5": {"REVISE": 6}
+    },
+    "hybrid_smoke_after_fix": {
+      "start_panel_km_0.5_8.0": {"KEEP": 12, "REVISE": 2},
+      "bridge_panel_km_8_22": {"KEEP": 33, "REVISE": 4},
+      "gramstad_km_29_41": {"KEEP": 37, "REVISE": 13},
+      "finish_panel_km_41_42.5": {"KEEP": 3, "REVISE": 0}
+    },
+    "regression_check": "pass — start/bridge/gramstad counts identical to hybrid baseline",
+    "files_changed": [
+      "04_Python_Scripts/spatial/suggest_gold_spans.py",
+      "config/gold_suggester_routing.json"
+    ],
+    "self_test": "python3 04_Python_Scripts/spatial/suggest_gold_spans.py --self-test"
+  }
+}
