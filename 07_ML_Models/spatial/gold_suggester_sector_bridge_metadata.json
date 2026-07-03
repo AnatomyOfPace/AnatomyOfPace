@@ -1,0 +1,122 @@
+{
+  "schema_version": "gold_suggester_v0",
+  "generated_at": "2026-07-03T09:40:37.974063+00:00",
+  "training_set": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_bridge.parquet",
+  "training_sets": [
+    "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_bridge.parquet"
+  ],
+  "sector_id": "bridge",
+  "km_filter": {
+    "km_start": null,
+    "km_end": null
+  },
+  "include_source_anchors": null,
+  "exclude_source_anchors": null,
+  "labeled_metres": 14000,
+  "total_metres": 14000,
+  "feature_columns": [
+    "consensus_nti",
+    "nti_std",
+    "nti_median",
+    "ti_median",
+    "ti_raw_median",
+    "grade_pct_median",
+    "speed_mps_median",
+    "mechanical_kappa_median",
+    "altitude_m",
+    "cadence_spm_median",
+    "pace_gap_flat_median"
+  ],
+  "dropped_features": [
+    "hmm_confidence",
+    "hmm_draft_class_ord"
+  ],
+  "surface_metrics": {
+    "n_train": 11200,
+    "n_test": 2800,
+    "classes": [
+      "S3",
+      "S4"
+    ],
+    "classification_report": {
+      "S3": {
+        "precision": 0.9972972972972973,
+        "recall": 0.9972972972972973,
+        "f1-score": 0.9972972972972973,
+        "support": 1850.0
+      },
+      "S4": {
+        "precision": 0.9947368421052631,
+        "recall": 0.9947368421052631,
+        "f1-score": 0.9947368421052631,
+        "support": 950.0
+      },
+      "accuracy": 0.9964285714285714,
+      "macro avg": {
+        "precision": 0.9960170697012802,
+        "recall": 0.9960170697012802,
+        "f1-score": 0.9960170697012802,
+        "support": 2800.0
+      },
+      "weighted avg": {
+        "precision": 0.9964285714285714,
+        "recall": 0.9964285714285714,
+        "f1-score": 0.9964285714285714,
+        "support": 2800.0
+      }
+    },
+    "accuracy": 0.9964285714285714,
+    "per_source_accuracy": {
+      "bridge": {
+        "accuracy": 0.9964285714285714,
+        "n": 2800
+      }
+    }
+  },
+  "friction_metrics": {
+    "n_train": 11200,
+    "n_test": 2800,
+    "classes": [
+      "F2",
+      "F3"
+    ],
+    "classification_report": {
+      "F2": {
+        "precision": 0.9972972972972973,
+        "recall": 0.9972972972972973,
+        "f1-score": 0.9972972972972973,
+        "support": 1850.0
+      },
+      "F3": {
+        "precision": 0.9947368421052631,
+        "recall": 0.9947368421052631,
+        "f1-score": 0.9947368421052631,
+        "support": 950.0
+      },
+      "accuracy": 0.9964285714285714,
+      "macro avg": {
+        "precision": 0.9960170697012802,
+        "recall": 0.9960170697012802,
+        "f1-score": 0.9960170697012802,
+        "support": 2800.0
+      },
+      "weighted avg": {
+        "precision": 0.9964285714285714,
+        "recall": 0.9964285714285714,
+        "f1-score": 0.9964285714285714,
+        "support": 2800.0
+      }
+    },
+    "accuracy": 0.9964285714285714,
+    "per_source_accuracy": {
+      "bridge": {
+        "accuracy": 0.9964285714285714,
+        "n": 2800
+      }
+    }
+  },
+  "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_bridge.joblib",
+  "source_anchor_counts": {
+    "bridge": 14000
+  }
+}

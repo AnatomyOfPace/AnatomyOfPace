@@ -1,0 +1,118 @@
+{
+  "generated_at": "2026-07-03T09:47:41.361734+00:00",
+  "architecture": "hybrid_sector_routing",
+  "routing_mode": "hybrid",
+  "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/config/gold_suggester_routing.json",
+  "sector_bounds_km": {
+    "start": [
+      0.5,
+      8.0
+    ],
+    "bridge": [
+      8.0,
+      22.0
+    ],
+    "downstream": [
+      22.0,
+      41.0
+    ]
+  },
+  "training_recipes": {
+    "start": "calibration_pool + start gold (km 0.5\u20138); source_weight start:0.35",
+    "bridge": "sut43_full bridge gold km 8\u201322 (or +upstream km 8\u201329 if holdout improves)",
+    "downstream": "calibration_pool + sut43 km 22\u201341"
+  },
+  "v0_baseline_smoke": {
+    "start_panel_km_0.5_8.0": {
+      "KEEP": 12,
+      "REVISE": 2
+    },
+    "bridge_panel_km_8_22": {
+      "KEEP": 4,
+      "REVISE": 45
+    },
+    "gramstad_km_29_41": {
+      "KEEP": 37,
+      "REVISE": 13
+    }
+  },
+  "smoke_v0_rerun": {
+    "start_panel_km_0.5_8.0": {
+      "KEEP": 12,
+      "REVISE": 2
+    },
+    "bridge_panel_km_8_22": {
+      "REVISE": 45,
+      "KEEP": 4
+    },
+    "gramstad_km_29_41": {
+      "KEEP": 37,
+      "REVISE": 13
+    }
+  },
+  "smoke_pure_sector_routed": {
+    "start_panel_km_0.5_8.0": {
+      "KEEP": 12,
+      "REVISE": 8
+    },
+    "bridge_panel_km_8_22": {
+      "KEEP": 33,
+      "REVISE": 4
+    },
+    "gramstad_km_29_41": {
+      "KEEP": 37,
+      "REVISE": 14
+    }
+  },
+  "smoke_hybrid_routed": {
+    "start_panel_km_0.5_8.0": {
+      "KEEP": 12,
+      "REVISE": 2
+    },
+    "bridge_panel_km_8_22": {
+      "KEEP": 33,
+      "REVISE": 4
+    },
+    "gramstad_km_29_41": {
+      "KEEP": 37,
+      "REVISE": 13
+    }
+  },
+  "sector_models": {
+    "start": {
+      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_start.joblib",
+      "surface_holdout": 0.9811144621571162,
+      "friction_holdout": 0.9941117334482263,
+      "labeled_metres": 69630,
+      "holdout_issues": []
+    },
+    "bridge": {
+      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_bridge.joblib",
+      "surface_holdout": 0.9964285714285714,
+      "friction_holdout": 0.9964285714285714,
+      "labeled_metres": 14000,
+      "holdout_issues": []
+    },
+    "downstream": {
+      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_downstream.joblib",
+      "surface_holdout": 0.9775668679896462,
+      "friction_holdout": 0.9926044619746086,
+      "labeled_metres": 81130,
+      "holdout_issues": []
+    }
+  },
+  "promote": true,
+  "promote_pure_sector": false,
+  "promote_hybrid": true,
+  "promotion_issues": [],
+  "hybrid_routing": {
+    "start_model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib",
+    "bridge_model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_bridge.joblib",
+    "downstream_model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib",
+    "rationale": "cal+start-only sector model regressed start smoke (2\u21928 REVISE); v0 sut43 context retained for start/downstream."
+  },
+  "reproduction_cli": {
+    "train_all": "python3 04_Python_Scripts/spatial/eval_gold_suggester_sectors.py",
+    "suggest_bridge_routed": "python3 04_Python_Scripts/spatial/suggest_gold_spans.py --engine ml --mode all --km-start 8 --km-end 22 --terrain-map config/spatial_terrain_map_sut43_bridge.json --sector-routing"
+  }
+}

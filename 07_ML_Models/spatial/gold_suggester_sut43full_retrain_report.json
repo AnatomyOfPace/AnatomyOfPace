@@ -1,0 +1,210 @@
+{
+  "v0_surface_holdout_threshold": 0.9789574636127722,
+  "v0_smoke": {
+    "start_panel_km_0.5_8.0": {
+      "KEEP": 12,
+      "REVISE": 2
+    },
+    "bridge_panel_km_8_22": {
+      "REVISE": 45,
+      "KEEP": 4
+    },
+    "gramstad_km_29_41": {
+      "KEEP": 37,
+      "REVISE": 13
+    }
+  },
+  "experiments": {
+    "v0": {
+      "smoke": {
+        "start_panel_km_0.5_8.0": {
+          "KEEP": 12,
+          "REVISE": 2
+        },
+        "bridge_panel_km_8_22": {
+          "REVISE": 45,
+          "KEEP": 4
+        },
+        "gramstad_km_29_41": {
+          "KEEP": 37,
+          "REVISE": 13
+        }
+      },
+      "meta": {
+        "surface_holdout": 0.9789574636127722,
+        "friction_holdout": 0.9919327541464515,
+        "labeled_metres": 88630,
+        "per_source_surface": {
+          "calibration_pool": {
+            "accuracy": 0.9725673713086977,
+            "n": 12394
+          },
+          "start": {
+            "accuracy": 0.9946984758117959,
+            "n": 1509
+          },
+          "sut43": {
+            "accuracy": 0.9934606330107245,
+            "n": 3823
+          }
+        },
+        "train_cal_sut_test_start_surface": 0.1988,
+        "train_start_test_cal_sut_surface": 0.39654874892148406
+      }
+    },
+    "sut43full_only": {
+      "smoke": {
+        "start_panel_km_0.5_8.0": {
+          "KEEP": 12,
+          "REVISE": 9
+        },
+        "bridge_panel_km_8_22": {
+          "KEEP": 32,
+          "REVISE": 10
+        },
+        "gramstad_km_29_41": {
+          "KEEP": 38,
+          "REVISE": 16
+        }
+      },
+      "meta": {
+        "surface_holdout": 0.9903703703703703,
+        "friction_holdout": 0.99,
+        "labeled_metres": 40500,
+        "per_source_surface": {}
+      },
+      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_only.joblib"
+    },
+    "sut43full_cal": {
+      "smoke": {
+        "start_panel_km_0.5_8.0": {
+          "REVISE": 9,
+          "KEEP": 9
+        },
+        "bridge_panel_km_8_22": {
+          "KEEP": 27,
+          "REVISE": 21
+        },
+        "gramstad_km_29_41": {
+          "REVISE": 44,
+          "KEEP": 26
+        }
+      },
+      "meta": {
+        "surface_holdout": 0.9542531423560362,
+        "friction_holdout": 0.9887946994056319,
+        "labeled_metres": 102630,
+        "per_source_surface": {
+          "bridge": {
+            "accuracy": 0.9465896788163118,
+            "n": 2771
+          },
+          "calibration_pool": {
+            "accuracy": 0.964983056317573,
+            "n": 12394
+          },
+          "start": {
+            "accuracy": 0.9593650793650793,
+            "n": 1575
+          },
+          "sut43": {
+            "accuracy": 0.9226096143687269,
+            "n": 3786
+          }
+        },
+        "train_cal_sut_test_start_surface": 0.24106666666666668,
+        "train_start_test_cal_sut_surface": 0.39744853938124
+      },
+      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal.joblib"
+    },
+    "sut43full_cal_dw_start035": {
+      "smoke": {
+        "start_panel_km_0.5_8.0": {
+          "REVISE": 10,
+          "KEEP": 7
+        },
+        "bridge_panel_km_8_22": {
+          "KEEP": 32,
+          "REVISE": 6
+        },
+        "gramstad_km_29_41": {
+          "REVISE": 42,
+          "KEEP": 37
+        }
+      },
+      "meta": {
+        "surface_holdout": 0.9442658092175777,
+        "friction_holdout": 0.9868459514761766,
+        "labeled_metres": 102630,
+        "per_source_surface": {
+          "bridge": {
+            "accuracy": 0.9790689281847709,
+            "n": 2771
+          },
+          "calibration_pool": {
+            "accuracy": 0.9352105857673068,
+            "n": 12394
+          },
+          "start": {
+            "accuracy": 0.8907936507936508,
+            "n": 1575
+          },
+          "sut43": {
+            "accuracy": 0.9706814580031695,
+            "n": 3786
+          }
+        },
+        "train_cal_sut_test_start_surface": 0.24106666666666668,
+        "train_start_test_cal_sut_surface": 0.39636386047084926
+      },
+      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035.joblib"
+    },
+    "sut43full_cal_dw_start035_bridge05": {
+      "smoke": {
+        "start_panel_km_0.5_8.0": {
+          "REVISE": 18,
+          "KEEP": 1
+        },
+        "bridge_panel_km_8_22": {
+          "REVISE": 61,
+          "KEEP": 14
+        },
+        "gramstad_km_29_41": {
+          "REVISE": 51,
+          "KEEP": 12
+        }
+      },
+      "meta": {
+        "surface_holdout": 0.7030108155510085,
+        "friction_holdout": 0.9880639189320861,
+        "labeled_metres": 102630,
+        "per_source_surface": {
+          "bridge": {
+            "accuracy": 0.8487910501623962,
+            "n": 2771
+          },
+          "calibration_pool": {
+            "accuracy": 0.6321607229304502,
+            "n": 12394
+          },
+          "start": {
+            "accuracy": 0.6749206349206349,
+            "n": 1575
+          },
+          "sut43": {
+            "accuracy": 0.8399366085578447,
+            "n": 3786
+          }
+        },
+        "train_cal_sut_test_start_surface": 0.24106666666666668,
+        "train_start_test_cal_sut_surface": 0.39636386047084926
+      },
+      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035_bridge05.joblib"
+    }
+  },
+  "best_candidate": null,
+  "best_surface_holdout": null,
+  "promotion_issues": [
+    "sut43full_only: start_panel_km_0.5_8.0: REVISE 2\u21929"
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "schema_version": "gold_suggester_v0",
+  "generated_at": "2026-07-03T09:40:03.425850+00:00",
+  "training_set": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_start.parquet",
+  "training_sets": [
+    "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_start.parquet"
+  ],
+  "sector_id": "start",
+  "km_filter": {
+    "km_start": null,
+    "km_end": null
+  },
+  "include_source_anchors": null,
+  "exclude_source_anchors": null,
+  "labeled_metres": 69630,
+  "total_metres": 69630,
+  "feature_columns": [
+    "consensus_nti",
+    "nti_std",
+    "nti_median",
+    "ti_median",
+    "ti_raw_median",
+    "grade_pct_median",
+    "speed_mps_median",
+    "mechanical_kappa_median",
+    "altitude_m",
+    "cadence_spm_median",
+    "pace_gap_flat_median"
+  ],
+  "dropped_features": [
+    "hmm_confidence",
+    "hmm_draft_class_ord"
+  ],
+  "surface_metrics": {
+    "n_train": 55704,
+    "n_test": 13926,
+    "classes": [
+      "S1",
+      "S2",
+      "S3",
+      "S4"
+    ],
+    "classification_report": {
+      "S1": {
+        "precision": 0.9798181818181818,
+        "recall": 0.9730949801372336,
+        "f1-score": 0.976445008153651,
+        "support": 5538.0
+      },
+      "S2": {
+        "precision": 0.979380016606698,
+        "recall": 0.9845575959933222,
+        "f1-score": 0.9819619814069654,
+        "support": 7188.0
+      },
+      "S3": {
+        "precision": 0.9950124688279302,
+        "recall": 0.9975,
+        "f1-score": 0.9962546816479401,
+        "support": 400.0
+      },
+      "S4": {
+        "precision": 0.9987484355444305,
+        "recall": 0.9975,
+        "f1-score": 0.99812382739212,
+        "support": 800.0
+      },
+      "accuracy": 0.9811144621571162,
+      "macro avg": {
+        "precision": 0.9882397756993102,
+        "recall": 0.9881631440326389,
+        "f1-score": 0.9881963746501692,
+        "support": 13926.0
+      },
+      "weighted avg": {
+        "precision": 0.9811159260552027,
+        "recall": 0.9811144621571162,
+        "f1-score": 0.9811070021600645,
+        "support": 13926.0
+      }
+    },
+    "accuracy": 0.9811144621571162,
+    "per_source_accuracy": {
+      "3_sjoerslopet": {
+        "accuracy": 0.9850046860356139,
+        "n": 4268
+      },
+      "start": {
+        "accuracy": 0.9966622162883845,
+        "n": 1498
+      },
+      "stavanger_halvmarathon": {
+        "accuracy": 0.98286530223703,
+        "n": 4202
+      },
+      "sunderunde": {
+        "accuracy": 0.9691763516927742,
+        "n": 3958
+      }
+    }
+  },
+  "friction_metrics": {
+    "n_train": 55704,
+    "n_test": 13926,
+    "classes": [
+      "F0",
+      "F1",
+      "F2",
+      "F3"
+    ],
+    "classification_report": {
+      "F0": {
+        "precision": 0.9905853458862055,
+        "recall": 0.9942481511914544,
+        "f1-score": 0.992413368874308,
+        "support": 4868.0
+      },
+      "F1": {
+        "precision": 0.9964281158311009,
+        "recall": 0.9940188343089845,
+        "f1-score": 0.9952220169459133,
+        "support": 7858.0
+      },
+      "F2": {
+        "precision": 0.9949494949494949,
+        "recall": 0.985,
+        "f1-score": 0.9899497487437185,
+        "support": 400.0
+      },
+      "F3": {
+        "precision": 0.9925465838509316,
+        "recall": 0.99875,
+        "f1-score": 0.9956386292834891,
+        "support": 800.0
+      },
+      "accuracy": 0.9941117334482263,
+      "macro avg": {
+        "precision": 0.9936273851294332,
+        "recall": 0.9930042463751096,
+        "f1-score": 0.9933059409618572,
+        "support": 13926.0
+      },
+      "weighted avg": {
+        "precision": 0.9941202544187406,
+        "recall": 0.9941117334482263,
+        "f1-score": 0.9941127166282779,
+        "support": 13926.0
+      }
+    },
+    "accuracy": 0.9941117334482263,
+    "per_source_accuracy": {
+      "3_sjoerslopet": {
+        "accuracy": 0.9896030245746692,
+        "n": 4232
+      },
+      "start": {
+        "accuracy": 0.994729907773386,
+        "n": 1518
+      },
+      "stavanger_halvmarathon": {
+        "accuracy": 0.9930588798468166,
+        "n": 4178
+      },
+      "sunderunde": {
+        "accuracy": 0.9997498749374687,
+        "n": 3998
+      }
+    }
+  },
+  "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_start.joblib",
+  "source_weights": {
+    "start": 0.35
+  },
+  "source_anchor_counts": {
+    "stavanger_halvmarathon": 21380,
+    "3_sjoerslopet": 21250,
+    "sunderunde": 19500,
+    "start": 7500
+  }
+}
