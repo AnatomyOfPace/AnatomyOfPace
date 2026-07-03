@@ -6,43 +6,132 @@
   "finish_km": 43.0,
   "sectors": [
     {
-      "sector_id": "gramstad_band",
+      "sector_id": "start",
+      "ontology_sector_id": "leg_a_technical",
       "sector_index": 1,
       "status": "locked",
-      "sector_lock_version": "2026-06-26-sut43-gramstad-band",
+      "sector_lock_version": "2026-07-03-sut43-start",
       "km_analysis_window": [
-        29.0,
-        41.0
+        0.5,
+        8.0
       ],
       "km_viewport_window": [
-        29.0,
-        41.5
+        0.5,
+        8.5
       ],
-      "downstream_boundary_km": 41.0,
-      "upstream_boundary_km": 29.0,
-      "terrain_map": "config/spatial_terrain_map_sut43.json",
-      "align_manifest": "config/spatial_align_manifest_sut43.example.json",
-      "panel_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet",
+      "downstream_boundary_km": 8.0,
+      "upstream_boundary_km": 0.5,
+      "terrain_map": "config/spatial_terrain_map_sut43_start.json",
+      "align_manifest": "config/spatial_align_manifest_sut43.local.json",
+      "panel_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_start_1m.parquet",
       "reference_spine_km_window": [
-        29.0,
-        41.0
+        0.5,
+        8.0
       ],
-      "gps_bridge_overlap_km": [
-        29.0,
-        34.2
+      "gps_bridge_overlap_km": null,
+      "sut160_bridge_crosswalk_km": null,
+      "hitl_chunk_plan": "chunk_s00..chunk_s07 (1 km, km 0.5–8)",
+      "geographic_anchors": [
+        {
+          "anchor_id": "hogstad_timing_index",
+          "display_name": "Hogstad timing index",
+          "course_km": 0.66,
+          "role": "organiser_checkpoint",
+          "registry_ref": "race_corridors.json → SUT_43.checkpoints.Hogstad"
+        },
+        {
+          "anchor_id": "oykjafjellet_climb_entry",
+          "display_name": "Øykjafjellet climb entry",
+          "course_km": 1.43,
+          "registry_ref": "race_corridors.json → SUT_160.sub_corridors.start_hills"
+        },
+        {
+          "anchor_id": "lifjell_timing_index",
+          "display_name": "Lifjell timing index (start hills)",
+          "course_km": 5.87,
+          "role": "organiser_checkpoint",
+          "note": "Timing CP on shared start — not geographic Lifjell summit (~km 18)"
+        },
+        {
+          "anchor_id": "noredalen_descent_lip",
+          "display_name": "Noredalen descent lip",
+          "course_km": 6.63,
+          "registry_ref": "race_corridors.json → SUT_160.sub_corridors.noredalen_descent"
+        }
       ],
-      "sut160_bridge_crosswalk_km": [
-        140.0,
-        152.0
-      ],
-      "hitl_chunk_plan": "chunk_00..chunk_11 (1 km, km 29–41)",
-      "notes": "Phase A–D complete — operator gold, spine, TRF exclusions, cross-athlete TRF. chunk_00 (km 29–30) operator gold locked 2026-06-29 — S3/F2 @ 29.0–29.4, S4/F3 @ 29.4–29.6, S3/F3 @ 29.6–29.8, S4/F3 @ 29.8–30.0; seam @ 29.0 S3/F2 from locked u06. chunk_01 (km 30–31) operator gold locked 2026-06-29 — S3/F2 @ 30.0–30.1, S4/F3 @ 30.1–30.35, S3/F2 @ 30.35–30.55, S3/F2 @ 30.55–31.0; seam @ 30.0 from chunk_00; TRF @ 30.38–30.44 and food CP TRF deferred. chunk_02 (km 31–32) operator gold locked 2026-06-29 — S4/F3 @ 31.0–31.15, 31.15–31.5, 31.5–31.75, 31.75–32.0; unified S4/F3 parent extends to ~33.2; seam @ 31.0 from chunk_01 (F2→F3); STILE-31 TRF @ 31.1–31.5 deferred. chunk_03 (km 32–33) operator gold locked 2026-06-29 — S4/F3 @ 32.0–32.25, 32.25–32.55, S3/F2 nested @ 32.55–32.65, S4/F3 @ 32.65–33.0; seam @ 32.0 continuous from chunk_02; nested dirt pocket sole tread exception. chunk_04 (km 33–34) operator gold locked 2026-06-29 — Strategic Command 3-span: S3/F2 @ 33.0–33.2, S4/F3 @ 33.2–33.8, S3/F2 @ 33.8–34.0; supersedes 5-span draft; seam @ 33.0 S3/F2 from chunk_03 S4/F3; granite-entry TRF @ 33.00–33.12 retained. See docs/hitl_dashboard_runbook.md."
+      "notes": "Phase E start operator gold km 0.5–8.0 locked 2026-07-03 (12 spans). Seam @ km 8.0 defers to bridge S4/F3 chunk_00 entry @ 8.0–8.2. Merged into spatial_terrain_map_sut43_full.json (leg_a_technical, 12 spans)."
     },
     {
-      "sector_id": "dale_paradisskaret_upstream",
+      "sector_id": "bridge",
+      "ontology_sector_id": "dalevatn_band",
       "sector_index": 2,
-      "status": "draft",
-      "sector_lock_version": null,
+      "status": "locked",
+      "sector_lock_version": "2026-07-03-sut43-bridge",
+      "km_analysis_window": [
+        8.0,
+        22.0
+      ],
+      "km_viewport_window": [
+        8.0,
+        22.5
+      ],
+      "downstream_boundary_km": 22.0,
+      "upstream_boundary_km": 8.0,
+      "terrain_map": "config/spatial_terrain_map_sut43_bridge.json",
+      "align_manifest": "config/spatial_align_manifest_sut43.local.json",
+      "panel_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_bridge_1m.parquet",
+      "reference_spine_km_window": [
+        8.0,
+        22.0
+      ],
+      "gps_bridge_overlap_km": null,
+      "sut160_bridge_crosswalk_km": null,
+      "hitl_chunk_plan": "chunk_00..chunk_13 (1 km, km 8–22)",
+      "geographic_anchors": [
+        {
+          "anchor_id": "dale_timing_index",
+          "display_name": "Dale timing index (organiser)",
+          "course_km": 8.1,
+          "role": "organiser_checkpoint",
+          "registry_ref": "race_corridors.json → SUT_43.checkpoints.Dale"
+        },
+        {
+          "anchor_id": "dalsnuten_timing_index",
+          "display_name": "Dalsnuten timing index (organiser)",
+          "course_km": 10.37,
+          "role": "organiser_checkpoint",
+          "registry_ref": "race_corridors.json → SUT_43.checkpoints.Dalsnuten"
+        },
+        {
+          "anchor_id": "bjørndalsfjellet_timing_index",
+          "display_name": "Bjørndalsfjellet timing index",
+          "course_km": 14.39,
+          "role": "organiser_checkpoint",
+          "registry_ref": "race_corridors.json → SUT_43.checkpoints.Bjørndalsfjellet"
+        },
+        {
+          "anchor_id": "mattirudla_timing_index",
+          "display_name": "Mattirudlå timing index",
+          "course_km": 15.67,
+          "role": "organiser_checkpoint",
+          "registry_ref": "race_corridors.json → SUT_43.checkpoints.Mattirudla"
+        },
+        {
+          "anchor_id": "lifjell_summit",
+          "display_name": "Lifjell summit (geographic)",
+          "course_km": 18.0,
+          "role": "geographic_anchor",
+          "registry_ref": "race_corridors.json → SUT_43.sub_corridors.lifjell_summit"
+        }
+      ],
+      "notes": "Phase E3 bridge operator gold km 8.0–22.0 locked 2026-07-03 (33 spans; chunk_00–chunk_13). Seam @ km 8.0 from locked start S4/F3; seam @ km 22.0 to upstream S4/F3 chunk_u00. Merged into spatial_terrain_map_sut43_full.json (dalevatn_band, 33 spans). Training TRF deferred until Dalevatn traverse tile recorded."
+    },
+    {
+      "sector_id": "upstream",
+      "ontology_sector_id": "dale_paradisskaret_upstream",
+      "sector_index": 3,
+      "status": "locked",
+      "sector_lock_version": "2026-06-29-sut43-upstream",
       "km_analysis_window": [
         22.0,
         29.0
@@ -54,7 +143,7 @@
       "downstream_boundary_km": 29.0,
       "upstream_boundary_km": 22.0,
       "terrain_map": "config/spatial_terrain_map_sut43_upstream.json",
-      "align_manifest": "config/spatial_align_manifest_sut43.example.json",
+      "align_manifest": "config/spatial_align_manifest_sut43.local.json",
       "panel_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet",
       "reference_spine_km_window": [
         22.0,
@@ -94,11 +183,11 @@
           "registry_ref": "race_corridors.json → SUT_43.sub_corridors.dalsnuten_summit"
         },
         {
-          "anchor_id": "gramstad_band_seam",
-          "display_name": "gramstad_band upstream seam (Revhol approach)",
+          "anchor_id": "gramstad_seam",
+          "display_name": "gramstad upstream seam (Revhol approach)",
           "course_km": 29.0,
           "role": "downstream_sector_boundary",
-          "notes": "Shared downstream boundary with gramstad_band sector 1. Operator gold from chunk_00 (km 29–30) applies downstream of this metre."
+          "notes": "Shared downstream boundary with gramstad sector. Operator gold from chunk_u06 applies upstream; gramstad chunk_00 gold applies downstream of km 29.0."
         },
         {
           "anchor_id": "revholstjorn_gravel_gate",
@@ -109,15 +198,51 @@
           "notes": "Co-located co-halt on S2/F2 gravel @ km 28.660–28.675 (FIT-tight 28.662–28.666); TRF co_wait locked 2026-06-29. Distinct from revholstjorn_gate_km279 staggered passage @ 27.9–28.0 (no TRF)."
         }
       ],
-      "bootstrap_blockers": [
-        "Training tiles partial: Gramstad_runden_reverse from km 24.33; Lifjell loop fails spine QC",
+      "coverage_notes": [
+        "Training tiles partial: Gramstad_runden_reverse from km 24.33; race streams cover km 22–29",
         "Training TRF deferred until upstream training traverse recorded"
       ],
-      "notes": "Late-loop shared geography with SUT_160 Dale→Dalsnuten→Gramstad approach (memo 13 bridge km 22–34.2). Upstream of locked gramstad_band. Full operator gold corridor km 22.0–29.0 locked 2026-06-29. chunk_u00 (Dale approach entry km 22–23) operator gold locked 2026-06-29 — S4/F3 technical coastal tread @ 22.0–22.5 (incl. SUT_160 Dale aid bridge crosswalk @ km 22.43), S3/F2 rocky/dirt coastal roll @ 22.5–22.9, S4/F3 technical descent approach @ 22.9–23.0 (seam @ 23.0 into u01 S4/F3); S3/S4-only parent lock; zero S1/S2/S5/S6. chunk_u01 (dale_coastal km 23–24) operator gold locked 2026-06-29; chunk_u02 (Dalsnuten climb km 24–25) operator gold locked 2026-06-29 — S1/F1 asphalt through km 24.35, S3/F2 mid/steep, S4/F3 summit @ 25.0; chunk_u03 (post-summit traverse km 25–26) operator gold locked 2026-06-29 — S4/F3 rocky traverse + S5/F4 stone steps @ 25.475–25.565, telemetric crest @ 25.801, descent onset @ 25.80–26.0 (terrain only, no TRF); chunk_u04 (Dalsnuten descent / Revhol traverse km 26–27) operator gold locked 2026-06-29 — S4/F3 technical descent alternation @ 26.0–26.3, S4/F3 transition @ 26.3–26.4, S3/F2 main tread @ 26.4–27.0 (S4/F3→S3/F2 seam @ 26.4); chunk_u05 (Gramstadtjørn traverse / lakeshore km 27–28) operator gold locked 2026-06-29 — S3/F2 hard-dirt / rocky tread @ 27.0–27.99 (no S1/S2 in 27.0–27.8), S2/F2 gravel road tail @ 27.99–28.0 (seam @ 28.0 to u06 S2/F2); chunk_u06 (Revholstjørn gravel / gramstad approach km 28–29) operator gold locked 2026-06-29 — S2/F2 Revholstjørn gravel road @ 28.0–28.751, S3/F2 easy trail / gramstad approach @ 28.751–29.0 (seam @ 29.0 to gramstad_band S3/F2 gold). revholstjorn_gravel_gate TRF @ km 28.660–28.675 (co_wait; both athletes; S2/F2 gravel) locked 2026-06-29; upstream revholstjorn_gate_km279 @ 27.9–28.0 staggered passage — no TRF. Distinct from early-lap dalevatn_band (km 13–25, superseded ontology) and SUT_160 dale_to_paradisskaret stress test (140–155.58 km on 160 km axis)."
+      "notes": "Late-loop Dale→Dalsnuten→Gramstad approach (memo 13 bridge km 22–34.2). Full operator gold corridor km 22.0–29.0 locked 2026-06-29 (chunk_u00–u06). Seam @ km 29.0 S3/F2 → gramstad S3/F2 (merge report PASS). Merged into spatial_terrain_map_sut43_full.json (dale_paradisskaret_upstream, 27 spans)."
+    },
+    {
+      "sector_id": "gramstad",
+      "ontology_sector_id": "gramstad_band",
+      "corridor_sector_id": "dale_to_paradisskaret",
+      "sector_index": 4,
+      "status": "locked",
+      "sector_lock_version": "2026-06-26-sut43-gramstad-band",
+      "km_analysis_window": [
+        29.0,
+        41.0
+      ],
+      "km_viewport_window": [
+        29.0,
+        41.5
+      ],
+      "downstream_boundary_km": 41.0,
+      "upstream_boundary_km": 29.0,
+      "terrain_map": "config/spatial_terrain_map_sut43.json",
+      "align_manifest": "config/spatial_align_manifest_sut43.local.json",
+      "panel_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet",
+      "reference_spine_km_window": [
+        29.0,
+        41.0
+      ],
+      "gps_bridge_overlap_km": [
+        29.0,
+        34.2
+      ],
+      "sut160_bridge_crosswalk_km": [
+        140.0,
+        152.0
+      ],
+      "hitl_chunk_plan": "chunk_00..chunk_11 (1 km, km 29–41)",
+      "notes": "Phase A–D complete — operator gold, spine, TRF exclusions, cross-athlete TRF. chunk_00 (km 29–30) operator gold locked 2026-06-29 — S3/F2 @ 29.0–29.4, S4/F3 @ 29.4–29.6, S3/F3 @ 29.6–29.8, S4/F3 @ 29.8–30.0; seam @ 29.0 S3/F2 from locked u06. chunk_01 (km 30–31) operator gold locked 2026-06-29 — S3/F2 @ 30.0–30.1, S4/F3 @ 30.1–30.35, S3/F2 @ 30.35–30.55, S3/F2 @ 30.55–31.0; seam @ 30.0 from chunk_00; TRF @ 30.38–30.44 and food CP TRF deferred. chunk_02 (km 31–32) operator gold locked 2026-06-29 — S4/F3 @ 31.0–31.15, 31.15–31.5, 31.5–31.75, 31.75–32.0; unified S4/F3 parent extends to ~33.2; seam @ 31.0 from chunk_01 (F2→F3); STILE-31 TRF @ 31.1–31.5 deferred. chunk_03 (km 32–33) operator gold locked 2026-06-29 — S4/F3 @ 32.0–32.25, 32.25–32.55, S3/F2 nested @ 32.55–32.65, S4/F3 @ 32.65–33.0; seam @ 32.0 continuous from chunk_02; nested dirt pocket sole tread exception. chunk_04 (km 33–34) operator gold locked 2026-06-29 — Strategic Command 3-span: S3/F2 @ 33.0–33.2, S4/F3 @ 33.2–33.8, S3/F2 @ 33.8–34.0; supersedes 5-span draft; seam @ 33.0 S3/F2 from chunk_03 S4/F3; granite-entry TRF @ 33.00–33.12 retained. chunk_11 (km 40–41) S1/F0 asphalt tail locked 2026-06-30. Seam @ km 41.0 S1/F0 → finish_band (merge report PASS). Merged into spatial_terrain_map_sut43_full.json (dale_to_paradisskaret, 39 spans). See docs/hitl_dashboard_runbook.md."
     },
     {
       "sector_id": "finish_band",
-      "sector_index": 3,
+      "ontology_sector_id": "finish_band",
+      "sector_index": 5,
       "status": "locked",
       "sector_lock_version": "2026-07-03-sut43-finish-band",
       "km_analysis_window": [
@@ -142,8 +267,8 @@
       "hitl_chunk_plan": "chunk_f00..chunk_f01 (1 km, km 41–42.5)",
       "geographic_anchors": [
         {
-          "anchor_id": "gramstad_band_seam",
-          "display_name": "gramstad_band downstream seam (Loen-Alsvik asphalt)",
+          "anchor_id": "gramstad_seam",
+          "display_name": "gramstad downstream seam (Loen-Alsvik asphalt)",
           "course_km": 41.0,
           "role": "upstream_sector_boundary",
           "notes": "Locked S1/F0 @ km 40.0–41.0 in spatial_terrain_map_sut43_full.json"
@@ -157,11 +282,10 @@
           "notes": "Organiser distance 43 km; analysis window ends @ 42.5 km stream-distance"
         }
       ],
-      "bootstrap_blockers": [
-        "No training tiles in km 41–42.5 — race streams only (Subject_A + Subject_B)",
-        "gold_suggester_routing.json has no finish sector route — v0 model used for ML draft"
+      "coverage_notes": [
+        "No training tiles in km 41–42.5 — race streams only (Subject_A + Subject_B)"
       ],
-      "notes": "Finish descent band (Paradisskaret/Vassfjellet tail → Alsvik). Distinct from early-lap dalevatn_band (km 8–22). Operator gold locked 2026-07-03 — S1/F0 asphalt km 41.0–42.5 (3 spans); seam @ km 41.0 PASS vs gramstad_band/full.json. chunk_f00–f01 HITL QC complete. panel_full_1m extended to km 42.5; merged into spatial_terrain_map_sut43_full.json (114 spans)."
+      "notes": "Finish descent band (Paradisskaret/Vassfjellet tail → Alsvik). Distinct from early-lap bridge sector (km 8–22). Operator gold locked 2026-07-03 — S1/F0 asphalt km 41.0–42.5 (3 spans); seam @ km 41.0 PASS vs gramstad/full.json. chunk_f00–f01 HITL QC complete. panel_full_1m extended to km 42.5; merged into spatial_terrain_map_sut43_full.json (finish_band, 3 spans; 114 total)."
     }
   ],
   "full_course_stretch_goal": {
@@ -170,11 +294,23 @@
       42.5
     ],
     "sector_rollout_order": [
-      "gramstad_band",
-      "dale_paradisskaret_upstream",
-      "leg_a_technical",
-      "dalevatn_band",
+      "start",
+      "bridge",
+      "upstream",
+      "gramstad",
       "finish_band"
-    ]
+    ],
+    "full_terrain_map": "config/spatial_terrain_map_sut43_full.json",
+    "panel_full_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_full_1m.parquet",
+    "merge_report": "07_ML_Models/spatial/merge_terrain_map_sut43_full_report.json",
+    "operator_gold_span_count": 114,
+    "merged_at": "2026-07-03",
+    "seam_boundaries_km": [
+      8.0,
+      22.0,
+      29.0,
+      41.0
+    ],
+    "status": "complete"
   }
 }
