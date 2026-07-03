@@ -114,6 +114,54 @@
         "Training TRF deferred until upstream training traverse recorded"
       ],
       "notes": "Late-loop shared geography with SUT_160 Dale→Dalsnuten→Gramstad approach (memo 13 bridge km 22–34.2). Upstream of locked gramstad_band. Full operator gold corridor km 22.0–29.0 locked 2026-06-29. chunk_u00 (Dale approach entry km 22–23) operator gold locked 2026-06-29 — S4/F3 technical coastal tread @ 22.0–22.5 (incl. SUT_160 Dale aid bridge crosswalk @ km 22.43), S3/F2 rocky/dirt coastal roll @ 22.5–22.9, S4/F3 technical descent approach @ 22.9–23.0 (seam @ 23.0 into u01 S4/F3); S3/S4-only parent lock; zero S1/S2/S5/S6. chunk_u01 (dale_coastal km 23–24) operator gold locked 2026-06-29; chunk_u02 (Dalsnuten climb km 24–25) operator gold locked 2026-06-29 — S1/F1 asphalt through km 24.35, S3/F2 mid/steep, S4/F3 summit @ 25.0; chunk_u03 (post-summit traverse km 25–26) operator gold locked 2026-06-29 — S4/F3 rocky traverse + S5/F4 stone steps @ 25.475–25.565, telemetric crest @ 25.801, descent onset @ 25.80–26.0 (terrain only, no TRF); chunk_u04 (Dalsnuten descent / Revhol traverse km 26–27) operator gold locked 2026-06-29 — S4/F3 technical descent alternation @ 26.0–26.3, S4/F3 transition @ 26.3–26.4, S3/F2 main tread @ 26.4–27.0 (S4/F3→S3/F2 seam @ 26.4); chunk_u05 (Gramstadtjørn traverse / lakeshore km 27–28) operator gold locked 2026-06-29 — S3/F2 hard-dirt / rocky tread @ 27.0–27.99 (no S1/S2 in 27.0–27.8), S2/F2 gravel road tail @ 27.99–28.0 (seam @ 28.0 to u06 S2/F2); chunk_u06 (Revholstjørn gravel / gramstad approach km 28–29) operator gold locked 2026-06-29 — S2/F2 Revholstjørn gravel road @ 28.0–28.751, S3/F2 easy trail / gramstad approach @ 28.751–29.0 (seam @ 29.0 to gramstad_band S3/F2 gold). revholstjorn_gravel_gate TRF @ km 28.660–28.675 (co_wait; both athletes; S2/F2 gravel) locked 2026-06-29; upstream revholstjorn_gate_km279 @ 27.9–28.0 staggered passage — no TRF. Distinct from early-lap dalevatn_band (km 13–25, superseded ontology) and SUT_160 dale_to_paradisskaret stress test (140–155.58 km on 160 km axis)."
+    },
+    {
+      "sector_id": "finish_band",
+      "sector_index": 3,
+      "status": "locked",
+      "sector_lock_version": "2026-07-03-sut43-finish-band",
+      "km_analysis_window": [
+        41.0,
+        42.5
+      ],
+      "km_viewport_window": [
+        40.5,
+        43.0
+      ],
+      "downstream_boundary_km": 42.5,
+      "upstream_boundary_km": 41.0,
+      "terrain_map": "config/spatial_terrain_map_sut43_finish.json",
+      "align_manifest": "config/spatial_align_manifest_sut43.local.json",
+      "panel_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_finish_1m.parquet",
+      "reference_spine_km_window": [
+        41.0,
+        42.5
+      ],
+      "gps_bridge_overlap_km": null,
+      "sut160_bridge_crosswalk_km": null,
+      "hitl_chunk_plan": "chunk_f00..chunk_f01 (1 km, km 41–42.5)",
+      "geographic_anchors": [
+        {
+          "anchor_id": "gramstad_band_seam",
+          "display_name": "gramstad_band downstream seam (Loen-Alsvik asphalt)",
+          "course_km": 41.0,
+          "role": "upstream_sector_boundary",
+          "notes": "Locked S1/F0 @ km 40.0–41.0 in spatial_terrain_map_sut43_full.json"
+        },
+        {
+          "anchor_id": "official_finish",
+          "display_name": "Official finish (Mål)",
+          "course_km": 43.0,
+          "role": "organiser_checkpoint",
+          "registry_ref": "race_corridors.json → SUT_43.checkpoints.Mål",
+          "notes": "Organiser distance 43 km; analysis window ends @ 42.5 km stream-distance"
+        }
+      ],
+      "bootstrap_blockers": [
+        "No training tiles in km 41–42.5 — race streams only (Subject_A + Subject_B)",
+        "gold_suggester_routing.json has no finish sector route — v0 model used for ML draft"
+      ],
+      "notes": "Finish descent band (Paradisskaret/Vassfjellet tail → Alsvik). Distinct from early-lap dalevatn_band (km 8–22). Operator gold locked 2026-07-03 — S1/F0 asphalt km 41.0–42.5 (3 spans); seam @ km 41.0 PASS vs gramstad_band/full.json. chunk_f00–f01 HITL QC complete. panel_full_1m extended to km 42.5; merged into spatial_terrain_map_sut43_full.json (114 spans)."
     }
   ],
   "full_course_stretch_goal": {
@@ -125,7 +173,8 @@
       "gramstad_band",
       "dale_paradisskaret_upstream",
       "leg_a_technical",
-      "dalevatn_band"
+      "dalevatn_band",
+      "finish_band"
     ]
   }
 }
