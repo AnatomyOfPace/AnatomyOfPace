@@ -94214,7 +94214,7 @@
     "n_athletes": 2
   },
   "hitl": {
-    "status": "draft",
+    "status": "locked",
     "sector_id": "dalevatn_band",
     "operator_gold_spans": [
       {
@@ -94486,11 +94486,71 @@
         "mode": "operator_gold",
         "locked_at": "2026-07-02",
         "reason": "operator gold: mid-race descent steep core + easing tail tread (km 19.0-20.0). S4/F3 per seamless seam @ km 19.0 from locked chunk_10 S4/F3 brake onset (no S/F step - steep descent core holds on technical tread); race_corridors mid_race_descent corridor (km 19.0-20.0 Lifjell summit to coast). Race TI med ~4.2-5.1 (F4-F5+ on steep core); grade med -24% to -37% core @ 19.0-19.35 and 19.65-19.8; alt 219-41 m (-178 m). Brief grade roller / braking dip @ 19.4-19.65 absorbed under S4/F3 parent (match chunk_10 plateau-roller precedent). Easing tail @ 19.85-20.0 retained under S4/F3 (grade -12% to -10%; TI still F4 band). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent."
+      },
+      {
+        "course_km_start": 20.0,
+        "course_km_end": 20.2,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: post-descent easing brake tread (km 20.0-20.2). S4/F3 per seamless seam @ km 20.0 from locked chunk_11 S4/F3 mid-race descent easing tail (no S/F step - braking physics tail holds on technical tread); race_corridors mid_race_descent corridor ended @ km 20.0. Race TI med ~3.7-4.5 (F4 band @ 20.0-20.15); grade med ~-10% @ 20.0-20.15; alt 44-29 m. Evidence-tightened tread transition @ km 20.2 where TI med crosses F3 gate (~2.5) and grade crosses +4% climb gate (S4 to S3, F3 to F2). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent. Coast approach roller @ 20.2+ deferred to downstream span."
+      },
+      {
+        "course_km_start": 20.2,
+        "course_km_end": 21.0,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-02",
+        "reason": "operator gold: post-descent coast approach roller tread (km 20.2-21.0). S3/F2 per evidence-tightened tread step @ km 20.2 from locked S4/F3 easing brake (S4 to S3, F3 to F2 at +4% climb gate); post-mid_race_descent coastal approach band pre-coastal transition. Race TI med ~1.7-3.3 (F2-F3 band); grade variable roller +/-10%; alt 29-27 m. Brief brake dips @ 20.3, 20.5, 20.8-20.9 absorbed under S3/F2 parent (match chunk_10 plateau-roller precedent). Seam holds S3/F2 @ km 21.0 for chunk_13 handoff (steep coastal brake onset deferred @ 21.2+; upstream S4/F3 @ km 22.0). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent."
+      },
+      {
+        "course_km_start": 21.0,
+        "course_km_end": 21.2,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-03",
+        "reason": "operator gold: coast approach roller tail tread (km 21.0-21.2). S3/F2 per seamless seam @ km 21.0 from locked chunk_12 S3/F2 coast approach roller (no S/F step - variable roller holds on runnable tread); pre-coastal transition band upstream of steep coastal brake onset. Race TI med ~1.7-2.2 (F2 band); grade variable roller +/-6%; alt 27-24 m. Evidence-tightened tread transition @ km 21.2 where TI med crosses F3 gate (~2.5) and grade crosses -9% brake gate (S3 to S4, F2 to F3). ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent."
+      },
+      {
+        "course_km_start": 21.2,
+        "course_km_end": 21.5,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-03",
+        "reason": "operator gold: steep coastal brake tread (km 21.2-21.5). S4/F3 per evidence-tightened tread step @ km 21.2 from locked S3/F2 roller tail (S3 to S4, F2 to F3 at -9% brake gate); steep coastal descent onset bridging toward dale_paradisskaret_upstream sector entry. Race TI med ~2.8-3.7 (F3-F4 band @ 21.2-21.45); grade med -9% to -16% core @ 21.2-21.45; alt 24-7 m. Evidence-tightened end @ km 21.5 where TI med drops to F2 band (~1.5) and grade crosses +4% climb gate (S4 to S3, F3 to F2). ML gap fills abstain (HMM out of window); GMM S5/S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent."
+      },
+      {
+        "course_km_start": 21.5,
+        "course_km_end": 21.9,
+        "surface_class": "S3",
+        "friction_tier": "F2",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-03",
+        "reason": "operator gold: coastal roll / pre-sector climb tread (km 21.5-21.9). S3/F2 per evidence-tightened tread step @ km 21.5 from locked S4/F3 steep coastal brake (S4 to S3, F3 to F2 at +4% climb gate); runnable hard-dirt roller between steep brake core and upstream coastal sector entry. Race TI med ~1.5-1.8 (F2 band); grade med +3% to +7%; alt 7-22 m. Brief TI spike @ 21.8 absorbed under S3/F2 parent (match chunk_10 plateau-roller precedent). Seam holds S3/F2 through km 21.9 for final upstream bridge span. ML gap fills abstain (HMM out of window); GMM S1/S2/S5/S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S3/F2 parent."
+      },
+      {
+        "course_km_start": 21.9,
+        "course_km_end": 22.0,
+        "surface_class": "S4",
+        "friction_tier": "F3",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-03",
+        "reason": "operator gold: coastal sector entry bridge to upstream (km 21.9-22.0). S4/F3 per evidence-tightened tread step @ km 21.9 from locked S3/F2 coastal roll (S3 to S4, F2 to F3 at +10% climb gate); intentional seam @ km 22.0 into locked upstream chunk_u00 S4/F3 technical coastal tread @ 22.0-22.5 (dale_paradisskaret_upstream). Race TI med ~2.0-2.5 rising toward upstream F3 band; grade med +5% to +17% @ 21.9; alt 22-28 m. Matches upstream operator gold entry: grade med ~+10%, consensus TI rising toward coastal sector. ML gap fills abstain (HMM out of window); GMM S1-S6 micro-pockets deferred Tier 3 per memo 18 - absorb under S4/F3 parent."
       }
     ],
     "manual_overrides": [],
     "friction_spans": [],
-    "authority": "gmm_draft",
-    "notes": "E3 bridge bootstrap draft \u2014 not operator gold. Seam @ km 8.0 defers to spatial_terrain_map_sut43_start.json; seam @ km 22.0 defers to spatial_terrain_map_sut43_upstream.json."
+    "authority": "operator_gold",
+    "notes": "E3 bridge operator gold km 8.0\u201322.0 locked 2026-07-03 (chunk_00\u2013chunk_13; 33 spans). Seam @ km 8.0 defers to spatial_terrain_map_sut43_start.json (S4/F3 terminal @ 8.0). Seam @ km 22.0 defers to spatial_terrain_map_sut43_upstream.json (S4/F3 chunk_u00 entry @ 22.0\u201322.5). Phase E3 bridge corridor 100% operator gold."
   }
 }
