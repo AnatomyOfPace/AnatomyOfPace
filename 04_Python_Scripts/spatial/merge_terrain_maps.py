@@ -14,11 +14,8 @@ Usage (from repo root):
         --sector config/spatial_terrain_map_sut43.json:29.0:41.0 \\
         --output config/spatial_terrain_map_sut43_full.json
 
-SUT_43 finish band (km 41.0–42.5): not in scope for this merge. Panel and align
-meta declare full_course_window [0.5, 42.5] but panel_full_1m.parquet ends at
-km 41.0; no terrain map JSON or operator_gold_spans exist for km 41–42.5.
-race_corridors.json → SUT_43.finish_km 43.0; spatial_align_manifest references
-downstream ~km 41 (Alsvik asphalt tail / Paradisskaret sector). Deferred Phase E.
+SUT_43 finish band (km 41.0–42.5): include
+`config/spatial_terrain_map_sut43_finish.json` as fifth --sector when merging full course.
 """
 
 from __future__ import annotations
@@ -207,7 +204,7 @@ def merge_maps(
             "gpx_reference": "COURSE_SUT43_official_2027.gpx",
             "notes": (
                 f"Unified operator-gold map km {course_lo}–{course_hi} merged from "
-                f"{len(sectors)} locked sector maps. Finish band km 41–42.5 deferred."
+                f"{len(sectors)} locked sector maps."
             ),
             "source_sectors": source_sectors,
         }

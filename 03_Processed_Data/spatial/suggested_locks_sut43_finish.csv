@@ -1,0 +1,7 @@
+action,chunk_id,km_start,km_end,surface_class,friction_tier,confidence,gold_surface,gold_friction,surface_proba,friction_proba,rationale
+REVISE,course_window,41.003,41.325,S2,F1,HIGH,S1,F0,0.981,0.979,ML revise S1/F0→S2/F1 p=0.98; model disagrees with operator gold
+REVISE,course_window,41.383,41.582,S2,F1,MED,S1,F0,0.799,0.848,ML revise S1/F0→S2/F1 p=0.79; model disagrees with operator gold
+REVISE,course_window,41.602,41.712,S1,F1,MED,S1,F0,0.912,0.815,ML revise S1/F0→S1/F1 p=0.81; model disagrees with operator gold
+REVISE,course_window,41.777,41.997,S1,F1,HIGH,S1,F0,0.852,0.922,ML revise S1/F0→S1/F1 p=0.85; model disagrees with operator gold
+REVISE,course_window,42.0,42.11,S1,F1,MED,S1,F0,0.893,0.726,ML revise S1/F0→S1/F1 p=0.70; model disagrees with operator gold
+REVISE,course_window,42.219,42.499,S1,F1,MED,S1,F0,0.838,0.792,ML revise S1/F0→S1/F1 p=0.69; model disagrees with operator gold

@@ -2,12 +2,12 @@
   "phase": "E4_panel_full_concat",
   "km_window": [
     0.5,
-    41.0
+    42.5
   ],
-  "row_count": 202508,
-  "unique_course_m": 40501,
+  "row_count": 205508,
+  "unique_course_m": 42001,
   "course_km_min": 0.5,
-  "course_km_max": 41.0,
+  "course_km_max": 42.5,
   "donors": [
     {
       "panel": "panel_start_1m.parquet",
@@ -38,7 +38,17 @@
       "rows_in": 152008,
       "rows_after_seam": 152008,
       "seam_rule": "owns km 22-41"
+    },
+    {
+      "panel": "panel_finish_1m.parquet",
+      "km_window": [
+        41.0,
+        42.5
+      ],
+      "rows_in": 3002,
+      "rows_after_seam": 3000,
+      "seam_rule": "drop course_km >= 41.0 (gramstad owns km 41.0)"
     }
   ],
-  "generated_at": "2026-07-03T08:46:25.785095+00:00"
+  "generated_at": "2026-07-03T10:40:06.902162+00:00"
 }

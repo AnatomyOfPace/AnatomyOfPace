@@ -1,13 +1,14 @@
 {
-  "span_count": 111,
+  "span_count": 114,
   "sector_span_counts": {
     "leg_a_technical": 12,
     "dalevatn_band": 33,
     "dale_paradisskaret_upstream": 27,
-    "dale_to_paradisskaret": 39
+    "dale_to_paradisskaret": 39,
+    "finish_band": 3
   },
   "km_start": 0.5,
-  "km_end": 41.0,
+  "km_end": 42.5,
   "coverage_gaps": [],
   "overlaps": [],
   "seam_checks": [
@@ -54,6 +55,22 @@
         "surface_class": "S3",
         "friction_tier": "F2",
         "source_sector": "dale_to_paradisskaret"
+      },
+      "surface_continuous": true,
+      "friction_continuous": true,
+      "gap_km": 0.0
+    },
+    {
+      "boundary_km": 41.0,
+      "upstream_end": {
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "source_sector": "dale_to_paradisskaret"
+      },
+      "downstream_start": {
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "source_sector": "finish_band"
       },
       "surface_continuous": true,
       "friction_continuous": true,

@@ -21,6 +21,13 @@
       "km_lo": 22.0,
       "km_hi": 41.0,
       "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib"
+    },
+    {
+      "sector_id": "finish",
+      "km_lo": 41.0,
+      "km_hi": 42.5,
+      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib",
+      "notes": "Finish band draft — v0 retained until finish-specific training set exists"
     }
   ]
 }

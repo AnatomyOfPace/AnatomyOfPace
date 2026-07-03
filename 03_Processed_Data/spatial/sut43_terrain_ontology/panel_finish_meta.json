@@ -1,0 +1,57 @@
+{
+  "phase": "finish_band_panel",
+  "km_window": [
+    41.0,
+    42.5
+  ],
+  "row_count": 3002,
+  "race_row_count": 3002,
+  "unique_course_m": 1501,
+  "course_km_min": 41.0,
+  "course_km_max": 42.5,
+  "donors": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "SUT43_20260418",
+      "session_type": "race",
+      "align_mode": "stream",
+      "stream_race_id": "SUT_43",
+      "n_grid": 1501,
+      "n_source_samples": 591,
+      "corridor_id": "dale_to_paradisskaret_stress_test",
+      "project_course": true,
+      "traversal_direction": "forward",
+      "direction_requested": "auto",
+      "step_m": 1.0,
+      "km_start": 41.0,
+      "km_end": 42.5,
+      "overlap_km_start": 41.00251,
+      "overlap_km_end": 42.497620000000005,
+      "overlap_span_km": 1.495,
+      "coverage_fraction": 0.9967,
+      "n_overlap_samples": 591
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "19000570862",
+      "session_type": "race",
+      "align_mode": "stream",
+      "stream_race_id": "SUT_43",
+      "n_grid": 1501,
+      "n_source_samples": 580,
+      "corridor_id": "dale_to_paradisskaret_stress_test",
+      "project_course": true,
+      "traversal_direction": "forward",
+      "direction_requested": "auto",
+      "step_m": 1.0,
+      "km_start": 41.0,
+      "km_end": 42.5,
+      "overlap_km_start": 41.001050000000006,
+      "overlap_km_end": 42.49864,
+      "overlap_span_km": 1.498,
+      "coverage_fraction": 0.9984,
+      "n_overlap_samples": 580
+    }
+  ],
+  "generated_at": "2026-07-03T10:16:36.995464+00:00"
+}
