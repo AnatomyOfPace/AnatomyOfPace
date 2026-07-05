@@ -1,0 +1,327 @@
+{
+  "terrain_valley_green": {
+    "name": "terrain_valley_green",
+    "source": "assets/brand/photography/source/terrain_valley_green.png",
+    "orientation": "landscape",
+    "source_size": [
+      1024,
+      768
+    ],
+    "palette": [
+      {
+        "hex": "#a3b7d8",
+        "rgb": [
+          163,
+          183,
+          216
+        ],
+        "weight": 0.2152
+      },
+      {
+        "hex": "#414c44",
+        "rgb": [
+          65,
+          76,
+          68
+        ],
+        "weight": 0.1996
+      },
+      {
+        "hex": "#202820",
+        "rgb": [
+          32,
+          40,
+          32
+        ],
+        "weight": 0.1954
+      },
+      {
+        "hex": "#353f37",
+        "rgb": [
+          53,
+          63,
+          55
+        ],
+        "weight": 0.179
+      },
+      {
+        "hex": "#c6dbf8",
+        "rgb": [
+          198,
+          219,
+          248
+        ],
+        "weight": 0.1193
+      },
+      {
+        "hex": "#738392",
+        "rgb": [
+          115,
+          131,
+          146
+        ],
+        "weight": 0.0914
+      }
+    ]
+  },
+  "terrain_peak_fjord": {
+    "name": "terrain_peak_fjord",
+    "source": "assets/brand/photography/source/terrain_peak_fjord.png",
+    "orientation": "landscape",
+    "source_size": [
+      1024,
+      768
+    ],
+    "palette": [
+      {
+        "hex": "#364046",
+        "rgb": [
+          54,
+          64,
+          70
+        ],
+        "weight": 0.2031
+      },
+      {
+        "hex": "#a8bfe4",
+        "rgb": [
+          168,
+          191,
+          228
+        ],
+        "weight": 0.1968
+      },
+      {
+        "hex": "#586474",
+        "rgb": [
+          88,
+          100,
+          116
+        ],
+        "weight": 0.1784
+      },
+      {
+        "hex": "#94a8c8",
+        "rgb": [
+          148,
+          168,
+          200
+        ],
+        "weight": 0.1726
+      },
+      {
+        "hex": "#717e91",
+        "rgb": [
+          113,
+          126,
+          145
+        ],
+        "weight": 0.1357
+      },
+      {
+        "hex": "#bad2f5",
+        "rgb": [
+          186,
+          210,
+          245
+        ],
+        "weight": 0.1134
+      }
+    ]
+  },
+  "terrain_range_cloud": {
+    "name": "terrain_range_cloud",
+    "source": "assets/brand/photography/source/terrain_range_cloud.png",
+    "orientation": "landscape",
+    "source_size": [
+      1024,
+      768
+    ],
+    "palette": [
+      {
+        "hex": "#3e4b4d",
+        "rgb": [
+          62,
+          75,
+          77
+        ],
+        "weight": 0.2064
+      },
+      {
+        "hex": "#91a5c9",
+        "rgb": [
+          145,
+          165,
+          201
+        ],
+        "weight": 0.1793
+      },
+      {
+        "hex": "#74849a",
+        "rgb": [
+          116,
+          132,
+          154
+        ],
+        "weight": 0.179
+      },
+      {
+        "hex": "#525f5d",
+        "rgb": [
+          82,
+          95,
+          93
+        ],
+        "weight": 0.165
+      },
+      {
+        "hex": "#5e6964",
+        "rgb": [
+          94,
+          105,
+          100
+        ],
+        "weight": 0.154
+      },
+      {
+        "hex": "#b1c8ec",
+        "rgb": [
+          177,
+          200,
+          236
+        ],
+        "weight": 0.1163
+      }
+    ]
+  },
+  "terrain_cairn_summit": {
+    "name": "terrain_cairn_summit",
+    "source": "assets/brand/photography/source/terrain_cairn_summit.png",
+    "orientation": "portrait",
+    "source_size": [
+      472,
+      1024
+    ],
+    "palette": [
+      {
+        "hex": "#000000",
+        "rgb": [
+          0,
+          0,
+          0
+        ],
+        "weight": 0.3235
+      },
+      {
+        "hex": "#84a5d8",
+        "rgb": [
+          132,
+          165,
+          216
+        ],
+        "weight": 0.2577
+      },
+      {
+        "hex": "#506a97",
+        "rgb": [
+          80,
+          106,
+          151
+        ],
+        "weight": 0.231
+      },
+      {
+        "hex": "#161d29",
+        "rgb": [
+          22,
+          29,
+          41
+        ],
+        "weight": 0.1278
+      },
+      {
+        "hex": "#000004",
+        "rgb": [
+          0,
+          0,
+          4
+        ],
+        "weight": 0.0541
+      },
+      {
+        "hex": "#010000",
+        "rgb": [
+          1,
+          0,
+          0
+        ],
+        "weight": 0.0059
+      }
+    ]
+  },
+  "terrain_fjord_vertical": {
+    "name": "terrain_fjord_vertical",
+    "source": "assets/brand/photography/source/terrain_fjord_vertical.png",
+    "orientation": "portrait",
+    "source_size": [
+      518,
+      1024
+    ],
+    "palette": [
+      {
+        "hex": "#586b75",
+        "rgb": [
+          88,
+          107,
+          117
+        ],
+        "weight": 0.263
+      },
+      {
+        "hex": "#303b3b",
+        "rgb": [
+          48,
+          59,
+          59
+        ],
+        "weight": 0.2204
+      },
+      {
+        "hex": "#5e8ac9",
+        "rgb": [
+          94,
+          138,
+          201
+        ],
+        "weight": 0.2052
+      },
+      {
+        "hex": "#83ade7",
+        "rgb": [
+          131,
+          173,
+          231
+        ],
+        "weight": 0.1486
+      },
+      {
+        "hex": "#a6cafa",
+        "rgb": [
+          166,
+          202,
+          250
+        ],
+        "weight": 0.1253
+      },
+      {
+        "hex": "#7393bb",
+        "rgb": [
+          115,
+          147,
+          187
+        ],
+        "weight": 0.0374
+      }
+    ]
+  }
+}

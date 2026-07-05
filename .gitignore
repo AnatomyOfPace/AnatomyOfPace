@@ -16,6 +16,7 @@ config/session_metadata.local.json
 02_Raw_Data/**/*.fit
 05_Macro_Database/*.db
 06_Visualizations/*.png
+# Brand logos: assets/brand/ (committed — not under 06_Visualizations/)
 06_Visualizations/reports/
 03_Processed_Data/*.csv
 03_Processed_Data/race_results/
