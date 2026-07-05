@@ -285,32 +285,68 @@
       "coverage_notes": [
         "No training tiles in km 41–42.5 — race streams only (Subject_A + Subject_B)"
       ],
-      "notes": "Finish descent band (Paradisskaret/Vassfjellet tail → Alsvik). Distinct from early-lap bridge sector (km 8–22). Operator gold locked 2026-07-03 — S1/F0 asphalt km 41.0–42.5 (3 spans); seam @ km 41.0 PASS vs gramstad/full.json. chunk_f00–f01 HITL QC complete. panel_full_1m extended to km 42.5; merged into spatial_terrain_map_sut43_full.json (finish_band, 3 spans; 114 total)."
+      "notes": "Finish descent band (Paradisskaret/Vassfjellet tail → Alsvik). Distinct from early-lap bridge sector (km 8–22). Operator gold locked 2026-07-03 — S1/F0 asphalt km 41.0–42.5 (3 spans); seam @ km 41.0 PASS vs gramstad/full.json. chunk_f00–f01 HITL QC complete. panel_full_1m extended to km 42.5; merged into spatial_terrain_map_sut43_full.json (finish_band, 3 spans; 114 total). Downstream km 42.5–43.0 draft bootstrap → see finish_tail_stretch_goal."
     }
   ],
   "full_course_stretch_goal": {
     "km_analysis_window": [
       0.5,
-      42.5
+      43.0
     ],
     "sector_rollout_order": [
       "start",
       "bridge",
       "upstream",
       "gramstad",
-      "finish_band"
+      "finish_band",
+      "finish_tail"
     ],
     "full_terrain_map": "config/spatial_terrain_map_sut43_full.json",
     "panel_full_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_full_1m.parquet",
     "merge_report": "07_ML_Models/spatial/merge_terrain_map_sut43_full_report.json",
-    "operator_gold_span_count": 114,
-    "merged_at": "2026-07-03",
+    "operator_gold_span_count": 115,
+    "merged_at": "2026-07-05",
     "seam_boundaries_km": [
       8.0,
       22.0,
       29.0,
-      41.0
+      41.0,
+      42.5
     ],
     "status": "complete"
+  },
+  "finish_tail_stretch_goal": {
+    "km_analysis_window": [
+      42.5,
+      43.0
+    ],
+    "organiser_finish_km": 43.0,
+    "status": "locked",
+    "sector_lock_version": "2026-07-05-sut43-finish-tail",
+    "terrain_map": "config/spatial_terrain_map_sut43_finish_tail.json",
+    "panel_parquet": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_finish_tail_1m.parquet",
+    "build_script": "04_Python_Scripts/spatial/build_finish_tail_terrain_draft.py",
+    "hitl_chunk": "06_Visualizations/sut43_hitl_finish/chunk_f02_km42.5-43.0.png",
+    "seam_verification": "03_Processed_Data/spatial/sut43_terrain_ontology/finish_tail_draft/seam_verification_42_5.json",
+    "seam_verdict_at_42_5": "PASS",
+    "ml_suggestions": "03_Processed_Data/spatial/suggested_locks_sut43_finish_tail.csv",
+    "donor_coverage": {
+      "Subject_A": {
+        "overlap_km": [
+          42.500,
+          42.999
+        ],
+        "coverage_fraction": 0.996
+      },
+      "Subject_B": {
+        "overlap_km": [
+          42.501,
+          42.999
+        ],
+        "coverage_fraction": 0.995
+      }
+    },
+    "operator_gold_span_count": 1,
+    "notes": "Operator gold locked 2026-07-05 — S1/F0 asphalt km 42.5–43.0 (single span). Seam @ km 42.5 PASS vs locked finish_band. Merged into spatial_terrain_map_sut43_full.json (finish_tail, 1 span). panel_full_1m extended to km 43.0; gold_training_set_sut43_full.parquet rebuilt."
   }
 }

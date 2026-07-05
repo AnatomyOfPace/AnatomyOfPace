@@ -1,0 +1,2 @@
+action,chunk_id,km_start,km_end,surface_class,friction_tier,confidence,gold_surface,gold_friction,surface_proba,friction_proba,rationale
+KEEP,course_window,42.5,43.0,S1,F0,HIGH,S1,F0,,,Operator locked mono-class S1; ML revise path skipped (operator_locked_mono: ML revise suppressed)
