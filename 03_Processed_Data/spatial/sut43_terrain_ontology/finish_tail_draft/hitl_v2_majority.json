@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "schema_version": "hitl_v2_majority_v1",
+    "method": "per_stream_nti_ti_band_majority",
+    "km_start": 42.5,
+    "km_end": 43.0,
+    "donors": [
+      "Subject_A",
+      "Subject_B"
+    ],
+    "n_metres": 500,
+    "n_segments": 9,
+    "sigma_gate": false,
+    "voter_eligibility": "all streams with telemetry at metre",
+    "generated_at": "2026-07-04T09:21:17.884111+00:00"
+  },
+  "majority_draft_segments": [
+    {
+      "course_m_start": 42500.0,
+      "course_m_end": 42502.0,
+      "course_km_start": 42.5,
+      "course_km_end": 42.502,
+      "surface_class": "S2",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 42502.0,
+      "course_m_end": 42531.0,
+      "course_km_start": 42.502,
+      "course_km_end": 42.531,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 42531.0,
+      "course_m_end": 42646.0,
+      "course_km_start": 42.531,
+      "course_km_end": 42.646,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 42646.0,
+      "course_m_end": 42732.0,
+      "course_km_start": 42.646,
+      "course_km_end": 42.732,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 42732.0,
+      "course_m_end": 42788.0,
+      "course_km_start": 42.732,
+      "course_km_end": 42.788,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 42788.0,
+      "course_m_end": 42798.0,
+      "course_km_start": 42.788,
+      "course_km_end": 42.798,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 42798.0,
+      "course_m_end": 42829.0,
+      "course_km_start": 42.798,
+      "course_km_end": 42.829,
+      "surface_class": "S1",
+      "source": "ti_band"
+    },
+    {
+      "course_m_start": 42829.0,
+      "course_m_end": 42837.0,
+      "course_km_start": 42.829,
+      "course_km_end": 42.837,
+      "surface_class": "deferred",
+      "source": "ti_band_deferred"
+    },
+    {
+      "course_m_start": 42837.0,
+      "course_m_end": 43000.0,
+      "course_km_start": 42.837,
+      "course_km_end": 43.0,
+      "surface_class": "S1",
+      "source": "ti_band"
+    }
+  ]
+}

@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-03T10:40:48.136496+00:00",
+  "generated_at": "2026-07-05T07:17:39.813749+00:00",
   "panel": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_full_1m.parquet",
   "terrain_map": "config/spatial_terrain_map_sut43_full.json",
   "extra_terrain_maps": [],
   "hmm_draft": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
   "km_start": 0.5,
-  "km_end": 42.5,
-  "total_metres": 42000,
-  "labeled_metres": 42000,
+  "km_end": 43.0,
+  "total_metres": 42500,
+  "labeled_metres": 42500,
   "unlabeled_metres": 0,
   "labeled_pct": 100.0,
   "label_surface_counts": {
     "S3": 17361,
     "S4": 14260,
     "S2": 5051,
-    "S1": 4070,
+    "S1": 4570,
     "S6": 738,
     "S5": 520
   },
   "label_friction_counts": {
     "F2": 17500,
     "F3": 16522,
-    "F0": 3520,
+    "F0": 4020,
     "F1": 3290,
     "F4": 1168
   },

@@ -1,54 +1,34 @@
 {
-  "phase": "E4_panel_full_concat",
+  "phase": "E5_panel_full_concat_finish_tail",
   "km_window": [
     0.5,
-    42.5
+    43.0
   ],
-  "row_count": 205508,
-  "unique_course_m": 42001,
+  "row_count": 206508,
+  "unique_course_m": 42501,
   "course_km_min": 0.5,
-  "course_km_max": 42.5,
+  "course_km_max": 43.0,
   "donors": [
     {
-      "panel": "panel_start_1m.parquet",
+      "panel": "panel_full_1m.parquet (prior E4)",
       "km_window": [
         0.5,
-        8.0
-      ],
-      "rows_in": 22503,
-      "rows_after_seam": 22500,
-      "seam_rule": "drop course_km >= 8.0"
-    },
-    {
-      "panel": "panel_bridge_1m.parquet",
-      "km_window": [
-        8.0,
-        22.0
-      ],
-      "rows_in": 28002,
-      "rows_after_seam": 28000,
-      "seam_rule": "drop course_km >= 22.0"
-    },
-    {
-      "panel": "panel_1m.parquet",
-      "km_window": [
-        22.0,
-        41.0
-      ],
-      "rows_in": 152008,
-      "rows_after_seam": 152008,
-      "seam_rule": "owns km 22-41"
-    },
-    {
-      "panel": "panel_finish_1m.parquet",
-      "km_window": [
-        41.0,
         42.5
       ],
-      "rows_in": 3002,
-      "rows_after_seam": 3000,
-      "seam_rule": "drop course_km >= 41.0 (gramstad owns km 41.0)"
+      "rows_in": 205508,
+      "rows_after_seam": 205508,
+      "seam_rule": "owns km 0.5\u201342.5"
+    },
+    {
+      "panel": "panel_finish_tail_1m.parquet",
+      "km_window": [
+        42.5,
+        43.0
+      ],
+      "rows_in": 1002,
+      "rows_after_seam": 1000,
+      "seam_rule": "drop course_km <= 42.5 (finish_band owns km 42.5)"
     }
   ],
-  "generated_at": "2026-07-03T10:40:06.902162+00:00"
+  "generated_at": "2026-07-05T07:16:56.806747+00:00"
 }

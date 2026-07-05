@@ -1,0 +1,81 @@
+{
+  "phase": "finish_tail_panel",
+  "km_window": [
+    42.5,
+    43.0
+  ],
+  "row_count": 1002,
+  "race_row_count": 1002,
+  "unique_course_m": 501,
+  "course_km_min": 42.5,
+  "course_km_max": 43.0,
+  "donors": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "SUT43_20260418",
+      "session_type": "race",
+      "align_mode": "stream",
+      "stream_race_id": "SUT_43",
+      "n_grid": 501,
+      "n_source_samples": 190,
+      "corridor_id": "sut43_terrain_ontology",
+      "project_course": true,
+      "traversal_direction": "forward",
+      "direction_requested": "auto",
+      "step_m": 1.0,
+      "km_start": 42.5,
+      "km_end": 43.0,
+      "overlap_km_start": 42.50032,
+      "overlap_km_end": 42.99852,
+      "overlap_span_km": 0.498,
+      "coverage_fraction": 0.9964,
+      "n_overlap_samples": 190,
+      "output_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_A_SUT43_20260418_race.parquet"
+    },
+    {
+      "donor_id": "Subject_B",
+      "activity_id": "19000570862",
+      "session_type": "race",
+      "align_mode": "stream",
+      "stream_race_id": "SUT_43",
+      "n_grid": 501,
+      "n_source_samples": 201,
+      "corridor_id": "sut43_terrain_ontology",
+      "project_course": true,
+      "traversal_direction": "forward",
+      "direction_requested": "auto",
+      "step_m": 1.0,
+      "km_start": 42.5,
+      "km_end": 43.0,
+      "overlap_km_start": 42.501169999999995,
+      "overlap_km_end": 42.998830000000005,
+      "overlap_span_km": 0.498,
+      "coverage_fraction": 0.9953,
+      "n_overlap_samples": 201,
+      "output_path": "03_Processed_Data/spatial/sut43_terrain_ontology/aligned_Subject_B_19000570862_race.parquet"
+    }
+  ],
+  "generated_at": "2026-07-04T09:21:15.819889+00:00",
+  "notes": "Race streams only (Subject_A + Subject_B). Downstream of locked finish_band @ km 42.5 \u2014 draft bootstrap toward organiser M\u00e5l @ km 43.0.",
+  "panel_path": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_finish_tail_1m.parquet",
+  "seam_report": {
+    "seam_km": 42.5,
+    "upstream_locked_span": {
+      "course_km_start": 42.0,
+      "course_km_end": 42.5,
+      "surface_class": "S1",
+      "friction_tier": "F0"
+    },
+    "tail_telemetry_at_seam": {
+      "n_samples": 102,
+      "ti_median": 1.2716291675564675,
+      "grade_pct_median": -0.7361063487543251
+    },
+    "continuity_check": {
+      "surface_tier_match_expected": true,
+      "ti_in_f0_band": true,
+      "verdict": "PASS"
+    },
+    "notes": "Seam expects S1/F0 asphalt continuous from locked finish_band span ending @ km 42.5. Draft tail GMM may propose micro-segments \u2014 operator adjudication required."
+  }
+}

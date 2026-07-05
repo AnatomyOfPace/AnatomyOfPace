@@ -1,0 +1,20 @@
+{
+  "seam_km": 42.5,
+  "upstream_locked_span": {
+    "course_km_start": 42.0,
+    "course_km_end": 42.5,
+    "surface_class": "S1",
+    "friction_tier": "F0"
+  },
+  "tail_telemetry_at_seam": {
+    "n_samples": 102,
+    "ti_median": 1.2716291675564675,
+    "grade_pct_median": -0.7361063487543251
+  },
+  "continuity_check": {
+    "surface_tier_match_expected": true,
+    "ti_in_f0_band": true,
+    "verdict": "PASS"
+  },
+  "notes": "Seam expects S1/F0 asphalt continuous from locked finish_band span ending @ km 42.5. Draft tail GMM may propose micro-segments \u2014 operator adjudication required."
+}

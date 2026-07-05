@@ -1,19 +1,19 @@
 {
   "schema_version": "spatial_terrain_map_v0",
   "ontology_version": "s6_v0",
-  "generated_at": "2026-07-03T10:41:44.491850+00:00",
+  "generated_at": "2026-07-05T07:17:05.279758+00:00",
   "corridor": {
     "corridor_id": "sut43_terrain_ontology",
     "sector_id": "sut43_full_course",
     "sector_lock_version": null,
     "race_id": "SUT_43",
     "km_start": 0.5,
-    "km_end": 42.5,
-    "sector_viewport_km_end": 43.0,
+    "km_end": 43.0,
+    "sector_viewport_km_end": 43.5,
     "finish_km": 43.0,
     "full_course_window": [
       0.5,
-      42.5
+      43.0
     ],
     "course_axis": "stream_distance",
     "gpx_reference": "COURSE_SUT43_official_2027.gpx",
@@ -46,7 +46,7 @@
         "registry_ref": "race_corridors.json \u2192 SUT_160.sub_corridors.noredalen_descent"
       }
     ],
-    "notes": "Unified operator-gold map km 0.5\u201342.5 merged from 5 locked sector maps.",
+    "notes": "Unified operator-gold map km 0.5\u201343.0 merged from 6 locked sector maps.",
     "source_sectors": [
       {
         "sector_id": "leg_a_technical",
@@ -86,6 +86,14 @@
         "km_start": 41.0,
         "km_end": 42.5,
         "span_count": 3,
+        "hitl_status": "locked"
+      },
+      {
+        "sector_id": "finish_tail",
+        "terrain_map": "config/spatial_terrain_map_sut43_finish_tail.json",
+        "km_start": 42.5,
+        "km_end": 43.0,
+        "span_count": 1,
         "hitl_status": "locked"
       }
     ]
@@ -1116,11 +1124,20 @@
       "surface_class": "S1",
       "friction_tier": "F0",
       "source": "operator_gold"
+    },
+    {
+      "course_km_start": 42.5,
+      "course_km_end": 43.0,
+      "course_m_start": 42500.0,
+      "course_m_end": 43000.0,
+      "surface_class": "S1",
+      "friction_tier": "F0",
+      "source": "operator_gold"
     }
   ],
   "hitl": {
     "status": "locked",
-    "reviewed_at": "2026-07-03T10:41:44.491923+00:00",
+    "reviewed_at": "2026-07-05T07:17:05.279844+00:00",
     "reviewer": "merge_terrain_maps.py",
     "authority": "operator_gold",
     "operator_gold_spans": [
@@ -2309,8 +2326,19 @@
         "locked_at": "2026-07-03",
         "reason": "operator gold: Loen-Alsvik asphalt finish approach \u2014 sealed S1/F0 flat corridor toward Alsvik; grade med ~0%; TI med 1.20\u20131.30 (F0). Analysis window terminus @ km 42.5; organiser finish (M\u00e5l) @ km 43.0 downstream. GMM S3\u2013S6 micro-pockets deferred Tier 3. chunk_f01 HITL QC.",
         "source_sector": "finish_band"
+      },
+      {
+        "course_km_start": 42.5,
+        "course_km_end": 43.0,
+        "surface_class": "S1",
+        "friction_tier": "F0",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-05",
+        "reason": "operator gold: Loen-Alsvik asphalt finish tail into organiser M\u00e5l \u2014 sealed S1/F0 continuous from locked finish_band @ km 42.5. GMM 27 micro-segments collapsed under single parent per Tier 3; TI med ~1.19\u20131.33 (F0); grade med flat to \u22120.7%. chunk_f02 HITL QC.",
+        "source_sector": "finish_tail"
       }
     ],
-    "notes": "Full-course operator gold km 0.5\u201342.5 \u2014 114 spans from 5 sector maps."
+    "notes": "Full-course operator gold km 0.5\u201343.0 \u2014 115 spans from 6 sector maps."
   }
 }
