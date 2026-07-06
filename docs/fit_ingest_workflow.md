@@ -201,6 +201,6 @@ Partial tiles (`SUT43_sector_31-32_reverse_20260627`, `Gramstad_runden_reverse_2
 | Place FIT | `02_Raw_Data/donors/Subject_A/Tverrfjell_20260704.fit` (rename from legacy `Tverrfjell_*_20260704.fit`) |
 | Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_tverrfjell_course.py` |
 | Label | `gold_span_editor.py add --terrain-map config/spatial_terrain_map_tverrfjell.json ...` |
-| Dashboard PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_tverrfjell.sh` |
+| Dashboard PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_tverrfjell.sh` → `06_Visualizations/tverrfjell_hitl/chunk_t*.png` (24 × 1 km, km 0–23.549) |
 
 Configs: `config/spatial_align_manifest_tverrfjell.json`, `config/spatial_terrain_map_tverrfjell.json`.

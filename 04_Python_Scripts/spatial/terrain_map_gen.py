@@ -62,8 +62,13 @@ def compute_nti(
     Interim proxy until full Baseline TI matrix exists: NTI ≈ TI / median(TI | grade bin).
     """
     work = panel.copy()
-    ti = pd.to_numeric(work.get(ti_col), errors="coerce")
-    grade = pd.to_numeric(work.get(grade_col, work.get("grade", 0)), errors="coerce")
+    if ti_col not in work.columns:
+        return pd.Series(np.nan, index=work.index)
+    ti = pd.to_numeric(work[ti_col], errors="coerce")
+    grade_raw = work.get(grade_col, work.get("grade"))
+    if grade_raw is None:
+        return pd.Series(np.nan, index=work.index)
+    grade = pd.to_numeric(grade_raw, errors="coerce")
     if ti.isna().all():
         return pd.Series(np.nan, index=work.index)
 
