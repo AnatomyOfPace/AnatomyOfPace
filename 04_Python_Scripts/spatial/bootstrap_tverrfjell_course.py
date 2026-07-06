@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -40,13 +41,55 @@ ACTIVITY_ID = "Tverrfjell_20260704"
 DONOR_ID = "Subject_A"
 RACE_ID = "tverrfjell"
 
+# Case-insensitive discovery (Garmin / Strava export names vary).
+_DISCOVER_GLOBS = ("*Tverrfjell*20260704*.fit", "*tverrfjell*20260704*.fit", "*Tverrfjell*.fit")
+
+
+def _discover_fit_candidates() -> list[Path]:
+    """Search repo raw data, Downloads, and Desktop for Tverrfjell FIT exports."""
+    candidates: list[Path] = []
+    seen: set[str] = set()
+    roots: list[Path] = [
+        _REPO / "02_Raw_Data",
+        Path.home() / "Downloads",
+        Path.home() / "Desktop",
+    ]
+    for root in roots:
+        if not root.exists():
+            continue
+        patterns = _DISCOVER_GLOBS if root != _REPO / "02_Raw_Data" else (*_DISCOVER_GLOBS, LEGACY_GLOB)
+        for pattern in patterns:
+            iterator = root.rglob(pattern) if root == _REPO / "02_Raw_Data" else root.glob(pattern)
+            for path in iterator:
+                if not path.is_file() or not path.suffix.lower() == ".fit":
+                    continue
+                key = str(path.resolve())
+                if key in seen:
+                    continue
+                seen.add(key)
+                candidates.append(path.resolve())
+    return sorted(candidates, key=lambda p: p.stat().st_mtime, reverse=True)
+
+
+def _install_to_canonical(source: Path) -> Path:
+    DEFAULT_CANONICAL.parent.mkdir(parents=True, exist_ok=True)
+    src = source.resolve()
+    if src == DEFAULT_CANONICAL.resolve():
+        return DEFAULT_CANONICAL
+    if DEFAULT_CANONICAL.exists():
+        return DEFAULT_CANONICAL
+    print(f"Copying FIT → {DEFAULT_CANONICAL.relative_to(_REPO)}")
+    shutil.copy2(src, DEFAULT_CANONICAL)
+    return DEFAULT_CANONICAL
+
 
 def _resolve_fit_path(explicit: Path | None) -> Path:
     if explicit is not None:
-        p = explicit if explicit.is_absolute() else _REPO / explicit
+        p = explicit.expanduser()
+        p = p if p.is_absolute() else _REPO / p
         if not p.exists():
             raise FileNotFoundError(f"FIT not found: {p}")
-        return p
+        return _install_to_canonical(p)
 
     if DEFAULT_CANONICAL.exists():
         return DEFAULT_CANONICAL
@@ -59,9 +102,25 @@ def _resolve_fit_path(explicit: Path | None) -> Path:
                 candidate.rename(DEFAULT_CANONICAL)
                 return DEFAULT_CANONICAL
 
+    discovered = _discover_fit_candidates()
+    if len(discovered) == 1:
+        print(f"Auto-discovered FIT: {discovered[0]}")
+        return _install_to_canonical(discovered[0])
+    if len(discovered) > 1:
+        lines = "\n".join(f"  - {p}" for p in discovered)
+        raise FileNotFoundError(
+            "Multiple Tverrfjell FIT files found — pass exactly one with --fit:\n" + lines
+        )
+
+    home = Path.home()
     raise FileNotFoundError(
-        f"No FIT found. Place canonical file at:\n  {DEFAULT_CANONICAL}\n"
-        f"Or pass --fit with path to Tverrfjell_*_20260704.fit"
+        "No Tverrfjell FIT found.\n\n"
+        "1. Export original .fit from Garmin Connect or Strava (usually lands in Downloads).\n"
+        "2. Re-run this script (auto-searches Downloads, Desktop, 02_Raw_Data/), or:\n"
+        f"     python3 04_Python_Scripts/spatial/bootstrap_tverrfjell_course.py --fit ~/Downloads/YOUR_FILE.fit\n"
+        "3. Or copy manually to:\n"
+        f"     {DEFAULT_CANONICAL}\n\n"
+        f"Searched: {_REPO / '02_Raw_Data'}, {home / 'Downloads'}, {home / 'Desktop'}"
     )
 
 
@@ -121,7 +180,22 @@ def main() -> int:
     parser.add_argument("--fit", type=Path, default=None, help="Path to canonical or legacy FIT")
     parser.add_argument("--skip-wash", action="store_true", help="Reuse existing micro Parquet")
     parser.add_argument("--skip-panel", action="store_true", help="Only wash + patch km_end")
+    parser.add_argument(
+        "--discover",
+        action="store_true",
+        help="List Tverrfjell FIT candidates in Downloads/Desktop/02_Raw_Data and exit",
+    )
     args = parser.parse_args()
+
+    if args.discover:
+        found = _discover_fit_candidates()
+        if not found:
+            print("No Tverrfjell FIT candidates found.")
+            return 1
+        print("Tverrfjell FIT candidates (newest first):")
+        for p in found:
+            print(f"  {p}")
+        return 0
 
     fit_path = _resolve_fit_path(args.fit)
     micro_path = MICRO_DIR / DONOR_ID / f"activity_{ACTIVITY_ID}.parquet"
