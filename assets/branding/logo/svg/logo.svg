@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="The Anatomy of Pace">
+  <title>The Anatomy of Pace</title>
+  <desc>Mountain peak forming the letter A, with an ECG pulse as the crossbar. Uses currentColor for easy recoloring.</desc>
+  <!-- Mountain forming the letter A -->
+  <path d="M40 180 L120 24 L200 180"/>
+  <!-- Secondary peak -->
+  <path d="M82 150 L112 84 L138 138"/>
+  <!-- ECG / heartbeat pulse acting as the A crossbar -->
+  <path d="M10 128 L96 128 L106 128 L114 106 L122 152 L130 62 L138 150 L146 128 L230 128"/>
+</svg>

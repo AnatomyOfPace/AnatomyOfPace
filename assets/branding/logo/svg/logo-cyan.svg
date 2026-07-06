@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="The Anatomy of Pace">
+  <title>The Anatomy of Pace</title>
+  <desc>Cyan-to-white gradient telemetry accent mark with a subtle glow.</desc>
+  <defs>
+    <linearGradient id="aopCyan" x1="0" y1="0" x2="240" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7FFFF4"/>
+      <stop offset="0.55" stop-color="#3FD8E6"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="aopGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g stroke="url(#aopCyan)" filter="url(#aopGlow)">
+    <path d="M40 180 L120 24 L200 180"/>
+    <path d="M82 150 L112 84 L138 138"/>
+    <path d="M10 128 L96 128 L106 128 L114 106 L122 152 L130 62 L138 150 L146 128 L230 128"/>
+  </g>
+</svg>

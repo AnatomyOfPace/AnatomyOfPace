@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none" role="img" aria-label="The Anatomy of Pace">
+  <title>The Anatomy of Pace</title>
+  <desc>White mark on a dark rounded-square background for app icon and avatar lockup.</desc>
+  <rect x="0" y="0" width="240" height="240" rx="52" fill="#0D0F12"/>
+  <g transform="translate(0,20)" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 180 L120 24 L200 180"/>
+    <path d="M82 150 L112 84 L138 138"/>
+    <path d="M10 128 L96 128 L106 128 L114 106 L122 152 L130 62 L138 150 L146 128 L230 128"/>
+  </g>
+</svg>
