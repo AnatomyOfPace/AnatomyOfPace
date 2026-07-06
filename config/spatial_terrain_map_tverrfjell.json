@@ -1,32 +1,32 @@
 {
   "schema_version": "spatial_terrain_map_v0",
   "ontology_version": "s6_v0",
-  "generated_at": "2026-07-06T20:34:00+00:00",
+  "generated_at": "2026-07-06T21:51:15.250805+00:00",
   "corridor": {
     "corridor_id": "tverrfjell_course",
     "race_id": "tverrfjell",
     "anchor_id": "tverrfjell",
     "km_start": 0.0,
-    "km_end": 12.0,
+    "km_end": 23.549,
     "course_axis": "stream_distance",
-    "notes": "Tier 0 map-first local hill loop (Tverrfjell). Not SUT_43. Operator adjudicates substrate from orthophoto; operator_gold_spans[] is authoritative. km_end updated by bootstrap_tverrfjell_course.py from washed FIT stream length."
+    "notes": "Tier 0 map-first local hill loop (Tverrfjell). Not SUT_43. Stream-distance axis km 0\u201323.549 from Subject_A FIT Tverrfjell_20260704. Operator adjudicates substrate from orthophoto."
   },
   "clustering": {
     "method": null,
     "n_clusters": null,
     "fallback": "map_first_operator_gold",
-    "note": "No GMM draft — substrate adjudicated from orthophoto; operator_gold_spans[] is authoritative once breakpoints are locked."
+    "note": "No GMM draft \u2014 substrate adjudicated from orthophoto; operator_gold_spans[] is authoritative once breakpoints are locked."
   },
   "segments": [
     {
       "course_km_start": 0.0,
-      "course_km_end": 12.0,
+      "course_km_end": 23.549,
       "surface_class": "S3",
       "friction_tier": "F2",
       "source": "seed",
       "label": "Trail tread (placeholder)",
       "confidence": 0.3,
-      "operator_note": "Map-first seed — superseded by operator_gold_spans when locked. Replace breakpoints after topo review."
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked."
     }
   ],
   "hitl": {
@@ -37,6 +37,6 @@
     "trf_exclusions": [],
     "behavioral_stops": [],
     "variance_gaps": [],
-    "notes": "Append-only operator_gold_spans[] — map-first Tier 0 Tverrfjell loop. Use gold_span_editor.py with --terrain-map config/spatial_terrain_map_tverrfjell.json."
+    "notes": "Append-only operator_gold_spans[] \u2014 map-first Tier 0 Tverrfjell loop. Use gold_span_editor.py with --terrain-map config/spatial_terrain_map_tverrfjell.json."
   }
 }

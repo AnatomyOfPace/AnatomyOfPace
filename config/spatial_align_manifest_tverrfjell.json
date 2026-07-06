@@ -6,17 +6,17 @@
   "course_axis": "stream_distance",
   "km_analysis_window": [
     0.0,
-    12.0
+    23.549
   ],
   "km_viewport_window": [
     0.0,
-    12.1
+    23.649
   ],
   "default_align_mode": "stream",
   "default_direction": "auto",
   "stream_race_id": "tverrfjell",
   "multi_fit": true,
-  "panel_scope": "Subject_A anchor stream (stream-distance course axis). Map-first operator gold — not SUT_43. Run bootstrap_tverrfjell_course.py after placing canonical FIT to set km_end from washed stream.",
+  "panel_scope": "Subject_A anchor stream (stream-distance course axis). Map-first operator gold \u2014 not SUT_43. Run bootstrap_tverrfjell_course.py after placing canonical FIT to set km_end from washed stream.",
   "activities": [
     {
       "donor_id": "Subject_A",
@@ -24,7 +24,7 @@
       "session_type": "training",
       "subject_id": "Subject_A",
       "align_mode": "stream",
-      "note": "Tverrfjell hill loop 2026-07-04 — canonical FIT defines stream-distance course axis."
+      "note": "Tverrfjell hill loop 2026-07-04 \u2014 canonical FIT defines stream-distance course axis."
     }
   ],
   "build_commands": {

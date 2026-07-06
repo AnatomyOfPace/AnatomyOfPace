@@ -181,6 +181,11 @@ def main() -> int:
     parser.add_argument("--skip-wash", action="store_true", help="Reuse existing micro Parquet")
     parser.add_argument("--skip-panel", action="store_true", help="Only wash + patch km_end")
     parser.add_argument(
+        "--no-enrich-ti",
+        action="store_true",
+        help="Skip GAP/TI enrich (use when O₂ anchor FIT e.g. Stavanger_Halvmaraton.fit is absent)",
+    )
+    parser.add_argument(
         "--discover",
         action="store_true",
         help="List Tverrfjell FIT candidates in Downloads/Desktop/02_Raw_Data and exit",
@@ -206,8 +211,7 @@ def main() -> int:
             fit_arg = fit_path.relative_to(_REPO)
         except ValueError:
             pass
-        _run(
-            [
+        cmd = [
                 sys.executable,
                 str(_SCRIPTS / "15_fit_micro_wash.py"),
                 "--donor",
@@ -219,10 +223,11 @@ def main() -> int:
                 "--race",
                 RACE_ID,
                 "--project-course",
-                "--enrich-ti",
                 "--no-privacy-clip",
             ]
-        )
+        if not args.no_enrich_ti:
+            cmd.append("--enrich-ti")
+        _run(cmd)
 
     if not micro_path.exists():
         print(f"Micro parquet missing after wash: {micro_path}", file=sys.stderr)
