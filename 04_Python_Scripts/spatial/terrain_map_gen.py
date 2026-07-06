@@ -141,11 +141,12 @@ def aggregate_nti_by_course_m(
                 ref_med = ref.groupby("course_m", as_index=False)["nti"].median()
                 ref_med = ref_med.rename(columns={"nti": "nti_reference"})
                 agg = agg.merge(ref_med, on="course_m", how="left")
-        if "ti_median" not in agg.columns:
+        if "ti_median" not in agg.columns and "ti" in panel.columns:
             ti_agg = panel.groupby("course_m", as_index=False).agg(
                 ti_median=("ti", "median"),
-                grade_pct_median=("grade_pct", "median"),
             )
+            if "grade_pct" in panel.columns:
+                ti_agg["grade_pct_median"] = panel.groupby("course_m")["grade_pct"].median().to_numpy()
             agg = agg.merge(ti_agg, on="course_m", how="left")
         return agg
 

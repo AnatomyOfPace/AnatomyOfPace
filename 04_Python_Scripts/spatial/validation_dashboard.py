@@ -1017,7 +1017,10 @@ def resolve_axis_label(terrain_map: dict[str, Any], panel: pd.DataFrame) -> str:
         c_lo, c_hi = float(c_lo), float(c_hi)
         stale = not (c_lo <= p_hi + 0.5 and c_hi >= p_lo - 0.5)
     if stale or corridor.get("course_axis") == "stream_distance":
-        return "SUT_43 stream km"
+        race_id = str(corridor.get("race_id") or "stream")
+        if race_id == "SUT_43":
+            return "SUT_43 stream km"
+        return f"{race_id} stream km"
     race_id = corridor.get("race_id", "SUT_160")
     if race_id == "SUT_43":
         return "SUT_43 stream km"
@@ -2273,10 +2276,19 @@ def filter_map_track_panel(
     if activity_id and "activity_id" in work.columns:
         work = work[work["activity_id"] == activity_id]
     elif session_type and "session_type" in work.columns:
-        work = work[work["session_type"] == session_type]
+        sub = work[work["session_type"] == session_type]
+        work = sub if not sub.empty else work
     if donor_id and "donor_id" in work.columns:
         work = work[work["donor_id"] == donor_id]
     return work
+
+
+def select_primary_telemetry_panel(panel: pd.DataFrame) -> pd.DataFrame:
+    """Race sessions for multi-athlete corridors; full panel for training-only courses."""
+    if "session_type" not in panel.columns:
+        return panel
+    race = panel[panel["session_type"] == "race"]
+    return race if not race.empty else panel
 
 
 def build_activity_track_geography(
@@ -2325,8 +2337,23 @@ def resolve_default_map_track_activity(
     terrain_map: dict[str, Any],
     panel: pd.DataFrame,
 ) -> tuple[str | None, str | None]:
-    """Auto race FIT map track for SUT_43 gramstad_band HITL exports."""
-    if not resolve_axis_label(terrain_map, panel).startswith("SUT_43"):
+    """Auto map-track FIT for known HITL corridors (SUT_43 race, Tverrfjell training loop)."""
+    corridor = terrain_map.get("corridor") or {}
+    race_id = str(corridor.get("race_id") or "")
+
+    if race_id == "tverrfjell":
+        if "activity_id" in panel.columns:
+            for act in sorted(panel["activity_id"].astype(str).unique()):
+                if "tverrfjell" in act.lower():
+                    donor = None
+                    if "donor_id" in panel.columns:
+                        sub = panel[panel["activity_id"].astype(str) == act]
+                        if not sub.empty:
+                            donor = str(sub["donor_id"].iloc[0])
+                    return act, donor
+        return "Tverrfjell_20260704", "Subject_A"
+
+    if race_id != "SUT_43":
         return None, None
     if "sut43" not in panel_path.as_posix():
         return None, None
@@ -3108,9 +3135,7 @@ def build_validation_report(
     """Assemble validation dashboard metadata (flags + override protocol)."""
     flags = compute_variance_flags(panel, threshold=variance_threshold)
     segments = run_length_flag_segments(flags)
-    race_panel = panel
-    if "session_type" in panel.columns:
-        race_panel = panel[panel["session_type"] == "race"]
+    race_panel = select_primary_telemetry_panel(panel)
     consensus = aggregate_nti_by_course_m(race_panel) if not race_panel.empty else pd.DataFrame()
 
     report: dict[str, Any] = {
@@ -4343,9 +4368,7 @@ def render_validation_dashboard(
             show_cluster_ti_rank=bool(cluster_ti_dfs) and decision_mode,
         )
 
-    race_work = work
-    if "session_type" in work.columns:
-        race_work = work[work["session_type"] == "race"]
+    race_work = select_primary_telemetry_panel(work)
 
     for ax in profile_axes:
         ax.set_xlim(km_lo, km_hi)
@@ -4856,7 +4879,7 @@ def main() -> None:
     gpx_path = args.gpx
     if gpx_path is not None:
         gpx_path = gpx_path if gpx_path.is_absolute() else BASE_DIR / gpx_path
-    elif resolve_axis_label(terrain_map, panel).startswith("SUT_43"):
+    elif str((terrain_map.get("corridor") or {}).get("race_id") or "") == "SUT_43":
         gpx_path = DEFAULT_SUT43_GPX if DEFAULT_SUT43_GPX.exists() else None
 
     map_track_activity = args.activity

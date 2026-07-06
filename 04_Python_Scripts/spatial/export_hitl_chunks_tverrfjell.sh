@@ -39,6 +39,8 @@ mkdir -p "$OUT_DIR"
 python3 04_Python_Scripts/spatial/validation_dashboard.py \
   --terrain-map "$TERRAIN_MAP" \
   --panel "$PANEL" \
+  --activity Tverrfjell_20260704 \
+  --map-track-donor Subject_A \
   --km-start "$KM_START" \
   --km-end "$KM_END" \
   --chunk-km 1 \
