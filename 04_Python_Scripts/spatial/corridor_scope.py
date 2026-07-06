@@ -54,11 +54,18 @@ SJOERSLOPET_CORRIDOR_ID = "3_sjoerslopet_course"
 SJOERSLOPET_KM_START = 0.0
 SJOERSLOPET_KM_END = 21.25
 
-# Tverrfjell local hill loop — map-first Tier 0 (not SUT_43).
+# Tverrfjell local hill loop — Uskedalen, Kvinnherad, Vestland (not Rogaland; not SUT_43).
 TVERFJELL_RACE_ID = "tverrfjell"
 TVERFJELL_CORRIDOR_ID = "tverrfjell_course"
 TVERFJELL_KM_START = 0.0
-TVERFJELL_KM_END = 12.0
+TVERFJELL_KM_END = 23.549
+TVERFJELL_GEOGRAPHY = {
+    "settlement": "Uskedalen",
+    "municipality": "Kvinnherad",
+    "county": "Vestland",
+    "region": "Hardanger / Sunnhordland",
+    "not_in": ["Rogaland"],
+}
 
 # Operator scope: Dale aid CP band through Paradisskaret Downhill end (course km).
 DEFAULT_KM_START = 140.0
@@ -242,7 +249,7 @@ def load_tverrfjell_window(
     km_start: float | None = None,
     km_end: float | None = None,
 ) -> tuple[float, float, dict[str, Any]]:
-    """Tverrfjell hill loop — FIT stream-distance axis (km_end set by bootstrap script)."""
+    """Tverrfjell hill loop (Uskedalen, Kvinnherad, Vestland) — FIT stream-distance axis."""
     start = TVERFJELL_KM_START if km_start is None else float(km_start)
     end = TVERFJELL_KM_END if km_end is None else float(km_end)
     meta = {
@@ -253,6 +260,7 @@ def load_tverrfjell_window(
         "km_end": end,
         "course_axis": "stream_distance",
         "terrain_map": "config/spatial_terrain_map_tverrfjell.json",
+        "geography": dict(TVERFJELL_GEOGRAPHY),
     }
     return start, end, meta
 

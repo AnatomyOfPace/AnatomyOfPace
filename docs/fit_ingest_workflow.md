@@ -194,6 +194,8 @@ Partial tiles (`SUT43_sector_31-32_reverse_20260627`, `Gramstad_runden_reverse_2
 
 ## Tverrfjell local loop (map-first HITL, not SUT_43)
 
+**Geography:** Uskedalen, Kvinnherad, Vestland (Hardanger / Sunnhordland). **Not Rogaland.** SUT_43 (Sandnes) is a separate county ~120 km south — the Tverrfjell pipeline uses FIT stream distance only; never snap to SUT GPX or write into SUT terrain maps.
+
 | Step | Command |
 |------|---------|
 | Place FIT | `02_Raw_Data/donors/Subject_A/Tverrfjell_20260704.fit` (rename from legacy `Tverrfjell_*_20260704.fit`) |

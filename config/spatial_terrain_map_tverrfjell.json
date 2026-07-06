@@ -9,7 +9,27 @@
     "km_start": 0.0,
     "km_end": 23.549,
     "course_axis": "stream_distance",
-    "notes": "Tier 0 map-first local hill loop (Tverrfjell). Not SUT_43. Stream-distance axis km 0\u201323.549 from Subject_A FIT Tverrfjell_20260704. Operator adjudicates substrate from orthophoto."
+    "geography": {
+      "settlement": "Uskedalen",
+      "municipality": "Kvinnherad",
+      "county": "Vestland",
+      "region": "Hardanger / Sunnhordland",
+      "not_in": [
+        "Rogaland"
+      ],
+      "gps_bounds": {
+        "lat_min": 59.884,
+        "lat_max": 59.932,
+        "lon_min": 5.894,
+        "lon_max": 5.999,
+        "centroid_lat": 59.912,
+        "centroid_lon": 5.954,
+        "altitude_m_min": 29,
+        "altitude_m_max": 936
+      },
+      "notes": "Local hill loop in Uskedalen (Kvinnherad, Vestland). Not Rogaland. SUT_43 (Sandnes) is a separate county ~120 km south \u2014 never snap or merge panels."
+    },
+    "notes": "Tier 0 map-first local hill loop (Tverrfjell, Uskedalen, Kvinnherad, Vestland). Not SUT_43 / not Rogaland. Stream-distance axis km 0\u201323.549 from Subject_A FIT Tverrfjell_20260704. Operator adjudicates substrate from orthophoto."
   },
   "clustering": {
     "method": null,

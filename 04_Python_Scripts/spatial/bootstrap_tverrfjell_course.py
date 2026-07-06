@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
-Bootstrap Tverrfjell Tier-0 course for map-first HITL (not SUT_43).
+Bootstrap Tverrfjell Tier-0 course for map-first HITL (Uskedalen, Kvinnherad, Vestland).
+
+Not SUT_43 and not Rogaland — isolated stream-distance pipeline.
 
 1. Normalize legacy FIT filename (drops personal token from basename).
 2. Wash micro Parquet (stream-distance course axis).
@@ -175,7 +177,8 @@ def _patch_km_end(km_end: float) -> None:
     corridor = tmap.get("corridor") or {}
     corridor["km_end"] = km_end
     corridor["notes"] = (
-        "Tier 0 map-first local hill loop (Tverrfjell). Not SUT_43. "
+        "Tier 0 map-first local hill loop (Tverrfjell, Uskedalen, Kvinnherad, Vestland). "
+        "Not SUT_43 / not Rogaland. "
         f"Stream-distance axis km 0–{km_end:.3f} from Subject_A FIT {ACTIVITY_ID}. "
         "Operator adjudicates substrate from orthophoto."
     )

@@ -2,7 +2,8 @@
 """
 QC: Tverrfjell FIT GPS vs SUT_43 organiser corridor (cross-track distance).
 
-Confirms the Tier-0 loop is off-axis from SUT_43 even when geographically nearby.
+Tverrfjell is in Uskedalen (Kvinnherad, Vestland) — not Rogaland. SUT_43 is in
+Sandnes (Rogaland), ~120 km south. Cross-track QC confirms the pipelines stay isolated.
 
 Usage (from repo root):
     python3 04_Python_Scripts/spatial/check_tverrfjell_gps.py
@@ -29,6 +30,7 @@ from fit_micro.course_project import load_gpx_course_km, resolve_gpx_path  # noq
 DEFAULT_MICRO = (
     _REPO / "03_Processed_Data" / "micro" / "Subject_A" / "activity_Tverrfjell_20260704.parquet"
 )
+TERRAIN_MAP = _REPO / "config" / "spatial_terrain_map_tverrfjell.json"
 SUT43_GPX = _REPO / "02_Raw_Data" / "organiser_gpx" / "COURSE_SUT43_official_2027.gpx"
 
 
@@ -85,6 +87,17 @@ def main() -> int:
     alt = pd.to_numeric(df.get("altitude_m"), errors="coerce")
 
     print("=== Tverrfjell activity GPS ===")
+    print("  location: Uskedalen, Kvinnherad, Vestland (not Rogaland)")
+    if TERRAIN_MAP.exists():
+        import json
+
+        tmap = json.loads(TERRAIN_MAP.read_text(encoding="utf-8"))
+        geo = (tmap.get("corridor") or {}).get("geography") or {}
+        if geo:
+            print(
+                f"  registry: {geo.get('settlement')}, {geo.get('municipality')}, "
+                f"{geo.get('county')} — excluded: {', '.join(geo.get('not_in') or [])}"
+            )
     print(f"  file: {micro_path.relative_to(_REPO)}")
     meta_path = micro_path.with_name(micro_path.stem + ".meta.json")
     if meta_path.exists():
@@ -119,7 +132,8 @@ def main() -> int:
     print(f"  on_corridor (median ≤ {args.pass_m:.0f} m): {'YES — unexpected for local loop' if on_corridor else 'NO — off SUT tread (expected)'}")
 
     print("\n=== pipeline note ===")
-    print("  Tverrfjell uses stream_distance course axis (race_id=tverrfjell).")
+    print("  Tverrfjell: Uskedalen, Kvinnherad, Vestland — stream_distance axis (race_id=tverrfjell).")
+    print("  SUT_43: Sandnes, Rogaland — separate county and corridor (~120 km south).")
     print("  panel course_km is loop stream metres — never write into SUT_43 terrain maps.")
 
     return 0

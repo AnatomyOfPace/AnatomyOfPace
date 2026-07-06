@@ -176,7 +176,15 @@
       },
       "o2_role": "local_hill_loop_calibration",
       "pole_policy": "off",
-      "ingest_notes": "Local hill loop 2026-07-04 — not SUT_43. Map-first HITL via config/spatial_terrain_map_tverrfjell.json. Bootstrap: python3 04_Python_Scripts/spatial/bootstrap_tverrfjell_course.py"
+      "geography": {
+        "settlement": "Uskedalen",
+        "municipality": "Kvinnherad",
+        "county": "Vestland",
+        "not_in": [
+          "Rogaland"
+        ]
+      },
+      "ingest_notes": "Local hill loop 2026-07-04, Uskedalen (Kvinnherad, Vestland) — not Rogaland, not SUT_43. Map-first HITL via config/spatial_terrain_map_tverrfjell.json. Bootstrap: python3 04_Python_Scripts/spatial/bootstrap_tverrfjell_course.py"
     }
   ]
 }
