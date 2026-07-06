@@ -54,6 +54,12 @@ SJOERSLOPET_CORRIDOR_ID = "3_sjoerslopet_course"
 SJOERSLOPET_KM_START = 0.0
 SJOERSLOPET_KM_END = 21.25
 
+# Tverrfjell local hill loop — map-first Tier 0 (not SUT_43).
+TVERFJELL_RACE_ID = "tverrfjell"
+TVERFJELL_CORRIDOR_ID = "tverrfjell_course"
+TVERFJELL_KM_START = 0.0
+TVERFJELL_KM_END = 12.0
+
 # Operator scope: Dale aid CP band through Paradisskaret Downhill end (course km).
 DEFAULT_KM_START = 140.0
 DEFAULT_KM_END = 155.58
@@ -231,6 +237,26 @@ def load_3_sjoerslopet_window(
     return start, end, meta
 
 
+def load_tverrfjell_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Tverrfjell hill loop — FIT stream-distance axis (km_end set by bootstrap script)."""
+    start = TVERFJELL_KM_START if km_start is None else float(km_start)
+    end = TVERFJELL_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": TVERFJELL_CORRIDOR_ID,
+        "race_id": TVERFJELL_RACE_ID,
+        "anchor_id": "tverrfjell",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_tverrfjell.json",
+    }
+    return start, end, meta
+
+
 def load_experiment_window(
     race_id: str = STRESS_TEST_RACE_ID,
     *,
@@ -247,4 +273,6 @@ def load_experiment_window(
         return load_stavanger_halvmarathon_window(km_start=km_start, km_end=km_end)
     if race_id == SJOERSLOPET_RACE_ID:
         return load_3_sjoerslopet_window(km_start=km_start, km_end=km_end)
+    if race_id == TVERFJELL_RACE_ID:
+        return load_tverrfjell_window(km_start=km_start, km_end=km_end)
     return load_stress_test_window(km_start=km_start, km_end=km_end, registry=registry)

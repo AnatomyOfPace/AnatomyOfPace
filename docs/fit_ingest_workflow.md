@@ -191,3 +191,14 @@ Partial tiles (`SUT43_sector_31-32_reverse_20260627`, `Gramstad_runden_reverse_2
 - Per-athlete HR iso-effort TI (`fit_micro/effort_paradox.py`)
 - Full-course SUT_43 stretch (km 0.5–42.5) after gramstad_band sector lock
 - Reference_Elite_D `.fit` → SUT_160 Dale–Alsvik corridor (Phase D)
+
+## Tverrfjell local loop (map-first HITL, not SUT_43)
+
+| Step | Command |
+|------|---------|
+| Place FIT | `02_Raw_Data/donors/Subject_A/Tverrfjell_20260704.fit` (rename from legacy `Tverrfjell_*_20260704.fit`) |
+| Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_tverrfjell_course.py` |
+| Label | `gold_span_editor.py add --terrain-map config/spatial_terrain_map_tverrfjell.json ...` |
+| Dashboard PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_tverrfjell.sh` |
+
+Configs: `config/spatial_align_manifest_tverrfjell.json`, `config/spatial_terrain_map_tverrfjell.json`.
