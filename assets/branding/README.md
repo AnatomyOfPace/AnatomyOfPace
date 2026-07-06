@@ -21,6 +21,10 @@ ECG pulse as its crossbar) or a fully synthetic landscape. Attribution is to
 
 ```
 assets/branding/
+├── logo-primary.svg             # PRIMARY logo (dark bg)
+├── logo-primary-on-light.svg    # PRIMARY logo (light bg)
+├── avatar-primary.png           # PRIMARY social avatar
+├── avatar-primary-badge.png     # PRIMARY app icon
 ├── logo/
 │   ├── svg/                     # vector sources (scalable, recolorable)
 │   │   ├── logo.svg             # master — uses currentColor
@@ -40,12 +44,21 @@ assets/branding/
 └── tools/build_assets.py        # regenerates favicon/lockup/social rasters
 ```
 
-## Primary assets
+## Primary assets (selected)
 
-- **Logo:** `logo/svg/logo-mono-white.svg` (dark bg) / `logo-mono-dark.svg` (light bg)
-- **Avatar:** `avatars/avatar_1_dark_primary.png`
-- **Favicon:** `favicon/favicon.ico` + `favicon/apple-touch-icon.png`
-- **Wordmark:** `lockup/wordmark-horizontal-white.svg`
+Canonical primaries live at the root of this directory for easy grabbing:
+
+- **Logo:** `logo-primary.svg` (vector mono-white, for dark backgrounds) —
+  use `logo-primary-on-light.svg` on light backgrounds. The vector is the
+  single source of geometry for the favicon, wordmark, and badge, so the whole
+  system stays consistent and scales/recolors without loss.
+- **Avatar (app icon):** `avatar-primary-badge.png` — matches the favicon set.
+- **Avatar (social profile):** `avatar-primary.png`.
+- **Favicon:** `favicon/favicon.ico` + `favicon/apple-touch-icon.png`.
+- **Wordmark:** `lockup/wordmark-horizontal-white.svg`.
+
+The cyan gradient (`logo/svg/logo-cyan.svg`) and other variations remain
+available as secondary/accent options.
 
 ## Regenerating rasters
 
