@@ -2,7 +2,7 @@
   "generated_at": "2026-07-03T09:47:41.361734+00:00",
   "architecture": "hybrid_sector_routing",
   "routing_mode": "hybrid",
-  "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/config/gold_suggester_routing.json",
+  "routing_manifest": "config/gold_suggester_routing.json",
   "sector_bounds_km": {
     "start": [
       0.5,
@@ -18,9 +18,9 @@
     ]
   },
   "training_recipes": {
-    "start": "calibration_pool + start gold (km 0.5\u20138); source_weight start:0.35",
-    "bridge": "sut43_full bridge gold km 8\u201322 (or +upstream km 8\u201329 if holdout improves)",
-    "downstream": "calibration_pool + sut43 km 22\u201341"
+    "start": "calibration_pool + start gold (km 0.5–8); source_weight start:0.35",
+    "bridge": "sut43_full bridge gold km 8–22 (or +upstream km 8–29 if holdout improves)",
+    "downstream": "calibration_pool + sut43 km 22–41"
   },
   "v0_baseline_smoke": {
     "start_panel_km_0.5_8.0": {
@@ -80,21 +80,21 @@
   },
   "sector_models": {
     "start": {
-      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_start.joblib",
+      "model_path": "07_ML_Models/spatial/gold_suggester_sector_start.joblib",
       "surface_holdout": 0.9811144621571162,
       "friction_holdout": 0.9941117334482263,
       "labeled_metres": 69630,
       "holdout_issues": []
     },
     "bridge": {
-      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_bridge.joblib",
+      "model_path": "07_ML_Models/spatial/gold_suggester_sector_bridge.joblib",
       "surface_holdout": 0.9964285714285714,
       "friction_holdout": 0.9964285714285714,
       "labeled_metres": 14000,
       "holdout_issues": []
     },
     "downstream": {
-      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_downstream.joblib",
+      "model_path": "07_ML_Models/spatial/gold_suggester_sector_downstream.joblib",
       "surface_holdout": 0.9775668679896462,
       "friction_holdout": 0.9926044619746086,
       "labeled_metres": 81130,
@@ -106,10 +106,10 @@
   "promote_hybrid": true,
   "promotion_issues": [],
   "hybrid_routing": {
-    "start_model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib",
-    "bridge_model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_bridge.joblib",
-    "downstream_model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib",
-    "rationale": "cal+start-only sector model regressed start smoke (2\u21928 REVISE); v0 sut43 context retained for start/downstream."
+    "start_model": "07_ML_Models/spatial/gold_suggester_v0.joblib",
+    "bridge_model": "07_ML_Models/spatial/gold_suggester_sector_bridge.joblib",
+    "downstream_model": "07_ML_Models/spatial/gold_suggester_v0.joblib",
+    "rationale": "cal+start-only sector model regressed start smoke (2→8 REVISE); v0 sut43 context retained for start/downstream."
   },
   "reproduction_cli": {
     "train_all": "python3 04_Python_Scripts/spatial/eval_gold_suggester_sectors.py",
@@ -117,7 +117,10 @@
   },
   "unified_terrain_map": {
     "path": "config/spatial_terrain_map_sut43_full.json",
-    "km_window": [0.5, 42.5],
+    "km_window": [
+      0.5,
+      42.5
+    ],
     "operator_gold_span_count": 114,
     "sector_span_counts": {
       "leg_a_technical": 12,
@@ -142,7 +145,10 @@
     "terrain_map": "config/spatial_terrain_map_sut43_finish.json",
     "sector_registry_entry": "finish_band in config/spatial_terrain_sectors_sut43.json",
     "operator_gold_spans": 3,
-    "panel_full_1m_extent": [0.5, 42.5],
+    "panel_full_1m_extent": [
+      0.5,
+      42.5
+    ],
     "routing": "config/gold_suggester_routing.json → finish sector (v0 retained; locked mono-class S1/F0)",
     "coverage_notes": [
       "No training tiles in km 41–42.5 — race streams only"

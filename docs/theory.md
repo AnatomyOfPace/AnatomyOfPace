@@ -83,7 +83,7 @@ Direkte hode-til-hode mot navngitt referanseutøver på **samme rute og segment*
 
 | Utøver | Rolle | Primærløp / terreng |
 |--------|-------|---------------------|
-| Thomas Gauthier | Fasit teknisk flyt | SUT_80 |
+| Reference_Elite_A | Fasit teknisk flyt | SUT_80 |
 | Lars Ole | Ekstrem distanse, Quad-Smash / CNS | SUT_160, OBT |
 | Subject_B | Rogaland teknisk flyt, API-pilot | SUT_43, Klasse 5–11 |
 | Chris Jackson | Fell + asfaltanker (UK) | 5 Valleys, London Marathon |

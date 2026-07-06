@@ -73,7 +73,7 @@
         "labeled_metres": 40500,
         "per_source_surface": {}
       },
-      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_only.joblib"
+      "model": "07_ML_Models/spatial/gold_suggester_exp_sut43full_only.joblib"
     },
     "sut43full_cal": {
       "smoke": {
@@ -115,7 +115,7 @@
         "train_cal_sut_test_start_surface": 0.24106666666666668,
         "train_start_test_cal_sut_surface": 0.39744853938124
       },
-      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal.joblib"
+      "model": "07_ML_Models/spatial/gold_suggester_exp_sut43full_cal.joblib"
     },
     "sut43full_cal_dw_start035": {
       "smoke": {
@@ -157,7 +157,7 @@
         "train_cal_sut_test_start_surface": 0.24106666666666668,
         "train_start_test_cal_sut_surface": 0.39636386047084926
       },
-      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035.joblib"
+      "model": "07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035.joblib"
     },
     "sut43full_cal_dw_start035_bridge05": {
       "smoke": {
@@ -199,12 +199,12 @@
         "train_cal_sut_test_start_surface": 0.24106666666666668,
         "train_start_test_cal_sut_surface": 0.39636386047084926
       },
-      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035_bridge05.joblib"
+      "model": "07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035_bridge05.joblib"
     }
   },
   "best_candidate": null,
   "best_surface_holdout": null,
   "promotion_issues": [
-    "sut43full_only: start_panel_km_0.5_8.0: REVISE 2\u21929"
+    "sut43full_only: start_panel_km_0.5_8.0: REVISE 2→9"
   ]
 }

@@ -3,7 +3,7 @@
   "panel": "03_Processed_Data/spatial/sut43_terrain_ontology/panel_start_1m.parquet",
   "terrain_map": "config/spatial_terrain_map_sut43_start.json",
   "extra_terrain_maps": [],
-  "hmm_draft": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
+  "hmm_draft": "07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
   "km_start": 0.5,
   "km_end": 8.0,
   "total_metres": 7500,

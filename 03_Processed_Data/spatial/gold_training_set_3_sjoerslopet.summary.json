@@ -2,7 +2,7 @@
   "generated_at": "2026-06-30T16:28:01.810880+00:00",
   "panel": "03_Processed_Data/spatial/3_sjoerslopet_course/panel_1m.parquet",
   "terrain_map": "config/spatial_terrain_map_3_sjoerslopet.json",
-  "hmm_draft": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
+  "hmm_draft": "07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
   "km_start": 0.0,
   "km_end": 21.25,
   "total_metres": 21250,

@@ -62,5 +62,5 @@
       "sunderunde_training_gravel": 0.0
     }
   },
-  "output_csv": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/anchor_centroid_qc_summary.csv"
+  "output_csv": "03_Processed_Data/spatial/anchor_centroid_qc_summary.csv"
 }

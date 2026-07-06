@@ -10,6 +10,7 @@ assets/brand/
 ├── logo_wordmark_dark.png      # Full lockup incl. PRIVATE RESEARCH LABORATORY
 ├── source/                     # Original logo uploads (reference)
 ├── variants/                   # Production logo sizes
+├── video/                      # Reel builds (see video/README.md)
 └── photography/                # Terrain brand imagery (see below)
 ```
 
@@ -25,6 +26,18 @@ assets/brand/
 | Source editing | `source/logo_*_original.png` |
 
 **Public social:** Icon-only. The wordmark lockup includes *PRIVATE RESEARCH LABORATORY* — reserved for laboratory-facing surfaces (GitHub, Substack, donor PDFs), not cropped for avatars.
+
+### Imagery policy (logos + photography)
+
+**No people in any public brand imagery.** All committed assets in this directory and their derivatives must contain only logo marks or terrain — never human figures.
+
+| Forbidden | Permitted |
+|-----------|-----------|
+| Faces, silhouettes, partial figures, hands-only crops | Logo marks (`logo_icon_dark.png`, variants) |
+| Crowd scenes, race bibs, identifiable personal gear | Terrain photography (`photography/derivatives/`) |
+| AI portraits, stock athletes, lifestyle runner imagery | Telemetry charts (generated separately; no personal IDs) |
+
+This rule applies to avatars, banners, composites, and any new asset added under `assets/brand/`. Ghost Authority alignment: the laboratory presents data and terrain, not human subjects.
 
 ## Regenerating variants
 
@@ -68,12 +81,14 @@ PY
 
 ## Photography (`assets/brand/photography/`)
 
-Committed terrain imagery for Substack headers, Instagram, and GitHub social previews. Clinical Nordic-trail aesthetic — no faces, no personal identifiers in filenames.
+Committed terrain imagery for Substack headers, Instagram, and GitHub social previews. Clinical Nordic-trail aesthetic.
+
+**No people — terrain only.** No faces, silhouettes, hands-only crops, crowd scenes, AI portraits, stock athletes, or identifiable personal gear. If source material contains a human form, discard it. Filenames and public copy use generic terrain descriptors only — no personal identifiers.
 
 ```
 photography/
-├── source/              # Original PNG uploads (terrain_01..05 descriptive names)
-├── derivatives/         # Processed JPEGs (quality 85)
+├── source/              # Local-only original PNGs (gitignored — never commit or publish)
+├── derivatives/         # Processed JPEGs (quality 85) — committed for public use
 │   ├── {name}_clinical.jpg
 │   ├── {name}_dark_overlay.jpg   # ~40% charcoal (#1a1a1a) overlay
 │   ├── {name}_banner_16x9.jpg    # 1920×1080
@@ -104,14 +119,18 @@ photography/
 
 ### Regenerating photography derivatives
 
-After adding or replacing files in `source/`, run from the repository root (requires Pillow):
+Place or replace original PNGs in `photography/source/` locally (gitignored). Run from the repository root (requires Pillow):
 
 ```bash
 python3 assets/brand/photography/generate_derivatives.py
 ```
 
+Only `derivatives/`, `composites/`, `palette.json`, and `generate_derivatives.py` are committed. Original landscape PNGs in `source/` must never be pushed to GitHub or published on any public channel.
+
+See [`photography/README.md`](photography/README.md) for the full derivatives-only policy.
+
 ## Git
 
-Brand logos and photography are **committed** to the repository. Analysis charts in `06_Visualizations/*.png` remain gitignored.
+Brand logos, photography derivatives, and composites are **committed** to the repository. Original landscape PNGs in `photography/source/` are **gitignored** (local reference only). Analysis charts in `06_Visualizations/*.png` remain gitignored.
 
 Full channel rules: [`docs/brand_identity.md`](../../docs/brand_identity.md).

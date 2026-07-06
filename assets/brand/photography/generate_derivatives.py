@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Generate brand photography derivatives for The Anatomy of Pace."""
+"""Generate brand photography derivatives for The Anatomy of Pace.
+
+Reads original landscape PNGs from local ``photography/source/`` (gitignored).
+Writes committed public assets only: ``derivatives/``, ``composites/``, and
+``palette.json``. Originals must never be committed or published — derivatives,
+composites, and AI video clips are the only photography permitted on GitHub and
+public channels. See ``photography/README.md`` and ``docs/brand_identity.md``.
+"""
 
 from __future__ import annotations
 
@@ -10,39 +17,19 @@ from pathlib import Path
 from PIL import Image, ImageEnhance
 
 REPO = Path(__file__).resolve().parents[3]
-CURSOR_ASSETS = Path.home() / ".cursor/projects/Users-eiriklarsen-Desktop-Anatomy-of-Pace/assets"
 PHOTO = REPO / "assets/brand/photography"
 ICON = REPO / "assets/brand/variants/icon_square_512.png"
+SOURCE_DIR = PHOTO / "source"
 
 CHARCOAL = "#1a1a1a"
 JPEG_QUALITY = 85
 
 SOURCES = [
-    (
-        "terrain_valley_green",
-        CURSOR_ASSETS
-        / "1949A476-870F-4C00-8A6A-3432E55D99A1_1_105_c-b68a4a09-6215-4d76-b3ac-5f6af13bfaf8.png",
-    ),
-    (
-        "terrain_peak_fjord",
-        CURSOR_ASSETS
-        / "B5E6ED53-2349-4E69-BD8F-37DE314B1AF8_1_105_c-85d79bac-16db-4253-b183-2dc7eed8caec.png",
-    ),
-    (
-        "terrain_range_cloud",
-        CURSOR_ASSETS
-        / "9CF824D4-798D-4793-A4F9-9271664AF8BF_1_105_c-92c9fe35-1970-495e-9b67-adf841fb6a74.png",
-    ),
-    (
-        "terrain_cairn_summit",
-        CURSOR_ASSETS
-        / "A2420697-48DC-4221-BEB4-66B80BEFF479_1_102_o-dd3552fb-be98-4805-a8e5-a480a0c4acf3.png",
-    ),
-    (
-        "terrain_fjord_vertical",
-        CURSOR_ASSETS
-        / "25EA291C-7306-4F42-A37C-38F80AB433E3_1_105_c-bcd190a1-b402-4666-b58e-a95b9d3c31a5.png",
-    ),
+    ("terrain_valley_green", SOURCE_DIR / "terrain_valley_green.png"),
+    ("terrain_peak_fjord", SOURCE_DIR / "terrain_peak_fjord.png"),
+    ("terrain_range_cloud", SOURCE_DIR / "terrain_range_cloud.png"),
+    ("terrain_cairn_summit", SOURCE_DIR / "terrain_cairn_summit.png"),
+    ("terrain_fjord_vertical", SOURCE_DIR / "terrain_fjord_vertical.png"),
 ]
 
 PORTRAIT_NAMES = {"terrain_cairn_summit", "terrain_fjord_vertical"}

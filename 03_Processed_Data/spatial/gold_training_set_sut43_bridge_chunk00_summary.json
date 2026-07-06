@@ -5,7 +5,7 @@
   "extra_terrain_maps": [
     "config/spatial_terrain_map_sut43_start.json"
   ],
-  "hmm_draft": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
+  "hmm_draft": "07_ML_Models/terrain_hmm_sut43_draft_predictions.parquet",
   "km_start": 8.0,
   "km_end": 9.0,
   "total_metres": 1000,

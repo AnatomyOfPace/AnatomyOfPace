@@ -1,9 +1,9 @@
 {
   "schema_version": "gold_suggester_v0",
   "generated_at": "2026-07-03T09:40:25.925534+00:00",
-  "training_set": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_downstream.parquet",
+  "training_set": "03_Processed_Data/spatial/gold_training_set_sector_downstream.parquet",
   "training_sets": [
-    "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_downstream.parquet"
+    "03_Processed_Data/spatial/gold_training_set_sector_downstream.parquet"
   ],
   "sector_id": "downstream",
   "km_filter": {
@@ -187,7 +187,7 @@
       }
     }
   },
-  "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_downstream.joblib",
+  "model_path": "07_ML_Models/spatial/gold_suggester_sector_downstream.joblib",
   "source_anchor_counts": {
     "stavanger_halvmarathon": 21380,
     "3_sjoerslopet": 21250,

@@ -63,18 +63,18 @@
         "labeled_metres": 42000,
         "per_source_surface": {}
       },
-      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_only.joblib",
-      "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_only.json",
+      "model": "07_ML_Models/spatial/gold_suggester_exp_sut43full_only.joblib",
+      "routing_manifest": "03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_only.json",
       "promote": false,
       "promotion_issues": [
-        "start_panel_km_0.5_8.0: REVISE 2\u21929",
-        "start_panel_km_0.5_8.0: KEEP 12\u219211",
-        "bridge_panel_km_8_22: REVISE 4\u21928",
-        "bridge_panel_km_8_22: KEEP 33\u219231"
+        "start_panel_km_0.5_8.0: REVISE 2→9",
+        "start_panel_km_0.5_8.0: KEEP 12→11",
+        "bridge_panel_km_8_22: REVISE 4→8",
+        "bridge_panel_km_8_22: KEEP 33→31"
       ],
       "sector_wins": [
-        "gramstad_km_29_41: REVISE 13\u219212",
-        "finish_panel_km_41_42.5: REVISE 6\u21923"
+        "gramstad_km_29_41: REVISE 13→12",
+        "finish_panel_km_41_42.5: REVISE 6→3"
       ]
     },
     "sut43full_cal": {
@@ -110,15 +110,15 @@
           }
         }
       },
-      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal.joblib",
-      "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_cal.json",
+      "model": "07_ML_Models/spatial/gold_suggester_exp_sut43full_cal.joblib",
+      "routing_manifest": "03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_cal.json",
       "promote": false,
       "promotion_issues": [
-        "start_panel_km_0.5_8.0: REVISE 2\u21924",
-        "start_panel_km_0.5_8.0: KEEP 12\u219211",
-        "bridge_panel_km_8_22: REVISE 4\u21929",
-        "bridge_panel_km_8_22: KEEP 33\u219232",
-        "gramstad_km_29_41: REVISE 13\u219220",
+        "start_panel_km_0.5_8.0: REVISE 2→4",
+        "start_panel_km_0.5_8.0: KEEP 12→11",
+        "bridge_panel_km_8_22: REVISE 4→9",
+        "bridge_panel_km_8_22: KEEP 33→32",
+        "gramstad_km_29_41: REVISE 13→20",
         "surface holdout 0.9751 < 0.9790"
       ],
       "sector_wins": []
@@ -156,15 +156,15 @@
           }
         }
       },
-      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035.joblib",
-      "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_cal_dw_start035.json",
+      "model": "07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035.joblib",
+      "routing_manifest": "03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_cal_dw_start035.json",
       "promote": false,
       "promotion_issues": [
-        "start_panel_km_0.5_8.0: REVISE 2\u21924",
-        "start_panel_km_0.5_8.0: KEEP 12\u219211",
-        "bridge_panel_km_8_22: REVISE 4\u21929",
-        "bridge_panel_km_8_22: KEEP 33\u219232",
-        "gramstad_km_29_41: REVISE 13\u219220",
+        "start_panel_km_0.5_8.0: REVISE 2→4",
+        "start_panel_km_0.5_8.0: KEEP 12→11",
+        "bridge_panel_km_8_22: REVISE 4→9",
+        "bridge_panel_km_8_22: KEEP 33→32",
+        "gramstad_km_29_41: REVISE 13→20",
         "surface holdout 0.9751 < 0.9790"
       ],
       "sector_wins": []
@@ -202,15 +202,15 @@
           }
         }
       },
-      "model": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035_finish035.joblib",
-      "routing_manifest": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_cal_dw_start035_finish035.json",
+      "model": "07_ML_Models/spatial/gold_suggester_exp_sut43full_cal_dw_start035_finish035.joblib",
+      "routing_manifest": "03_Processed_Data/spatial/sut43full_42k_retrain_smoke/routing_sut43full_cal_dw_start035_finish035.json",
       "promote": false,
       "promotion_issues": [
-        "start_panel_km_0.5_8.0: REVISE 2\u21924",
-        "start_panel_km_0.5_8.0: KEEP 12\u219211",
-        "bridge_panel_km_8_22: REVISE 4\u21929",
-        "bridge_panel_km_8_22: KEEP 33\u219232",
-        "gramstad_km_29_41: REVISE 13\u219220",
+        "start_panel_km_0.5_8.0: REVISE 2→4",
+        "start_panel_km_0.5_8.0: KEEP 12→11",
+        "bridge_panel_km_8_22: REVISE 4→9",
+        "bridge_panel_km_8_22: KEEP 33→32",
+        "gramstad_km_29_41: REVISE 13→20",
         "surface holdout 0.9751 < 0.9790"
       ],
       "sector_wins": []
@@ -232,16 +232,39 @@
     "description": "When hitl.status is locked and all operator_gold_spans share one surface class, skip suggest_ml_revise and emit forced KEEP per operator span. Mirrors variance_gap suppression in suggest_gold_spans.py.",
     "rationale": "Finish sector ML training failed (mono-class S1); v0 model spuriously REVISEs S2/F1 on locked S1/F0 asphalt. Multi-class locked sectors (start, bridge, gramstad) unchanged.",
     "hybrid_baseline_smoke_before": {
-      "start_panel_km_0.5_8.0": {"KEEP": 12, "REVISE": 2},
-      "bridge_panel_km_8_22": {"KEEP": 33, "REVISE": 4},
-      "gramstad_km_29_41": {"KEEP": 37, "REVISE": 13},
-      "finish_panel_km_41_42.5": {"REVISE": 6}
+      "start_panel_km_0.5_8.0": {
+        "KEEP": 12,
+        "REVISE": 2
+      },
+      "bridge_panel_km_8_22": {
+        "KEEP": 33,
+        "REVISE": 4
+      },
+      "gramstad_km_29_41": {
+        "KEEP": 37,
+        "REVISE": 13
+      },
+      "finish_panel_km_41_42.5": {
+        "REVISE": 6
+      }
     },
     "hybrid_smoke_after_fix": {
-      "start_panel_km_0.5_8.0": {"KEEP": 12, "REVISE": 2},
-      "bridge_panel_km_8_22": {"KEEP": 33, "REVISE": 4},
-      "gramstad_km_29_41": {"KEEP": 37, "REVISE": 13},
-      "finish_panel_km_41_42.5": {"KEEP": 3, "REVISE": 0}
+      "start_panel_km_0.5_8.0": {
+        "KEEP": 12,
+        "REVISE": 2
+      },
+      "bridge_panel_km_8_22": {
+        "KEEP": 33,
+        "REVISE": 4
+      },
+      "gramstad_km_29_41": {
+        "KEEP": 37,
+        "REVISE": 13
+      },
+      "finish_panel_km_41_42.5": {
+        "KEEP": 3,
+        "REVISE": 0
+      }
     },
     "regression_check": "pass — start/bridge/gramstad counts identical to hybrid baseline",
     "files_changed": [

@@ -6,10 +6,10 @@ This repo is the **public research laboratory** for *The Anatomy of Pace* (code,
 
 ## Scope firewall (critical)
 
-**Seig og Kjapp** is a **private** training project for Eirik and Sølvi. It is **not** part of The Anatomy of Pace brand and must **never** be shared publicly (GitHub, Substack, Instagram, donor copy, or commits).
+A **private training project** (local operators only) is **not** part of The Anatomy of Pace brand and must **never** be shared publicly (GitHub, Substack, Instagram, donor copy, or commits).
 
-- Local only: `docs/seig_og_kjapp.md` *(gitignored)*
-- Never mention Seig og Kjapp in external-facing output.
+- Local only: private training manual *(gitignored)*
+- Never mention private training projects in external-facing output.
 - Never merge the two brands in documentation, visuals, or social copy.
 
 Research may inform private training via the Sync Log — that bridge is internal only.
@@ -17,7 +17,7 @@ Research may inform private training via the Sync Log — that bridge is interna
 - Research goal (data-informed): Sub-10:50 at Lysefjorden Inn 2027.
 - Research focus: Biomechanical efficiency, telemetry analysis, TI/TPR/EPR, macro/meso/micro pipelines.
 - Source of truth (research): `docs/master_plan.md`, `docs/theory.md`, `docs/brand_identity.md`.
-- Source of truth (private training): local Seig og Kjapp manual — updated only after logging in `00_Core_Strategy/Sync_Logg_Analyse_til_Praksis.md`.
+- Source of truth (private training): local private training manual — updated only after logging in the local Sync Log (`00_Core_Strategy/` — gitignored).
 
 # GHOST AUTHORITY PROTOCOL (CRITICAL — ALL EXTERNAL OUTPUT)
 
@@ -26,7 +26,7 @@ Effective immediately. Enforce strict data sanitization for GitHub, code comment
 ## Forbidden in external-facing output (zero exceptions)
 
 - Personal names of any runner or collaborator (including real operators behind Dr. Anatomy Pace).
-- **Seig og Kjapp** — title, filename (`seig_og_kjapp`), content, or any implication that private training belongs under The Anatomy of Pace.
+- Private training project titles, filenames, content, or any implication that private training belongs under The Anatomy of Pace.
 - Local identifying markers or affiliations (except raw geographic tokens required for parsing — never in public copy).
 
 ## Required replacements
@@ -35,7 +35,7 @@ Effective immediately. Enforce strict data sanitization for GitHub, code comment
 |---------|-----|
 | Individual runners | `Subject_A`, `Subject_B`, `Subject_C`, … |
 | Public project owner | **Dr. Anatomy Pace** |
-| Private training (never publish) | *Seig og Kjapp* — local only, not an Anatomy of Pace product |
+| Private training (never publish) | Local private manual — not an Anatomy of Pace product |
 | Reference athletes (outreach) | `Reference_Elite_A`, `Reference_Elite_B`, … in public copy |
 
 Real-name ↔ Subject mapping lives **only** in gitignored `config/subject_registry.local.json` (never commit).
@@ -86,7 +86,7 @@ Use English equivalents in all new and external-facing material. Legacy Norwegia
 | Referanseløper | Reference Elite |
 | Innsatsparadokset | Effort Paradox |
 | Kumulativ gjeld | Cumulative Debt |
-| Endurance_Protocol | Retired public alias — use *Seig og Kjapp* locally only; never publish |
+| Endurance_Protocol | Retired public alias — use private training manual locally only; never publish |
 
 Preferred product name for donor deliverable: **`Kinematic_Scan`** (default), unless context requires `Telemetry_Audit` or `Biomechanical_X_Ray`.
 
@@ -100,7 +100,7 @@ Before any output: verify no conversational or conceptual Norwegian remains (exc
 2. Prioritize readability and performance suitable for local telemetry analysis.
 3. When suggesting research features, check `docs/` for conflicts with stated hypotheses.
 4. If unsure about a biomechanical parameter, consult `docs/theory.md`.
-5. Research findings that imply training changes → Sync Log first; then **local Seig og Kjapp** docs only — never publish that bridge.
+5. Research findings that imply training changes → Sync Log first; then local private training docs only — never publish that bridge.
 
 # Technical Preferences
 

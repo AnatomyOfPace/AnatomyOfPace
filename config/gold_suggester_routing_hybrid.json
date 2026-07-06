@@ -8,19 +8,19 @@
       "sector_id": "start",
       "km_lo": 0.5,
       "km_hi": 8.0,
-      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib"
+      "model_path": "07_ML_Models/spatial/gold_suggester_v0.joblib"
     },
     {
       "sector_id": "bridge",
       "km_lo": 8.0,
       "km_hi": 22.0,
-      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_bridge.joblib"
+      "model_path": "07_ML_Models/spatial/gold_suggester_sector_bridge.joblib"
     },
     {
       "sector_id": "downstream",
       "km_lo": 22.0,
       "km_hi": 41.0,
-      "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib"
+      "model_path": "07_ML_Models/spatial/gold_suggester_v0.joblib"
     }
   ]
 }

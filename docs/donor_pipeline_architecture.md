@@ -108,7 +108,7 @@ GAP module (`11_gap_engine.py`) and Kinematic_Scan v1 (`08_kinematic_scan.py`) a
 - **Visual:** Dark background `#0A0A0A`, high-contrast data lines (existing in `08_kinematic_scan.py`)
 - **Copy:** Passive clinical framing — "The telemetry indicates…", never personal coaching tone
 - **IDs:** Clinical donor IDs only in outputs (`Reference_Elite_A`, not real names)
-- **Scope:** Seig og Kjapp content never appears in donor deliverables
+- **Scope:** Private training content never appears in donor deliverables
 
 ---
 

@@ -1,9 +1,9 @@
 {
   "schema_version": "gold_suggester_v0",
   "generated_at": "2026-07-03T09:40:37.974063+00:00",
-  "training_set": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_bridge.parquet",
+  "training_set": "03_Processed_Data/spatial/gold_training_set_sector_bridge.parquet",
   "training_sets": [
-    "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_bridge.parquet"
+    "03_Processed_Data/spatial/gold_training_set_sector_bridge.parquet"
   ],
   "sector_id": "bridge",
   "km_filter": {
@@ -115,7 +115,7 @@
       }
     }
   },
-  "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_bridge.joblib",
+  "model_path": "07_ML_Models/spatial/gold_suggester_sector_bridge.joblib",
   "source_anchor_counts": {
     "bridge": 14000
   }

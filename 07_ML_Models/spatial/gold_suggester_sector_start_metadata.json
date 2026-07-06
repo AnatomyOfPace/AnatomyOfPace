@@ -1,9 +1,9 @@
 {
   "schema_version": "gold_suggester_v0",
   "generated_at": "2026-07-03T09:40:03.425850+00:00",
-  "training_set": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_start.parquet",
+  "training_set": "03_Processed_Data/spatial/gold_training_set_sector_start.parquet",
   "training_sets": [
-    "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/03_Processed_Data/spatial/gold_training_set_sector_start.parquet"
+    "03_Processed_Data/spatial/gold_training_set_sector_start.parquet"
   ],
   "sector_id": "start",
   "km_filter": {
@@ -167,7 +167,7 @@
       }
     }
   },
-  "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_sector_start.joblib",
+  "model_path": "07_ML_Models/spatial/gold_suggester_sector_start.joblib",
   "source_weights": {
     "start": 0.35
   },

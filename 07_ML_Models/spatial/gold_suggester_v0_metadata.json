@@ -172,7 +172,7 @@
       }
     }
   },
-  "model_path": "/Users/eiriklarsen/Desktop/Anatomy_of_Pace/07_ML_Models/spatial/gold_suggester_v0.joblib",
+  "model_path": "07_ML_Models/spatial/gold_suggester_v0.joblib",
   "source_weights": {
     "start": 0.35
   },

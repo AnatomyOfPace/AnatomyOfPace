@@ -134,7 +134,7 @@ After review, append accepted rows using the [manual append schema](#manual-appe
 
 | Item | Path / note |
 |------|-------------|
-| **Repo root** | All commands run from `/Users/eiriklarsen/Desktop/Anatomy_of_Pace` (or your local clone). |
+| **Repo root** | All commands run from the repository root (your local clone). |
 | **Python env** | Python 3.11+ recommended; `pip install -r requirements.txt` installs `streamlit`, `plotly`, `contextily`, `pandas`, `pyarrow`. |
 | **Panel parquet** | `03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet` — race rows for Subject_A / Subject_B on `course_km` / `ref_chainage_m`. **Not committed**; rebuild via spatial align pipeline if missing. |
 | **Terrain map JSON** | `config/spatial_terrain_map_sut43.json` (gramstad_band km 29–41). Upstream km 22–29 → `config/spatial_terrain_map_sut43_upstream.json`. |

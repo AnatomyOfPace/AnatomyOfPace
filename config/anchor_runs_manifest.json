@@ -48,7 +48,7 @@
       "anchor_id": "3_sjoerslopet",
       "display_name": "3-sjøersløpet",
       "subject_id": "Subject_A",
-      "fit_path": "02_Raw_Data/3_sjøers_Eirik_20251108.fit",
+      "fit_path": "02_Raw_Data/3_sjøers_Subject_A_20251108.fit",
       "status": "ready",
       "expected": {
         "substrate_fraction_asphalt": 0.275,
@@ -67,9 +67,9 @@
       "anchor_id": "sunderunde_training_gravel",
       "display_name": "Sunderunde (training gravel)",
       "subject_id": "Subject_A",
-      "fit_path": "02_Raw_Data/Sunderunde_Eirik_20260530.fit",
+      "fit_path": "02_Raw_Data/Sunderunde_Subject_A_20260530.fit",
       "candidate_fit_paths": [
-        "02_Raw_Data/Sunderunde_Solvi_20260530.fit"
+        "02_Raw_Data/Sunderunde_Subject_B_20260530.fit"
       ],
       "status": "ready",
       "expected": {
@@ -83,7 +83,7 @@
       "o2_signature": "mixed gravel/asphalt × run (low effort)",
       "o2_role": "training_gravel_low_intensity",
       "pole_policy": "off",
-      "ingest_notes": "Training loop — operator gold S2/F1 gravel + S1/F1 asphalt bands (km 0–19.5). Terrain map: config/spatial_terrain_map_sunderunde.json. Low aerobic effort vs 3-sjøersløpet race anchor. Subject_B candidate: Sunderunde_Solvi_20260530.fit."
+      "ingest_notes": "Training loop — operator gold S2/F1 gravel + S1/F1 asphalt bands (km 0–19.5). Terrain map: config/spatial_terrain_map_sunderunde.json. Low aerobic effort vs 3-sjøersløpet race anchor. Subject_B candidate stream available locally."
     },
     {
       "anchor_id": "lfi_2026",
@@ -91,7 +91,7 @@
       "subject_id": "Subject_A",
       "activity_id": "LFI_20260606",
       "race_id": "LFI",
-      "fit_path": "02_Raw_Data/LFI_Eirik_20260606.fit",
+      "fit_path": "02_Raw_Data/LFI_Subject_A_20260606.fit",
       "candidate_fit_paths": [
         "02_Raw_Data/LFI_2026.fit"
       ],
@@ -144,9 +144,9 @@
       "anchor_id": "selvikstakken",
       "display_name": "Selvikstakken",
       "subject_id": "Subject_A",
-      "fit_path": "02_Raw_Data/Selviksstakken_Eirik_20260628.fit",
+      "fit_path": "02_Raw_Data/Selvikstakken_Subject_A_20260628.fit",
       "candidate_fit_paths": [
-        "02_Raw_Data/Selviksstakken_Eirik_20260628.fit"
+        "02_Raw_Data/Selvikstakken_Subject_A_20260628.fit"
       ],
       "status": "ready",
       "expected": {
@@ -160,7 +160,7 @@
       "o2_signature": "technical_rock × scramble",
       "o2_role": "scramble_locomotion_anchor",
       "pole_policy": "on_mixed",
-      "ingest_notes": "Selviksstakken_Eirik_20260628.fit (filename double-s spelling). Dedicated scramble session for O₂ scramble anchor. SUT_160 race stream covers km 73–75 corridor only — insufficient as standalone scramble anchor."
+      "ingest_notes": "Dedicated scramble session for O₂ scramble anchor (local FIT filename may retain legacy spelling). SUT_160 race stream covers km 73–75 corridor only — insufficient as standalone scramble anchor."
     }
   ]
 }

@@ -25,15 +25,15 @@ Dr. Anatomy Pace owns and represents **everything public** under the Anatomy of 
 
 ## What is **not** part of The Anatomy of Pace
 
-The private training project **Seig og Kjapp** is a **separate entity**:
+A **private training project** (local operators only) is a **separate entity**:
 
-- Periodization, zones, strength programming, and race-week tactics for Eirik and Sølvi
-- Stored locally only (`docs/seig_og_kjapp.md` — gitignored)
+- Periodization, zones, strength programming, and race-week tactics for enrolled subjects
+- Stored locally only (gitignored private manual — never committed)
 - **Must never** be published, referenced, or implied on any public Anatomy of Pace channel
 - **Must never** be merged into GitHub, Substack, Instagram, or donor-facing material
 - **Must never** use the Anatomy of Pace name, logo, or Dr. Anatomy Pace persona
 
-Research may inform private training via the local Sync Log — but that bridge is **internal only**. The public never sees it.
+Research may inform private training via a local Sync Log — but that bridge is **internal only**. The public never sees it.
 
 ---
 
@@ -60,7 +60,7 @@ PUBLIC (Dr. Anatomy Pace / The Anatomy of Pace)
 └── Donor PDFs — Kinematic_Scan deliverables
 
 PRIVATE (never publish)
-├── Seig og Kjapp manual
+├── Private training manual (local operators)
 ├── Subject registry (real names)
 ├── .fit telemetry & personal reports
 └── Sync Log → training updates (local application only)
@@ -98,19 +98,23 @@ Canonical logo files live in `assets/brand/`. Dark-background originals are the 
 
 Regenerate variants after replacing source files in `assets/brand/source/` (Pillow LANCZOS resize; see `assets/brand/README.md`).
 
-### Photography (`assets/brand/photography/`)
+### Photography & public imagery (`assets/brand/photography/`)
 
-Terrain-only imagery for public channels — clinical, desaturated, cool-toned derivatives aligned with the charcoal + white logo palette.
+**Hard rule — no people in any public brand imagery.** Applies to all Anatomy of Pace surfaces: Substack, Instagram, GitHub social previews, donor PDFs, and any AI-generated or stock assets. The laboratory presents data and terrain — not athletes, operators, or human subjects.
 
 | Rule | Detail |
 |------|--------|
-| **Subject matter** | Landscape and trail terrain only. No faces, no identifiable people, no race bibs or personal gear markers. |
+| **No people (zero exceptions)** | No faces, silhouettes, partial figures, hands-only crops, crowd scenes, race bibs, identifiable personal gear, AI portraits, or stock athletes. If a human form appears in source material, discard it — do not crop around it. |
+| **Permitted subject matter** | Terrain and landscape only; committed logo marks (`assets/brand/`); telemetry and data charts (`06_Visualizations/` — gitignored, never with personal identifiers). |
 | **Naming** | Generic terrain descriptors (`terrain_valley_green`, `terrain_peak_fjord`, …). No personal names or geo-specific identifiers in filenames or public copy. |
-| **Aesthetic** | Nordic trail mood is acceptable as a generic laboratory backdrop; do not name specific locations in captions unless required (e.g. official race names in editorial context). |
+| **Aesthetic** | Clinical, desaturated, cool-toned derivatives aligned with the charcoal + white logo palette. Nordic trail mood is acceptable as a generic laboratory backdrop; do not name specific locations in captions unless required (e.g. official race names in editorial context). |
 | **Derivatives** | Prefer `_clinical` or `_dark_overlay` for text legibility; `_banner_16x9` for Substack/GitHub; `_square_1080` / `_story_9x16` for Instagram. |
-| **Watermark** | Optional `composites/*_banner_watermark.jpg` — icon only, bottom-right, subtle. |
+| **Watermark** | Optional `composites/*_banner_watermark.jpg` — icon only, bottom-right, subtle. Never watermark over people (there should be none). |
+| **Ghost Authority alignment** | Imagery reinforces the clinical laboratory persona — terrain as data context, not lifestyle or influencer content. No emotional human storytelling in visuals. |
+| **Originals — local only** | Unprocessed landscape PNGs live in `assets/brand/photography/source/` (gitignored). Never commit, push, or publish originals. |
+| **Public repo — derivatives only** | GitHub and all public channels receive processed JPEG derivatives, logo-watermark composites, and AI-generated video clips only — never raw source photography. |
 
-Dominant colors per image: `assets/brand/photography/palette.json`. Regenerate via `assets/brand/photography/generate_derivatives.py`.
+Dominant colors per image: `assets/brand/photography/palette.json`. Regenerate via `assets/brand/photography/generate_derivatives.py` (reads local `source/`; writes `derivatives/` and `composites/`). For AI-assisted asset generation, use prompts in [`brand_gemini_prompts.md`](brand_gemini_prompts.md) — all include the no-humans constraint. Originals may inform style reference locally; they must never appear in commits or public output.
 
 ---
 
@@ -119,7 +123,9 @@ Dominant colors per image: `assets/brand/photography/palette.json`. Regenerate v
 Before any commit destined for GitHub, or any Substack / Instagram post:
 
 1. Zero real personal names (runners, collaborators, operators).
-2. Zero mention of **Seig og Kjapp** or private training content.
+2. Zero mention of private training projects or operator-specific periodization.
 3. Copy attributed to **Dr. Anatomy Pace** or *The Anatomy of Pace* laboratory — not a private individual.
 4. Charts and filenames use clinical IDs only.
 5. Social avatars use icon-only variants — not the full wordmark lockup.
+6. Zero people in any imagery (photography, AI-generated, stock, or composite) — terrain, data charts, and logo marks only.
+7. Zero original landscape photography in commits or public output — derivatives, composites, and AI clips only (`photography/source/` stays local).

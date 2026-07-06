@@ -2,14 +2,13 @@
 
 **Public project:** *The Anatomy of Pace* — Principal Investigator: **Dr. Anatomy Pace**
 
-Private training periodization (*Seig og Kjapp*) is **not** part of this repository's public scope and must never be published. See [`brand_identity.md`](brand_identity.md).
+Private training periodization is **not** part of this repository's public scope and must never be published. See [`brand_identity.md`](brand_identity.md).
 
 ---
 
 ## Project layout
 
 ```
-00_Core_Strategy/   Sync Log (research → local training application)
 01_Geo_Blueprints/
 02_Raw_Data/
 03_Processed_Data/
@@ -32,29 +31,11 @@ Data science framework for deconstructing running economy in technical mountain 
 | Document | Purpose |
 |----------|---------|
 | [`brand_identity.md`](brand_identity.md) | Public owner (Dr. Anatomy Pace), Ghost Authority, scope firewall |
-| [`master_plan.md`](master_plan.md) | Architecture, data hierarchy, Vaskemaskinen, v4.0 roadmap |
 | [`theory.md`](theory.md) | Scientific foundation (Minetti, Pinnington, Giandolini, Millet) |
 | [`race_ecology.md`](race_ecology.md) | Reference races for the macro database |
-| [`outreach_referanselopere.md`](outreach_referanselopere.md) | Strava OAuth pitches for baseline athletes |
-| [`launch_strategy.md`](launch_strategy.md) | Substack, Instagram, Ghost Authority, data-donation model |
-| [`donor_pipeline_architecture.md`](donor_pipeline_architecture.md) | Strava intake, Kinematic_Scan tiers, pre–16 Jul launch |
-
-**Also (outside `docs/`):**
-
-| Path | Purpose |
-|------|---------|
-| [`00_Core_Strategy/Sync_Logg_Analyse_til_Praksis.md`](../00_Core_Strategy/Sync_Logg_Analyse_til_Praksis.md) | Bridge log: research findings → *local* training updates *(never publish)* |
-
----
-
-## Race manuals (course intelligence — public research asset)
-
-Tactical terrain matrices for reference races. These describe **courses**, not private athletes.
-
-| Document | Purpose |
-|----------|---------|
-| [`lopsmanual_lfi_v2.2.md`](lopsmanual_lfi_v2.2.md) | Current LFI race manual (Master-Matrix v2.0) |
-| [`lopsmanual_lfi_v2.1_historisk.md`](lopsmanual_lfi_v2.1_historisk.md) | Archived LFI manual (historical reference) |
+| [`donor_pipeline_architecture.md`](donor_pipeline_architecture.md) | Strava intake, Kinematic_Scan tiers, donor deliverable architecture |
+| [`hitl_annotator.md`](hitl_annotator.md) | Human-in-the-loop terrain ontology annotator runbook |
+| [`corridor_lock_policy.md`](corridor_lock_policy.md) | Geographic corridor lock and version policy |
 
 ---
 
@@ -62,10 +43,13 @@ Tactical terrain matrices for reference races. These describe **courses**, not p
 
 | Item | Notes |
 |------|-------|
-| `docs/seig_og_kjapp.md` | Private training project — **not** under The Anatomy of Pace |
+| Private training manual | Local operators — **not** under The Anatomy of Pace |
 | `config/subject_registry.local.json` | Real-name ↔ Subject ID mapping |
 | `02_Raw_Data/**/*.fit` | Personal telemetry |
+| `03_Processed_Data/**/*.parquet` | Subject-aligned processed telemetry |
 | `06_Visualizations/reports/` | Private donor PDFs with real names |
+| `docs/memos/`, `00_Core_Strategy/` | Internal collaboration and Sync Log |
+| `docs/master_plan.md`, `docs/launch_strategy.md` | Norwegian operational strategy (local) |
 
 Clinical ID mapping template: [`config/subject_registry.example.json`](../config/subject_registry.example.json)
 
@@ -76,7 +60,7 @@ Clinical ID mapping template: [`config/subject_registry.example.json`](../config
 ```
 The Anatomy of Pace (research, public)
     → findings logged in Sync Log (local bridge)
-        → private training manual updated (Seig og Kjapp — local only)
+        → private training manual updated (local operators only)
             → training produces FIT files & race results
                 → fed back into The Anatomy of Pace pipeline
 ```

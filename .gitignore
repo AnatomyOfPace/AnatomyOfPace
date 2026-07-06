@@ -11,16 +11,43 @@ config/strava_leaderboards.local.csv
 config/strava_leaderboards_excluded.local.csv
 config/strava_segments.local.json
 config/session_metadata.local.json
+config/*.backup_*.json
+config/*.local.json
 02_Raw_Data/inbox/
 02_Raw_Data/donors/
 02_Raw_Data/**/*.fit
 05_Macro_Database/*.db
 06_Visualizations/*.png
 # Brand logos: assets/brand/ (committed — not under 06_Visualizations/)
+# Brand photography: derivatives-only publish policy — original landscape PNGs stay local.
+# Committed: photography/derivatives/, composites/, palette.json, generate_derivatives.py
+# Never commit: photography/source/ (gitignored local reference for regeneration only)
+assets/brand/photography/source/
+# Gemini originals with people — local inspiration only; derivatives/ is publishable
+assets/brand/photography/inspiration/
+# Reference reels / third-party inspiration — local review only; never publish raw
+assets/brand/video/clips/inspiration/
 06_Visualizations/reports/
 03_Processed_Data/*.csv
+03_Processed_Data/**/*.parquet
 03_Processed_Data/race_results/
 docs/seig_og_kjapp.md
+
+# Internal-only docs (operator names, Norwegian ops, pre-push audit)
+docs/memos/
+docs/case_study_*
+docs/*_substack*
+docs/welcome_post*
+docs/pre_push_audit.md
+docs/instagram_posts.md
+docs/donor_faq.md
+docs/donor_oauth_setup.md
+docs/outreach/
+docs/master_plan.md
+docs/launch_strategy.md
+docs/lopsmanual_lfi_v2.*
+docs/outreach_referanselopere.md
+00_Core_Strategy/
 
 # Local-only donor tools (personal names in templates — do not push)
 04_Python_Scripts/09_donor_narrative_report.py
@@ -33,6 +60,8 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 .Python
+.matplotlib_cache/
+.mplconfig/
 
 # --- OS / editor ---
 .DS_Store
@@ -45,9 +74,3 @@ config/reference_elite_d_curated_runs.local.csv
 config/reference_elite_d_anchor.local.json
 config/sut_course_mileage_atlas.local.json
 config/sut160_sector_zoom.local.json
-
-# Local-only donor outreach packs (personal names — do not push)
-docs/outreach/
-
-# Local-only collaboration memos (operator names — do not push)
-docs/memos/*.local.md
