@@ -41,8 +41,20 @@ ACTIVITY_ID = "Tverrfjell_20260704"
 DONOR_ID = "Subject_A"
 RACE_ID = "tverrfjell"
 
-# Case-insensitive discovery (Garmin / Strava export names vary).
-_DISCOVER_GLOBS = ("*Tverrfjell*20260704*.fit", "*tverrfjell*20260704*.fit", "*Tverrfjell*.fit")
+
+def _iter_fit_files(root: Path) -> list[Path]:
+    """All .fit files under root (case-insensitive extension)."""
+    if not root.exists():
+        return []
+    out: list[Path] = []
+    for path in root.rglob("*"):
+        if path.is_file() and path.suffix.lower() == ".fit":
+            out.append(path.resolve())
+    return sorted(out, key=lambda p: p.stat().st_mtime, reverse=True)
+
+
+def _is_tverrfjell_fit(path: Path) -> bool:
+    return "tverrfjell" in path.name.lower()
 
 
 def _discover_fit_candidates() -> list[Path]:
@@ -57,18 +69,22 @@ def _discover_fit_candidates() -> list[Path]:
     for root in roots:
         if not root.exists():
             continue
-        patterns = _DISCOVER_GLOBS if root != _REPO / "02_Raw_Data" else (*_DISCOVER_GLOBS, LEGACY_GLOB)
-        for pattern in patterns:
-            iterator = root.rglob(pattern) if root == _REPO / "02_Raw_Data" else root.glob(pattern)
-            for path in iterator:
-                if not path.is_file() or not path.suffix.lower() == ".fit":
-                    continue
-                key = str(path.resolve())
-                if key in seen:
-                    continue
-                seen.add(key)
-                candidates.append(path.resolve())
-    return sorted(candidates, key=lambda p: p.stat().st_mtime, reverse=True)
+        # Prefer explicit name filter (case-insensitive) over glob-only matching.
+        for path in _iter_fit_files(root) if root == _REPO / "02_Raw_Data" else _iter_fit_files(root):
+            if root != _REPO / "02_Raw_Data" and not _is_tverrfjell_fit(path):
+                continue
+            if root == _REPO / "02_Raw_Data" and not _is_tverrfjell_fit(path):
+                continue
+            key = str(path)
+            if key in seen:
+                continue
+            seen.add(key)
+            candidates.append(path)
+    return candidates
+
+
+def _list_raw_data_fits() -> list[Path]:
+    return _iter_fit_files(_REPO / "02_Raw_Data")
 
 
 def _install_to_canonical(source: Path) -> Path:
@@ -113,14 +129,25 @@ def _resolve_fit_path(explicit: Path | None) -> Path:
         )
 
     home = Path.home()
+    raw_fits = _list_raw_data_fits()
+    raw_hint = ""
+    if raw_fits:
+        lines = "\n".join(f"  - {p.relative_to(_REPO)}" for p in raw_fits[:20])
+        raw_hint = (
+            f"\n\nAll .fit under 02_Raw_Data ({len(raw_fits)} total) — use --fit with exact path:\n{lines}"
+        )
     raise FileNotFoundError(
-        "No Tverrfjell FIT found.\n\n"
-        "1. Export original .fit from Garmin Connect or Strava (usually lands in Downloads).\n"
-        "2. Re-run this script (auto-searches Downloads, Desktop, 02_Raw_Data/), or:\n"
-        f"     python3 04_Python_Scripts/spatial/bootstrap_tverrfjell_course.py --fit ~/Downloads/YOUR_FILE.fit\n"
-        "3. Or copy manually to:\n"
+        "No Tverrfjell FIT found (filename must contain 'Tverrfjell', any case).\n\n"
+        "1. Confirm file location:\n"
+        f"     ls -la {_REPO / '02_Raw_Data'}\n"
+        f"     find {_REPO / '02_Raw_Data'} -iname '*.fit'\n"
+        "2. Run with explicit path:\n"
+        f"     python3 04_Python_Scripts/spatial/bootstrap_tverrfjell_course.py "
+        f"--fit 02_Raw_Data/YOUR_FILE.fit\n"
+        "3. Or copy to canonical path:\n"
         f"     {DEFAULT_CANONICAL}\n\n"
         f"Searched: {_REPO / '02_Raw_Data'}, {home / 'Downloads'}, {home / 'Desktop'}"
+        f"{raw_hint}"
     )
 
 
@@ -194,13 +221,24 @@ def main() -> int:
 
     if args.discover:
         found = _discover_fit_candidates()
-        if not found:
-            print("No Tverrfjell FIT candidates found.")
-            return 1
-        print("Tverrfjell FIT candidates (newest first):")
-        for p in found:
-            print(f"  {p}")
-        return 0
+        raw = _list_raw_data_fits()
+        if found:
+            print("Tverrfjell FIT matches:")
+            for p in found:
+                try:
+                    rel = p.relative_to(_REPO)
+                except ValueError:
+                    rel = p
+                print(f"  {rel}")
+        else:
+            print("No filename containing 'Tverrfjell' found.")
+        if raw:
+            print(f"\nAll .fit under 02_Raw_Data ({len(raw)}):")
+            for p in raw[:30]:
+                print(f"  {p.relative_to(_REPO)}")
+        if not found and not raw:
+            print("No .fit files under 02_Raw_Data — check path and spelling.")
+        return 0 if found else 1
 
     fit_path = _resolve_fit_path(args.fit)
     micro_path = MICRO_DIR / DONOR_ID / f"activity_{ACTIVITY_ID}.parquet"
