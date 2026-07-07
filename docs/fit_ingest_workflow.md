@@ -374,3 +374,11 @@ ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
 ```
 
 Optional `--source-weight klepp_runde:0.8` on `train_gold_suggester.py` if one course should count less in the merge.
+
+**Re-export all Subject_A map-first courses with pooled ML strip:**
+
+```bash
+./04_Python_Scripts/spatial/export_map_first_hitl_pool.sh
+```
+
+Runs Tverrfjell → Klepp Runde → Gramstad Runde → Vinje Terrengløp with `gold_suggester_map_first_pool_v0.joblib` by default.

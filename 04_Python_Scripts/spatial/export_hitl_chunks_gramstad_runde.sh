@@ -86,10 +86,14 @@ if [[ ! -f "$LOCOMOTION_SIDECAR" ]]; then
     --sidecar "$LOCOMOTION_SIDECAR"
 fi
 
-ML_MODEL="07_ML_Models/spatial/gold_suggester_gramstad_runde_v0.joblib"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=_map_first_ml_model.sh
+source "${SCRIPT_DIR}/_map_first_ml_model.sh"
+
 ML_PRED="03_Processed_Data/spatial/gramstad_runde_course/gramstad_runde_ml_predictions.parquet"
 ML_ARGS=()
-if [[ -f "$ML_MODEL" ]]; then
+if map_first_resolve_ml_model gramstad_runde; then
+  echo "OK ML model → $ML_MODEL"
   if [[ ! -f "$ML_PRED" ]] || [[ "$ML_MODEL" -nt "$ML_PRED" ]]; then
     echo "Generating ML predictions → $ML_PRED"
     python3 04_Python_Scripts/spatial/export_ml_predictions.py \
@@ -100,7 +104,7 @@ if [[ -f "$ML_MODEL" ]]; then
   fi
   ML_ARGS=(--ml-predictions "$ML_PRED")
 else
-  echo "WARN no Gramstad Runde ML model at $ML_MODEL — ML predicted strip will be empty" >&2
+  echo "WARN no ML model — set ML_MODEL=path/to/gold_suggester*.joblib" >&2
 fi
 
 python3 04_Python_Scripts/spatial/validation_dashboard.py \

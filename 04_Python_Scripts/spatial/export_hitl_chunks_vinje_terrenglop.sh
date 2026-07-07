@@ -89,24 +89,13 @@ if [[ ! -f "$LOCOMOTION_SIDECAR" ]]; then
     --sidecar "$LOCOMOTION_SIDECAR"
 fi
 
-# ML model: explicit ML_MODEL env → course-specific → pooled map-first
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=_map_first_ml_model.sh
+source "${SCRIPT_DIR}/_map_first_ml_model.sh"
+
 ML_PRED="03_Processed_Data/spatial/vinje_terrenglop_course/vinje_terrenglop_ml_predictions.parquet"
 ML_ARGS=()
-if [[ -z "${ML_MODEL:-}" ]]; then
-  for candidate in \
-    "07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib" \
-    "07_ML_Models/spatial/gold_suggester_vinje_terrenglop_v0.joblib" \
-    "07_ML_Models/spatial/gold_suggester_gramstad_runde_v0.joblib" \
-    "07_ML_Models/spatial/gold_suggester_klepp_runde_v0.joblib" \
-    "07_ML_Models/spatial/gold_suggester_tverrfjell_v0.joblib"
-  do
-    if [[ -f "$candidate" ]]; then
-      ML_MODEL="$candidate"
-      break
-    fi
-  done
-fi
-if [[ -n "${ML_MODEL:-}" && -f "$ML_MODEL" ]]; then
+if map_first_resolve_ml_model vinje_terrenglop; then
   echo "OK ML model → $ML_MODEL"
   if [[ ! -f "$ML_PRED" ]] || [[ "$ML_MODEL" -nt "$ML_PRED" ]]; then
     echo "Generating ML predictions → $ML_PRED"
@@ -118,7 +107,7 @@ if [[ -n "${ML_MODEL:-}" && -f "$ML_MODEL" ]]; then
   fi
   ML_ARGS=(--ml-predictions "$ML_PRED")
 else
-  echo "WARN no ML model found — set ML_MODEL=path/to/gold_suggester*.joblib" >&2
+  echo "WARN no ML model — set ML_MODEL=path/to/gold_suggester*.joblib" >&2
 fi
 
 python3 04_Python_Scripts/spatial/validation_dashboard.py \
