@@ -273,3 +273,20 @@ Or step-by-step:
 Configs: `config/spatial_align_manifest_gramstad_runde.json`, `config/spatial_terrain_map_gramstad_runde.json`.
 
 **Pull recovery:** if `git pull` blocks on patched manifest/terrain map, `git checkout --` those two files then `bootstrap_gramstad_runde_course.py --skip-wash --fit <path>`.
+
+### Transfer labels from SUT_43 gramstad_band
+
+Previous Gramstad HITL (`spatial_terrain_map_sut43.json`, km 29–41 organiser axis) **cannot** copy km breakpoints to `gramstad_runde` stream km — axes differ. GPS transfer remaps surface/friction where trails overlap:
+
+```bash
+# After bootstrap — dry-run first
+python3 04_Python_Scripts/spatial/transfer_gold_spans_gps.py \
+  --source-terrain-map config/spatial_terrain_map_sut43.gold_local.json \
+  --source-panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet \
+  --source-km-start 29 --source-km-end 41 \
+  --target-terrain-map config/spatial_terrain_map_gramstad_runde.json \
+  --target-panel 03_Processed_Data/spatial/gramstad_runde_course/panel_1m.parquet \
+  --dry-run
+```
+
+Use committed `spatial_terrain_map_sut43.json` if no `.gold_local.json`. Expect partial coverage — review PNGs and fix gaps with `gold_span_editor.py`. Falls back to manual labeling where GPS match exceeds `--max-match-m` (default 35 m).
