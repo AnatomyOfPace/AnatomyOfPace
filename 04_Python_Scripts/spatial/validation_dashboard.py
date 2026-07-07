@@ -1027,6 +1027,39 @@ def resolve_axis_label(terrain_map: dict[str, Any], panel: pd.DataFrame) -> str:
     return f"{race_id} course km"
 
 
+def corridor_geography_label(terrain_map: dict[str, Any]) -> str | None:
+    """Human place label for map titles (e.g. Uskedalen · Kvinnherad · Vestland)."""
+    corridor = terrain_map.get("corridor") or {}
+    geo = corridor.get("geography") or {}
+    parts = [geo.get("settlement"), geo.get("municipality"), geo.get("county")]
+    label = " · ".join(str(p) for p in parts if p)
+    if label:
+        return label
+    race_id = corridor.get("race_id")
+    return str(race_id) if race_id else None
+
+
+def resolve_dashboard_gpx_path(
+    terrain_map: dict[str, Any],
+    explicit: Path | None,
+    *,
+    no_gpx: bool = False,
+) -> Path | None:
+    """Organiser GPX overlay — SUT_43 only unless explicitly passed (and not --no-gpx)."""
+    if no_gpx:
+        return None
+    if explicit is not None:
+        return explicit if explicit.is_absolute() else BASE_DIR / explicit
+    race_id = str((terrain_map.get("corridor") or {}).get("race_id") or "")
+    if race_id != "SUT_43":
+        return None
+    return DEFAULT_SUT43_GPX if DEFAULT_SUT43_GPX.exists() else None
+
+
+def corridor_allows_gpx_overlay(terrain_map: dict[str, Any]) -> bool:
+    return str((terrain_map.get("corridor") or {}).get("race_id") or "") == "SUT_43"
+
+
 def iter_review_chunks(
     km_start: float,
     km_end: float,
@@ -2777,7 +2810,8 @@ def render_reference_map(
 
     gpx_offset = 0.0
     gpx_geo = pd.DataFrame()
-    use_gpx_track = gpx_path is not None and gpx_path.exists()
+    allow_gpx = corridor_allows_gpx_overlay(terrain_map)
+    use_gpx_track = allow_gpx and gpx_path is not None and gpx_path.exists()
     fit_geo = build_activity_track_geography(
         panel,
         geo_lo,
@@ -2882,7 +2916,7 @@ def render_reference_map(
         if require_basemap:
             raise RuntimeError(msg)
 
-    if gpx_path is not None and gpx_path.exists() and not gpx_geo.empty:
+    if allow_gpx and gpx_path is not None and gpx_path.exists() and not gpx_geo.empty:
         try:
             g_lat, g_lon = load_gpx_latlon(gpx_path)
             step = max(1, len(g_lat) // 2000)
@@ -4315,7 +4349,21 @@ def render_validation_dashboard(
         color="white",
         fontsize=14,
         fontweight="bold",
+        y=0.98,
     )
+    place_label = corridor_geography_label(terrain_map)
+    axis_label = resolve_axis_label(terrain_map, panel)
+    subtitle = " · ".join(p for p in (place_label, axis_label) if p)
+    if subtitle:
+        fig.text(
+            0.5,
+            0.955,
+            subtitle,
+            ha="center",
+            va="top",
+            color="#B0BEC5",
+            fontsize=9,
+        )
 
     ml_map_drawn = False
     assigned_map_drawn = False
@@ -4699,7 +4747,12 @@ def main() -> None:
         "--gpx",
         type=Path,
         default=None,
-        help="Organiser GPX for map context (default: SUT43 official GPX when panel is SUT_43)",
+        help="Organiser GPX for map context (default: SUT43 official GPX when race_id is SUT_43)",
+    )
+    parser.add_argument(
+        "--no-gpx",
+        action="store_true",
+        help="Never load organiser GPX (required for non-SUT stream courses e.g. Tverrfjell)",
     )
     parser.add_argument(
         "--activity",
@@ -4876,11 +4929,11 @@ def main() -> None:
     terrain_map = load_terrain_map(tmap_path)
     panel = normalize_panel_axes(pd.read_parquet(panel_path))
 
-    gpx_path = args.gpx
-    if gpx_path is not None:
-        gpx_path = gpx_path if gpx_path.is_absolute() else BASE_DIR / gpx_path
-    elif str((terrain_map.get("corridor") or {}).get("race_id") or "") == "SUT_43":
-        gpx_path = DEFAULT_SUT43_GPX if DEFAULT_SUT43_GPX.exists() else None
+    gpx_path = resolve_dashboard_gpx_path(
+        terrain_map,
+        args.gpx,
+        no_gpx=bool(args.no_gpx),
+    )
 
     map_track_activity = args.activity
     map_track_donor = args.map_track_donor

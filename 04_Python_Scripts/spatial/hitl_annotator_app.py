@@ -79,6 +79,7 @@ from spatial.validation_dashboard import (
     FRICTION_TIER_EDGE_COLORS,
     HITL_BASEMAP_LAYER_LABELS,
     assert_basemap_not_maritime,
+    corridor_allows_gpx_overlay,
     nib_wmts_token_configured,
     normalize_basemap_layer,
     offset_panel_gps,
@@ -321,7 +322,7 @@ def render_topo_basemap_png(
         return None, "no geography in panel for selected window"
 
     gpx_path: Path | None = None
-    if resolve_axis_label(terrain_map, panel).startswith("SUT_43") and DEFAULT_SUT43_GPX.exists():
+    if corridor_allows_gpx_overlay(terrain_map) and DEFAULT_SUT43_GPX.exists():
         gpx_path = DEFAULT_SUT43_GPX
     map_track_activity, map_track_donor = resolve_default_map_track_activity(
         Path(panel_path), terrain_map, panel
