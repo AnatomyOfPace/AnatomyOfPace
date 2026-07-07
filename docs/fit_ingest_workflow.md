@@ -204,3 +204,16 @@ Partial tiles (`SUT43_sector_31-32_reverse_20260627`, `Gramstad_runden_reverse_2
 | Dashboard PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_tverrfjell.sh` → `06_Visualizations/tverrfjell_hitl/chunk_t*.png` (24 × 1 km, km 0–23.549) |
 
 Configs: `config/spatial_align_manifest_tverrfjell.json`, `config/spatial_terrain_map_tverrfjell.json`.
+
+## Klepp Runde local loop (map-first HITL)
+
+**Geography:** Klepp, Rogaland (Jæren). Map-first FIT stream axis — not SUT_43 organiser GPX.
+
+| Step | Command |
+|------|---------|
+| Place FIT | `02_Raw_Data/donors/Subject_A/Klepp_Runde_*.fit` (filename must contain `Klepp` and `Runde`) |
+| Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_klepp_runde_course.py --fit <path>` |
+| Label | `gold_span_editor.py add --terrain-map config/spatial_terrain_map_klepp_runde.json ...` |
+| Dashboard PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_klepp_runde.sh` → `06_Visualizations/klepp_runde_hitl/` |
+
+Configs: `config/spatial_align_manifest_klepp_runde.json`, `config/spatial_terrain_map_klepp_runde.json`.

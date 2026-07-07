@@ -67,6 +67,18 @@ TVERFJELL_GEOGRAPHY = {
     "not_in": ["Rogaland"],
 }
 
+# Klepp Runde local training loop — Klepp municipality, Rogaland (Jæren).
+KLEPP_RUNDE_RACE_ID = "klepp_runde"
+KLEPP_RUNDE_CORRIDOR_ID = "klepp_runde_course"
+KLEPP_RUNDE_KM_START = 0.0
+KLEPP_RUNDE_KM_END = 1.0  # patched by bootstrap from FIT stream length
+KLEPP_RUNDE_GEOGRAPHY = {
+    "settlement": "Klepp",
+    "municipality": "Klepp",
+    "county": "Rogaland",
+    "region": "Jæren",
+}
+
 # Operator scope: Dale aid CP band through Paradisskaret Downhill end (course km).
 DEFAULT_KM_START = 140.0
 DEFAULT_KM_END = 155.58
