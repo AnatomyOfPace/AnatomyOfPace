@@ -35,18 +35,36 @@ if [[ ! -f "$PANEL" ]]; then
   exit 1
 fi
 
-if [[ -z "${ML_MODEL:-}" ]]; then
-  if [[ -f "07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib" ]]; then
-    export ML_MODEL="07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib"
-  elif [[ -f "07_ML_Models/spatial/gold_suggester_gramstad_runde_v0.joblib" ]]; then
-    export ML_MODEL="07_ML_Models/spatial/gold_suggester_gramstad_runde_v0.joblib"
+_resolve_ml_model() {
+  local candidate
+  if [[ -n "${ML_MODEL:-}" && -f "${ML_MODEL}" ]]; then
+    return 0
   fi
-fi
+  if [[ -n "${ML_MODEL:-}" && ! -f "${ML_MODEL}" ]]; then
+    echo "WARN ML_MODEL not found: ${ML_MODEL} — trying fallbacks" >&2
+    unset ML_MODEL
+  fi
+  for candidate in \
+    "07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib" \
+    "07_ML_Models/spatial/gold_suggester_gramstad_runde_v0.joblib" \
+    "07_ML_Models/spatial/gold_suggester_klepp_runde_v0.joblib" \
+    "07_ML_Models/spatial/gold_suggester_tverrfjell_v0.joblib" \
+    "07_ML_Models/spatial/gold_suggester_v0.joblib"
+  do
+    if [[ -f "$candidate" ]]; then
+      export ML_MODEL="$candidate"
+      return 0
+    fi
+  done
+  return 1
+}
 
-if [[ -z "${ML_MODEL:-}" || ! -f "${ML_MODEL}" ]]; then
-  echo "No ML model found. Train pooled model first, e.g.:" >&2
-  echo "  merge_gold_training_sets.py + train_gold_suggester.py → gold_suggester_map_first_pool_v0.joblib" >&2
-  echo "Or pass: $0 --fit <path> --model 07_ML_Models/spatial/gold_suggester_gramstad_runde_v0.joblib" >&2
+if ! _resolve_ml_model; then
+  echo "No ML model found under 07_ML_Models/spatial/. Available .joblib files:" >&2
+  ls -1 07_ML_Models/spatial/gold_suggester*.joblib 2>/dev/null >&2 || echo "  (none)" >&2
+  echo "" >&2
+  echo "Train or pass an existing model, e.g.:" >&2
+  echo "  $0 --skip-bootstrap --model 07_ML_Models/spatial/gold_suggester_gramstad_runde_v0.joblib" >&2
   exit 1
 fi
 
