@@ -233,4 +233,10 @@ Configs: `config/spatial_align_manifest_tverrfjell.json`, `config/spatial_terrai
 | Train ML | `build_gold_training_set.py` → `train_gold_suggester.py` with `--metadata-out ...klepp_runde_v0_metadata.json` |
 | Export PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_klepp_runde.sh` |
 
+**Quick start (bootstrap + PNGs + labeling hints):**
+
+```bash
+./04_Python_Scripts/spatial/start_klepp_annotation.sh --fit 02_Raw_Data/donors/Subject_A/YOUR_Klepp_Runde.fit
+```
+
 Configs: `config/spatial_align_manifest_klepp_runde.json`, `config/spatial_terrain_map_klepp_runde.json`.

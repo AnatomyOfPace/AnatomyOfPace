@@ -362,7 +362,8 @@ def _race_panel(panel: pd.DataFrame) -> pd.DataFrame:
     if "course_m" not in work.columns and "ref_chainage_m" in work.columns:
         work["course_m"] = work["ref_chainage_m"]
     if "session_type" in work.columns:
-        work = work[work["session_type"] == "race"]
+        race = work[work["session_type"] == "race"]
+        work = race if not race.empty else work
     return work.sort_values(["course_m", "donor_id"])
 
 

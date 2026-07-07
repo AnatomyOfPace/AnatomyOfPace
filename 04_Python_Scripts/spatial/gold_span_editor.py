@@ -58,11 +58,19 @@ def backup_terrain_map(path: Path) -> Path:
     return backup
 
 
+def sync_gold_local_mirror(path: Path, terrain_map: dict[str, Any]) -> Path | None:
+    """Write gitignored operator-gold mirror beside terrain map (survives git restore)."""
+    mirror = path.with_name(f"{path.stem}.gold_local.json")
+    mirror.write_text(json.dumps(terrain_map, indent=2) + "\n", encoding="utf-8")
+    return mirror
+
+
 def write_terrain_map(path: Path, terrain_map: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
     backup_terrain_map(path)
     path.write_text(json.dumps(terrain_map, indent=2) + "\n", encoding="utf-8")
+    sync_gold_local_mirror(path, terrain_map)
 
 
 def cmd_list(args: argparse.Namespace) -> int:
@@ -126,7 +134,9 @@ def cmd_add(args: argparse.Namespace) -> int:
     spans.append(entry)
     hitl["operator_gold_spans"] = spans
     write_terrain_map(args.terrain_map, terrain_map)
+    mirror = args.terrain_map.with_name(f"{args.terrain_map.stem}.gold_local.json")
     print(f"Appended span km {km_start:.3f}–{km_end:.3f} {args.surface}/{args.friction}")
+    print(f"Mirror → {mirror}")
     return 0
 
 
