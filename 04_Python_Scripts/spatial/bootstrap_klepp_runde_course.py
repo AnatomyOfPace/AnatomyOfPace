@@ -38,6 +38,7 @@ from fit_micro.activity_frame import MICRO_DIR  # noqa: E402
 
 MANIFEST = _REPO / "config" / "spatial_align_manifest_klepp_runde.json"
 TERRAIN_MAP = _REPO / "config" / "spatial_terrain_map_klepp_runde.json"
+STAVANGER_O2_ANCHOR = _REPO / "02_Raw_Data" / "Stavanger_Halvmaraton.fit"
 DONOR_ID = "Subject_A"
 RACE_ID = "klepp_runde"
 DONOR_DIR = _REPO / "02_Raw_Data" / "donors" / DONOR_ID
