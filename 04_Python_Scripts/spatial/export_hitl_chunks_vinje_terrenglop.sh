@@ -30,8 +30,12 @@ print(act, km_end)
 PY
 )"
 
-if ! python3 04_Python_Scripts/spatial/preflight_map_first_course.py \
-  --terrain-map "$TERRAIN_MAP" --panel "$PANEL"
+PREFLIGHT_ARGS=(--terrain-map "$TERRAIN_MAP" --panel "$PANEL")
+if [[ -n "${ML_MODEL:-}" && -f "${ML_MODEL}" ]]; then
+  PREFLIGHT_ARGS+=(--ml-model "$ML_MODEL")
+fi
+
+if ! python3 04_Python_Scripts/spatial/preflight_map_first_course.py "${PREFLIGHT_ARGS[@]}"
 then
   echo "Preflight failed — fix issues above before export" >&2
   exit 1

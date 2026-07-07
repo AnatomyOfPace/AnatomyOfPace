@@ -57,8 +57,8 @@ WRONG_REGION: dict[str, dict[str, float | str]] = {
         "label": "Uskedalen (wrong course — not Sandnes/Gramstad)",
     },
     "vinje_terrenglop": {
-        "lat_max": 59.05,
-        "label": "Rogaland / Uskedalen band (wrong course — not Vinje Telemark)",
+        "lon_max": 7.0,
+        "label": "Rogaland / west-coast longitude band (wrong course — not Vinje Telemark)",
     },
 }
 
@@ -137,10 +137,16 @@ def run_preflight(
     if wrong:
         lat_min = wrong.get("lat_min")
         lat_max = wrong.get("lat_max")
+        lon_min = wrong.get("lon_min")
+        lon_max = wrong.get("lon_max")
         if lat_min is not None and c_lat < float(lat_min):
             errors.append(f"centroid {c_lat:.4f}°N is {wrong['label']}")
         if lat_max is not None and c_lat > float(lat_max):
             errors.append(f"centroid {c_lat:.4f}°N is {wrong['label']}")
+        if lon_min is not None and c_lon < float(lon_min):
+            errors.append(f"centroid {c_lon:.4f}°E is {wrong['label']}")
+        if lon_max is not None and c_lon > float(lon_max):
+            errors.append(f"centroid {c_lon:.4f}°E is {wrong['label']}")
 
     gold = tmap.get("hitl", {}).get("operator_gold_spans") or []
     print(f"OK operator_gold_spans: {len(gold)}")

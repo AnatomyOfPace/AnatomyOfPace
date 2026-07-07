@@ -29,10 +29,11 @@ OUT_DIR = _REPO / "06_Visualizations" / "vinje_terrenglop_hitl"
 MANIFEST = OUT_DIR / "EXPORT_MANIFEST.json"
 
 VINJE_LAT_MIN = 59.45
-VINJE_LAT_MAX = 59.78
+VINJE_LAT_MAX = 59.80
 VINJE_LON_MIN = 7.3
 VINJE_LON_MAX = 8.5
-ROGALAND_LAT_MAX = 59.05
+# Rogaland / Uskedalen / Sandnes — west of Vinje Telemark (use lon, not lat).
+ROGALAND_LON_MAX = 7.0
 
 
 def _chunk_windows(km_end: float, chunk_km: float = 1.0) -> list[tuple[int, float, float]]:
@@ -90,8 +91,8 @@ def main() -> int:
     c_lat, c_lon = float(lat_all.mean()), float(lon_all.mean())
     print(f"  panel centroid: {c_lat:.5f}°N {c_lon:.5f}°E")
 
-    if c_lat < ROGALAND_LAT_MAX:
-        errors.append(f"panel centroid {c_lat:.4f}°N looks like Rogaland — not Vinje Telemark")
+    if c_lon < ROGALAND_LON_MAX:
+        errors.append(f"panel centroid {c_lon:.4f}°E looks like Rogaland — not Vinje Telemark")
     if not (VINJE_LAT_MIN <= c_lat <= VINJE_LAT_MAX):
         warnings.append(f"panel centroid lat {c_lat:.4f} outside expected Vinje band")
     if not (VINJE_LON_MIN <= c_lon <= VINJE_LON_MAX):
@@ -100,12 +101,12 @@ def main() -> int:
     km_end = float((tmap.get("corridor") or {}).get("km_end") or panel["course_km"].max())
     bad_chunks: list[str] = []
     for idx, km_lo, km_hi in _chunk_windows(km_end):
-        clat, _clon, _n = _gps_window(panel, km_lo, km_hi)
+        clat, clon, _n = _gps_window(panel, km_lo, km_hi)
         if not math.isfinite(clat):
             bad_chunks.append(f"chunk {idx:02d} km {km_lo:.0f}-{km_hi:.1f}: no GPS")
             continue
-        if clat < ROGALAND_LAT_MAX:
-            bad_chunks.append(f"chunk {idx:02d} km {km_lo:.0f}-{km_hi:.1f}: {clat:.4f}°N — Rogaland")
+        if clon < ROGALAND_LON_MAX:
+            bad_chunks.append(f"chunk {idx:02d} km {km_lo:.0f}-{km_hi:.1f}: {clon:.4f}°E — Rogaland")
 
     if bad_chunks:
         errors.extend(bad_chunks)
