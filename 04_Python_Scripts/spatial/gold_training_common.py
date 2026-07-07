@@ -16,6 +16,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DEFAULT_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_ontology" / "panel_1m.parquet"
 DEFAULT_TERRAIN_MAP = BASE_DIR / "config" / "spatial_terrain_map_sut43.json"
 DEFAULT_HMM_DRAFT = BASE_DIR / "07_ML_Models" / "terrain_hmm_sut43_draft_predictions.parquet"
+TVERFJELL_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "tverrfjell_course" / "panel_1m.parquet"
+TVERFJELL_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_tverrfjell.parquet"
 
 SURFACE_CLASSES = ("S1", "S2", "S3", "S4", "S5", "S6")
 FRICTION_TIERS = ("F0", "F1", "F2", "F3", "F4")
@@ -39,6 +41,23 @@ FEATURE_COLUMNS = (
 HMM_CLASS_TO_ORD = {cls: i for i, cls in enumerate(SURFACE_CLASSES)}
 
 
+def resolve_gold_training_defaults(terrain_map_path: Path) -> dict[str, Any]:
+    """Derive panel/output/km window from terrain map race_id for non-SUT courses."""
+    tmap = load_terrain_map(terrain_map_path)
+    corridor = tmap.get("corridor") or {}
+    race_id = str(corridor.get("race_id") or "")
+    if race_id == "tverrfjell":
+        km_end = float(corridor.get("km_end") or 23.549)
+        return {
+            "panel": TVERFJELL_PANEL,
+            "output": TVERFJELL_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    return {}
+
+
 def _race_panel(panel: pd.DataFrame) -> pd.DataFrame:
     work = panel.copy()
     if "course_km" not in work.columns and "ref_chainage_m" in work.columns:
@@ -46,7 +65,8 @@ def _race_panel(panel: pd.DataFrame) -> pd.DataFrame:
     if "course_m" not in work.columns and "ref_chainage_m" in work.columns:
         work["course_m"] = work["ref_chainage_m"]
     if "session_type" in work.columns:
-        work = work[work["session_type"] == "race"]
+        race = work[work["session_type"] == "race"]
+        work = race if not race.empty else work
     return work.sort_values(["course_m", "donor_id"])
 
 
