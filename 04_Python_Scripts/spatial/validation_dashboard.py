@@ -342,6 +342,8 @@ ASSIGNED_MAP_TRACK_ALPHA = 0.88
 ASSIGNED_MAP_TRACK_ZORDER = 6
 MAP_TRACK_PERP_OFFSET_M = 12.0
 ASSIGNED_MAP_TRACK_OFFSET_M = -MAP_TRACK_PERP_OFFSET_M
+ASSIGNED_MAP_LABEL_MIN_SPAN_KM = 0.25
+ASSIGNED_MAP_LABEL_FONTSIZE = 7.5
 ML_MAP_TRACK_LINEWIDTH = 3.5
 ML_MAP_TRACK_ALPHA = 0.94
 ML_MAP_TRACK_ALPHA_FULL = 0.75
@@ -1502,14 +1504,54 @@ def ml_legend_label(mode: MLPredictionsMode) -> str:
     return "ML predicted (custom)"
 
 
-def _class_at_km_from_spans(spans: list[dict[str, Any]], km: float) -> str | None:
+def _span_km_bounds_dict(span: dict[str, Any]) -> tuple[float, float]:
+    """Resolve [km0, km1) from assigned-span or operator-gold dict keys."""
+    if "km0" in span and "km1" in span:
+        return float(span["km0"]), float(span["km1"])
+    return (
+        float(span.get("course_km_start", span.get("course_m_start", 0) / 1000.0)),
+        float(span.get("course_km_end", span.get("course_m_end", 0) / 1000.0)),
+    )
+
+
+def _span_width_km(span: dict[str, Any]) -> float:
+    km0, km1 = _span_km_bounds_dict(span)
+    return max(km1 - km0, 0.0)
+
+
+def _spans_matching_km(spans: list[dict[str, Any]], km: float) -> list[dict[str, Any]]:
+    """Half-open [start, end) interior match; exact end km resolves to that span."""
+    matches: list[dict[str, Any]] = []
     for span in spans:
-        km0 = float(span["km0"])
-        km1 = float(span["km1"])
+        km0, km1 = _span_km_bounds_dict(span)
         if km0 <= km < km1:
-            cls = span.get("class")
-            return _normalize_assigned_class(cls) if cls else None
-    return None
+            matches.append(span)
+    if matches:
+        return matches
+    for span in reversed(spans):
+        _, km1 = _span_km_bounds_dict(span)
+        if abs(km - km1) < 1e-6:
+            return [span]
+    return []
+
+
+def _pick_span_at_km(spans: list[dict[str, Any]], km: float) -> dict[str, Any] | None:
+    """Prefer the narrowest overlapping span (later entries win ties)."""
+    matches = _spans_matching_km(spans, km)
+    if not matches:
+        return None
+    return min(
+        matches,
+        key=lambda span: (_span_width_km(span), -matches.index(span)),
+    )
+
+
+def _class_at_km_from_spans(spans: list[dict[str, Any]], km: float) -> str | None:
+    span = _pick_span_at_km(spans, km)
+    if span is None:
+        return None
+    cls = span.get("class") or span.get("surface_class")
+    return _normalize_assigned_class(cls) if cls else None
 
 
 def _offset_map_segment_coords(
@@ -1595,6 +1637,63 @@ def _plot_class_coloured_map_track(
         )
         drew = True
     return drew
+
+
+def plot_assigned_span_labels_on_map(
+    ax: plt.Axes,
+    geo: pd.DataFrame,
+    assigned_spans: list[dict[str, Any]] | None,
+    *,
+    km_lo: float | None = None,
+    km_hi: float | None = None,
+    offset_m: float = ASSIGNED_MAP_TRACK_OFFSET_M,
+    min_label_span_km: float = ASSIGNED_MAP_LABEL_MIN_SPAN_KM,
+) -> None:
+    """Surface-class (+ F-tier) labels on the assigned map track for chunk QC."""
+    if not assigned_spans or geo.empty:
+        return
+    for span in assigned_spans:
+        km0 = float(span["km0"])
+        km1 = float(span["km1"])
+        if km1 - km0 < min_label_span_km:
+            continue
+        cls = span.get("class")
+        if not cls:
+            continue
+        km_mid = 0.5 * (km0 + km1)
+        if km_lo is not None and km_mid < km_lo - 1e-9:
+            continue
+        if km_hi is not None and km_mid > km_hi + 1e-9:
+            continue
+        pt = _interp_latlon_at_km(geo, km_mid)
+        if pt is None:
+            continue
+        lat, lon = pt
+        label = str(cls)
+        friction_tier = span.get("friction_tier")
+        if friction_tier:
+            label = f"{label}/{friction_tier}"
+        bearing = _track_bearing_deg(geo, km_mid)
+        label_dist = 0.00014
+        if bearing is not None:
+            label_lat, label_lon = _offset_latlon_by_bearing(
+                lat, lon, bearing + 90.0, label_dist
+            )
+        else:
+            label_lat, label_lon = lat + label_dist, lon
+        text = ax.text(
+            label_lon,
+            label_lat,
+            label,
+            ha="center",
+            va="center",
+            fontsize=ASSIGNED_MAP_LABEL_FONTSIZE,
+            color="#F8F8F8" if str(cls) != "S1" else "#1A1A1A",
+            zorder=ASSIGNED_MAP_TRACK_ZORDER + 2,
+        )
+        text.set_path_effects(
+            [pe.withStroke(linewidth=1.4, foreground="#111111", alpha=0.85)]
+        )
 
 
 def plot_assigned_gold_track_overlay(
@@ -2148,9 +2247,13 @@ def operator_gold_assigned_spans(
         s1 = float(span.get("course_km_end", span.get("course_m_end", s0) / 1000.0))
         if s1 <= km_lo or s0 >= km_hi:
             continue
+        km0 = max(s0, km_lo)
+        km1 = min(s1, km_hi)
+        if km1 <= km0 + 1e-9:
+            continue
         entry: dict[str, Any] = {
-            "km0": max(s0, km_lo),
-            "km1": min(s1, km_hi),
+            "km0": km0,
+            "km1": km1,
             "class": str(span.get("surface_class", "S2")),
             "kind": "operator_gold",
         }
@@ -3037,6 +3140,14 @@ def render_reference_map(
             km_lo=ml_km_lo,
             km_hi=ml_km_hi,
         )
+        if assigned_map_drawn:
+            plot_assigned_span_labels_on_map(
+                ax,
+                track_geo,
+                assigned_spans,
+                km_lo=ml_km_lo,
+                km_hi=ml_km_hi,
+            )
 
     ml_map_drawn = plot_ml_pred_track_overlay(
         ax,
@@ -3263,20 +3374,8 @@ def _normalize_assigned_class(value: Any) -> str | None:
 
 
 def _operator_gold_span_at_km(terrain_map: dict[str, Any], km: float) -> dict[str, Any] | None:
-    """Half-open [start, end) match; interior seams resolve to the downstream span."""
-    spans = operator_gold_spans(terrain_map)
-    match: dict[str, Any] | None = None
-    for span in spans:
-        km0 = float(span["course_km_start"])
-        km1 = float(span["course_km_end"])
-        if km0 <= km < km1:
-            match = span
-    if match is not None:
-        return match
-    for span in reversed(spans):
-        if abs(km - float(span["course_km_end"])) < 1e-6:
-            return span
-    return None
+    """Narrowest operator-gold span at km (later span wins ties on overlap)."""
+    return _pick_span_at_km(operator_gold_spans(terrain_map), km)
 
 
 def operator_gold_class_at_km(terrain_map: dict[str, Any], km: float) -> str | None:
@@ -5090,17 +5189,28 @@ def main() -> None:
         parser.error("--ml-predictions-mode path requires --ml-predictions")
 
     if decision_mode or with_map:
-        ml_path = resolve_ml_predictions_path(
-            mode=ml_predictions_mode,
-            explicit_path=args.ml_predictions_parquet,
+        skip_default_ml = (
+            is_map_first_operator_gold(terrain_map)
+            and args.ml_predictions_parquet is None
+            and not args.ml_predictions_loocv
         )
-        if ml_path.exists():
-            ml_pred_df = pd.read_parquet(ml_path)
-        elif ml_predictions_mode == "full":
+        if skip_default_ml:
             print(
-                f"WARN full-corridor ML predictions missing: {ml_path.relative_to(BASE_DIR)} "
-                f"(run 07_ML_Models/predict_terrain_full_corridor.py)"
+                "INFO map-first operator gold — skipping SUT_43 ML predictions "
+                "(pass --ml-predictions to override)"
             )
+        else:
+            ml_path = resolve_ml_predictions_path(
+                mode=ml_predictions_mode,
+                explicit_path=args.ml_predictions_parquet,
+            )
+            if ml_path.exists():
+                ml_pred_df = pd.read_parquet(ml_path)
+            elif ml_predictions_mode == "full":
+                print(
+                    f"WARN full-corridor ML predictions missing: {ml_path.relative_to(BASE_DIR)} "
+                    f"(run 07_ML_Models/predict_terrain_full_corridor.py)"
+                )
 
     cluster_ti_dfs: dict[str, pd.DataFrame] | None = None
     if decision_mode:
