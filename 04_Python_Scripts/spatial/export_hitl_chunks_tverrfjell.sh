@@ -120,6 +120,8 @@ Path("$OUT_DIR/EXPORT_MANIFEST.json").write_text(json.dumps(manifest, indent=2) 
 print("Wrote $OUT_DIR/EXPORT_MANIFEST.json")
 PY
 
+python3 04_Python_Scripts/spatial/verify_tverrfjell_hitl_exports.py --strict
+
 echo "OK Tverrfjell HITL export complete → $OUT_DIR (${N_CHUNKS} chunks, km ${KM_START}–${KM_END})"
 echo "  Verify subtitle: Uskedalen · Kvinnherad · Vestland · tverrfjell stream km"
 echo "  NOT Sandnes/Rogaland — if x-axis says SUT_43, pull latest branch before re-export"

@@ -3037,6 +3037,30 @@ def render_reference_map(
     ax.set_yticks([])
     plot_metric_scalebar(ax, map_bounds)
 
+    if chunk_km is not None and not track_geo.empty:
+        c_lo, c_hi = chunk_km
+        chunk_pts = track_geo[
+            (track_geo["course_km"] >= c_lo) & (track_geo["course_km"] <= c_hi)
+        ]
+        if not chunk_pts.empty:
+            clat = float(chunk_pts["latitude"].mean())
+            clon = float(chunk_pts["longitude"].mean())
+            west, south, east, north = map_bounds
+            ax.text(
+                west + (east - west) * 0.02,
+                south + (north - south) * 0.04,
+                f"FIT track {clat:.4f}°N {clon:.4f}°E",
+                fontsize=6.5,
+                color="#ECEFF1",
+                zorder=20,
+                va="bottom",
+                bbox=dict(
+                    boxstyle="round,pad=0.25",
+                    facecolor=(0, 0, 0, 0.55),
+                    edgecolor="none",
+                ),
+            )
+
     return basemap_status, ml_map_drawn, assigned_map_drawn
 
 
