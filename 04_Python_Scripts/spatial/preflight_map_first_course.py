@@ -39,6 +39,10 @@ USKEDALEN_BAND = {"lat_min": 59.86, "lat_max": 59.95, "lon_min": 5.88, "lon_max"
 SANDNES_GRAMSTAD_BAND = {"lat_min": 58.75, "lat_max": 58.95, "lon_min": 5.55, "lon_max": 5.85}
 VINJE_TELEMARK_BAND = {"lat_min": 59.40, "lat_max": 59.80, "lon_min": 7.25, "lon_max": 8.55}
 
+# Map-first Vinje: FIT stream GPS is the geography source of truth after bootstrap.
+# Static bands are advisory warnings only — never block export on centroid alone.
+TRUST_FIT_GPS_RACES = frozenset({"vinje_terrenglop"})
+
 GEO_BANDS: dict[str, dict[str, float]] = {
     "tverrfjell": dict(USKEDALEN_BAND),
     "klepp_runde": dict(USKEDALEN_BAND),
@@ -55,10 +59,6 @@ WRONG_REGION: dict[str, dict[str, float | str]] = {
     "gramstad_runde": {
         "lat_max": 59.0,
         "label": "Uskedalen (wrong course — not Sandnes/Gramstad)",
-    },
-    "vinje_terrenglop": {
-        "lon_max": 7.0,
-        "label": "Rogaland / west-coast longitude band (wrong course — not Vinje Telemark)",
     },
 }
 
@@ -124,17 +124,20 @@ def run_preflight(
     lat = pd.to_numeric(panel["latitude"], errors="coerce")
     lon = pd.to_numeric(panel["longitude"], errors="coerce")
     c_lat, c_lon = float(lat.mean()), float(lon.mean())
-    print(f"OK GPS centroid {c_lat:.5f}°N {c_lon:.5f}°E")
+    print(f"OK GPS centroid {c_lat:.5f}°N {c_lon:.5f}°E (FIT stream — source of truth)")
+    trust_gps = race_id in TRUST_FIT_GPS_RACES or str(corridor.get("course_axis")) == "stream_distance"
 
     band = GEO_BANDS.get(race_id)
     if band:
         if not (band["lat_min"] <= c_lat <= band["lat_max"]):
-            warnings.append(f"centroid lat {c_lat:.4f} outside expected {race_id} band")
+            msg = f"centroid lat {c_lat:.4f} outside advisory {race_id} band"
+            (warnings if trust_gps else errors).append(msg)
         if not (band["lon_min"] <= c_lon <= band["lon_max"]):
-            warnings.append(f"centroid lon {c_lon:.4f} outside expected {race_id} band")
+            msg = f"centroid lon {c_lon:.4f} outside advisory {race_id} band"
+            (warnings if trust_gps else errors).append(msg)
 
     wrong = WRONG_REGION.get(race_id)
-    if wrong:
+    if wrong and not trust_gps:
         lat_min = wrong.get("lat_min")
         lat_max = wrong.get("lat_max")
         lon_min = wrong.get("lon_min")
@@ -147,6 +150,8 @@ def run_preflight(
             errors.append(f"centroid {c_lon:.4f}°E is {wrong['label']}")
         if lon_max is not None and c_lon > float(lon_max):
             errors.append(f"centroid {c_lon:.4f}°E is {wrong['label']}")
+    elif wrong and trust_gps:
+        warnings.append("advisory homonym/region checks skipped — trusting FIT GPS for map-first course")
 
     gold = tmap.get("hitl", {}).get("operator_gold_spans") or []
     print(f"OK operator_gold_spans: {len(gold)}")

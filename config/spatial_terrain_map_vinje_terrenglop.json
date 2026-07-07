@@ -25,7 +25,7 @@
         "altitude_m_min": 300,
         "altitude_m_max": 1200
       },
-      "notes": "Vinje Terrengløp trail event (Telemark). Map-first stream-distance HITL — ML suggester strip from pooled or local gold model."
+      "notes": "Vinje Terrengløp trail event (Telemark). Map-first stream-distance HITL — course geography from Subject_A FIT GPS after bootstrap."
     },
     "notes": "Tier 0 map-first Vinje Terrengløp. Stream-distance axis from Subject_A FIT."
   },

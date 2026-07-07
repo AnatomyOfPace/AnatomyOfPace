@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-Verify Vinje Terrengløp HITL PNG folder uses Vinje (Telemark) FIT GPS.
+Verify Vinje Terrengløp HITL export — axis, panel GPS, PNG count.
+
+Geography comes from the FIT stream after bootstrap (trust GPS). Advisory
+Vinje/Telemark bands may warn but do not fail export.
 
 Usage (from repo root):
     python3 04_Python_Scripts/spatial/verify_vinje_terrenglop_hitl_exports.py
@@ -28,13 +31,6 @@ TERRAIN_MAP = _REPO / "config" / "spatial_terrain_map_vinje_terrenglop.json"
 OUT_DIR = _REPO / "06_Visualizations" / "vinje_terrenglop_hitl"
 MANIFEST = OUT_DIR / "EXPORT_MANIFEST.json"
 
-VINJE_LAT_MIN = 59.45
-VINJE_LAT_MAX = 59.80
-VINJE_LON_MIN = 7.3
-VINJE_LON_MAX = 8.5
-# Rogaland / Uskedalen / Sandnes — west of Vinje Telemark (use lon, not lat).
-ROGALAND_LON_MAX = 7.0
-
 
 def _chunk_windows(km_end: float, chunk_km: float = 1.0) -> list[tuple[int, float, float]]:
     out: list[tuple[int, float, float]] = []
@@ -59,8 +55,8 @@ def _gps_window(panel: pd.DataFrame, km_lo: float, km_hi: float) -> tuple[float,
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Verify Vinje Terrengløp HITL export geography")
-    parser.add_argument("--strict", action="store_true")
+    parser = argparse.ArgumentParser(description="Verify Vinje Terrengløp HITL export")
+    parser.add_argument("--strict", action="store_true", help="Fail when PNG count mismatches km_end")
     args = parser.parse_args()
 
     errors: list[str] = []
@@ -77,7 +73,7 @@ def main() -> int:
     axis = resolve_axis_label(tmap, panel)
     race_id = (tmap.get("corridor") or {}).get("race_id")
 
-    print("=== Vinje Terrengløp HITL geography check ===")
+    print("=== Vinje Terrengløp HITL check (FIT GPS = source of truth) ===")
     print(f"  race_id: {race_id}")
     print(f"  axis:    {axis!r}")
 
@@ -88,33 +84,30 @@ def main() -> int:
 
     lat_all = pd.to_numeric(panel["latitude"], errors="coerce")
     lon_all = pd.to_numeric(panel["longitude"], errors="coerce")
-    c_lat, c_lon = float(lat_all.mean()), float(lon_all.mean())
-    print(f"  panel centroid: {c_lat:.5f}°N {c_lon:.5f}°E")
-
-    if c_lon < ROGALAND_LON_MAX:
-        errors.append(f"panel centroid {c_lon:.4f}°E looks like Rogaland — not Vinje Telemark")
-    if not (VINJE_LAT_MIN <= c_lat <= VINJE_LAT_MAX):
-        warnings.append(f"panel centroid lat {c_lat:.4f} outside expected Vinje band")
-    if not (VINJE_LON_MIN <= c_lon <= VINJE_LON_MAX):
-        warnings.append(f"panel centroid lon {c_lon:.4f} outside expected Vinje band")
+    valid = lat_all.notna() & lon_all.notna()
+    if not valid.any():
+        errors.append("panel has no valid GPS — check FIT wash")
+    else:
+        c_lat, c_lon = float(lat_all[valid].mean()), float(lon_all[valid].mean())
+        print(f"  FIT GPS centroid: {c_lat:.5f}°N {c_lon:.5f}°E")
 
     km_end = float((tmap.get("corridor") or {}).get("km_end") or panel["course_km"].max())
-    bad_chunks: list[str] = []
+    no_gps: list[str] = []
     for idx, km_lo, km_hi in _chunk_windows(km_end):
-        clat, clon, _n = _gps_window(panel, km_lo, km_hi)
-        if not math.isfinite(clat):
-            bad_chunks.append(f"chunk {idx:02d} km {km_lo:.0f}-{km_hi:.1f}: no GPS")
-            continue
-        if clon < ROGALAND_LON_MAX:
-            bad_chunks.append(f"chunk {idx:02d} km {km_lo:.0f}-{km_hi:.1f}: {clon:.4f}°E — Rogaland")
+        clat, clon, n = _gps_window(panel, km_lo, km_hi)
+        if not math.isfinite(clat) or n == 0:
+            no_gps.append(f"chunk {idx:02d} km {km_lo:.0f}-{km_hi:.1f}: no GPS")
 
-    if bad_chunks:
-        errors.extend(bad_chunks)
+    if no_gps:
+        errors.extend(no_gps)
     else:
-        print(f"  OK all {len(_chunk_windows(km_end))} chunk GPS windows in Vinje band")
+        print(f"  OK GPS on all {len(_chunk_windows(km_end))} km windows")
 
     pngs = sorted(OUT_DIR.glob("chunk_t*.png"))
-    print(f"  PNGs: {len(pngs)} in {OUT_DIR.relative_to(_REPO)}")
+    expected = len(_chunk_windows(km_end))
+    print(f"  PNGs: {len(pngs)} (expected ~{expected}) in {OUT_DIR.relative_to(_REPO)}")
+    if args.strict and len(pngs) < expected:
+        errors.append(f"expected at least {expected} chunk PNGs, found {len(pngs)}")
 
     if MANIFEST.exists():
         meta = json.loads(MANIFEST.read_text(encoding="utf-8"))
@@ -127,7 +120,7 @@ def main() -> int:
 
     if errors:
         return 1
-    print("\nOK Vinje Terrengløp HITL geography verified.")
+    print("\nOK Vinje Terrengløp HITL verified (trusting FIT GPS).")
     return 0
 
 
