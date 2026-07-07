@@ -2128,6 +2128,39 @@ def operator_gold_spans(terrain_map: dict[str, Any]) -> list[dict[str, Any]]:
     return list(terrain_map.get("hitl", {}).get("operator_gold_spans") or [])
 
 
+def is_map_first_operator_gold(terrain_map: dict[str, Any]) -> bool:
+    """Map-first HITL courses use operator_gold_spans[] only — not GMM/seed draft on export."""
+    clustering = terrain_map.get("clustering") or {}
+    if clustering.get("fallback") == "map_first_operator_gold":
+        return True
+    return str((terrain_map.get("corridor") or {}).get("race_id") or "") == "tverrfjell"
+
+
+def operator_gold_assigned_spans(
+    terrain_map: dict[str, Any],
+    km_lo: float,
+    km_hi: float,
+) -> list[dict[str, Any]]:
+    """operator_gold_spans[] clipped to window — decision-mode map/strip overlay."""
+    assigned: list[dict[str, Any]] = []
+    for span in operator_gold_spans(terrain_map):
+        s0 = float(span.get("course_km_start", span.get("course_m_start", 0) / 1000.0))
+        s1 = float(span.get("course_km_end", span.get("course_m_end", s0) / 1000.0))
+        if s1 <= km_lo or s0 >= km_hi:
+            continue
+        entry: dict[str, Any] = {
+            "km0": max(s0, km_lo),
+            "km1": min(s1, km_hi),
+            "class": str(span.get("surface_class", "S2")),
+            "kind": "operator_gold",
+        }
+        tier = str(span.get("friction_tier", "")).strip().upper()
+        if tier:
+            entry["friction_tier"] = tier
+        assigned.append(entry)
+    return assigned
+
+
 def annotate_operator_gold_on_class_axis(
     ax: plt.Axes,
     terrain_map: dict[str, Any],
@@ -4402,13 +4435,16 @@ def render_validation_dashboard(
             agr_map = agreement_df[
                 (agreement_df["course_km"] >= km_lo) & (agreement_df["course_km"] < km_hi)
             ]
-        assigned_spans_for_map = collect_assigned_class_spans(
-            terrain_map,
-            km_lo=km_lo,
-            km_hi=km_hi,
-            v1_df=v1_map,
-            agreement_df=agr_map,
-        )
+        if is_map_first_operator_gold(terrain_map) and operator_gold_spans(terrain_map):
+            assigned_spans_for_map = operator_gold_assigned_spans(terrain_map, km_lo, km_hi)
+        else:
+            assigned_spans_for_map = collect_assigned_class_spans(
+                terrain_map,
+                km_lo=km_lo,
+                km_hi=km_hi,
+                v1_df=v1_map,
+                agreement_df=agr_map,
+            )
     if with_map and ax_map is not None and ax_legend is not None:
         map_display_aspect = _map_subplot_target_aspect(
             decision_mode=decision_mode,
@@ -4564,13 +4600,16 @@ def render_validation_dashboard(
             agr_window = agreement_df[
                 (agreement_df["course_km"] >= km_lo) & (agreement_df["course_km"] < km_hi)
             ]
-        assigned_spans = collect_assigned_class_spans(
-            terrain_map,
-            km_lo=km_lo,
-            km_hi=km_hi,
-            v1_df=v1_window,
-            agreement_df=agr_window,
-        )
+        if is_map_first_operator_gold(terrain_map) and operator_gold_spans(terrain_map):
+            assigned_spans = operator_gold_assigned_spans(terrain_map, km_lo, km_hi)
+        else:
+            assigned_spans = collect_assigned_class_spans(
+                terrain_map,
+                km_lo=km_lo,
+                km_hi=km_hi,
+                v1_df=v1_window,
+                agreement_df=agr_window,
+            )
         ml_spans = collect_ml_pred_spans(ml_pred_df, km_lo=km_lo, km_hi=km_hi)
         cluster_a_spans = None
         cluster_b_spans = None

@@ -83,6 +83,7 @@ from spatial.validation_dashboard import (
     nib_wmts_token_configured,
     normalize_basemap_layer,
     offset_panel_gps,
+    operator_gold_assigned_spans,
     operator_gold_class_at_km,
     operator_gold_friction_tier_at_km,
     operator_gold_spans,
@@ -240,31 +241,6 @@ def display_aspect_locked_image(
         st.caption(f"PNG native {nat_w}×{nat_h}px (aspect {nat_w / nat_h:.2f}:1) — expected square 1:1")
 
 
-def operator_gold_assigned_spans(
-    terrain_map: dict[str, Any],
-    km_lo: float,
-    km_hi: float,
-) -> list[dict[str, Any]]:
-    """Convert hitl.operator_gold_spans[] to decision-mode assigned_spans for map overlay."""
-    assigned: list[dict[str, Any]] = []
-    for span in operator_gold_spans(terrain_map):
-        s0 = float(span.get("course_km_start", span.get("course_m_start", 0) / 1000.0))
-        s1 = float(span.get("course_km_end", span.get("course_m_end", s0) / 1000.0))
-        if s1 <= km_lo or s0 >= km_hi:
-            continue
-        entry: dict[str, Any] = {
-            "km0": max(s0, km_lo),
-            "km1": min(s1, km_hi),
-            "class": str(span.get("surface_class", "S2")),
-            "kind": "operator_gold",
-        }
-        tier = str(span.get("friction_tier", "")).strip().upper()
-        if tier:
-            entry["friction_tier"] = tier
-        assigned.append(entry)
-    return assigned
-
-
 def draft_gold_disagreement_pct(
     hmm_draft: pd.DataFrame,
     terrain_map: dict[str, Any],
@@ -334,7 +310,6 @@ def render_topo_basemap_png(
     assigned_spans: list[dict[str, Any]] | None = None
     if map_track_operator_gold:
         assigned_spans = operator_gold_assigned_spans(terrain_map, km_lo, km_hi)
-
     try:
         try:
             status, _, _ = render_reference_map(

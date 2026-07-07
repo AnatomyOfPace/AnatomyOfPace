@@ -43,6 +43,8 @@ if race_id != "tverrfjell":
 lat = pd.to_numeric(panel["latitude"], errors="coerce")
 lon = pd.to_numeric(panel["longitude"], errors="coerce")
 print(f"OK preflight axis={axis!r} centroid={lat.mean():.4f}N {lon.mean():.4f}E")
+gold = tmap.get("hitl", {}).get("operator_gold_spans") or []
+print(f"OK operator_gold_spans: {len(gold)} (re-export reflects these labels on map/strip)")
 PY
 then
   echo "Preflight failed — git pull origin cursor/tverrfjell-hitl-bootstrap-0c6a" >&2
