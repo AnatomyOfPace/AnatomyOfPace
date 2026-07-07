@@ -1639,6 +1639,44 @@ def _plot_class_coloured_map_track(
     return drew
 
 
+def plot_faint_centerline_track(
+    ax: plt.Axes,
+    geo: pd.DataFrame,
+    *,
+    km_axis: str = "course_km",
+    km_lo: float | None = None,
+    km_hi: float | None = None,
+    linewidth: float = 2.0,
+    alpha: float = 0.72,
+    zorder: int = 3,
+) -> bool:
+    """Neutral FIT/GPS centerline so decision-mode maps stay readable between gold locks."""
+    if km_axis not in geo.columns or geo.empty:
+        return False
+    pts = geo.sort_values(km_axis)
+    if len(pts) < 2:
+        return False
+    drew = False
+    for i in range(len(pts) - 1):
+        row0, row1 = pts.iloc[i], pts.iloc[i + 1]
+        km_mid = 0.5 * (float(row0[km_axis]) + float(row1[km_axis]))
+        if km_lo is not None and km_mid < km_lo:
+            continue
+        if km_hi is not None and km_mid > km_hi:
+            continue
+        ax.plot(
+            [row0["longitude"], row1["longitude"]],
+            [row0["latitude"], row1["latitude"]],
+            color="#E0E0E0",
+            linewidth=linewidth,
+            alpha=alpha,
+            solid_capstyle="round",
+            zorder=zorder,
+        )
+        drew = True
+    return drew
+
+
 def plot_assigned_span_labels_on_map(
     ax: plt.Axes,
     geo: pd.DataFrame,
@@ -1653,6 +1691,8 @@ def plot_assigned_span_labels_on_map(
     if not assigned_spans or geo.empty:
         return
     for span in assigned_spans:
+        if str(span.get("kind", "")) != "operator_gold":
+            continue
         km0 = float(span["km0"])
         km1 = float(span["km1"])
         if km1 - km0 < min_label_span_km:
@@ -2233,6 +2273,24 @@ def is_map_first_operator_gold(terrain_map: dict[str, Any]) -> bool:
     if clustering.get("fallback") == "map_first_operator_gold":
         return True
     return str((terrain_map.get("corridor") or {}).get("race_id") or "") == "tverrfjell"
+
+
+def collect_decision_assigned_spans(
+    terrain_map: dict[str, Any],
+    *,
+    km_lo: float,
+    km_hi: float,
+    v1_df: pd.DataFrame | None = None,
+    agreement_df: pd.DataFrame | None = None,
+) -> list[dict[str, Any]]:
+    """Decision view: operator gold where locked; seed draft fills unlabeled gaps on map-first courses."""
+    return collect_assigned_class_spans(
+        terrain_map,
+        km_lo=km_lo,
+        km_hi=km_hi,
+        v1_df=v1_df,
+        agreement_df=agreement_df,
+    )
 
 
 def operator_gold_assigned_spans(
@@ -3133,6 +3191,12 @@ def render_reference_map(
 
     assigned_map_drawn = False
     if decision_mode:
+        plot_faint_centerline_track(
+            ax,
+            track_geo,
+            km_lo=ml_km_lo,
+            km_hi=ml_km_hi,
+        )
         assigned_map_drawn = plot_assigned_gold_track_overlay(
             ax,
             track_geo,
@@ -4534,16 +4598,13 @@ def render_validation_dashboard(
             agr_map = agreement_df[
                 (agreement_df["course_km"] >= km_lo) & (agreement_df["course_km"] < km_hi)
             ]
-        if is_map_first_operator_gold(terrain_map) and operator_gold_spans(terrain_map):
-            assigned_spans_for_map = operator_gold_assigned_spans(terrain_map, km_lo, km_hi)
-        else:
-            assigned_spans_for_map = collect_assigned_class_spans(
-                terrain_map,
-                km_lo=km_lo,
-                km_hi=km_hi,
-                v1_df=v1_map,
-                agreement_df=agr_map,
-            )
+        assigned_spans_for_map = collect_decision_assigned_spans(
+            terrain_map,
+            km_lo=km_lo,
+            km_hi=km_hi,
+            v1_df=v1_map,
+            agreement_df=agr_map,
+        )
     if with_map and ax_map is not None and ax_legend is not None:
         map_display_aspect = _map_subplot_target_aspect(
             decision_mode=decision_mode,
@@ -4699,16 +4760,13 @@ def render_validation_dashboard(
             agr_window = agreement_df[
                 (agreement_df["course_km"] >= km_lo) & (agreement_df["course_km"] < km_hi)
             ]
-        if is_map_first_operator_gold(terrain_map) and operator_gold_spans(terrain_map):
-            assigned_spans = operator_gold_assigned_spans(terrain_map, km_lo, km_hi)
-        else:
-            assigned_spans = collect_assigned_class_spans(
-                terrain_map,
-                km_lo=km_lo,
-                km_hi=km_hi,
-                v1_df=v1_window,
-                agreement_df=agr_window,
-            )
+        assigned_spans = collect_decision_assigned_spans(
+            terrain_map,
+            km_lo=km_lo,
+            km_hi=km_hi,
+            v1_df=v1_window,
+            agreement_df=agr_window,
+        )
         ml_spans = collect_ml_pred_spans(ml_pred_df, km_lo=km_lo, km_hi=km_hi)
         cluster_a_spans = None
         cluster_b_spans = None
