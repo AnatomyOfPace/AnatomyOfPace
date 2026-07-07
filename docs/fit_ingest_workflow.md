@@ -209,11 +209,28 @@ Configs: `config/spatial_align_manifest_tverrfjell.json`, `config/spatial_terrai
 
 **Geography:** Klepp, Rogaland (Jæren). Map-first FIT stream axis — not SUT_43 organiser GPX.
 
+### Avoiding Tverrfjell pitfalls
+
+| Tverrfjell issue | Klepp safeguard |
+|------------------|-----------------|
+| Wrong axis / SUT_43 geography | `verify_klepp_runde_hitl_exports.py` + `preflight_map_first_course.py` |
+| Lost `operator_gold_spans` on `git restore` | Backup after each session: `cp config/spatial_terrain_map_klepp_runde.json config/spatial_terrain_map_klepp_runde.gold_local.json` (gitignored copy — never rely on committed JSON for gold) |
+| ML strip empty | Export script auto-loads `klepp_runde_ml_predictions.parquet` when model exists — **train before final PNG export** |
+| Locomotion strip missing | Export auto-generates `locomotion_mode_1m.parquet` |
+| Wrong training panel (SUT_43) | Always pass `--terrain-map config/spatial_terrain_map_klepp_runde.json` to `build_gold_training_set.py` |
+| Stale PNGs after code pull | Re-run `export_hitl_chunks_klepp_runde.sh` after `git pull` |
+| Weak TI / zero speed in panel | Bootstrap runs `--enrich-ti`; preflight warns if telemetry coverage is low |
+
+### Ordered workflow
+
 | Step | Command |
 |------|---------|
-| Place FIT | `02_Raw_Data/donors/Subject_A/Klepp_Runde_*.fit` (filename must contain `Klepp` and `Runde`) |
+| Pull branch | `git pull origin cursor/klepp-runde-bootstrap-0c6a` |
+| Place FIT | `02_Raw_Data/donors/Subject_A/Klepp_Runde_*.fit` |
 | Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_klepp_runde_course.py --fit <path>` |
-| Label | `gold_span_editor.py add --terrain-map config/spatial_terrain_map_klepp_runde.json ...` |
-| Dashboard PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_klepp_runde.sh` → `06_Visualizations/klepp_runde_hitl/` |
+| Preflight | `python3 04_Python_Scripts/spatial/preflight_map_first_course.py --terrain-map config/spatial_terrain_map_klepp_runde.json` |
+| Label + backup | `gold_span_editor.py add ...` then `cp ...gold_local.json` |
+| Train ML | `build_gold_training_set.py` → `train_gold_suggester.py` with `--metadata-out ...klepp_runde_v0_metadata.json` |
+| Export PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_klepp_runde.sh` |
 
 Configs: `config/spatial_align_manifest_klepp_runde.json`, `config/spatial_terrain_map_klepp_runde.json`.

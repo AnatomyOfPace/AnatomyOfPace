@@ -21,6 +21,13 @@ if [[ ! -f "$PANEL" ]]; then
   exit 1
 fi
 
+if ! python3 04_Python_Scripts/spatial/preflight_map_first_course.py \
+  --terrain-map "$TERRAIN_MAP" --panel "$PANEL"
+then
+  echo "Preflight failed — fix issues above before export" >&2
+  exit 1
+fi
+
 if ! python3 - <<'PY'
 import sys
 from pathlib import Path

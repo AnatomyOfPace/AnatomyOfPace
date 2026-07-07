@@ -347,6 +347,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.model_out != DEFAULT_MODEL_PATH and args.metadata_out == DEFAULT_METADATA_PATH:
+        args.metadata_out = args.model_out.with_name(args.model_out.stem + "_metadata.json")
     training_paths = args.training_sets or [DEFAULT_TRAINING_SET]
     try:
         df, training_paths = _load_training_frames(training_paths)
