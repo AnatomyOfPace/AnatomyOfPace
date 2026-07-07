@@ -63,6 +63,18 @@ WRONG_REGION: dict[str, dict[str, float | str]] = {
 }
 
 
+def _resolve_repo_path(path: Path) -> Path:
+    return path if path.is_absolute() else BASE_DIR / path
+
+
+def _repo_rel(path: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return str(resolved.relative_to(BASE_DIR.resolve()))
+    except ValueError:
+        return str(resolved)
+
+
 def _panel_path(terrain_map_path: Path, panel: Path | None) -> Path:
     if panel is not None:
         return panel if panel.is_absolute() else BASE_DIR / panel
