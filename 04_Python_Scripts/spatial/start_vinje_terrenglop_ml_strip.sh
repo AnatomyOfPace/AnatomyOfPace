@@ -22,6 +22,10 @@ done
 
 if [[ -z "$SKIP_BOOT" ]]; then
   echo "=== Bootstrap Vinje Terrengløp ==="
+  if [[ ${#FIT_ARG[@]} -eq 0 ]]; then
+    echo "No --fit passed; trying auto-discover (Vinje + Terrengl in filename)..."
+    python3 04_Python_Scripts/spatial/bootstrap_vinje_terrenglop_course.py --discover || true
+  fi
   python3 04_Python_Scripts/spatial/bootstrap_vinje_terrenglop_course.py "${FIT_ARG[@]}"
 fi
 

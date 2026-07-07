@@ -43,9 +43,38 @@ RACE_ID = "vinje_terrenglop"
 DONOR_DIR = _REPO / "02_Raw_Data" / "donors" / DONOR_ID
 
 
+def _normalize_fit_name(name: str) -> str:
+    """Fold unicode (e.g. ø→o) so Terrengløp matches Terrenglop."""
+    import unicodedata
+
+    folded = unicodedata.normalize("NFKD", name)
+    return "".join(ch for ch in folded if not unicodedata.combining(ch)).lower()
+
+
 def _is_vinje_terrenglop_fit(path: Path) -> bool:
-    name = path.name.lower()
+    name = _normalize_fit_name(path.name)
     return "vinje" in name and "terrengl" in name
+
+
+def _discover_roots() -> list[Path]:
+    home = Path.home()
+    roots = [
+        _REPO / "02_Raw_Data",
+        home / "Downloads",
+        home / "Desktop",
+        home / "Documents",
+        home / "Garmin",
+        home / "Library" / "Mobile Documents" / "com~apple~CloudDocs" / "Downloads",
+    ]
+    out: list[Path] = []
+    seen: set[str] = set()
+    for root in roots:
+        key = str(root.resolve()) if root.exists() else str(root)
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(root)
+    return out
 
 
 def _iter_fit_files(root: Path) -> list[Path]:
@@ -61,7 +90,7 @@ def _iter_fit_files(root: Path) -> list[Path]:
 def _discover_fit_candidates() -> list[Path]:
     candidates: list[Path] = []
     seen: set[str] = set()
-    for root in (_REPO / "02_Raw_Data", Path.home() / "Downloads", Path.home() / "Desktop"):
+    for root in _discover_roots():
         if not root.exists():
             continue
         for path in _iter_fit_files(root):
@@ -73,6 +102,29 @@ def _discover_fit_candidates() -> list[Path]:
             seen.add(key)
             candidates.append(path)
     return candidates
+
+
+def _fit_not_found_message(explicit: Path | None = None) -> str:
+    discovered = _discover_fit_candidates()
+    lines = [
+        "No Vinje Terrengløp FIT at the expected path.",
+        "Filename must contain 'Vinje' and 'Terrengl' (ø is OK — e.g. Terrengløp).",
+    ]
+    if explicit is not None:
+        lines.insert(0, f"FIT not found: {explicit}")
+    if discovered:
+        lines.append("\nAuto-discovered candidates (pass one with --fit):")
+        lines.extend(f"  - {p}" for p in discovered)
+    else:
+        lines.append("\nNo candidates under 02_Raw_Data, Downloads, Desktop, Documents, or ~/Garmin.")
+        lines.append("Find the export on your Mac, then:")
+        lines.append("  mdfind -name vinje | grep -i '\\.fit$'")
+        lines.append("  find ~/Downloads ~/Desktop -iname '*vinje*.fit' 2>/dev/null")
+        lines.append("\nThen copy or pass the real path:")
+        lines.append(
+            f"  --fit {_REPO / '02_Raw_Data' / 'donors' / DONOR_ID / 'YOUR_Vinje_Terrenglop.fit'}"
+        )
+    return "\n".join(lines)
 
 
 def _canonical_fit_path(activity_id: str) -> Path:
@@ -97,7 +149,7 @@ def _resolve_fit_path(explicit: Path | None) -> tuple[Path, str]:
         p = explicit.expanduser()
         p = p if p.is_absolute() else _REPO / p
         if not p.exists():
-            raise FileNotFoundError(f"FIT not found: {p}")
+            raise FileNotFoundError(_fit_not_found_message(p))
         activity_id = p.stem
         return _install_to_canonical(p, activity_id), activity_id
 
@@ -112,12 +164,7 @@ def _resolve_fit_path(explicit: Path | None) -> tuple[Path, str]:
             "Multiple Vinje Terrengløp FIT files found — pass exactly one with --fit:\n" + lines
         )
 
-    raise FileNotFoundError(
-        "No Vinje Terrengløp FIT found (filename must contain 'Vinje' and 'Terrengl').\n\n"
-        f"Place under {_REPO / '02_Raw_Data' / 'donors' / DONOR_ID} or pass:\n"
-        "  python3 04_Python_Scripts/spatial/bootstrap_vinje_terrenglop_course.py "
-        "--fit 02_Raw_Data/donors/Subject_A/Vinje_Terrenglop_20251005.fit"
-    )
+    raise FileNotFoundError(_fit_not_found_message())
 
 
 def _stream_km_end(micro_path: Path) -> float:
@@ -215,8 +262,10 @@ def main() -> int:
                     print(f"  {p.relative_to(_REPO)}")
                 except ValueError:
                     print(f"  {p}")
+            print("\nUse one path with --fit, or omit --fit if exactly one match exists.")
         else:
             print("No filename containing both 'Vinje' and 'Terrengl' found.")
+            print(_fit_not_found_message())
         return 0 if found else 1
 
     fit_path, activity_id = _resolve_fit_path(args.fit)

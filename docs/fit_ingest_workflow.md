@@ -300,8 +300,13 @@ After a pooled or course-specific gold suggester is trained locally (`gold_sugge
 ```bash
 git pull origin cursor/vinje-terrenglop-bootstrap-0c6a
 
-cp ~/Downloads/Vinje_Terrenglop_20251005.fit \
-  02_Raw_Data/donors/Subject_A/Vinje_Terrenglop_20251005.fit
+cp <path/to/Vinje_Terrenglop*.fit> \
+  02_Raw_Data/donors/Subject_A/
+
+# Find the file if unsure (common: Terrengløp with ø, or Garmin date suffix):
+#   python3 04_Python_Scripts/spatial/bootstrap_vinje_terrenglop_course.py --discover
+#   mdfind -name vinje | grep -i '\.fit$'
+#   find ~/Downloads ~/Desktop -iname '*vinje*.fit' 2>/dev/null
 
 ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
   ./04_Python_Scripts/spatial/start_vinje_terrenglop_ml_strip.sh \
