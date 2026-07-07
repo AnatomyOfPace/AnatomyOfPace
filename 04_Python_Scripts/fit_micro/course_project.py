@@ -36,6 +36,7 @@ STREAM_DISTANCE_RACES = frozenset(
         "tverrfjell",
         "klepp_runde",
         "gramstad_runde",
+        "vinje_terrenglop",
     }
 )
 

@@ -37,11 +37,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Klepp Runde: local place name "Klepp" in Uskedalen (not Klepp municipality, Rogaland).
 USKEDALEN_BAND = {"lat_min": 59.86, "lat_max": 59.95, "lon_min": 5.88, "lon_max": 6.02}
 SANDNES_GRAMSTAD_BAND = {"lat_min": 58.75, "lat_max": 58.95, "lon_min": 5.55, "lon_max": 5.85}
+VINJE_TELEMARK_BAND = {"lat_min": 59.40, "lat_max": 59.80, "lon_min": 7.25, "lon_max": 8.55}
 
 GEO_BANDS: dict[str, dict[str, float]] = {
     "tverrfjell": dict(USKEDALEN_BAND),
     "klepp_runde": dict(USKEDALEN_BAND),
     "gramstad_runde": dict(SANDNES_GRAMSTAD_BAND),
+    "vinje_terrenglop": dict(VINJE_TELEMARK_BAND),
 }
 
 WRONG_REGION: dict[str, dict[str, float | str]] = {
@@ -53,6 +55,10 @@ WRONG_REGION: dict[str, dict[str, float | str]] = {
     "gramstad_runde": {
         "lat_max": 59.0,
         "label": "Uskedalen (wrong course — not Sandnes/Gramstad)",
+    },
+    "vinje_terrenglop": {
+        "lat_max": 59.05,
+        "label": "Rogaland / Uskedalen band (wrong course — not Vinje Telemark)",
     },
 }
 

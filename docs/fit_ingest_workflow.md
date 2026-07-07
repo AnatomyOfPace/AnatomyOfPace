@@ -290,3 +290,33 @@ python3 04_Python_Scripts/spatial/transfer_gold_spans_gps.py \
 ```
 
 Use committed `spatial_terrain_map_sut43.json` if no `.gold_local.json`. Expect partial coverage — review PNGs and fix gaps with `gold_span_editor.py`. Falls back to manual labeling where GPS match exceeds `--max-match-m` (default 35 m).
+
+## Vinje Terrengløp (map-first HITL + ML suggester strip)
+
+**Geography:** Vinje, Telemark (Hardangervidda / Vestfold og Telemark band). Map-first FIT stream axis — not SUT_43 organiser GPX.
+
+After a pooled or course-specific gold suggester is trained locally (`gold_suggester_map_first_pool_v0.joblib` or `gold_suggester_gramstad_runde_v0.joblib`), export HITL PNGs with the **ML predicted** strip row (Assigned row empty until operator gold is added):
+
+```bash
+git pull origin cursor/vinje-terrenglop-bootstrap-0c6a
+
+cp ~/Downloads/Vinje_Terrenglop_20251005.fit \
+  02_Raw_Data/donors/Subject_A/Vinje_Terrenglop_20251005.fit
+
+ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
+  ./04_Python_Scripts/spatial/start_vinje_terrenglop_ml_strip.sh \
+  --fit 02_Raw_Data/donors/Subject_A/Vinje_Terrenglop_20251005.fit
+```
+
+Or step-by-step:
+
+| Step | Command |
+|------|---------|
+| Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_vinje_terrenglop_course.py --fit <path>` |
+| Preflight | `python3 04_Python_Scripts/spatial/preflight_map_first_course.py --terrain-map config/spatial_terrain_map_vinje_terrenglop.json` |
+| ML strip export | `ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib ./04_Python_Scripts/spatial/export_hitl_chunks_vinje_terrenglop.sh` |
+| Label (optional) | `gold_span_editor.py --terrain-map config/spatial_terrain_map_vinje_terrenglop.json add ...` |
+
+Configs: `config/spatial_align_manifest_vinje_terrenglop.json`, `config/spatial_terrain_map_vinje_terrenglop.json`.
+
+**Pull recovery:** if `git pull` blocks on patched manifest/terrain map, `git checkout --` those two files then `bootstrap_vinje_terrenglop_course.py --skip-wash --fit <path>`.

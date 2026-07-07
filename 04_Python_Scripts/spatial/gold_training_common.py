@@ -22,6 +22,8 @@ KLEPP_RUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "klepp_runde_co
 KLEPP_RUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_klepp_runde.parquet"
 GRAMSTAD_RUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "gramstad_runde_course" / "panel_1m.parquet"
 GRAMSTAD_RUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_gramstad_runde.parquet"
+VINJE_TERRENGLOP_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "vinje_terrenglop_course" / "panel_1m.parquet"
+VINJE_TERRENGLOP_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_vinje_terrenglop.parquet"
 
 SURFACE_CLASSES = ("S1", "S2", "S3", "S4", "S5", "S6")
 FRICTION_TIERS = ("F0", "F1", "F2", "F3", "F4")
@@ -73,6 +75,15 @@ def resolve_gold_training_defaults(terrain_map_path: Path) -> dict[str, Any]:
         return {
             "panel": GRAMSTAD_RUNDE_PANEL,
             "output": GRAMSTAD_RUNDE_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "vinje_terrenglop":
+        km_end = float(corridor.get("km_end") or 1.0)
+        return {
+            "panel": VINJE_TERRENGLOP_PANEL,
+            "output": VINJE_TERRENGLOP_GOLD_OUTPUT,
             "km_start": 0.0,
             "km_end": km_end,
             "hmm_draft": None,
