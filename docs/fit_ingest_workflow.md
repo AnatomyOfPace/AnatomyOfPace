@@ -325,3 +325,52 @@ Or step-by-step:
 Configs: `config/spatial_align_manifest_vinje_terrenglop.json`, `config/spatial_terrain_map_vinje_terrenglop.json`.
 
 **Pull recovery:** if `git pull` blocks on patched manifest/terrain map, `git checkout --` those two files then `bootstrap_vinje_terrenglop_course.py --skip-wash --fit <path>`.
+
+## Map-first pooled gold suggester (Tverrfjell + Klepp + Gramstad + Vinje)
+
+Train one cross-course model from operator gold on all map-first FIT loops. Per-course parquets are merged with `source_anchor` traceability; the pooled model is written to `gold_suggester_map_first_pool_v0.joblib` (local only).
+
+**One-shot (after gold is locked on each course):**
+
+```bash
+./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --rebuild-exports
+```
+
+Or step-by-step:
+
+```bash
+# 1. Per-course exports (always pass --terrain-map for non-SUT courses)
+for TMAP in \
+  config/spatial_terrain_map_tverrfjell.json \
+  config/spatial_terrain_map_klepp_runde.json \
+  config/spatial_terrain_map_gramstad_runde.json \
+  config/spatial_terrain_map_vinje_terrenglop.json
+do
+  python3 04_Python_Scripts/spatial/build_gold_training_set.py --terrain-map "$TMAP"
+done
+
+# 2. Merge
+python3 04_Python_Scripts/spatial/merge_gold_training_sets.py \
+  --input 03_Processed_Data/spatial/gold_training_set_tverrfjell.parquet \
+  --input 03_Processed_Data/spatial/gold_training_set_klepp_runde.parquet \
+  --input 03_Processed_Data/spatial/gold_training_set_gramstad_runde.parquet \
+  --input 03_Processed_Data/spatial/gold_training_set_vinje_terrenglop.parquet \
+  --output 03_Processed_Data/spatial/gold_training_set_map_first_pool.parquet \
+  --summary-json 03_Processed_Data/spatial/gold_training_set_map_first_pool.summary.json
+
+# 3. Train
+python3 04_Python_Scripts/spatial/train_gold_suggester.py \
+  --training-set 03_Processed_Data/spatial/gold_training_set_map_first_pool.parquet \
+  --sector-id map_first_pool \
+  --model-out 07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
+  --metadata-out 07_ML_Models/spatial/gold_suggester_map_first_pool_v0_metadata.json
+```
+
+Check metadata for `per_source_accuracy` on the random holdout and `source_anchor_counts`. Re-export any course with the pooled model:
+
+```bash
+ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
+  ./04_Python_Scripts/spatial/export_hitl_chunks_vinje_terrenglop.sh
+```
+
+Optional `--source-weight klepp_runde:0.8` on `train_gold_suggester.py` if one course should count less in the merge.
