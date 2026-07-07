@@ -70,6 +70,16 @@ PY
 mkdir -p "$OUT_DIR"
 rm -f "$OUT_DIR"/chunk_t*.png "$OUT_DIR"/chunk_*.png
 
+LOCOMOTION_SIDECAR="03_Processed_Data/spatial/tverrfjell_course/locomotion_mode_1m.parquet"
+if [[ ! -f "$LOCOMOTION_SIDECAR" ]]; then
+  echo "Generating locomotion sidecar → $LOCOMOTION_SIDECAR"
+  python3 04_Python_Scripts/spatial/locomotion_mode.py \
+    --panel "$PANEL" \
+    --terrain-map "$TERRAIN_MAP" \
+    --session-type training \
+    --sidecar "$LOCOMOTION_SIDECAR"
+fi
+
 python3 04_Python_Scripts/spatial/validation_dashboard.py \
   --terrain-map "$TERRAIN_MAP" \
   --panel "$PANEL" \

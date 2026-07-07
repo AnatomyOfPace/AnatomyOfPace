@@ -359,6 +359,12 @@ ML_MAP_TRACK_OFFSET_M = MAP_TRACK_PERP_OFFSET_M
 DECISION_UNLABELED_ALPHA = 0.35
 DECISION_SIGMA_FLAG_ALPHA = 0.07
 DECISION_SIGMA_EDGE_THRESHOLD = 0.45
+LOCOMOTION_HIKE_COLOR = "#42A5F5"
+LOCOMOTION_RUN_COLOR = "#FFEB3B"
+LOCOMOTION_HIKE_BAR_HEIGHT = 0.32
+LOCOMOTION_RUN_BAR_HEIGHT = 0.88
+LOCOMOTION_STRIP_FILL_ALPHA = 0.88
+LOCOMOTION_PROFILE_HEIGHT_RATIO = 0.55
 
 AGREEMENT_TIER_ALPHA = {
     "gold": 0.28,
@@ -766,11 +772,14 @@ def _map_subplot_target_aspect(
     *,
     decision_mode: bool,
     with_cluster_ti: bool = True,
+    with_locomotion_strip: bool = False,
 ) -> float:
     """Width/height of map data limits needed to fill the top-left GridSpec cell."""
     map_h = DECISION_TOP_HEIGHT_RATIO if decision_mode else 1.85
     if decision_mode:
         profile_heights = [2.25, 1.45 if with_cluster_ti else 1.15]
+        if with_locomotion_strip:
+            profile_heights.append(LOCOMOTION_PROFILE_HEIGHT_RATIO)
     else:
         profile_heights = [2.0, 1.0]
     row_frac = map_h / (map_h + sum(profile_heights))
@@ -3806,6 +3815,111 @@ def collect_ml_pred_spans(
     ]
 
 
+def resolve_panel_session_type(panel: pd.DataFrame) -> str | None:
+    """Single session_type value when unambiguous; else None (no filter)."""
+    if "session_type" not in panel.columns:
+        return None
+    vals = sorted(str(v) for v in panel["session_type"].dropna().unique())
+    if len(vals) == 1:
+        return vals[0]
+    return None
+
+
+def resolve_locomotion_df(
+    panel: pd.DataFrame,
+    terrain_map: dict[str, Any],
+    panel_path: Path,
+    *,
+    sidecar: Path | None = None,
+    session_type: str | None = None,
+) -> pd.DataFrame | None:
+    """Load locomotion sidecar or compute four-gate run/hike tags for the strip."""
+    sidecar_path = sidecar or (panel_path.parent / "locomotion_mode_1m.parquet")
+    if sidecar_path.exists():
+        loaded = pd.read_parquet(sidecar_path)
+        if "locomotion_mode" in loaded.columns and "course_km" in loaded.columns:
+            return loaded
+
+    from spatial.locomotion_mode import tag_panel_locomotion  # noqa: WPS433
+
+    st = session_type if session_type is not None else resolve_panel_session_type(panel)
+    try:
+        tagged = tag_panel_locomotion(panel, terrain_map, session_type=st)
+    except Exception as exc:
+        logging.warning("locomotion_mode computation failed: %s", exc)
+        return None
+    if tagged.empty or "locomotion_mode" not in tagged.columns:
+        return None
+    export_cols = ["course_m", "course_km", "locomotion_mode"]
+    if "donor_id" in tagged.columns:
+        export_cols.insert(2, "donor_id")
+    return tagged[[c for c in export_cols if c in tagged.columns]]
+
+
+def collect_locomotion_spans(
+    loco_df: pd.DataFrame | None,
+    *,
+    km_lo: float,
+    km_hi: float,
+    mode_col: str = "locomotion_mode",
+    km_col: str = "course_km",
+) -> list[dict[str, Any]]:
+    """Merge per-metre run/hike tags into display spans."""
+    if loco_df is None or loco_df.empty or mode_col not in loco_df.columns or km_col not in loco_df.columns:
+        return []
+
+    window = loco_df[(loco_df[km_col] >= km_lo) & (loco_df[km_col] < km_hi)]
+    mode_by_km: dict[float, str | None] = {}
+    for km, mode in zip(window[km_col].astype(float), window[mode_col]):
+        mode_by_km[float(km)] = str(mode).lower() if pd.notna(mode) else None
+
+    rows: list[tuple[float, tuple[str | None, ...]]] = []
+    step = 0.001
+    km = km_lo
+    while km < km_hi - 1e-9:
+        mode = mode_by_km.get(round(km, 3))
+        rows.append((km, (mode,)))
+        km = round(km + step, 3)
+
+    return [
+        {"km0": km0, "km1": km1, "mode": key[0]}
+        for km0, km1, key in _rle_metre_rows(rows)
+    ]
+
+
+def annotate_locomotion_mode_strip(
+    ax: plt.Axes,
+    spans: list[dict[str, Any]],
+    *,
+    fill_alpha: float = LOCOMOTION_STRIP_FILL_ALPHA,
+) -> None:
+    """Locomotion strip — low blue bars (hike), tall yellow bars (run)."""
+    y_base = 0.0
+    for span in spans:
+        km0 = float(span["km0"])
+        km1 = float(span["km1"])
+        mode = str(span.get("mode", "run")).lower()
+        if mode == "hike":
+            height = LOCOMOTION_HIKE_BAR_HEIGHT
+            color = LOCOMOTION_HIKE_COLOR
+        else:
+            height = LOCOMOTION_RUN_BAR_HEIGHT
+            color = LOCOMOTION_RUN_COLOR
+        _solid_yband(
+            ax,
+            km0,
+            km1,
+            y_base,
+            y_base + height,
+            facecolor=color,
+            alpha=fill_alpha,
+            zorder=4,
+        )
+    y_max = LOCOMOTION_RUN_BAR_HEIGHT * 1.12
+    ax.set_ylim(-0.06, y_max)
+    ax.axhline(y_base, color="#444444", linewidth=0.5, zorder=1)
+
+
 def resolve_cluster_ti_parquet_paths(
     panel_path: Path,
     *,
@@ -4232,6 +4346,7 @@ def render_dashboard_legend(
     show_ml_map_track: bool = False,
     ml_predictions_mode: MLPredictionsMode = "full",
     show_cluster_ti_rank: bool = False,
+    show_locomotion_strip: bool = False,
 ) -> None:
     """Top-right legend panel — compact decision-mode key or full debug symbology."""
     ax.set_facecolor("#121212")
@@ -4324,6 +4439,25 @@ def render_dashboard_legend(
             labels.append(
                 f"High TI rank (≥R{HIGH_CLUSTER_TI_RANK_THRESHOLD}) — S4/S6 review priority"
             )
+        if show_locomotion_strip:
+            handles.append(
+                Patch(
+                    facecolor=LOCOMOTION_HIKE_COLOR,
+                    edgecolor="#555555",
+                    linewidth=0.4,
+                    alpha=LOCOMOTION_STRIP_FILL_ALPHA,
+                )
+            )
+            labels.append("Hike — low blue bar")
+            handles.append(
+                Patch(
+                    facecolor=LOCOMOTION_RUN_COLOR,
+                    edgecolor="#555555",
+                    linewidth=0.4,
+                    alpha=LOCOMOTION_STRIP_FILL_ALPHA,
+                )
+            )
+            labels.append("Run — tall yellow bar")
         if show_assigned_map_track:
             handles.append(
                 Line2D(
@@ -4567,6 +4701,8 @@ def render_validation_dashboard(
     basemap: BasemapChoice | None = None,
     cluster_ti_dfs: dict[str, pd.DataFrame] | None = None,
     verify_export: bool = False,
+    locomotion_df: pd.DataFrame | None = None,
+    show_locomotion_strip: bool = False,
 ) -> Path:
     """Stacked dashboard: map + legend, elevation/grade/NTI profile, assigned or debug class rows."""
     plt.style.use("dark_background")
@@ -4577,6 +4713,11 @@ def render_validation_dashboard(
     profile_height_ratios = [2.0] + [1.0] * (n_profile_rows - 1)
     if decision_mode:
         profile_height_ratios = [2.25, 1.45 if cluster_ti_dfs else 1.15]
+        if show_locomotion_strip:
+            profile_height_ratios.append(LOCOMOTION_PROFILE_HEIGHT_RATIO)
+            n_profile_rows = len(profile_height_ratios)
+        else:
+            n_profile_rows = 2
     fig_h = 12.5 if with_map and decision_mode else (12.0 if with_map else FIG_SIZE_IN[1])
     fig_w = DECISION_FIG_WIDTH_IN if with_map and decision_mode else FIG_SIZE_IN[0]
     if with_map:
@@ -4694,6 +4835,7 @@ def render_validation_dashboard(
         map_display_aspect = _map_subplot_target_aspect(
             decision_mode=decision_mode,
             with_cluster_ti=bool(cluster_ti_dfs),
+            with_locomotion_strip=show_locomotion_strip,
         )
         _, ml_map_drawn, assigned_map_drawn = render_reference_map(
             ax_map,
@@ -4719,6 +4861,7 @@ def render_validation_dashboard(
             show_ml_map_track=ml_map_drawn,
             ml_predictions_mode=ml_predictions_mode,
             show_cluster_ti_rank=bool(cluster_ti_dfs) and decision_mode,
+            show_locomotion_strip=show_locomotion_strip,
         )
 
     race_work = select_primary_telemetry_panel(work)
@@ -4873,6 +5016,18 @@ def render_validation_dashboard(
             ml_fill_alpha=ml_strip_alpha,
         )
         ax2.set_ylabel("Surface class", color="#A0A0A0")
+        if show_locomotion_strip and len(profile_axes) > row_delta + 1:
+            ax_loco = profile_axes[row_delta + 1]
+            loco_spans = collect_locomotion_spans(
+                locomotion_df, km_lo=km_lo, km_hi=km_hi
+            )
+            annotate_locomotion_mode_strip(ax_loco, loco_spans)
+            ax_loco.set_ylabel("Locomotion", color="#A0A0A0")
+            ax_loco.grid(color="#2A2A2A", linestyle="--", alpha=0.6)
+            ax_loco.set_xlabel(axis_label, color="#A0A0A0")
+            ax2.set_xlabel("")
+        else:
+            ax2.set_xlabel(axis_label, color="#A0A0A0")
     else:
         if ti_draft:
             annotate_ti_draft_on_class_axis(
@@ -4985,7 +5140,8 @@ def render_validation_dashboard(
     if not decision_mode:
         ax2.set_yticks(list(class_to_y.values()))
         ax2.set_yticklabels(list(class_to_y.keys()))
-    ax2.set_xlabel(axis_label, color="#A0A0A0")
+    if not (decision_mode and show_locomotion_strip):
+        ax2.set_xlabel(axis_label, color="#A0A0A0")
     ax2.grid(color="#2A2A2A", linestyle="--", alpha=0.6)
 
     if with_map:
@@ -5206,6 +5362,22 @@ def main() -> None:
         default=None,
         help="PIL-verify PNG after save; exit non-zero on corrupt export (default: on for chunk export)",
     )
+    parser.add_argument(
+        "--locomotion-sidecar",
+        type=Path,
+        default=None,
+        help="Per-metre locomotion_mode parquet (default: <panel_dir>/locomotion_mode_1m.parquet)",
+    )
+    parser.add_argument(
+        "--no-locomotion-strip",
+        action="store_true",
+        help="Hide decision-mode locomotion strip (run/hike bars)",
+    )
+    parser.add_argument(
+        "--locomotion-session-type",
+        default=None,
+        help="session_type filter for on-the-fly locomotion tagging (default: infer from panel)",
+    )
     args = parser.parse_args()
 
     if args.print_override_protocol:
@@ -5365,6 +5537,24 @@ def main() -> None:
         if not cluster_ti_dfs:
             cluster_ti_dfs = None
 
+    locomotion_df: pd.DataFrame | None = None
+    show_locomotion_strip = decision_mode and not args.no_locomotion_strip
+    if show_locomotion_strip:
+        sidecar = args.locomotion_sidecar
+        if sidecar is not None and not sidecar.is_absolute():
+            sidecar = BASE_DIR / sidecar
+        locomotion_df = resolve_locomotion_df(
+            panel,
+            terrain_map,
+            panel_path,
+            sidecar=sidecar,
+            session_type=args.locomotion_session_type,
+        )
+        if locomotion_df is None or locomotion_df.empty:
+            print("WARN locomotion strip — no locomotion_mode data; strip hidden")
+            show_locomotion_strip = False
+            locomotion_df = None
+
     def _render_one(
         output: Path,
         chunk_window: tuple[float, float] | None,
@@ -5405,6 +5595,8 @@ def main() -> None:
             basemap=basemap_choice,
             cluster_ti_dfs=cluster_ti_dfs,
             verify_export=verify_export,
+            locomotion_df=locomotion_df,
+            show_locomotion_strip=show_locomotion_strip,
         )
 
     def _chunk_export_bounds() -> tuple[float, float]:
