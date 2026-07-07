@@ -344,6 +344,13 @@ MAP_TRACK_PERP_OFFSET_M = 12.0
 ASSIGNED_MAP_TRACK_OFFSET_M = -MAP_TRACK_PERP_OFFSET_M
 ASSIGNED_MAP_LABEL_MIN_SPAN_KM = 0.25
 ASSIGNED_MAP_LABEL_FONTSIZE = 7.5
+# Dark underlay so S3/S4 pale fills stay visible on OpenTopoMap orthophoto.
+ASSIGNED_MAP_TRACK_STROKE: dict[str, str] = {
+    "S2": "#3E2723",
+    "S3": "#1B5E20",
+    "S4": "#0D47A1",
+    "S6": "#4A148C",
+}
 ML_MAP_TRACK_LINEWIDTH = 3.5
 ML_MAP_TRACK_ALPHA = 0.94
 ML_MAP_TRACK_ALPHA_FULL = 0.75
@@ -1588,6 +1595,7 @@ def _plot_class_coloured_map_track(
     alpha: float = ML_MAP_TRACK_ALPHA,
     zorder: int = ML_MAP_TRACK_ZORDER,
     offset_m: float = 0.0,
+    stroke_classes: frozenset[str] | None = None,
 ) -> bool:
     """Segment-coloured lat/lon track; optional perpendicular offset from centerline."""
     if km_axis not in geo.columns:
@@ -1616,13 +1624,14 @@ def _plot_class_coloured_map_track(
             km_mid,
             offset_m,
         )
-        if cls == "S1":
+        if cls == "S1" or (stroke_classes and cls in stroke_classes):
+            stroke = ASSIGNED_MAP_TRACK_STROKE.get(cls, "#1A1A1A")
             ax.plot(
                 xs,
                 ys,
-                color="#1A1A1A",
-                linewidth=linewidth + 1.2,
-                alpha=alpha,
+                color=stroke,
+                linewidth=linewidth + 1.4,
+                alpha=min(alpha + 0.08, 1.0),
                 solid_capstyle="round",
                 zorder=zorder - 1,
             )
@@ -1736,6 +1745,74 @@ def plot_assigned_span_labels_on_map(
         )
 
 
+def plot_gold_class_seam_markers(
+    ax: plt.Axes,
+    geo: pd.DataFrame,
+    assigned_spans: list[dict[str, Any]] | None,
+    *,
+    km_lo: float | None = None,
+    km_hi: float | None = None,
+    offset_m: float = ASSIGNED_MAP_TRACK_OFFSET_M,
+) -> None:
+    """Tick + label at internal operator-gold class seams (e.g. km 4.5 S3→S4 on chunk 4–5)."""
+    if not assigned_spans or geo.empty or km_lo is None or km_hi is None:
+        return
+    gold = sorted(
+        (
+            s
+            for s in assigned_spans
+            if str(s.get("kind", "")) == "operator_gold" and s.get("class")
+        ),
+        key=lambda s: float(s["km0"]),
+    )
+    for left, right in zip(gold, gold[1:]):
+        seam_km = float(left["km1"])
+        if abs(seam_km - float(right["km0"])) > 1e-6:
+            continue
+        if not (km_lo + 1e-9 < seam_km < km_hi - 1e-9):
+            continue
+        pt = _interp_latlon_at_km(geo, seam_km)
+        if pt is None:
+            continue
+        lat, lon = pt
+        bearing = _track_bearing_deg(geo, seam_km)
+        tick_len = 0.00010
+        label_dist = 0.00018
+        if bearing is not None:
+            lat_a, lon_a = _offset_latlon_by_bearing(lat, lon, bearing + 90.0, tick_len)
+            lat_b, lon_b = _offset_latlon_by_bearing(lat, lon, bearing - 90.0, tick_len)
+            label_lat, label_lon = _offset_latlon_by_bearing(
+                lat, lon, bearing + 90.0, label_dist
+            )
+        else:
+            lat_a, lon_a = lat, lon - tick_len
+            lat_b, lon_b = lat, lon + tick_len
+            label_lat, label_lon = lat + label_dist, lon
+        ax.plot(
+            [lon_a, lon_b],
+            [lat_a, lat_b],
+            color="#FFD54F",
+            linewidth=1.6,
+            alpha=0.95,
+            solid_capstyle="round",
+            zorder=ASSIGNED_MAP_TRACK_ZORDER + 3,
+        )
+        label = f"{seam_km:g} {left['class']}|{right['class']}"
+        text = ax.text(
+            label_lon,
+            label_lat,
+            label,
+            ha="center",
+            va="center",
+            fontsize=6.0,
+            color="#FFFDE7",
+            zorder=ASSIGNED_MAP_TRACK_ZORDER + 4,
+        )
+        text.set_path_effects(
+            [pe.withStroke(linewidth=1.2, foreground="#111111", alpha=0.9)]
+        )
+
+
 def plot_assigned_gold_track_overlay(
     ax: plt.Axes,
     geo: pd.DataFrame,
@@ -1763,6 +1840,7 @@ def plot_assigned_gold_track_overlay(
         alpha=alpha,
         zorder=zorder,
         offset_m=offset_m,
+        stroke_classes=frozenset(ASSIGNED_MAP_TRACK_STROKE),
     )
 
 
@@ -3206,6 +3284,13 @@ def render_reference_map(
         )
         if assigned_map_drawn:
             plot_assigned_span_labels_on_map(
+                ax,
+                track_geo,
+                assigned_spans,
+                km_lo=ml_km_lo,
+                km_hi=ml_km_hi,
+            )
+            plot_gold_class_seam_markers(
                 ax,
                 track_geo,
                 assigned_spans,
