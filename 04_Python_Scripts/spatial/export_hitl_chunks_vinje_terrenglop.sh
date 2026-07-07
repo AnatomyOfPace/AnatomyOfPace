@@ -31,9 +31,8 @@ PY
 )"
 
 PREFLIGHT_ARGS=(--terrain-map "$TERRAIN_MAP" --panel "$PANEL")
-if [[ -n "${ML_MODEL:-}" && -f "${ML_MODEL}" ]]; then
-  PREFLIGHT_ARGS+=(--ml-model "$ML_MODEL")
-fi
+# Do not pass --ml-model here; export picks ML_MODEL separately. Avoids preflight
+# pathlib issues when ML_MODEL is a repo-relative path on operator macOS.
 
 if ! python3 04_Python_Scripts/spatial/preflight_map_first_course.py "${PREFLIGHT_ARGS[@]}"
 then

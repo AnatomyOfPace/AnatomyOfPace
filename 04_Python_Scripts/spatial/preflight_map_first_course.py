@@ -68,11 +68,17 @@ def _resolve_repo_path(path: Path) -> Path:
 
 
 def _repo_rel(path: Path) -> str:
-    resolved = path.resolve()
-    try:
-        return str(resolved.relative_to(BASE_DIR.resolve()))
-    except ValueError:
-        return str(resolved)
+    """Display path relative to repo root without pathlib relative_to edge cases."""
+    resolved = path.expanduser().resolve()
+    base = BASE_DIR.resolve()
+    resolved_s = str(resolved)
+    base_s = str(base)
+    if resolved_s == base_s:
+        return "."
+    prefix = base_s.rstrip("/") + "/"
+    if resolved_s.startswith(prefix):
+        return resolved_s[len(prefix) :]
+    return resolved_s
 
 
 def _panel_path(terrain_map_path: Path, panel: Path | None) -> Path:
@@ -188,17 +194,21 @@ def run_preflight(
     course_dir = panel_file.parent
     if ml_model is None:
         ml_model = BASE_DIR / "07_ML_Models" / "spatial" / f"gold_suggester_{race_id}_v0.joblib"
+    else:
+        ml_model = _resolve_repo_path(ml_model)
     if ml_predictions is None:
         ml_predictions = course_dir / f"{race_id}_ml_predictions.parquet"
+    else:
+        ml_predictions = _resolve_repo_path(ml_predictions)
 
     if ml_model.exists():
-        print(f"OK ML model {ml_model.relative_to(BASE_DIR)}")
+        print(f"OK ML model {_repo_rel(ml_model)}")
         if not ml_predictions.exists():
             warnings.append("ML model exists but predictions parquet missing — export will generate it")
         elif ml_model.stat().st_mtime > ml_predictions.stat().st_mtime:
             warnings.append("ML model newer than predictions — export will regenerate parquet")
     else:
-        warnings.append(f"no ML model at {ml_model.relative_to(BASE_DIR)} — ML predicted strip will be empty")
+        warnings.append(f"no ML model at {_repo_rel(ml_model)} — ML predicted strip will be empty")
 
     for w in warnings:
         print(f"WARN {w}")
