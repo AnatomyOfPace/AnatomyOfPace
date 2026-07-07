@@ -1488,6 +1488,21 @@ def _ml_pred_lookup(
     return lookup
 
 
+def resolve_map_first_ml_predictions_path(
+    panel_path: Path,
+    terrain_map: dict[str, Any],
+) -> Path | None:
+    """Per-course ML predictions parquet beside panel (map-first HITL export)."""
+    if not is_map_first_operator_gold(terrain_map):
+        return None
+    race_id = str((terrain_map.get("corridor") or {}).get("race_id") or "")
+    for name in (f"{race_id}_ml_predictions.parquet", "ml_predictions.parquet"):
+        candidate = panel_path.parent / name
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def resolve_ml_predictions_path(
     *,
     mode: MLPredictionsMode,
@@ -5504,16 +5519,30 @@ def main() -> None:
         parser.error("--ml-predictions-mode path requires --ml-predictions")
 
     if decision_mode or with_map:
-        skip_default_ml = (
-            is_map_first_operator_gold(terrain_map)
-            and args.ml_predictions_parquet is None
-            and not args.ml_predictions_loocv
-        )
-        if skip_default_ml:
-            print(
-                "INFO map-first operator gold — skipping SUT_43 ML predictions "
-                "(pass --ml-predictions to override)"
+        if args.ml_predictions_parquet is not None:
+            ml_path = resolve_ml_predictions_path(
+                mode="path",
+                explicit_path=args.ml_predictions_parquet,
             )
+            if ml_path.exists():
+                ml_pred_df = pd.read_parquet(ml_path)
+            else:
+                print(f"WARN ML predictions missing: {ml_path.relative_to(BASE_DIR)}")
+        elif is_map_first_operator_gold(terrain_map) and not args.ml_predictions_loocv:
+            map_first_ml_path = resolve_map_first_ml_predictions_path(panel_path, terrain_map)
+            if map_first_ml_path is not None:
+                ml_pred_df = pd.read_parquet(map_first_ml_path)
+                ml_predictions_mode = "path"
+                print(
+                    f"INFO map-first ML predictions → {map_first_ml_path.relative_to(BASE_DIR)}"
+                )
+            else:
+                race_id = str((terrain_map.get("corridor") or {}).get("race_id") or "course")
+                print(
+                    "INFO map-first operator gold — no course ML predictions sidecar "
+                    f"(expected {panel_path.parent / f'{race_id}_ml_predictions.parquet'}; "
+                    "run export_ml_predictions.py after training gold_suggester)"
+                )
         else:
             ml_path = resolve_ml_predictions_path(
                 mode=ml_predictions_mode,

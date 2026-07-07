@@ -80,6 +80,24 @@ if [[ ! -f "$LOCOMOTION_SIDECAR" ]]; then
     --sidecar "$LOCOMOTION_SIDECAR"
 fi
 
+ML_MODEL="07_ML_Models/spatial/gold_suggester_tverrfjell_v0.joblib"
+ML_PRED="03_Processed_Data/spatial/tverrfjell_course/tverrfjell_ml_predictions.parquet"
+ML_ARGS=()
+if [[ -f "$ML_MODEL" ]]; then
+  if [[ ! -f "$ML_PRED" ]] || [[ "$ML_MODEL" -nt "$ML_PRED" ]]; then
+    echo "Generating ML predictions → $ML_PRED"
+    python3 04_Python_Scripts/spatial/export_ml_predictions.py \
+      --terrain-map "$TERRAIN_MAP" \
+      --panel "$PANEL" \
+      --model "$ML_MODEL" \
+      --output "$ML_PRED"
+  fi
+  ML_ARGS=(--ml-predictions "$ML_PRED")
+else
+  echo "WARN no Tverrfjell ML model at $ML_MODEL — ML predicted strip will be empty" >&2
+  echo "  Train: build_gold_training_set.py + train_gold_suggester.py --sector-id tverrfjell" >&2
+fi
+
 python3 04_Python_Scripts/spatial/validation_dashboard.py \
   --terrain-map "$TERRAIN_MAP" \
   --panel "$PANEL" \
@@ -93,7 +111,8 @@ python3 04_Python_Scripts/spatial/validation_dashboard.py \
   --export-chunks \
   --decision-mode \
   --output-dir "$OUT_DIR/_bulk" \
-  --verify-export
+  --verify-export \
+  "${ML_ARGS[@]}"
 
 for f in "$OUT_DIR/_bulk"/chunk_*.png; do
   base=$(basename "$f")

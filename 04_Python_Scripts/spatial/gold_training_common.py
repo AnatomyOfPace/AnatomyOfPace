@@ -70,12 +70,30 @@ def _race_panel(panel: pd.DataFrame) -> pd.DataFrame:
     return work.sort_values(["course_m", "donor_id"])
 
 
+def _ensure_grade_pct_column(panel: pd.DataFrame) -> pd.DataFrame:
+    """Populate grade_pct from grade or altitude diff when missing."""
+    work = panel.copy()
+    if "grade_pct" in work.columns and work["grade_pct"].notna().any():
+        return work
+    if "grade" in work.columns and work["grade"].notna().any():
+        work["grade_pct"] = pd.to_numeric(work["grade"], errors="coerce")
+        return work
+    if "altitude_m" in work.columns:
+        dalt = pd.to_numeric(work["altitude_m"], errors="coerce").diff()
+        work["grade_pct"] = (100.0 * dalt).fillna(0.0)
+    return work
+
+
 def build_consensus_profile(panel: pd.DataFrame) -> pd.DataFrame:
     """Consensus TI + kinematic medians per course metre."""
     race = _race_panel(panel)
+    race = _ensure_grade_pct_column(race)
     race = race.copy()
-    race["nti"] = compute_nti(race)
-    consensus = aggregate_nti_by_course_m(race, use_consensus=True)
+    if "ti" in race.columns:
+        race["nti"] = compute_nti(race)
+        consensus = aggregate_nti_by_course_m(race, use_consensus=True)
+    else:
+        consensus = pd.DataFrame()
     agg_spec: dict[str, tuple[str, str]] = {
         "course_km": ("course_km", "first"),
         "ti_median": ("ti", "median"),
@@ -89,6 +107,11 @@ def build_consensus_profile(panel: pd.DataFrame) -> pd.DataFrame:
     }
     present = {k: v for k, v in agg_spec.items() if v[0] in race.columns}
     per_m = race.groupby("course_m", as_index=False).agg(**present)
+    if consensus.empty:
+        profile = per_m.copy()
+        for col in ("consensus_nti", "nti_std", "nti_median"):
+            profile[col] = np.nan
+        return profile.sort_values("course_m").reset_index(drop=True)
     if "course_km" not in consensus.columns and "course_m" in consensus.columns:
         consensus = consensus.merge(per_m[["course_m", "course_km"]], on="course_m", how="left")
     profile = per_m.merge(
