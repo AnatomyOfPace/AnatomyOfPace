@@ -46,7 +46,20 @@ SURFACE_COLORS = {
 
 
 def load_terrain_map(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8"))
+    path = Path(path)
+    tmap = json.loads(path.read_text(encoding="utf-8"))
+    mirror = path.with_name(f"{path.stem}.gold_local.json")
+    if mirror.exists():
+        try:
+            local = json.loads(mirror.read_text(encoding="utf-8"))
+            local_spans = local.get("hitl", {}).get("operator_gold_spans") or []
+            hitl = tmap.setdefault("hitl", {})
+            main_spans = hitl.get("operator_gold_spans") or []
+            if len(local_spans) > len(main_spans):
+                hitl["operator_gold_spans"] = local_spans
+        except (json.JSONDecodeError, OSError):
+            pass
+    return tmap
 
 
 def segment_span_ax(ax, segments: list[dict], ylo: float, yhi: float) -> None:

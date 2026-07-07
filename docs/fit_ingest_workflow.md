@@ -216,7 +216,7 @@ Expected GPS centroid ~59.9°N, ~5.9°E (Uskedalen band). A centroid near 58.8°
 | Tverrfjell issue | Klepp safeguard |
 |------------------|-----------------|
 | Wrong axis / SUT_43 geography | `verify_klepp_runde_hitl_exports.py` + `preflight_map_first_course.py` |
-| Lost `operator_gold_spans` on `git restore` | Backup after each session: `cp config/spatial_terrain_map_klepp_runde.json config/spatial_terrain_map_klepp_runde.gold_local.json` (gitignored copy — never rely on committed JSON for gold) |
+| Lost `operator_gold_spans` on `git restore` | Backup after each session: `cp config/spatial_terrain_map_klepp_runde.json config/spatial_terrain_map_klepp_runde.gold_local.json` (gitignored copy — never rely on committed JSON for gold). **Recover:** `gold_span_editor.py restore --terrain-map config/spatial_terrain_map_klepp_runde.json` if `.gold_local.json` exists; pipelines also auto-read `.gold_local.json` when the tracked map has fewer spans. |
 | ML strip empty | Export script auto-loads `klepp_runde_ml_predictions.parquet` when model exists — **train before final PNG export** |
 | Locomotion strip missing | Export auto-generates `locomotion_mode_1m.parquet` |
 | Wrong training panel (SUT_43) | Always pass `--terrain-map config/spatial_terrain_map_klepp_runde.json` to `build_gold_training_set.py` |

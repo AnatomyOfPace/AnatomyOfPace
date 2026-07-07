@@ -159,6 +159,28 @@ def cmd_delete(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_restore(args: argparse.Namespace) -> int:
+    """Copy operator_gold_spans from gitignored .gold_local.json into terrain map."""
+    path = Path(args.terrain_map)
+    mirror = path.with_name(f"{path.stem}.gold_local.json")
+    if not mirror.exists():
+        print(f"No gold_local mirror: {mirror}", file=sys.stderr)
+        return 1
+    local = json.loads(mirror.read_text(encoding="utf-8"))
+    local_spans = local.get("hitl", {}).get("operator_gold_spans") or []
+    if not local_spans:
+        print(f"Mirror has no operator_gold_spans: {mirror}", file=sys.stderr)
+        return 1
+    terrain_map = json.loads(path.read_text(encoding="utf-8"))
+    terrain_map.setdefault("hitl", {})["operator_gold_spans"] = local_spans
+    if args.dry_run:
+        print(f"Would restore {len(local_spans)} span(s) from {mirror.name}")
+        return 0
+    write_terrain_map(path, terrain_map)
+    print(f"Restored {len(local_spans)} span(s) from {mirror.name}")
+    return 0
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Edit sparse operator gold spans in terrain map JSON.")
     parser.add_argument("--terrain-map", type=Path, default=DEFAULT_TERRAIN_MAP)
@@ -177,6 +199,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     del_p = sub.add_parser("delete", help="Remove span by list index")
     del_p.add_argument("--index", type=int, required=True)
 
+    sub.add_parser("restore", help="Restore operator_gold_spans from .gold_local.json mirror")
+
     return parser.parse_args(argv)
 
 
@@ -191,6 +215,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_add(args)
     if args.command == "delete":
         return cmd_delete(args)
+    if args.command == "restore":
+        return cmd_restore(args)
     print(f"Unknown command: {args.command}", file=sys.stderr)
     return 1
 
