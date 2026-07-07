@@ -382,3 +382,11 @@ Optional `--source-weight klepp_runde:0.8` on `train_gold_suggester.py` if one c
 ```
 
 Runs Tverrfjell → Klepp Runde → Gramstad Runde → Vinje Terrengløp with `gold_suggester_map_first_pool_v0.joblib` by default.
+
+**O₁ asphalt / gravel anchors (recommended):** Trail loops are S2/S3-heavy; Stavanger Halvmarathon (~86% S1/F0 asphalt) and 3-sjøersløpet (~72% S2/F1 gravel road) are locked operator-gold calibration runs in `config/anchor_runs_manifest.json`. Merge them with downweighted sample weights so the model learns clean S1/S2 class boundaries without drowning trail signal:
+
+```bash
+./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-o1-anchors --rebuild-exports
+```
+
+Requires local panels: `stavanger_halvmarathon_course/panel_1m.parquet`, `3_sjoerslopet_course/panel_1m.parquet` (from anchor ingest). Adjust weights on `train_gold_suggester.py` if anchors still dominate (`--source-weight stavanger_halvmarathon:0.35`).

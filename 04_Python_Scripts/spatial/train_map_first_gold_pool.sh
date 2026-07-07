@@ -2,22 +2,24 @@
 # Build per-course gold training exports, merge map-first pool, train pooled suggester.
 #
 # Courses: Tverrfjell, Klepp Runde, Gramstad Runde, Vinje Terrengløp (FIT stream axis).
-# Requires operator gold on each course (terrain map or .gold_local.json mirror).
+# Optional O₁ anchors: Stavanger Halvmarathon (S1/F0 asphalt), 3-sjøersløpet (S2/F1 gravel).
 #
 # Usage (from repo root):
-#   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh
 #   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --rebuild-exports
+#   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-o1-anchors --rebuild-exports
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
 
 REBUILD=""
+WITH_O1=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --rebuild-exports) REBUILD=1; shift ;;
+    --with-o1-anchors) WITH_O1=1; shift ;;
     *)
-      echo "Usage: $0 [--rebuild-exports]" >&2
+      echo "Usage: $0 [--rebuild-exports] [--with-o1-anchors]" >&2
       exit 1
       ;;
   esac
@@ -43,6 +45,17 @@ declare -a PARQUETS=(
   "${PROCESSED}/gold_training_set_vinje_terrenglop.parquet"
 )
 
+if [[ -n "$WITH_O1" ]]; then
+  TERRAIN_MAPS+=(
+    "config/spatial_terrain_map_stavanger_halvmarathon.json"
+    "config/spatial_terrain_map_3_sjoerslopet.json"
+  )
+  PARQUETS+=(
+    "${PROCESSED}/gold_training_set_stavanger_halvmarathon.parquet"
+    "${PROCESSED}/gold_training_set_3_sjoerslopet.parquet"
+  )
+fi
+
 POOL="${PROCESSED}/gold_training_set_map_first_pool.parquet"
 MODEL="${MODEL_DIR}/gold_suggester_map_first_pool_v0.joblib"
 METADATA="${MODEL_DIR}/gold_suggester_map_first_pool_v0_metadata.json"
@@ -64,7 +77,7 @@ echo "=== Merge map-first pool ==="
 MERGE_ARGS=()
 for pq in "${PARQUETS[@]}"; do
   if [[ ! -f "$pq" ]]; then
-    echo "Missing export: $pq — run with --rebuild-exports" >&2
+    echo "Missing export: $pq — run with --rebuild-exports (panels must exist locally)" >&2
     exit 1
   fi
   MERGE_ARGS+=(--input "$pq")
@@ -77,13 +90,26 @@ python3 "$MERGE" \
 
 echo ""
 echo "=== Train pooled gold suggester ==="
-python3 "$TRAIN" \
-  --training-set "$POOL" \
-  --sector-id map_first_pool \
-  --model-out "$MODEL" \
+TRAIN_ARGS=(
+  --training-set "$POOL"
+  --sector-id map_first_pool
+  --model-out "$MODEL"
   --metadata-out "$METADATA"
+)
+if [[ -n "$WITH_O1" ]]; then
+  echo "O₁ anchors included — downweighting so trail loops are not drowned (~21 km each)"
+  TRAIN_ARGS+=(
+    --source-weight stavanger_halvmarathon:0.5
+    --source-weight 3_sjoerslopet:0.5
+  )
+fi
+
+python3 "$TRAIN" "${TRAIN_ARGS[@]}"
 
 echo ""
 echo "OK map-first pool model → $MODEL"
-echo "Use on any map-first course export, e.g.:"
-echo "  ML_MODEL=$MODEL ./04_Python_Scripts/spatial/export_hitl_chunks_vinje_terrenglop.sh"
+if [[ -n "$WITH_O1" ]]; then
+  echo "  (trained with Stavanger Halvmarathon + 3-sjøersløpet O₁ anchors)"
+fi
+echo "Re-export all courses:"
+echo "  ./04_Python_Scripts/spatial/export_map_first_hitl_pool.sh"

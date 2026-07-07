@@ -24,6 +24,10 @@ GRAMSTAD_RUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "gramstad_ru
 GRAMSTAD_RUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_gramstad_runde.parquet"
 VINJE_TERRENGLOP_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "vinje_terrenglop_course" / "panel_1m.parquet"
 VINJE_TERRENGLOP_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_vinje_terrenglop.parquet"
+STAVANGER_HALVMARATHON_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "stavanger_halvmarathon_course" / "panel_1m.parquet"
+STAVANGER_HALVMARATHON_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_stavanger_halvmarathon.parquet"
+SJOERSLOPET_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "3_sjoerslopet_course" / "panel_1m.parquet"
+SJOERSLOPET_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_3_sjoerslopet.parquet"
 
 SURFACE_CLASSES = ("S1", "S2", "S3", "S4", "S5", "S6")
 FRICTION_TIERS = ("F0", "F1", "F2", "F3", "F4")
