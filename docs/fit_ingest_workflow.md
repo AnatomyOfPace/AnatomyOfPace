@@ -242,3 +242,34 @@ Expected GPS centroid ~59.9°N, ~5.9°E (Uskedalen band). A centroid near 58.8°
 ```
 
 Configs: `config/spatial_align_manifest_klepp_runde.json`, `config/spatial_terrain_map_klepp_runde.json`.
+
+## Gramstad Runde local loop (map-first HITL)
+
+**Geography:** Gramstad, Sandnes, Rogaland (Jæren). Map-first FIT stream axis.
+
+**Not** the SUT_43 `gramstad_band` sector (km 29–41 organiser GPX axis). This course uses the FIT’s own stream-distance loop — same pattern as Klepp Runde and Tverrfjell.
+
+### Quick start
+
+```bash
+git pull origin cursor/gramstad-runde-bootstrap-0c6a
+
+cp ~/Downloads/Gramstad_runden_i__solnedgang.fit \
+  02_Raw_Data/donors/Subject_A/Gramstad_runden_i__solnedgang.fit
+
+./04_Python_Scripts/spatial/start_gramstad_annotation.sh \
+  --fit 02_Raw_Data/donors/Subject_A/Gramstad_runden_i__solnedgang.fit
+```
+
+Or step-by-step:
+
+| Step | Command |
+|------|---------|
+| Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_gramstad_runde_course.py --fit <path>` |
+| Label | `gold_span_editor.py --terrain-map config/spatial_terrain_map_gramstad_runde.json add ...` |
+| Train ML | `build_gold_training_set.py` → `train_gold_suggester.py --sector-id gramstad_runde` |
+| Export PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_gramstad_runde.sh` |
+
+Configs: `config/spatial_align_manifest_gramstad_runde.json`, `config/spatial_terrain_map_gramstad_runde.json`.
+
+**Pull recovery:** if `git pull` blocks on patched manifest/terrain map, `git checkout --` those two files then `bootstrap_gramstad_runde_course.py --skip-wash --fit <path>`.

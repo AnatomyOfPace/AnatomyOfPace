@@ -36,10 +36,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Expected GPS bands — warn when centroid is outside.
 # Klepp Runde: local place name "Klepp" in Uskedalen (not Klepp municipality, Rogaland).
 USKEDALEN_BAND = {"lat_min": 59.86, "lat_max": 59.95, "lon_min": 5.88, "lon_max": 6.02}
+SANDNES_GRAMSTAD_BAND = {"lat_min": 58.75, "lat_max": 58.95, "lon_min": 5.55, "lon_max": 5.85}
 
 GEO_BANDS: dict[str, dict[str, float]] = {
     "tverrfjell": dict(USKEDALEN_BAND),
     "klepp_runde": dict(USKEDALEN_BAND),
+    "gramstad_runde": dict(SANDNES_GRAMSTAD_BAND),
 }
 
 WRONG_REGION: dict[str, dict[str, float | str]] = {
@@ -47,6 +49,10 @@ WRONG_REGION: dict[str, dict[str, float | str]] = {
     "klepp_runde": {
         "lat_min": 59.0,
         "label": "Rogaland Jæren (Klepp municipality homonym — not Uskedalen Klepp)",
+    },
+    "gramstad_runde": {
+        "lat_max": 59.0,
+        "label": "Uskedalen (wrong course — not Sandnes/Gramstad)",
     },
 }
 
@@ -122,8 +128,13 @@ def run_preflight(
             warnings.append(f"centroid lon {c_lon:.4f} outside expected {race_id} band")
 
     wrong = WRONG_REGION.get(race_id)
-    if wrong and c_lat < wrong["lat_min"]:
-        errors.append(f"centroid {c_lat:.4f}°N is {wrong['label']}")
+    if wrong:
+        lat_min = wrong.get("lat_min")
+        lat_max = wrong.get("lat_max")
+        if lat_min is not None and c_lat < float(lat_min):
+            errors.append(f"centroid {c_lat:.4f}°N is {wrong['label']}")
+        if lat_max is not None and c_lat > float(lat_max):
+            errors.append(f"centroid {c_lat:.4f}°N is {wrong['label']}")
 
     gold = tmap.get("hitl", {}).get("operator_gold_spans") or []
     print(f"OK operator_gold_spans: {len(gold)}")

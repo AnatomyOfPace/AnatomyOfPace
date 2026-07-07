@@ -1,0 +1,60 @@
+{
+  "schema_version": "spatial_terrain_map_v0",
+  "ontology_version": "s6_v0",
+  "generated_at": "2026-07-07T20:30:00.000000+00:00",
+  "corridor": {
+    "corridor_id": "gramstad_runde_course",
+    "race_id": "gramstad_runde",
+    "anchor_id": "gramstad_runde",
+    "km_start": 0.0,
+    "km_end": 1.0,
+    "course_axis": "stream_distance",
+    "geography": {
+      "settlement": "Gramstad",
+      "municipality": "Sandnes",
+      "county": "Rogaland",
+      "region": "Jæren",
+      "gps_bounds": {
+        "lat_min": 58.75,
+        "lat_max": 58.95,
+        "lon_min": 5.55,
+        "lon_max": 5.85,
+        "centroid_lat": 58.85,
+        "centroid_lon": 5.72,
+        "altitude_m_min": 0,
+        "altitude_m_max": 400
+      },
+      "not_sut43_sector": "Distinct from SUT_43 gramstad_band (km 29–41 organiser GPX axis)",
+      "notes": "Local training loop at Gramstad (Sandnes, Rogaland). Map-first stream-distance HITL — not SUT_43 organiser GPX snap."
+    },
+    "notes": "Tier 0 map-first local loop (Gramstad Runde, Sandnes). Stream-distance axis from Subject_A FIT. Operator adjudicates substrate from orthophoto."
+  },
+  "clustering": {
+    "method": null,
+    "n_clusters": null,
+    "fallback": "map_first_operator_gold",
+    "note": "No GMM draft — substrate adjudicated from orthophoto; operator_gold_spans[] is authoritative once breakpoints are locked."
+  },
+  "segments": [
+    {
+      "course_km_start": 0.0,
+      "course_km_end": 1.0,
+      "surface_class": "S2",
+      "friction_tier": "F2",
+      "source": "seed",
+      "label": "Gravel / trail tread (placeholder)",
+      "confidence": 0.3,
+      "operator_note": "Map-first seed — superseded by operator_gold_spans when locked."
+    }
+  ],
+  "hitl": {
+    "status": "review",
+    "sector_id": "gramstad_runde_course",
+    "manual_overrides": [],
+    "operator_gold_spans": [],
+    "trf_exclusions": [],
+    "behavioral_stops": [],
+    "variance_gaps": [],
+    "notes": "Append-only operator_gold_spans[] — map-first Tier 0 Gramstad Runde loop. Use gold_span_editor.py with --terrain-map config/spatial_terrain_map_gramstad_runde.json."
+  }
+}

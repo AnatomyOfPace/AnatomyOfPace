@@ -83,6 +83,20 @@ KLEPP_RUNDE_GEOGRAPHY = {
     "not_in": ["Rogaland", "Klepp municipality"],
 }
 
+# Gramstad Runde local training loop — Sandnes, Rogaland (map-first stream axis).
+# Not SUT_43 gramstad_band sector (km 29–41 organiser GPX).
+GRAMSTAD_RUNDE_RACE_ID = "gramstad_runde"
+GRAMSTAD_RUNDE_CORRIDOR_ID = "gramstad_runde_course"
+GRAMSTAD_RUNDE_KM_START = 0.0
+GRAMSTAD_RUNDE_KM_END = 1.0  # patched by bootstrap from FIT stream length
+GRAMSTAD_RUNDE_GEOGRAPHY = {
+    "settlement": "Gramstad",
+    "municipality": "Sandnes",
+    "county": "Rogaland",
+    "region": "Jæren",
+    "not_sut43_sector": "gramstad_band",
+}
+
 # Operator scope: Dale aid CP band through Paradisskaret Downhill end (course km).
 DEFAULT_KM_START = 140.0
 DEFAULT_KM_END = 155.58
@@ -302,6 +316,27 @@ def load_klepp_runde_window(
     return start, end, meta
 
 
+def load_gramstad_runde_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Gramstad Runde loop (Sandnes, Rogaland) — FIT stream-distance axis."""
+    start = GRAMSTAD_RUNDE_KM_START if km_start is None else float(km_start)
+    end = GRAMSTAD_RUNDE_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": GRAMSTAD_RUNDE_CORRIDOR_ID,
+        "race_id": GRAMSTAD_RUNDE_RACE_ID,
+        "anchor_id": "gramstad_runde",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_gramstad_runde.json",
+        "geography": dict(GRAMSTAD_RUNDE_GEOGRAPHY),
+    }
+    return start, end, meta
+
+
 def load_experiment_window(
     race_id: str = STRESS_TEST_RACE_ID,
     *,
@@ -322,4 +357,6 @@ def load_experiment_window(
         return load_tverrfjell_window(km_start=km_start, km_end=km_end)
     if race_id == KLEPP_RUNDE_RACE_ID:
         return load_klepp_runde_window(km_start=km_start, km_end=km_end)
+    if race_id == GRAMSTAD_RUNDE_RACE_ID:
+        return load_gramstad_runde_window(km_start=km_start, km_end=km_end)
     return load_stress_test_window(km_start=km_start, km_end=km_end, registry=registry)
