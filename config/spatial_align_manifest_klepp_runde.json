@@ -18,12 +18,14 @@
   "multi_fit": true,
   "geography": {
     "settlement": "Klepp",
-    "municipality": "Klepp",
-    "county": "Rogaland",
-    "region": "Jæren",
-    "notes": "Local training loop in Klepp municipality (Rogaland). Map-first FIT stream axis — not SUT_43 organiser GPX."
+    "locality": "Uskedalen",
+    "municipality": "Kvinnherad",
+    "county": "Vestland",
+    "region": "Hardanger / Sunnhordland",
+    "homonym_warning": "Not Klepp municipality (Rogaland/Jæren)",
+    "notes": "Local training loop at Klepp — a very local place name in Uskedalen. Map-first FIT stream axis — not SUT_43 organiser GPX."
   },
-  "panel_scope": "Subject_A anchor stream (stream-distance course axis). Klepp, Rogaland. Run bootstrap_klepp_runde_course.py after placing canonical FIT to set km_end from washed stream.",
+  "panel_scope": "Subject_A anchor stream (stream-distance course axis). Klepp, Uskedalen. Run bootstrap_klepp_runde_course.py after placing canonical FIT to set km_end from washed stream.",
   "activities": [
     {
       "donor_id": "Subject_A",

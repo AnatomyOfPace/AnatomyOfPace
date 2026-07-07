@@ -119,7 +119,7 @@ python3 04_Python_Scripts/spatial/validation_dashboard.py \
   --decision-mode \
   --output-dir "$OUT_DIR/_bulk" \
   --verify-export \
-  "${ML_ARGS[@]}"
+  ${ML_ARGS[@]+"${ML_ARGS[@]}"}
 
 for f in "$OUT_DIR/_bulk"/chunk_*.png; do
   base=$(basename "$f")

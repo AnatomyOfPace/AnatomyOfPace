@@ -117,7 +117,7 @@ python3 04_Python_Scripts/spatial/validation_dashboard.py \
   --decision-mode \
   --output-dir "$OUT_DIR/_bulk" \
   --verify-export \
-  "${ML_ARGS[@]}"
+  ${ML_ARGS[@]+"${ML_ARGS[@]}"}
 
 for f in "$OUT_DIR/_bulk"/chunk_*.png; do
   base=$(basename "$f")
@@ -143,7 +143,7 @@ lon = pd.to_numeric(panel["longitude"], errors="coerce")
 manifest = {
     "exported_at": datetime.now(timezone.utc).isoformat(),
     "race_id": "klepp_runde",
-    "geography": "Klepp · Klepp · Rogaland",
+    "geography": "Klepp · Uskedalen · Kvinnherad",
     "axis_label": "klepp_runde stream km",
     "map_track": {"activity_id": "$ACTIVITY", "donor_id": "$DONOR", "gpx_overlay": False},
     "basemap": "opentopomap",

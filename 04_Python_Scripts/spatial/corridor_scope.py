@@ -67,16 +67,20 @@ TVERFJELL_GEOGRAPHY = {
     "not_in": ["Rogaland"],
 }
 
-# Klepp Runde local training loop — Klepp municipality, Rogaland (Jæren).
+# Klepp Runde local training loop — Klepp (locality in Uskedalen), Kvinnherad, Vestland.
+# Not Klepp municipality (Rogaland/Jæren) — homonym.
 KLEPP_RUNDE_RACE_ID = "klepp_runde"
 KLEPP_RUNDE_CORRIDOR_ID = "klepp_runde_course"
 KLEPP_RUNDE_KM_START = 0.0
 KLEPP_RUNDE_KM_END = 1.0  # patched by bootstrap from FIT stream length
 KLEPP_RUNDE_GEOGRAPHY = {
     "settlement": "Klepp",
-    "municipality": "Klepp",
-    "county": "Rogaland",
-    "region": "Jæren",
+    "locality": "Uskedalen",
+    "municipality": "Kvinnherad",
+    "county": "Vestland",
+    "region": "Hardanger / Sunnhordland",
+    "homonym_warning": "Not Klepp municipality (Rogaland/Jæren)",
+    "not_in": ["Rogaland", "Klepp municipality"],
 }
 
 # Operator scope: Dale aid CP band through Paradisskaret Downhill end (course km).
@@ -277,6 +281,27 @@ def load_tverrfjell_window(
     return start, end, meta
 
 
+def load_klepp_runde_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Klepp Runde loop (Klepp locality, Uskedalen) — FIT stream-distance axis."""
+    start = KLEPP_RUNDE_KM_START if km_start is None else float(km_start)
+    end = KLEPP_RUNDE_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": KLEPP_RUNDE_CORRIDOR_ID,
+        "race_id": KLEPP_RUNDE_RACE_ID,
+        "anchor_id": "klepp_runde",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_klepp_runde.json",
+        "geography": dict(KLEPP_RUNDE_GEOGRAPHY),
+    }
+    return start, end, meta
+
+
 def load_experiment_window(
     race_id: str = STRESS_TEST_RACE_ID,
     *,
@@ -295,4 +320,6 @@ def load_experiment_window(
         return load_3_sjoerslopet_window(km_start=km_start, km_end=km_end)
     if race_id == TVERFJELL_RACE_ID:
         return load_tverrfjell_window(km_start=km_start, km_end=km_end)
+    if race_id == KLEPP_RUNDE_RACE_ID:
+        return load_klepp_runde_window(km_start=km_start, km_end=km_end)
     return load_stress_test_window(km_start=km_start, km_end=km_end, registry=registry)

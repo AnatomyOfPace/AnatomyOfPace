@@ -207,7 +207,9 @@ Configs: `config/spatial_align_manifest_tverrfjell.json`, `config/spatial_terrai
 
 ## Klepp Runde local loop (map-first HITL)
 
-**Geography:** Klepp, Rogaland (Jæren). Map-first FIT stream axis — not SUT_43 organiser GPX.
+**Geography:** Klepp — a very local place name in **Uskedalen** (Kvinnherad, Vestland), near Tverrfjell. Not Klepp municipality (Rogaland/Jæren). Map-first FIT stream axis — not SUT_43 organiser GPX.
+
+Expected GPS centroid ~59.9°N, ~5.9°E (Uskedalen band). A centroid near 58.8°N indicates the Rogaland homonym, not this course.
 
 ### Avoiding Tverrfjell pitfalls
 

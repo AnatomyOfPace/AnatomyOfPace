@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Bootstrap Klepp Runde Tier-0 course for map-first HITL (Klepp, Rogaland).
+Bootstrap Klepp Runde Tier-0 course for map-first HITL (Klepp, Uskedalen).
 
-Map-first FIT stream-distance pipeline — not SUT_43 organiser GPX snap.
+Klepp is a very local place name in Uskedalen (Kvinnherad, Vestland) — not Klepp
+municipality in Rogaland/Jæren. Map-first FIT stream-distance pipeline.
 
 1. Resolve canonical FIT (filename must contain Klepp + Runde).
 2. Wash micro Parquet (stream-distance course axis).
@@ -165,7 +166,7 @@ def _patch_km_end(km_end: float, activity_id: str) -> None:
     corridor = tmap.get("corridor") or {}
     corridor["km_end"] = km_end
     corridor["notes"] = (
-        "Tier 0 map-first local loop (Klepp Runde, Rogaland). "
+        "Tier 0 map-first local loop (Klepp Runde, Uskedalen). "
         f"Stream-distance axis km 0–{km_end:.3f} from Subject_A FIT {activity_id}. "
         "Operator adjudicates substrate from orthophoto."
     )

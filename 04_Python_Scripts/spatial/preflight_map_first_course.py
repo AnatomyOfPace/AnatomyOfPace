@@ -33,15 +33,21 @@ from spatial.validation_dashboard import resolve_axis_label
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-# Expected GPS bands — fail export when centroid is outside.
+# Expected GPS bands — warn when centroid is outside.
+# Klepp Runde: local place name "Klepp" in Uskedalen (not Klepp municipality, Rogaland).
+USKEDALEN_BAND = {"lat_min": 59.86, "lat_max": 59.95, "lon_min": 5.88, "lon_max": 6.02}
+
 GEO_BANDS: dict[str, dict[str, float]] = {
-    "tverrfjell": {"lat_min": 59.86, "lat_max": 59.94, "lon_min": 5.88, "lon_max": 6.02},
-    "klepp_runde": {"lat_min": 58.73, "lat_max": 58.82, "lon_min": 5.55, "lon_max": 5.72},
+    "tverrfjell": dict(USKEDALEN_BAND),
+    "klepp_runde": dict(USKEDALEN_BAND),
 }
 
-WRONG_REGION: dict[str, dict[str, float]] = {
+WRONG_REGION: dict[str, dict[str, float | str]] = {
     "tverrfjell": {"lat_min": 59.75, "label": "south of Uskedalen (Sandnes/SUT_43 band)"},
-    "klepp_runde": {"lat_min": 59.86, "label": "Uskedalen/Tverrfjell (wrong course)"},
+    "klepp_runde": {
+        "lat_min": 59.0,
+        "label": "Rogaland Jæren (Klepp municipality homonym — not Uskedalen Klepp)",
+    },
 }
 
 

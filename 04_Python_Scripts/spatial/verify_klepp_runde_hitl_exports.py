@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Verify Klepp Runde HITL PNG folder uses Klepp (Jæren) FIT GPS.
+Verify Klepp Runde HITL PNG folder uses Uskedalen FIT GPS.
 
-Klepp municipality ~58.77°N, 5.63°E.
-Uskedalen (Tverrfjell) is ~59.9°N — wrong if centroid that far north.
+Klepp is a very local place name in Uskedalen (~59.9°N, ~5.9°E) — not Klepp
+municipality in Rogaland/Jæren (~58.77°N, ~5.63°E).
 
 Usage (from repo root):
     python3 04_Python_Scripts/spatial/verify_klepp_runde_hitl_exports.py
@@ -32,11 +32,13 @@ TERRAIN_MAP = _REPO / "config" / "spatial_terrain_map_klepp_runde.json"
 OUT_DIR = _REPO / "06_Visualizations" / "klepp_runde_hitl"
 MANIFEST = OUT_DIR / "EXPORT_MANIFEST.json"
 
-KLEPP_LAT_MIN = 58.73
-KLEPP_LAT_MAX = 58.82
-KLEPP_LON_MIN = 5.55
-KLEPP_LON_MAX = 5.72
-USKEDALEN_LAT_MIN = 59.86  # Tverrfjell — wrong course if here
+# Uskedalen band — Klepp Runde local loop (near Tverrfjell).
+USKEDALEN_LAT_MIN = 59.86
+USKEDALEN_LAT_MAX = 59.95
+USKEDALEN_LON_MIN = 5.88
+USKEDALEN_LON_MAX = 6.02
+# Rogaland homonym — wrong course if centroid lands here.
+ROGALAND_KLEPP_LAT_MAX = 59.0
 
 
 def _chunk_windows(km_end: float, chunk_km: float = 1.0) -> list[tuple[int, float, float]]:
@@ -94,14 +96,15 @@ def main() -> int:
     c_lat, c_lon = float(lat_all.mean()), float(lon_all.mean())
     print(f"  panel centroid: {c_lat:.5f}°N {c_lon:.5f}°E")
 
-    if c_lat >= USKEDALEN_LAT_MIN:
+    if c_lat < ROGALAND_KLEPP_LAT_MAX:
         errors.append(
-            f"panel centroid {c_lat:.4f}°N looks like Uskedalen/Tverrfjell — not Klepp"
+            f"panel centroid {c_lat:.4f}°N looks like Rogaland Jæren "
+            "(Klepp municipality homonym — not Uskedalen Klepp)"
         )
-    if not (KLEPP_LAT_MIN <= c_lat <= KLEPP_LAT_MAX):
-        warnings.append(f"panel centroid lat {c_lat:.4f} outside expected Klepp band")
-    if not (KLEPP_LON_MIN <= c_lon <= KLEPP_LON_MAX):
-        warnings.append(f"panel centroid lon {c_lon:.4f} outside expected Klepp band")
+    if not (USKEDALEN_LAT_MIN <= c_lat <= USKEDALEN_LAT_MAX):
+        warnings.append(f"panel centroid lat {c_lat:.4f} outside expected Uskedalen Klepp band")
+    if not (USKEDALEN_LON_MIN <= c_lon <= USKEDALEN_LON_MAX):
+        warnings.append(f"panel centroid lon {c_lon:.4f} outside expected Uskedalen Klepp band")
 
     km_end = float((tmap.get("corridor") or {}).get("km_end") or panel["course_km"].max())
     bad_chunks: list[str] = []
@@ -110,16 +113,16 @@ def main() -> int:
         if not math.isfinite(clat):
             bad_chunks.append(f"chunk {idx:02d} km {km_lo:.0f}-{km_hi:.1f}: no GPS")
             continue
-        if clat >= USKEDALEN_LAT_MIN:
+        if clat < ROGALAND_KLEPP_LAT_MAX:
             bad_chunks.append(
                 f"chunk {idx:02d} km {km_lo:.0f}-{km_hi:.1f}: "
-                f"{clat:.4f}°N — Uskedalen/Tverrfjell (wrong course)"
+                f"{clat:.4f}°N — Rogaland Jæren (wrong course)"
             )
 
     if bad_chunks:
         errors.extend(bad_chunks)
     else:
-        print(f"  OK all {len(_chunk_windows(km_end))} chunk GPS windows in Klepp band")
+        print(f"  OK all {len(_chunk_windows(km_end))} chunk GPS windows in Uskedalen Klepp band")
 
     pngs = sorted(OUT_DIR.glob("chunk_t*.png"))
     print(f"  PNGs: {len(pngs)} in {OUT_DIR.relative_to(_REPO)}")

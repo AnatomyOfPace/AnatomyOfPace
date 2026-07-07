@@ -11,22 +11,24 @@
     "course_axis": "stream_distance",
     "geography": {
       "settlement": "Klepp",
-      "municipality": "Klepp",
-      "county": "Rogaland",
-      "region": "Jæren",
+      "locality": "Uskedalen",
+      "municipality": "Kvinnherad",
+      "county": "Vestland",
+      "region": "Hardanger / Sunnhordland",
       "gps_bounds": {
-        "lat_min": 58.73,
-        "lat_max": 58.82,
-        "lon_min": 5.55,
-        "lon_max": 5.72,
-        "centroid_lat": 58.768,
-        "centroid_lon": 5.635,
+        "lat_min": 59.86,
+        "lat_max": 59.95,
+        "lon_min": 5.88,
+        "lon_max": 6.02,
+        "centroid_lat": 59.92,
+        "centroid_lon": 5.916,
         "altitude_m_min": 0,
-        "altitude_m_max": 200
+        "altitude_m_max": 600
       },
-      "notes": "Local training loop in Klepp (Rogaland, Jæren). Map-first stream-distance HITL — not SUT_43 organiser GPX snap."
+      "homonym_warning": "Not Klepp municipality (Rogaland/Jæren)",
+      "notes": "Local training loop at Klepp — a very local place name in Uskedalen. Map-first stream-distance HITL — not SUT_43 organiser GPX snap."
     },
-    "notes": "Tier 0 map-first local loop (Klepp Runde, Rogaland). Stream-distance axis from Subject_A FIT. Operator adjudicates substrate from orthophoto."
+    "notes": "Tier 0 map-first local loop (Klepp Runde, Uskedalen). Stream-distance axis from Subject_A FIT. Operator adjudicates substrate from orthophoto."
   },
   "clustering": {
     "method": null,
