@@ -60,6 +60,24 @@ def anchor_fit_basename(subject_id: str) -> str | None:
     return DEFAULT_ANCHOR_BY_SUBJECT.get(subject_id)
 
 
+def discover_anchor_fit(basename: str) -> Path | None:
+    """Find anchor FIT under 02_Raw_Data when canonical root path is missing."""
+    if not basename:
+        return None
+    direct = RAW_DATA_DIR / basename
+    if direct.is_file():
+        return direct
+    for path in sorted(RAW_DATA_DIR.rglob(basename)):
+        if path.is_file():
+            return path
+    low = basename.lower()
+    if "stavanger" in low and "halv" in low:
+        for path in sorted(RAW_DATA_DIR.rglob("Stavanger*.fit")):
+            if path.is_file() and "halv" in path.name.lower():
+                return path
+    return None
+
+
 def anchor_path(subject_id: str) -> Path:
     """
     Resolve anchor .fit path for a subject.
@@ -74,9 +92,14 @@ def anchor_path(subject_id: str) -> Path:
             f"Run 5k tartan calibration and lock via seed_matrix.lock_anchor()."
         )
     path = RAW_DATA_DIR / name
-    if not path.exists():
-        raise FileNotFoundError(f"Anchor file missing: {path}")
-    return path
+    if path.is_file():
+        return path
+    discovered = discover_anchor_fit(name)
+    if discovered is not None:
+        return discovered
+    raise FileNotFoundError(
+        f"Anchor file missing: {path} (searched under {RAW_DATA_DIR.relative_to(BASE_DIR)})"
+    )
 
 
 def anchor_path_or_default(subject_id: str, fallback: str | Path) -> Path:
@@ -87,6 +110,11 @@ def anchor_path_or_default(subject_id: str, fallback: str | Path) -> Path:
         p = Path(fallback)
         if not p.is_absolute():
             p = BASE_DIR / p
+        if p.is_file():
+            return p
+        discovered = discover_anchor_fit(p.name)
+        if discovered is not None:
+            return discovered
         return p
 
 

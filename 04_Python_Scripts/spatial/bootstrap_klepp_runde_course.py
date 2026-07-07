@@ -36,9 +36,10 @@ if str(_SCRIPTS) not in sys.path:
 
 from fit_micro.activity_frame import MICRO_DIR  # noqa: E402
 
+import seed_matrix  # noqa: E402
+
 MANIFEST = _REPO / "config" / "spatial_align_manifest_klepp_runde.json"
 TERRAIN_MAP = _REPO / "config" / "spatial_terrain_map_klepp_runde.json"
-STAVANGER_O2_ANCHOR = _REPO / "02_Raw_Data" / "Stavanger_Halvmaraton.fit"
 DONOR_ID = "Subject_A"
 RACE_ID = "klepp_runde"
 DONOR_DIR = _REPO / "02_Raw_Data" / "donors" / DONOR_ID
@@ -185,6 +186,14 @@ def _patch_km_end(km_end: float, activity_id: str) -> None:
     print(f"Patched km_end → {km_end:.3f} in manifest + terrain map")
 
 
+def _resolve_o2_anchor() -> Path | None:
+    """Subject_A O₂ anchor for GAP/TI — canonical path or discover under 02_Raw_Data."""
+    try:
+        return seed_matrix.anchor_path(DONOR_ID)
+    except FileNotFoundError:
+        return seed_matrix.discover_anchor_fit("Stavanger_Halvmaraton.fit")
+
+
 def _run(cmd: list[str]) -> None:
     print("$", " ".join(cmd))
     subprocess.run(cmd, cwd=_REPO, check=True)
@@ -198,7 +207,12 @@ def main() -> int:
     parser.add_argument(
         "--no-enrich-ti",
         action="store_true",
-        help="Skip GAP/TI enrich (use when O₂ anchor FIT is absent)",
+        help="Skip GAP/TI enrich (auto-skipped when Stavanger_Halvmaraton.fit is absent)",
+    )
+    parser.add_argument(
+        "--enrich-ti",
+        action="store_true",
+        help="Force GAP/TI enrich (requires 02_Raw_Data/Stavanger_Halvmaraton.fit)",
     )
     parser.add_argument(
         "--discover",
@@ -242,8 +256,23 @@ def main() -> int:
             "--project-course",
             "--no-privacy-clip",
         ]
-        if not args.no_enrich_ti:
+        anchor = _resolve_o2_anchor()
+        if args.enrich_ti:
+            if anchor is None:
+                raise FileNotFoundError(
+                    "O₂ anchor Stavanger_Halvmaraton.fit not found under 02_Raw_Data "
+                    "(expected 02_Raw_Data/Stavanger_Halvmaraton.fit or donors/)"
+                )
             cmd.append("--enrich-ti")
+        elif not args.no_enrich_ti and anchor is not None:
+            rel = anchor.relative_to(_REPO) if anchor.is_relative_to(_REPO) else anchor
+            print(f"OK O₂ anchor → {rel}")
+            cmd.append("--enrich-ti")
+        elif not args.no_enrich_ti:
+            print(
+                "WARN Stavanger_Halvmaraton.fit not found under 02_Raw_Data — "
+                "skipping --enrich-ti (orthophoto HITL still works)"
+            )
         _run(cmd)
 
     if not micro_path.exists():
