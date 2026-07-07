@@ -151,8 +151,14 @@ def load_panel_window(path: Path, km_lo: float, km_hi: float, *, buffer_km: floa
     return panel[(panel["course_km"] >= lo) & (panel["course_km"] <= hi)].copy()
 
 
-def load_hmm_window(path: Path, km_lo: float, km_hi: float, *, buffer_km: float = 0.0) -> pd.DataFrame:
-    if not path.exists():
+def load_hmm_window(
+    path: Path | None,
+    km_lo: float,
+    km_hi: float,
+    *,
+    buffer_km: float = 0.0,
+) -> pd.DataFrame:
+    if path is None or not path.exists() or path.stat().st_size == 0:
         return pd.DataFrame()
     lo = max(0.0, km_lo - buffer_km)
     hi = km_hi + buffer_km
@@ -165,7 +171,7 @@ def build_training_frame(
     panel_path: Path = DEFAULT_PANEL,
     terrain_map_path: Path = DEFAULT_TERRAIN_MAP,
     extra_terrain_map_paths: list[Path] | None = None,
-    hmm_path: Path = DEFAULT_HMM_DRAFT,
+    hmm_path: Path | None = DEFAULT_HMM_DRAFT,
     km_lo: float | None = None,
     km_hi: float | None = None,
 ) -> pd.DataFrame:
@@ -175,7 +181,14 @@ def build_training_frame(
     profile = build_consensus_profile(panel)
     if km_lo is not None and km_hi is not None:
         profile = profile[(profile["course_km"] >= km_lo) & (profile["course_km"] < km_hi)].copy()
-    hmm = load_hmm_window(hmm_path, km_lo or 0.0, km_hi or float(profile["course_km"].max()) + 0.001)
+    if hmm_path is not None:
+        hmm = load_hmm_window(
+            hmm_path,
+            km_lo or 0.0,
+            km_hi or float(profile["course_km"].max()) + 0.001,
+        )
+    else:
+        hmm = pd.DataFrame()
     frame = merge_hmm_features(profile, hmm)
     terrain_map = load_terrain_map(terrain_map_path)
     gold = list(operator_gold_spans(terrain_map))

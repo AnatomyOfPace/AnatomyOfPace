@@ -6,6 +6,9 @@ Output columns: course_km, features..., label_surface, label_friction, is_labele
 
 Usage (from repo root):
     python3 04_Python_Scripts/spatial/build_gold_training_set.py \\
+        --terrain-map config/spatial_terrain_map_tverrfjell.json
+
+    python3 04_Python_Scripts/spatial/build_gold_training_set.py \\
         --km-start 29 --km-end 41 \\
         --output 03_Processed_Data/spatial/gold_training_set_sut43.parquet
 """
@@ -81,7 +84,7 @@ def main(argv: list[str] | None = None) -> int:
         if km_end is None:
             km_end = resolved.get("km_end")
         if args.hmm_draft == DEFAULT_HMM_DRAFT and resolved.get("hmm_draft") is None:
-            hmm_path = Path("/dev/null")
+            hmm_path = None
 
     if not panel_path.exists():
         print(f"Panel not found: {panel_path}", file=sys.stderr)
@@ -98,7 +101,7 @@ def main(argv: list[str] | None = None) -> int:
     cols = [c for c in EXPORT_COLUMNS if c in frame.columns]
     out = frame[cols].copy()
 
-    args.output.parent.mkdir(parents=True, exist_ok=True)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     out.to_parquet(output_path, index=False)
     if args.also_csv:
         out.to_csv(output_path.with_suffix(".csv"), index=False)
@@ -110,7 +113,7 @@ def main(argv: list[str] | None = None) -> int:
         "panel": str(panel_path),
         "terrain_map": str(args.terrain_map),
         "extra_terrain_maps": [str(p) for p in (args.extra_terrain_map or [])],
-        "hmm_draft": str(hmm_path) if hmm_path.exists() else None,
+        "hmm_draft": str(hmm_path) if hmm_path is not None and hmm_path.exists() else None,
         "km_start": km_start,
         "km_end": km_end,
         "total_metres": total,
