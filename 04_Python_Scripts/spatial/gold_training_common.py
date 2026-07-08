@@ -28,6 +28,8 @@ STAVANGER_HALVMARATHON_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sta
 STAVANGER_HALVMARATHON_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_stavanger_halvmarathon.parquet"
 SJOERSLOPET_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "3_sjoerslopet_course" / "panel_1m.parquet"
 SJOERSLOPET_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_3_sjoerslopet.parquet"
+SUNDERUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sunderunde_training_loop" / "panel_1m.parquet"
+SUNDERUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_sunderunde.parquet"
 
 SURFACE_CLASSES = ("S1", "S2", "S3", "S4", "S5", "S6")
 FRICTION_TIERS = ("F0", "F1", "F2", "F3", "F4")
@@ -88,6 +90,33 @@ def resolve_gold_training_defaults(terrain_map_path: Path) -> dict[str, Any]:
         return {
             "panel": VINJE_TERRENGLOP_PANEL,
             "output": VINJE_TERRENGLOP_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "stavanger_halvmarathon":
+        km_end = float(corridor.get("km_end") or 21.38)
+        return {
+            "panel": STAVANGER_HALVMARATHON_PANEL,
+            "output": STAVANGER_HALVMARATHON_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "3_sjoerslopet":
+        km_end = float(corridor.get("km_end") or 21.25)
+        return {
+            "panel": SJOERSLOPET_PANEL,
+            "output": SJOERSLOPET_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "Sunderunde":
+        km_end = float(corridor.get("km_end") or 19.5)
+        return {
+            "panel": SUNDERUNDE_PANEL,
+            "output": SUNDERUNDE_GOLD_OUTPUT,
             "km_start": 0.0,
             "km_end": km_end,
             "hmm_draft": None,

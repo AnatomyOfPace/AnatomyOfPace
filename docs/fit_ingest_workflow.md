@@ -389,4 +389,18 @@ Runs Tverrfjell → Klepp Runde → Gramstad Runde → Vinje Terrengløp with `g
 ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-o1-anchors --rebuild-exports
 ```
 
-Requires local panels: `stavanger_halvmarathon_course/panel_1m.parquet`, `3_sjoerslopet_course/panel_1m.parquet` (from anchor ingest). Adjust weights on `train_gold_suggester.py` if anchors still dominate (`--source-weight stavanger_halvmarathon:0.35`).
+Requires local panels: `stavanger_halvmarathon_course/panel_1m.parquet`, `3_sjoerslopet_course/panel_1m.parquet`, `sunderunde_training_loop/panel_1m.parquet` (from anchor ingest). Adjust weights on `train_gold_suggester.py` if anchors still dominate (`--source-weight stavanger_halvmarathon:0.35`).
+
+**O₁ anchor HITL PNG export** (after panels exist and pooled model is trained):
+
+```bash
+# Individual courses
+./04_Python_Scripts/spatial/export_hitl_chunks_stavanger_halvmarathon.sh
+./04_Python_Scripts/spatial/export_hitl_chunks_3_sjoerslopet.sh
+./04_Python_Scripts/spatial/export_hitl_chunks_sunderunde.sh
+
+# Batch all three with pooled ML strip
+./04_Python_Scripts/spatial/export_o1_anchor_hitl_pool.sh
+```
+
+Each script runs preflight, generates locomotion sidecar if missing, applies `gold_suggester_map_first_pool_v0.joblib` (or `ML_MODEL`), writes 1 km chunk PNGs to `06_Visualizations/{stavanger_halvmarathon,3_sjoerslopet,sunderunde}_hitl/`, and verifies geography with the matching `verify_*_hitl_exports.py`.

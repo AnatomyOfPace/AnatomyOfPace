@@ -37,6 +37,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Klepp Runde: local place name "Klepp" in Uskedalen (not Klepp municipality, Rogaland).
 USKEDALEN_BAND = {"lat_min": 59.86, "lat_max": 59.95, "lon_min": 5.88, "lon_max": 6.02}
 SANDNES_GRAMSTAD_BAND = {"lat_min": 58.75, "lat_max": 58.95, "lon_min": 5.55, "lon_max": 5.85}
+ROGALAND_ANCHOR_BAND = {"lat_min": 58.75, "lat_max": 59.10, "lon_min": 5.50, "lon_max": 5.95}
 VINJE_TELEMARK_BAND = {"lat_min": 59.40, "lat_max": 59.80, "lon_min": 7.25, "lon_max": 8.55}
 
 # Map-first Vinje: FIT stream GPS is the geography source of truth after bootstrap.
@@ -48,6 +49,9 @@ GEO_BANDS: dict[str, dict[str, float]] = {
     "klepp_runde": dict(USKEDALEN_BAND),
     "gramstad_runde": dict(SANDNES_GRAMSTAD_BAND),
     "vinje_terrenglop": dict(VINJE_TELEMARK_BAND),
+    "stavanger_halvmarathon": dict(ROGALAND_ANCHOR_BAND),
+    "3_sjoerslopet": dict(ROGALAND_ANCHOR_BAND),
+    "Sunderunde": dict(ROGALAND_ANCHOR_BAND),
 }
 
 WRONG_REGION: dict[str, dict[str, float | str]] = {
@@ -59,6 +63,18 @@ WRONG_REGION: dict[str, dict[str, float | str]] = {
     "gramstad_runde": {
         "lat_max": 59.0,
         "label": "Uskedalen (wrong course — not Sandnes/Gramstad)",
+    },
+    "stavanger_halvmarathon": {
+        "lat_min": 59.0,
+        "label": "Uskedalen (wrong course — not Stavanger/Rogaland)",
+    },
+    "3_sjoerslopet": {
+        "lat_min": 59.0,
+        "label": "Uskedalen (wrong course — not Sandnes/Rogaland)",
+    },
+    "Sunderunde": {
+        "lat_min": 59.0,
+        "label": "Uskedalen (wrong course — not Sandnes/Sunderunde)",
     },
 }
 
@@ -195,7 +211,7 @@ def run_preflight(
     if ml_model is None:
         ml_model = BASE_DIR / "07_ML_Models" / "spatial" / f"gold_suggester_{race_id}_v0.joblib"
     else:
-        ml_model = _resolve_repo_path(ml_model)
+        ml_model = _resolve_repo_path(ml_model).resolve()
     if ml_predictions is None:
         ml_predictions = course_dir / f"{race_id}_ml_predictions.parquet"
     else:

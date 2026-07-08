@@ -2,7 +2,8 @@
 # Build per-course gold training exports, merge map-first pool, train pooled suggester.
 #
 # Courses: Tverrfjell, Klepp Runde, Gramstad Runde, Vinje Terrengløp (FIT stream axis).
-# Optional O₁ anchors: Stavanger Halvmarathon (S1/F0 asphalt), 3-sjøersløpet (S2/F1 gravel).
+# Optional O₁ anchors: Stavanger Halvmarathon (S1/F0 asphalt), 3-sjøersløpet (S2/F1 gravel),
+# Sunderunde training loop (S2/F1 gravel + S1/F1 asphalt).
 #
 # Usage (from repo root):
 #   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --rebuild-exports
@@ -49,10 +50,12 @@ if [[ -n "$WITH_O1" ]]; then
   TERRAIN_MAPS+=(
     "config/spatial_terrain_map_stavanger_halvmarathon.json"
     "config/spatial_terrain_map_3_sjoerslopet.json"
+    "config/spatial_terrain_map_sunderunde.json"
   )
   PARQUETS+=(
     "${PROCESSED}/gold_training_set_stavanger_halvmarathon.parquet"
     "${PROCESSED}/gold_training_set_3_sjoerslopet.parquet"
+    "${PROCESSED}/gold_training_set_sunderunde.parquet"
   )
 fi
 
@@ -101,6 +104,7 @@ if [[ -n "$WITH_O1" ]]; then
   TRAIN_ARGS+=(
     --source-weight stavanger_halvmarathon:0.5
     --source-weight 3_sjoerslopet:0.5
+    --source-weight sunderunde:0.5
   )
 fi
 
@@ -109,7 +113,9 @@ python3 "$TRAIN" "${TRAIN_ARGS[@]}"
 echo ""
 echo "OK map-first pool model → $MODEL"
 if [[ -n "$WITH_O1" ]]; then
-  echo "  (trained with Stavanger Halvmarathon + 3-sjøersløpet O₁ anchors)"
+  echo "  (trained with Stavanger Halvmarathon + 3-sjøersløpet + Sunderunde O₁ anchors)"
 fi
-echo "Re-export all courses:"
+echo "Re-export trail loops:"
 echo "  ./04_Python_Scripts/spatial/export_map_first_hitl_pool.sh"
+echo "Re-export O₁ anchors:"
+echo "  ./04_Python_Scripts/spatial/export_o1_anchor_hitl_pool.sh"
