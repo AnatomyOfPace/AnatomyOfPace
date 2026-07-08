@@ -22,21 +22,13 @@ echo "=== Map-first orphan HITL pool export (Subject_A) ==="
 echo "ML_MODEL=$ML_MODEL"
 echo ""
 
-mapfile -t RACE_IDS < <(python3 - <<'PY'
-import json
-from pathlib import Path
-reg = json.loads(Path("config/map_first_orphan_courses.json").read_text())
-for c in reg.get("courses") or []:
-    print(c["race_id"])
-PY
-)
-
 EXPORT_SCRIPT="04_Python_Scripts/spatial/export_hitl_map_first_orphan.sh"
 if [[ ! -x "$EXPORT_SCRIPT" ]]; then
   chmod +x "$EXPORT_SCRIPT"
 fi
 
-for race_id in "${RACE_IDS[@]}"; do
+while IFS= read -r race_id; do
+  [[ -z "$race_id" ]] && continue
   panel="03_Processed_Data/spatial/${race_id}_course/panel_1m.parquet"
   if [[ ! -f "$panel" ]]; then
     echo "SKIP $race_id — panel missing (bootstrap first)" >&2
@@ -47,6 +39,13 @@ for race_id in "${RACE_IDS[@]}"; do
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   "$EXPORT_SCRIPT" "$race_id"
   echo ""
-done
+done < <(python3 - <<'PY'
+import json
+from pathlib import Path
+reg = json.loads(Path("config/map_first_orphan_courses.json").read_text())
+for c in reg.get("courses") or []:
+    print(c["race_id"])
+PY
+)
 
 echo "OK orphan HITL pool export complete (bootstrapped courses only)."

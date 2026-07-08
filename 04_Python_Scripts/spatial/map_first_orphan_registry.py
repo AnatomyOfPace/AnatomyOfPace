@@ -79,29 +79,43 @@ def fits_match(course: dict[str, Any], path: Path) -> bool:
     return True
 
 
-def discover_fit_candidates(course: dict[str, Any]) -> list[Path]:
-    roots = (
-        DONOR_DIR,
-        BASE_DIR / "02_Raw_Data",
-        Path.home() / "Downloads",
-        Path.home() / "Desktop",
-    )
-    out: list[Path] = []
-    seen: set[str] = set()
-    for root in roots:
-        if not root.exists():
-            continue
-        for path in root.rglob("*.fit"):
-            if not path.is_file():
+def discover_fit_candidates(course: dict[str, Any], *, donor_only: bool = False) -> list[Path]:
+    """Return matching FIT paths, newest first. Subject_A orphans search donors/Subject_A first."""
+    search_roots: list[Path] = [DONOR_DIR]
+    if not donor_only:
+        search_roots.extend(
+            (
+                BASE_DIR / "02_Raw_Data",
+                Path.home() / "Downloads",
+                Path.home() / "Desktop",
+            )
+        )
+    subject_b_donor = BASE_DIR / "02_Raw_Data" / "donors" / "Subject_B"
+
+    def _collect(roots: tuple[Path, ...]) -> list[Path]:
+        out: list[Path] = []
+        seen: set[str] = set()
+        for root in roots:
+            if not root.exists():
                 continue
-            if not fits_match(course, path):
-                continue
-            key = str(path.resolve())
-            if key in seen:
-                continue
-            seen.add(key)
-            out.append(path.resolve())
-    return sorted(out, key=lambda p: p.stat().st_mtime, reverse=True)
+            for path in root.rglob("*.fit"):
+                if not path.is_file():
+                    continue
+                if subject_b_donor in path.parents:
+                    continue
+                if not fits_match(course, path):
+                    continue
+                key = str(path.resolve())
+                if key in seen:
+                    continue
+                seen.add(key)
+                out.append(path.resolve())
+        return sorted(out, key=lambda p: p.stat().st_mtime, reverse=True)
+
+    donor_hits = _collect((DONOR_DIR,))
+    if donor_hits or donor_only:
+        return donor_hits
+    return _collect(tuple(search_roots[1:]))
 
 
 def corridor_id_for(race_id: str) -> str:

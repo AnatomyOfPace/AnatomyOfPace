@@ -49,9 +49,11 @@ def _canonical_fit_path(activity_id: str) -> Path:
 
 
 def _install_to_canonical(source: Path, activity_id: str) -> Path:
+    src = source.resolve()
+    if DONOR_DIR.resolve() in src.parents or src.parent == DONOR_DIR.resolve():
+        return src
     canonical = _canonical_fit_path(activity_id)
     canonical.parent.mkdir(parents=True, exist_ok=True)
-    src = source.resolve()
     if src == canonical.resolve():
         return canonical
     if not canonical.exists():
@@ -71,6 +73,12 @@ def _resolve_fit_path(course: dict, explicit: Path | None) -> tuple[Path, str]:
         return _install_to_canonical(p, activity_id), activity_id
 
     discovered = discover_fit_candidates(course)
+    donor_root = DONOR_DIR.resolve()
+    donor_hits = [p for p in discovered if donor_root in p.parents or p.parent == donor_root]
+    if len(donor_hits) == 1:
+        print(f"Auto-discovered FIT: {donor_hits[0]}")
+        activity_id = donor_hits[0].stem
+        return _install_to_canonical(donor_hits[0], activity_id), activity_id
     if len(discovered) == 1:
         print(f"Auto-discovered FIT: {discovered[0]}")
         activity_id = discovered[0].stem
@@ -78,7 +86,7 @@ def _resolve_fit_path(course: dict, explicit: Path | None) -> tuple[Path, str]:
     if len(discovered) > 1:
         lines = "\n".join(f"  - {p}" for p in discovered)
         raise FileNotFoundError(
-            f"Multiple FIT files match {race_id!r} — pass exactly one with --fit:\n{lines}"
+            f"Multiple FIT files match {race_id!r} — pass Subject_A file with --fit:\n{lines}"
         )
     raise FileNotFoundError(
         f"No FIT found for {race_id!r} ({course.get('display_name')}).\n"
