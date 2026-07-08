@@ -64,11 +64,14 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
-    if not args.terrain_map.exists():
-        print(f"Terrain map not found: {args.terrain_map}", file=sys.stderr)
+    terrain_map_path = args.terrain_map
+    if not terrain_map_path.is_absolute():
+        terrain_map_path = BASE_DIR / terrain_map_path
+    if not terrain_map_path.exists():
+        print(f"Terrain map not found: {terrain_map_path}", file=sys.stderr)
         return 1
 
-    resolved = resolve_gold_training_defaults(args.terrain_map)
+    resolved = resolve_gold_training_defaults(terrain_map_path)
     panel_path = args.panel
     output_path = args.output
     km_start = args.km_start
@@ -85,6 +88,13 @@ def main(argv: list[str] | None = None) -> int:
             km_end = resolved.get("km_end")
         if args.hmm_draft == DEFAULT_HMM_DRAFT and resolved.get("hmm_draft") is None:
             hmm_path = None
+    elif args.terrain_map != DEFAULT_TERRAIN_MAP:
+        print(
+            f"No build defaults for {terrain_map_path.name} — "
+            "pass --panel and --output explicitly, or extend resolve_gold_training_defaults.",
+            file=sys.stderr,
+        )
+        return 1
 
     if not panel_path.exists():
         print(f"Panel not found: {panel_path}", file=sys.stderr)
@@ -92,7 +102,7 @@ def main(argv: list[str] | None = None) -> int:
 
     frame = build_training_frame(
         panel_path=panel_path,
-        terrain_map_path=args.terrain_map,
+        terrain_map_path=terrain_map_path,
         extra_terrain_map_paths=args.extra_terrain_map,
         hmm_path=hmm_path,
         km_lo=km_start,
