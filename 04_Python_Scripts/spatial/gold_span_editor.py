@@ -159,6 +159,44 @@ def cmd_delete(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_clear_window(args: argparse.Namespace) -> int:
+    """Remove all operator gold spans overlapping [km-start, km-end)."""
+    km_start = float(args.km_start)
+    km_end = float(args.km_end)
+    if km_end <= km_start:
+        print("Error: --km-end must exceed --km-start", file=sys.stderr)
+        return 1
+
+    terrain_map = load_terrain_map(args.terrain_map)
+    hitl = terrain_map.setdefault("hitl", {})
+    spans: list[dict[str, Any]] = list(hitl.get("operator_gold_spans") or [])
+    kept: list[dict[str, Any]] = []
+    removed: list[tuple[int, dict[str, Any]]] = []
+    for idx, span in enumerate(spans):
+        s0, s1 = span_km_bounds(span)
+        if spans_overlap(km_start, km_end, s0, s1):
+            removed.append((idx, span))
+        else:
+            kept.append(span)
+
+    if not removed:
+        print(f"No spans overlap km {km_start:.3f}–{km_end:.3f}")
+        return 0
+
+    for idx, span in removed:
+        s0, s1 = span_km_bounds(span)
+        print(f"  - [{idx}] km {s0:.3f}–{s1:.3f} {span.get('surface_class')}/{span.get('friction_tier')}")
+
+    if args.dry_run:
+        print(f"Would remove {len(removed)} span(s); keep {len(kept)}")
+        return 0
+
+    hitl["operator_gold_spans"] = kept
+    write_terrain_map(args.terrain_map, terrain_map)
+    print(f"Cleared {len(removed)} overlapping span(s); {len(kept)} remain")
+    return 0
+
+
 def cmd_restore(args: argparse.Namespace) -> int:
     """Copy operator_gold_spans from gitignored .gold_local.json into terrain map."""
     path = Path(args.terrain_map)
@@ -199,6 +237,13 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     del_p = sub.add_parser("delete", help="Remove span by list index")
     del_p.add_argument("--index", type=int, required=True)
 
+    clear_p = sub.add_parser(
+        "clear-window",
+        help="Remove all spans overlapping a km window (before clean orthophoto locks)",
+    )
+    clear_p.add_argument("--km-start", type=float, required=True)
+    clear_p.add_argument("--km-end", type=float, required=True)
+
     sub.add_parser("restore", help="Restore operator_gold_spans from .gold_local.json mirror")
 
     return parser.parse_args(argv)
@@ -215,6 +260,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_add(args)
     if args.command == "delete":
         return cmd_delete(args)
+    if args.command == "clear-window":
+        return cmd_clear_window(args)
     if args.command == "restore":
         return cmd_restore(args)
     print(f"Unknown command: {args.command}", file=sys.stderr)

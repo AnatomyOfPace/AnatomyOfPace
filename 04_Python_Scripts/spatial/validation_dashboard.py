@@ -3721,6 +3721,9 @@ def resolve_assigned_display_at_km(
             return cls, "gmm_draft"
         return cls, "gmm_draft"
 
+    if is_map_first_operator_gold(terrain_map):
+        return None, "unassigned"
+
     gmm = surface_class_for_km(cluster_segments(terrain_map), km)
     return gmm, "gmm_draft"
 
