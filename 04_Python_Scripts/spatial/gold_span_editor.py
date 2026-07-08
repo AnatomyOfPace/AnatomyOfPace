@@ -220,9 +220,18 @@ def cmd_restore(args: argparse.Namespace) -> int:
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    argv_list = list(argv) if argv is not None else sys.argv[1:]
+    dry_run_flag = "--dry-run" in argv_list
+    if dry_run_flag:
+        argv_list = [token for token in argv_list if token != "--dry-run"]
+
     parser = argparse.ArgumentParser(description="Edit sparse operator gold spans in terrain map JSON.")
     parser.add_argument("--terrain-map", type=Path, default=DEFAULT_TERRAIN_MAP)
-    parser.add_argument("--dry-run", action="store_true", help="Validate without writing JSON")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Validate without writing JSON (may appear before or after subcommand)",
+    )
     sub = parser.add_subparsers(dest="command", required=True)
 
     sub.add_parser("list", help="List all operator gold spans with index")
@@ -246,7 +255,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
     sub.add_parser("restore", help="Restore operator_gold_spans from .gold_local.json mirror")
 
-    return parser.parse_args(argv)
+    args = parser.parse_args(argv_list)
+    if dry_run_flag:
+        args.dry_run = True
+    return args
 
 
 def main(argv: list[str] | None = None) -> int:
