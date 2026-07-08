@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Apply operator gold for SCB Runde (map-first orphan training loop).
+# Lock operator gold for SCB Runde — full orthophoto spec (map-first orphan).
 #
-# Full course km 0–end: ML filter keep S2/S3/S4/S5 else S2/F2 (gravel-primary).
-# Override individual km windows via gold_span_editor after export if orthophoto
-# disagrees with ML.
+# Clears km 0–end and writes contiguous operator spans. Gap km 0.5–1.0 is S3/F2
+# (grass bridge between km 0–0.5 and 1.0–1.8 — change in script if orthophoto differs).
 #
 # Usage (from repo root, after bootstrap + HITL export):
 #   ./04_Python_Scripts/spatial/lock_scb_runde_gold.sh
 #   ./04_Python_Scripts/spatial/lock_scb_runde_gold.sh --dry-run
+#   ./04_Python_Scripts/spatial/lock_scb_runde_gold.sh --force   # replace existing gold
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -15,16 +15,15 @@ cd "$ROOT"
 
 RACE_ID="scb_runde"
 TERRAIN_MAP="config/spatial_terrain_map_${RACE_ID}.json"
-PANEL="03_Processed_Data/spatial/${RACE_ID}_course/panel_1m.parquet"
-ML_PRED="${PANEL%/*}/${RACE_ID}_ml_predictions.parquet"
-ML_FALLBACK="${PANEL%/*}/ml_predictions.parquet"
 
 DRY_RUN=""
+FORCE=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --dry-run) DRY_RUN=1; shift ;;
+    --force) FORCE=1; shift ;;
     *)
-      echo "Usage: $0 [--dry-run]" >&2
+      echo "Usage: $0 [--dry-run] [--force]" >&2
       exit 1
       ;;
   esac
@@ -33,22 +32,6 @@ done
 if [[ ! -f "$TERRAIN_MAP" ]]; then
   echo "Terrain map missing: $TERRAIN_MAP" >&2
   echo "Run: python3 04_Python_Scripts/spatial/bootstrap_map_first_orphan.py --course $RACE_ID" >&2
-  exit 1
-fi
-
-if [[ ! -f "$PANEL" ]]; then
-  echo "Panel missing: $PANEL" >&2
-  exit 1
-fi
-
-if [[ -f "$ML_PRED" ]]; then
-  ML_ARG=(--ml-predictions "$ML_PRED")
-elif [[ -f "$ML_FALLBACK" ]]; then
-  ML_ARG=(--ml-predictions "$ML_FALLBACK")
-else
-  echo "ML predictions missing — export HITL first:" >&2
-  echo "  ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \\" >&2
-  echo "    ./04_Python_Scripts/spatial/export_hitl_map_first_orphan.sh $RACE_ID" >&2
   exit 1
 fi
 
@@ -69,20 +52,19 @@ print(km_end, len(operator_gold_spans(tmap)))
 PY
 )"
 
-ml_lock() {
-  python3 04_Python_Scripts/spatial/lock_gold_from_ml_filter.py \
+gold_ed() {
+  python3 04_Python_Scripts/spatial/gold_span_editor.py \
     --terrain-map "$TERRAIN_MAP" "$@"
 }
 
-echo "=== SCB Runde — operator gold apply ==="
-echo "  window:     km 0.000–${KM_END}"
-echo "  existing:   ${SPAN_COUNT} span(s)"
-echo "  ML source:  ${ML_PRED}"
+echo "=== SCB Runde — operator gold lock (full course) ==="
+echo "  window:   km 0.000–${KM_END}"
+echo "  existing: ${SPAN_COUNT} span(s)"
 echo ""
 
-if [[ "$SPAN_COUNT" -gt 0 ]]; then
-  echo "Warning: terrain map already has ${SPAN_COUNT} gold span(s)." >&2
-  echo "  Re-run is safe only on a fresh map (0 spans). Clear spans manually if re-applying." >&2
+if [[ "$SPAN_COUNT" -gt 0 && -z "$FORCE" ]]; then
+  echo "Terrain map already has gold. Re-run with --force to replace, or run coverage:" >&2
+  echo "  python3 04_Python_Scripts/spatial/report_gold_coverage.py --terrain-map $TERRAIN_MAP" >&2
   exit 1
 fi
 
@@ -93,21 +75,47 @@ run() {
   fi
 }
 
-echo "━━━ 1/2 ML filter full course km 0–${KM_END} ━━━"
-ML_ARGS=(
-  "${ML_ARG[@]}"
-  --km-start 0.0 --km-end "$KM_END"
-  --keep-surface S2 S3 S4 S5 --else-surface S2 --else-friction F2
-  --reason "SCB Runde gravel/trail ML filter"
-)
+echo "━━━ 1/2 Clear km 0–${KM_END} ━━━"
 if [[ -n "$DRY_RUN" ]]; then
-  ml_lock "${ML_ARGS[@]}" --dry-run
+  gold_ed clear-window --km-start 0.0 --km-end "$KM_END" --dry-run 2>/dev/null || \
+    echo "(dry-run: would clear-window 0–${KM_END})"
 else
-  run ml_lock "${ML_ARGS[@]}"
+  run gold_ed clear-window --km-start 0.0 --km-end "$KM_END"
 fi
 
 echo ""
-echo "━━━ 2/2 Coverage report ━━━"
+echo "━━━ 2/2 Apply operator spans ━━━"
+
+apply_span() {
+  local ks="$1" ke="$2" sc="$3" fr="$4" rn="$5"
+  if [[ -n "$DRY_RUN" ]]; then
+    echo "  add km ${ks}–${ke} ${sc}/${fr}  (${rn})"
+  else
+    run gold_ed add --km-start "$ks" --km-end "$ke" \
+      --surface "$sc" --friction "$fr" --reason "$rn"
+  fi
+}
+
+apply_span 0.0   0.5   S3 F2 "orthophoto: grass km 0–0.5"
+apply_span 0.5   1.0   S3 F2 "orthophoto: grass bridge km 0.5–1.0"
+apply_span 1.0   1.8   S3 F2 "orthophoto: grass/trail km 1.0–1.8"
+apply_span 1.8   2.0   S2 F2 "orthophoto: gravel km 1.8–2.0"
+apply_span 2.0   2.8   S2 F2 "orthophoto: gravel km 2.0–2.8"
+apply_span 2.8   3.0   S3 F2 "orthophoto: grass/trail km 2.8–3.0"
+apply_span 3.0   3.35  S3 F2 "orthophoto: grass/trail km 3.0–3.35"
+apply_span 3.35  3.5   S2 F2 "orthophoto: gravel km 3.35–3.5"
+apply_span 3.5   3.95  S3 F2 "orthophoto: grass/trail km 3.5–3.95"
+apply_span 3.95  4.0   S1 F0 "orthophoto: paved km 3.95–4.0"
+apply_span 4.0   4.1   S1 F0 "orthophoto: paved km 4.0–4.1"
+apply_span 4.1   4.6   S3 F2 "orthophoto: grass/trail km 4.1–4.6"
+apply_span 4.6   5.0   S2 F2 "orthophoto: gravel km 4.6–5.0"
+apply_span 5.0   5.83  S2 F2 "orthophoto: gravel km 5.0–5.83"
+apply_span 5.83  6.0   S1 F0 "orthophoto: paved km 5.83–6.0"
+apply_span 6.0   6.1   S1 F0 "orthophoto: paved km 6.0–6.1"
+apply_span 6.1   "$KM_END" S2 F2 "orthophoto: gravel km 6.1–end"
+
+echo ""
+echo "━━━ Coverage ━━━"
 if [[ -z "$DRY_RUN" ]]; then
   python3 04_Python_Scripts/spatial/report_gold_coverage.py --terrain-map "$TERRAIN_MAP"
 else
