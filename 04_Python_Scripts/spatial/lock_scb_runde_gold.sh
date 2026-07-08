@@ -77,8 +77,7 @@ run() {
 
 echo "━━━ 1/2 Clear km 0–${KM_END} ━━━"
 if [[ -n "$DRY_RUN" ]]; then
-  gold_ed clear-window --km-start 0.0 --km-end "$KM_END" --dry-run 2>/dev/null || \
-    echo "(dry-run: would clear-window 0–${KM_END})"
+  gold_ed --dry-run clear-window --km-start 0.0 --km-end "$KM_END"
 else
   run gold_ed clear-window --km-start 0.0 --km-end "$KM_END"
 fi
@@ -97,7 +96,8 @@ apply_span() {
 }
 
 apply_span 0.0   0.5   S3 F2 "orthophoto: grass km 0–0.5"
-apply_span 0.5   1.0   S3 F2 "orthophoto: grass bridge km 0.5–1.0"
+apply_span 0.5   0.98  S2 F2 "orthophoto: gravel km 0.5–0.98"
+apply_span 0.98  1.0   S3 F2 "orthophoto: grass/trail km 0.98–1.0"
 apply_span 1.0   1.8   S3 F2 "orthophoto: grass/trail km 1.0–1.8"
 apply_span 1.8   2.0   S2 F2 "orthophoto: gravel km 1.8–2.0"
 apply_span 2.0   2.8   S2 F2 "orthophoto: gravel km 2.0–2.8"
