@@ -131,17 +131,16 @@ else
 fi
 
 echo ""
-echo "━━━ 2/4 Manual spans (start + gravel bands) ━━━"
+echo "━━━ 2/4 Manual start km 0–1.0 ━━━"
 apply_span 0.0  0.35  S2 F2 "orthophoto: gravel km 0–0.35"
 apply_span 0.35 1.0   S3 F2 "orthophoto: grass/trail km 0.35–1.0"
-apply_span 4.3  5.0   S2 F2 "orthophoto: gravel km 4.3–5.0"
-apply_span 12.5 13.0  S2 F2 "orthophoto: gravel km 12.5–13.0"
-apply_span 13.0 "$KM_END" S2 F2 "orthophoto: gravel km 13–end"
 
 echo ""
 echo "━━━ 3/4 ML filter trail windows ━━━"
 ml_window 1.0 4.3  "km 1–4.3"
+apply_span 4.3  5.0   S2 F2 "orthophoto: gravel km 4.3–5.0"
 ml_window 5.0 12.5 "km 5–12.5"
+apply_span 12.5 "$KM_END" S2 F2 "orthophoto: gravel km 12.5–end"
 
 echo ""
 echo "━━━ 4/4 Coverage ━━━"
