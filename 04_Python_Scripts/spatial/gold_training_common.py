@@ -31,6 +31,25 @@ SJOERSLOPET_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_tra
 SUNDERUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sunderunde_training_loop" / "panel_1m.parquet"
 SUNDERUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_sunderunde.parquet"
 
+
+def _map_first_orphan_race_ids() -> frozenset[str]:
+    """race_id slugs from config/map_first_orphan_courses.json."""
+    path = BASE_DIR / "config" / "map_first_orphan_courses.json"
+    if not path.exists():
+        return frozenset()
+    import json
+
+    reg = json.loads(path.read_text(encoding="utf-8"))
+    return frozenset(str(c["race_id"]) for c in (reg.get("courses") or []) if c.get("race_id"))
+
+
+def _orphan_panel_path(race_id: str) -> Path:
+    return BASE_DIR / "03_Processed_Data" / "spatial" / f"{race_id}_course" / "panel_1m.parquet"
+
+
+def _orphan_gold_output_path(race_id: str) -> Path:
+    return BASE_DIR / "03_Processed_Data" / "spatial" / f"gold_training_set_{race_id}.parquet"
+
 SURFACE_CLASSES = ("S1", "S2", "S3", "S4", "S5", "S6")
 FRICTION_TIERS = ("F0", "F1", "F2", "F3", "F4")
 
@@ -117,6 +136,15 @@ def resolve_gold_training_defaults(terrain_map_path: Path) -> dict[str, Any]:
         return {
             "panel": SUNDERUNDE_PANEL,
             "output": SUNDERUNDE_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id in _map_first_orphan_race_ids():
+        km_end = float(corridor.get("km_end") or 1.0)
+        return {
+            "panel": _orphan_panel_path(race_id),
+            "output": _orphan_gold_output_path(race_id),
             "km_start": 0.0,
             "km_end": km_end,
             "hmm_draft": None,

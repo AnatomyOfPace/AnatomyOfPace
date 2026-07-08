@@ -371,6 +371,35 @@ def load_vinje_terrenglop_window(
     return start, end, meta
 
 
+def load_map_first_orphan_window(
+    race_id: str,
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Map-first orphan course — FIT stream-distance axis (registry-driven)."""
+    reg_path = BASE_DIR / "config" / "map_first_orphan_courses.json"
+    if not reg_path.exists():
+        raise KeyError(f"Orphan registry not found: {reg_path}")
+    reg = json.loads(reg_path.read_text(encoding="utf-8"))
+    course = next((c for c in (reg.get("courses") or []) if c.get("race_id") == race_id), None)
+    if course is None:
+        raise KeyError(f"race_id {race_id!r} not in map_first_orphan_courses.json")
+    start = 0.0 if km_start is None else float(km_start)
+    end = 1.0 if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": f"{race_id}_course",
+        "race_id": race_id,
+        "anchor_id": race_id,
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": f"config/spatial_terrain_map_{race_id}.json",
+        "geography": dict(course.get("geography") or {}),
+    }
+    return start, end, meta
+
+
 def load_experiment_window(
     race_id: str = STRESS_TEST_RACE_ID,
     *,
@@ -395,4 +424,11 @@ def load_experiment_window(
         return load_gramstad_runde_window(km_start=km_start, km_end=km_end)
     if race_id == VINJE_TERRENGLOP_RACE_ID:
         return load_vinje_terrenglop_window(km_start=km_start, km_end=km_end)
+    orphan_reg = BASE_DIR / "config" / "map_first_orphan_courses.json"
+    if orphan_reg.exists():
+        orphan_ids = {
+            str(c["race_id"]) for c in json.loads(orphan_reg.read_text(encoding="utf-8")).get("courses") or []
+        }
+        if race_id in orphan_ids:
+            return load_map_first_orphan_window(race_id, km_start=km_start, km_end=km_end)
     return load_stress_test_window(km_start=km_start, km_end=km_end, registry=registry)

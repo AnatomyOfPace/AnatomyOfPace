@@ -353,6 +353,49 @@ Configs: `config/spatial_align_manifest_vinje_terrenglop.json`, `config/spatial_
 
 **Pull recovery:** if `git pull` blocks on patched manifest/terrain map, `git checkout --` those two files then `bootstrap_vinje_terrenglop_course.py --skip-wash --fit <path>`.
 
+## Map-first orphan courses (unwashed Subject_A FIT inventory)
+
+Five local FIT streams were on disk under `donors/Subject_A/` without micro wash or HITL. Registry: `config/map_first_orphan_courses.json`.
+
+| race_id | FIT filename hint | Seed tread |
+|---------|-------------------|------------|
+| `gjesdal_terrenglop_kongeparken` | `Gjesdal*Terrengl*Kongeparken*.fit` | S3/F2 trail |
+| `sandnes_6_nuter` | `Sandnes*nuter*.fit` | S1/F0 road |
+| `scb_runde` | `SCB*runde*.fit` | S2/F2 gravel/trail |
+| `selvikstakken` | `*selvik*stakken*.fit` | S4/F3 scramble |
+| `skafonnlega_sveivida` | `*Sveivida*.fit` | S4/F3 plateau |
+
+**Bootstrap all (wash + panel + config stubs):**
+
+```bash
+git pull origin cursor/orphan-map-first-bootstrap-0c6a
+
+./04_Python_Scripts/spatial/bootstrap_map_first_orphans.sh
+# or one course:
+python3 04_Python_Scripts/spatial/bootstrap_map_first_orphan.py --course selvikstakken
+python3 04_Python_Scripts/spatial/bootstrap_map_first_orphan.py --discover scb_runde
+```
+
+**Export HITL PNGs (pooled ML strip for labeling):**
+
+```bash
+ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
+  ./04_Python_Scripts/spatial/export_map_first_orphans_pool.sh
+```
+
+**Label → join extended pool train:**
+
+```bash
+python3 04_Python_Scripts/spatial/gold_span_editor.py add \
+  --terrain-map config/spatial_terrain_map_selvikstakken.json \
+  --km-start 0 --km-end <km_end> --surface S4 --friction F3
+
+./04_Python_Scripts/spatial/train_map_first_gold_pool.sh \
+  --with-o1-anchors --with-orphans --rebuild-exports
+```
+
+Orphan courses enter the merged pool only after operator gold is locked (`--with-orphans`). Until then, exports still show the pooled suggester prediction strip from the existing seven-course model.
+
 ## Map-first pooled gold suggester (Tverrfjell + Klepp + Gramstad + Vinje)
 
 Train one cross-course model from operator gold on all map-first FIT loops. Per-course parquets are merged with `source_anchor` traceability; the pooled model is written to `gold_suggester_map_first_pool_v0.joblib` (local only).

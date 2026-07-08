@@ -37,6 +37,11 @@ STREAM_DISTANCE_RACES = frozenset(
         "klepp_runde",
         "gramstad_runde",
         "vinje_terrenglop",
+        "gjesdal_terrenglop_kongeparken",
+        "sandnes_6_nuter",
+        "scb_runde",
+        "selvikstakken",
+        "skafonnlega_sveivida",
     }
 )
 

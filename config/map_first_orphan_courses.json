@@ -1,0 +1,103 @@
+{
+  "_comment": "Subject_A FIT streams washed locally but not yet in map-first gold pool. Ghost Authority safe race_id slugs only.",
+  "schema_version": 1,
+  "courses": [
+    {
+      "race_id": "gjesdal_terrenglop_kongeparken",
+      "display_name": "Gjesdal Terrengløp Kongeparken",
+      "fit_match": {
+        "all_tokens": ["gjesdal", "terrengl"],
+        "any_tokens": ["kongeparken"]
+      },
+      "session_type": "race",
+      "geography": {
+        "settlement": "Kongeparken",
+        "municipality": "Gjesdal",
+        "county": "Rogaland",
+        "region": "Jæren",
+        "notes": "Trail event at Kongeparken (Gjesdal). Map-first FIT stream axis — not SUT_43 organiser GPX."
+      },
+      "seed_surface": "S3",
+      "seed_friction": "F2",
+      "seed_label": "Trail tread (placeholder)",
+      "trust_fit_gps": true
+    },
+    {
+      "race_id": "sandnes_6_nuter",
+      "display_name": "Sandnes 6 Nuter",
+      "fit_match": {
+        "all_tokens": ["sandnes", "nuter"]
+      },
+      "session_type": "race",
+      "geography": {
+        "settlement": "Sandnes",
+        "municipality": "Sandnes",
+        "county": "Rogaland",
+        "region": "Jæren",
+        "notes": "Local road loop race (6 Nuter). Map-first FIT stream axis."
+      },
+      "seed_surface": "S1",
+      "seed_friction": "F0",
+      "seed_label": "Sealed road (placeholder — verify asphalt vs gravel on orthophoto)",
+      "trust_fit_gps": true
+    },
+    {
+      "race_id": "scb_runde",
+      "display_name": "SCB Runde",
+      "fit_match": {
+        "all_tokens": ["scb", "runde"]
+      },
+      "session_type": "training",
+      "geography": {
+        "settlement": "Sandnes",
+        "municipality": "Sandnes",
+        "county": "Rogaland",
+        "region": "Jæren",
+        "notes": "Local training loop (SCB runden). Map-first FIT stream axis."
+      },
+      "seed_surface": "S2",
+      "seed_friction": "F2",
+      "seed_label": "Gravel / trail tread (placeholder)",
+      "trust_fit_gps": true
+    },
+    {
+      "race_id": "selvikstakken",
+      "display_name": "Selvikstakken",
+      "fit_match": {
+        "all_tokens": ["selvik", "stakken"]
+      },
+      "session_type": "training",
+      "geography": {
+        "settlement": "Selvikstakken",
+        "municipality": "Sandnes",
+        "county": "Rogaland",
+        "region": "Jæren",
+        "notes": "Technical scramble session — O₂ scramble locomotion anchor candidate. Map-first FIT stream axis."
+      },
+      "seed_surface": "S4",
+      "seed_friction": "F3",
+      "seed_label": "Technical rock / scramble tread (placeholder)",
+      "trust_fit_gps": true
+    },
+    {
+      "race_id": "skafonnlega_sveivida",
+      "display_name": "Skåfonnlega Sveivida",
+      "fit_match": {
+        "all_tokens": ["sveivida"],
+        "any_tokens": ["skafonn", "skafonnlega", "skafonn"]
+      },
+      "session_type": "training",
+      "geography": {
+        "settlement": "Sveivida",
+        "municipality": "Vinje",
+        "county": "Telemark",
+        "region": "Hardangervidda",
+        "notes": "High-plateau traverse (Skåfonnlega / Sveivida). Map-first FIT stream axis — verify GPS on orthophoto."
+      },
+      "seed_surface": "S4",
+      "seed_friction": "F3",
+      "seed_label": "High-plateau technical tread (placeholder)",
+      "trust_fit_gps": true
+    }
+  ]
+}

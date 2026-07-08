@@ -40,9 +40,21 @@ SANDNES_GRAMSTAD_BAND = {"lat_min": 58.75, "lat_max": 58.95, "lon_min": 5.55, "l
 ROGALAND_ANCHOR_BAND = {"lat_min": 58.75, "lat_max": 59.10, "lon_min": 5.50, "lon_max": 5.95}
 VINJE_TELEMARK_BAND = {"lat_min": 59.40, "lat_max": 59.80, "lon_min": 7.25, "lon_max": 8.55}
 
-# Map-first Vinje: FIT stream GPS is the geography source of truth after bootstrap.
+# Map-first Vinje + orphan courses: FIT stream GPS is geography source of truth.
 # Static bands are advisory warnings only — never block export on centroid alone.
 TRUST_FIT_GPS_RACES = frozenset({"vinje_terrenglop"})
+
+
+def _orphan_trust_gps_races() -> frozenset[str]:
+    path = BASE_DIR / "config" / "map_first_orphan_courses.json"
+    if not path.exists():
+        return frozenset()
+    reg = json.loads(path.read_text(encoding="utf-8"))
+    return frozenset(
+        str(c["race_id"])
+        for c in (reg.get("courses") or [])
+        if c.get("race_id") and c.get("trust_fit_gps", True)
+    )
 
 GEO_BANDS: dict[str, dict[str, float]] = {
     "tverrfjell": dict(USKEDALEN_BAND),
@@ -159,7 +171,11 @@ def run_preflight(
     lon = pd.to_numeric(panel["longitude"], errors="coerce")
     c_lat, c_lon = float(lat.mean()), float(lon.mean())
     print(f"OK GPS centroid {c_lat:.5f}°N {c_lon:.5f}°E (FIT stream — source of truth)")
-    trust_gps = race_id in TRUST_FIT_GPS_RACES or str(corridor.get("course_axis")) == "stream_distance"
+    trust_gps = (
+        race_id in TRUST_FIT_GPS_RACES
+        or race_id in _orphan_trust_gps_races()
+        or str(corridor.get("course_axis")) == "stream_distance"
+    )
 
     band = GEO_BANDS.get(race_id)
     if band:

@@ -144,9 +144,10 @@
       "anchor_id": "selvikstakken",
       "display_name": "Selvikstakken",
       "subject_id": "Subject_A",
-      "fit_path": "02_Raw_Data/Selvikstakken_Subject_A_20260628.fit",
+      "fit_path": "02_Raw_Data/donors/Subject_A/Selviksstakken_Eirik_20260628.fit",
       "candidate_fit_paths": [
-        "02_Raw_Data/Selvikstakken_Subject_A_20260628.fit"
+        "02_Raw_Data/Selvikstakken_Subject_A_20260628.fit",
+        "02_Raw_Data/donors/Subject_A/Selviksstakken_Eirik_20260628.fit"
       ],
       "status": "ready",
       "expected": {

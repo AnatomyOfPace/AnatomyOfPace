@@ -8,6 +8,7 @@
 # Usage (from repo root):
 #   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --rebuild-exports
 #   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-o1-anchors --rebuild-exports
+#   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-orphans --rebuild-exports
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -15,12 +16,14 @@ cd "$ROOT"
 
 REBUILD=""
 WITH_O1=""
+WITH_ORPHANS=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --rebuild-exports) REBUILD=1; shift ;;
     --with-o1-anchors) WITH_O1=1; shift ;;
+    --with-orphans) WITH_ORPHANS=1; shift ;;
     *)
-      echo "Usage: $0 [--rebuild-exports] [--with-o1-anchors]" >&2
+      echo "Usage: $0 [--rebuild-exports] [--with-o1-anchors] [--with-orphans]" >&2
       exit 1
       ;;
   esac
@@ -57,6 +60,26 @@ if [[ -n "$WITH_O1" ]]; then
     "${PROCESSED}/gold_training_set_3_sjoerslopet.parquet"
     "${PROCESSED}/gold_training_set_sunderunde.parquet"
   )
+fi
+
+if [[ -n "$WITH_ORPHANS" ]]; then
+  while IFS= read -r race_id; do
+    tmap="config/spatial_terrain_map_${race_id}.json"
+    pq="${PROCESSED}/gold_training_set_${race_id}.parquet"
+    if [[ -f "$tmap" ]]; then
+      TERRAIN_MAPS+=("$tmap")
+      PARQUETS+=("$pq")
+    else
+      echo "WARN orphan terrain map missing (bootstrap first): $tmap" >&2
+    fi
+  done < <(python3 - <<'PY'
+import json
+from pathlib import Path
+reg = json.loads(Path("config/map_first_orphan_courses.json").read_text())
+for c in reg.get("courses") or []:
+    print(c["race_id"])
+PY
+)
 fi
 
 POOL="${PROCESSED}/gold_training_set_map_first_pool.parquet"
@@ -115,7 +138,12 @@ echo "OK map-first pool model → $MODEL"
 if [[ -n "$WITH_O1" ]]; then
   echo "  (trained with Stavanger Halvmarathon + 3-sjøersløpet + Sunderunde O₁ anchors)"
 fi
+if [[ -n "$WITH_ORPHANS" ]]; then
+  echo "  (includes labeled orphan courses from map_first_orphan_courses.json when bootstrapped)"
+fi
 echo "Re-export trail loops:"
 echo "  ./04_Python_Scripts/spatial/export_map_first_hitl_pool.sh"
 echo "Re-export O₁ anchors:"
 echo "  ./04_Python_Scripts/spatial/export_o1_anchor_hitl_pool.sh"
+echo "Re-export orphan courses (after bootstrap + label):"
+echo "  ./04_Python_Scripts/spatial/export_map_first_orphans_pool.sh"
