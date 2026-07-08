@@ -524,8 +524,8 @@ def load_panel_window(path: Path, km_lo: float, km_hi: float, *, buffer_km: floa
     return panel[(panel["course_km"] >= lo) & (panel["course_km"] <= hi)].copy()
 
 
-def load_hmm_window(path: Path, km_lo: float, km_hi: float, *, buffer_km: float = 0.5) -> pd.DataFrame:
-    if not path.exists():
+def load_hmm_window(path: Path | None, km_lo: float, km_hi: float, *, buffer_km: float = 0.5) -> pd.DataFrame:
+    if path is None or not path.exists():
         return pd.DataFrame()
     lo = max(0.0, km_lo - buffer_km)
     hi = km_hi + buffer_km
@@ -996,6 +996,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--terrain-map", type=Path, default=DEFAULT_TERRAIN_MAP)
     parser.add_argument("--triage-queue", type=Path, default=DEFAULT_TRIAGE_QUEUE)
     parser.add_argument("--hmm-draft", type=Path, default=DEFAULT_HMM_DRAFT)
+    parser.add_argument(
+        "--no-hmm-draft",
+        action="store_true",
+        help="Skip HMM draft merge (map-first courses without SUT_43 HMM parquet)",
+    )
     parser.add_argument("--queue", type=str, default="RED", help="Triage queue filter (RED/YELLOW/GREEN/ALL)")
     parser.add_argument("--chunk", type=str, default=None, help="Single chunk_id e.g. chunk_08")
     parser.add_argument("--min-span-m", type=float, default=50.0, help="Minimum contiguous run (metres)")
@@ -1023,6 +1028,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     global MIN_SPAN_KM
     MIN_SPAN_KM = max(0.001, float(args.min_span_m) / 1000.0)
+    hmm_path: Path | None = None if args.no_hmm_draft else args.hmm_draft
+    args.hmm_draft = hmm_path  # type: ignore[misc]
 
     if args.engine == "ml" and not args.sector_routing and not args.model.exists():
         print(f"Model not found: {args.model}", file=sys.stderr)

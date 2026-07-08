@@ -1,0 +1,62 @@
+{
+  "schema_version": "spatial_terrain_map_v0",
+  "ontology_version": "s6_v0",
+  "generated_at": "2026-07-06T22:20:04.551941+00:00",
+  "corridor": {
+    "corridor_id": "tverrfjell_course",
+    "race_id": "tverrfjell",
+    "anchor_id": "tverrfjell",
+    "km_start": 0.0,
+    "km_end": 23.549,
+    "course_axis": "stream_distance",
+    "geography": {
+      "settlement": "Uskedalen",
+      "municipality": "Kvinnherad",
+      "county": "Vestland",
+      "region": "Hardanger / Sunnhordland",
+      "not_in": [
+        "Rogaland"
+      ],
+      "gps_bounds": {
+        "lat_min": 59.884,
+        "lat_max": 59.932,
+        "lon_min": 5.894,
+        "lon_max": 5.999,
+        "centroid_lat": 59.912,
+        "centroid_lon": 5.954,
+        "altitude_m_min": 29,
+        "altitude_m_max": 936
+      },
+      "notes": "Local hill loop in Uskedalen (Kvinnherad, Vestland). Not Rogaland. SUT_43 (Sandnes) is a separate county ~120 km south \u2014 never snap or merge panels."
+    },
+    "notes": "Tier 0 map-first local hill loop (Tverrfjell, Uskedalen, Kvinnherad, Vestland). Not SUT_43 / not Rogaland. Stream-distance axis km 0\u201323.549 from Subject_A FIT Tverrfjell_20260704. Operator adjudicates substrate from orthophoto."
+  },
+  "clustering": {
+    "method": null,
+    "n_clusters": null,
+    "fallback": "map_first_operator_gold",
+    "note": "No GMM draft \u2014 substrate adjudicated from orthophoto; operator_gold_spans[] is authoritative once breakpoints are locked."
+  },
+  "segments": [
+    {
+      "course_km_start": 0.0,
+      "course_km_end": 23.549,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "seed",
+      "label": "Trail tread (placeholder)",
+      "confidence": 0.3,
+      "operator_note": "Map-first seed \u2014 superseded by operator_gold_spans when locked."
+    }
+  ],
+  "hitl": {
+    "status": "review",
+    "sector_id": "tverrfjell_course",
+    "manual_overrides": [],
+    "operator_gold_spans": [],
+    "trf_exclusions": [],
+    "behavioral_stops": [],
+    "variance_gaps": [],
+    "notes": "Append-only operator_gold_spans[] \u2014 map-first Tier 0 Tverrfjell loop. Use gold_span_editor.py with --terrain-map config/spatial_terrain_map_tverrfjell.json."
+  }
+}

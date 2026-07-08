@@ -54,6 +54,62 @@ SJOERSLOPET_CORRIDOR_ID = "3_sjoerslopet_course"
 SJOERSLOPET_KM_START = 0.0
 SJOERSLOPET_KM_END = 21.25
 
+# Tverrfjell local hill loop — Uskedalen, Kvinnherad, Vestland (not Rogaland; not SUT_43).
+TVERFJELL_RACE_ID = "tverrfjell"
+TVERFJELL_CORRIDOR_ID = "tverrfjell_course"
+TVERFJELL_KM_START = 0.0
+TVERFJELL_KM_END = 23.549
+TVERFJELL_GEOGRAPHY = {
+    "settlement": "Uskedalen",
+    "municipality": "Kvinnherad",
+    "county": "Vestland",
+    "region": "Hardanger / Sunnhordland",
+    "not_in": ["Rogaland"],
+}
+
+# Klepp Runde local training loop — Klepp (locality in Uskedalen), Kvinnherad, Vestland.
+# Not Klepp municipality (Rogaland/Jæren) — homonym.
+KLEPP_RUNDE_RACE_ID = "klepp_runde"
+KLEPP_RUNDE_CORRIDOR_ID = "klepp_runde_course"
+KLEPP_RUNDE_KM_START = 0.0
+KLEPP_RUNDE_KM_END = 1.0  # patched by bootstrap from FIT stream length
+KLEPP_RUNDE_GEOGRAPHY = {
+    "settlement": "Klepp",
+    "locality": "Uskedalen",
+    "municipality": "Kvinnherad",
+    "county": "Vestland",
+    "region": "Hardanger / Sunnhordland",
+    "homonym_warning": "Not Klepp municipality (Rogaland/Jæren)",
+    "not_in": ["Rogaland", "Klepp municipality"],
+}
+
+# Gramstad Runde local training loop — Sandnes, Rogaland (map-first stream axis).
+# Not SUT_43 gramstad_band sector (km 29–41 organiser GPX).
+GRAMSTAD_RUNDE_RACE_ID = "gramstad_runde"
+GRAMSTAD_RUNDE_CORRIDOR_ID = "gramstad_runde_course"
+GRAMSTAD_RUNDE_KM_START = 0.0
+GRAMSTAD_RUNDE_KM_END = 1.0  # patched by bootstrap from FIT stream length
+GRAMSTAD_RUNDE_GEOGRAPHY = {
+    "settlement": "Gramstad",
+    "municipality": "Sandnes",
+    "county": "Rogaland",
+    "region": "Jæren",
+    "not_sut43_sector": "gramstad_band",
+}
+
+# Vinje Terrengløp trail event — Vinje, Telemark (map-first stream axis).
+VINJE_TERRENGLOP_RACE_ID = "vinje_terrenglop"
+VINJE_TERRENGLOP_CORRIDOR_ID = "vinje_terrenglop_course"
+VINJE_TERRENGLOP_KM_START = 0.0
+VINJE_TERRENGLOP_KM_END = 1.0  # patched by bootstrap from FIT stream length
+VINJE_TERRENGLOP_GEOGRAPHY = {
+    "settlement": "Vinje",
+    "municipality": "Vinje",
+    "county": "Telemark",
+    "region": "Hardangervidda / Vestfold og Telemark",
+    "event": "Vinje Terrengløp",
+}
+
 # Operator scope: Dale aid CP band through Paradisskaret Downhill end (course km).
 DEFAULT_KM_START = 140.0
 DEFAULT_KM_END = 155.58
@@ -231,6 +287,119 @@ def load_3_sjoerslopet_window(
     return start, end, meta
 
 
+def load_tverrfjell_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Tverrfjell hill loop (Uskedalen, Kvinnherad, Vestland) — FIT stream-distance axis."""
+    start = TVERFJELL_KM_START if km_start is None else float(km_start)
+    end = TVERFJELL_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": TVERFJELL_CORRIDOR_ID,
+        "race_id": TVERFJELL_RACE_ID,
+        "anchor_id": "tverrfjell",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_tverrfjell.json",
+        "geography": dict(TVERFJELL_GEOGRAPHY),
+    }
+    return start, end, meta
+
+
+def load_klepp_runde_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Klepp Runde loop (Klepp locality, Uskedalen) — FIT stream-distance axis."""
+    start = KLEPP_RUNDE_KM_START if km_start is None else float(km_start)
+    end = KLEPP_RUNDE_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": KLEPP_RUNDE_CORRIDOR_ID,
+        "race_id": KLEPP_RUNDE_RACE_ID,
+        "anchor_id": "klepp_runde",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_klepp_runde.json",
+        "geography": dict(KLEPP_RUNDE_GEOGRAPHY),
+    }
+    return start, end, meta
+
+
+def load_gramstad_runde_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Gramstad Runde loop (Sandnes, Rogaland) — FIT stream-distance axis."""
+    start = GRAMSTAD_RUNDE_KM_START if km_start is None else float(km_start)
+    end = GRAMSTAD_RUNDE_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": GRAMSTAD_RUNDE_CORRIDOR_ID,
+        "race_id": GRAMSTAD_RUNDE_RACE_ID,
+        "anchor_id": "gramstad_runde",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_gramstad_runde.json",
+        "geography": dict(GRAMSTAD_RUNDE_GEOGRAPHY),
+    }
+    return start, end, meta
+
+
+def load_vinje_terrenglop_window(
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Vinje Terrengløp trail event (Telemark) — FIT stream-distance axis."""
+    start = VINJE_TERRENGLOP_KM_START if km_start is None else float(km_start)
+    end = VINJE_TERRENGLOP_KM_END if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": VINJE_TERRENGLOP_CORRIDOR_ID,
+        "race_id": VINJE_TERRENGLOP_RACE_ID,
+        "anchor_id": "vinje_terrenglop",
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": "config/spatial_terrain_map_vinje_terrenglop.json",
+        "geography": dict(VINJE_TERRENGLOP_GEOGRAPHY),
+    }
+    return start, end, meta
+
+
+def load_map_first_orphan_window(
+    race_id: str,
+    *,
+    km_start: float | None = None,
+    km_end: float | None = None,
+) -> tuple[float, float, dict[str, Any]]:
+    """Map-first orphan course — FIT stream-distance axis (registry-driven)."""
+    reg_path = BASE_DIR / "config" / "map_first_orphan_courses.json"
+    if not reg_path.exists():
+        raise KeyError(f"Orphan registry not found: {reg_path}")
+    reg = json.loads(reg_path.read_text(encoding="utf-8"))
+    course = next((c for c in (reg.get("courses") or []) if c.get("race_id") == race_id), None)
+    if course is None:
+        raise KeyError(f"race_id {race_id!r} not in map_first_orphan_courses.json")
+    start = 0.0 if km_start is None else float(km_start)
+    end = 1.0 if km_end is None else float(km_end)
+    meta = {
+        "corridor_id": f"{race_id}_course",
+        "race_id": race_id,
+        "anchor_id": race_id,
+        "km_start": start,
+        "km_end": end,
+        "course_axis": "stream_distance",
+        "terrain_map": f"config/spatial_terrain_map_{race_id}.json",
+        "geography": dict(course.get("geography") or {}),
+    }
+    return start, end, meta
+
+
 def load_experiment_window(
     race_id: str = STRESS_TEST_RACE_ID,
     *,
@@ -247,4 +416,19 @@ def load_experiment_window(
         return load_stavanger_halvmarathon_window(km_start=km_start, km_end=km_end)
     if race_id == SJOERSLOPET_RACE_ID:
         return load_3_sjoerslopet_window(km_start=km_start, km_end=km_end)
+    if race_id == TVERFJELL_RACE_ID:
+        return load_tverrfjell_window(km_start=km_start, km_end=km_end)
+    if race_id == KLEPP_RUNDE_RACE_ID:
+        return load_klepp_runde_window(km_start=km_start, km_end=km_end)
+    if race_id == GRAMSTAD_RUNDE_RACE_ID:
+        return load_gramstad_runde_window(km_start=km_start, km_end=km_end)
+    if race_id == VINJE_TERRENGLOP_RACE_ID:
+        return load_vinje_terrenglop_window(km_start=km_start, km_end=km_end)
+    orphan_reg = BASE_DIR / "config" / "map_first_orphan_courses.json"
+    if orphan_reg.exists():
+        orphan_ids = {
+            str(c["race_id"]) for c in json.loads(orphan_reg.read_text(encoding="utf-8")).get("courses") or []
+        }
+        if race_id in orphan_ids:
+            return load_map_first_orphan_window(race_id, km_start=km_start, km_end=km_end)
     return load_stress_test_window(km_start=km_start, km_end=km_end, registry=registry)

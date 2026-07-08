@@ -79,9 +79,11 @@ from spatial.validation_dashboard import (
     FRICTION_TIER_EDGE_COLORS,
     HITL_BASEMAP_LAYER_LABELS,
     assert_basemap_not_maritime,
+    corridor_allows_gpx_overlay,
     nib_wmts_token_configured,
     normalize_basemap_layer,
     offset_panel_gps,
+    operator_gold_assigned_spans,
     operator_gold_class_at_km,
     operator_gold_friction_tier_at_km,
     operator_gold_spans,
@@ -239,31 +241,6 @@ def display_aspect_locked_image(
         st.caption(f"PNG native {nat_w}×{nat_h}px (aspect {nat_w / nat_h:.2f}:1) — expected square 1:1")
 
 
-def operator_gold_assigned_spans(
-    terrain_map: dict[str, Any],
-    km_lo: float,
-    km_hi: float,
-) -> list[dict[str, Any]]:
-    """Convert hitl.operator_gold_spans[] to decision-mode assigned_spans for map overlay."""
-    assigned: list[dict[str, Any]] = []
-    for span in operator_gold_spans(terrain_map):
-        s0 = float(span.get("course_km_start", span.get("course_m_start", 0) / 1000.0))
-        s1 = float(span.get("course_km_end", span.get("course_m_end", s0) / 1000.0))
-        if s1 <= km_lo or s0 >= km_hi:
-            continue
-        entry: dict[str, Any] = {
-            "km0": max(s0, km_lo),
-            "km1": min(s1, km_hi),
-            "class": str(span.get("surface_class", "S2")),
-            "kind": "operator_gold",
-        }
-        tier = str(span.get("friction_tier", "")).strip().upper()
-        if tier:
-            entry["friction_tier"] = tier
-        assigned.append(entry)
-    return assigned
-
-
 def draft_gold_disagreement_pct(
     hmm_draft: pd.DataFrame,
     terrain_map: dict[str, Any],
@@ -321,7 +298,7 @@ def render_topo_basemap_png(
         return None, "no geography in panel for selected window"
 
     gpx_path: Path | None = None
-    if resolve_axis_label(terrain_map, panel).startswith("SUT_43") and DEFAULT_SUT43_GPX.exists():
+    if corridor_allows_gpx_overlay(terrain_map) and DEFAULT_SUT43_GPX.exists():
         gpx_path = DEFAULT_SUT43_GPX
     map_track_activity, map_track_donor = resolve_default_map_track_activity(
         Path(panel_path), terrain_map, panel
@@ -333,7 +310,6 @@ def render_topo_basemap_png(
     assigned_spans: list[dict[str, Any]] | None = None
     if map_track_operator_gold:
         assigned_spans = operator_gold_assigned_spans(terrain_map, km_lo, km_hi)
-
     try:
         try:
             status, _, _ = render_reference_map(
@@ -386,7 +362,8 @@ def _race_panel(panel: pd.DataFrame) -> pd.DataFrame:
     if "course_m" not in work.columns and "ref_chainage_m" in work.columns:
         work["course_m"] = work["ref_chainage_m"]
     if "session_type" in work.columns:
-        work = work[work["session_type"] == "race"]
+        race = work[work["session_type"] == "race"]
+        work = race if not race.empty else work
     return work.sort_values(["course_m", "donor_id"])
 
 

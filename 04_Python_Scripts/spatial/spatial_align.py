@@ -185,8 +185,15 @@ def compute_mechanical_kappa(frame: pd.DataFrame) -> pd.Series:
 
     Full ceGAP-aware κ deferred to Phase B; scaffold uses Minetti TI residual.
     """
-    grade = pd.to_numeric(frame.get("grade_pct", frame.get("grade", 0)), errors="coerce")
-    ti = pd.to_numeric(frame.get("ti", 1.0), errors="coerce")
+    grade_raw = frame.get("grade_pct", frame.get("grade"))
+    if grade_raw is None:
+        grade = pd.Series(0.0, index=frame.index)
+    else:
+        grade = pd.to_numeric(grade_raw, errors="coerce")
+    if "ti" in frame.columns:
+        ti = pd.to_numeric(frame["ti"], errors="coerce")
+    else:
+        ti = pd.Series(1.0, index=frame.index)
     residual = (ti - 1.0).clip(lower=0.0)
     return (grade.abs() / 100.0) * residual
 

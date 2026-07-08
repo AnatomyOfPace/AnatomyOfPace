@@ -342,6 +342,15 @@ ASSIGNED_MAP_TRACK_ALPHA = 0.88
 ASSIGNED_MAP_TRACK_ZORDER = 6
 MAP_TRACK_PERP_OFFSET_M = 12.0
 ASSIGNED_MAP_TRACK_OFFSET_M = -MAP_TRACK_PERP_OFFSET_M
+ASSIGNED_MAP_LABEL_MIN_SPAN_KM = 0.25
+ASSIGNED_MAP_LABEL_FONTSIZE = 7.5
+# Dark underlay so S3/S4 pale fills stay visible on OpenTopoMap orthophoto.
+ASSIGNED_MAP_TRACK_STROKE: dict[str, str] = {
+    "S2": "#3E2723",
+    "S3": "#1B5E20",
+    "S4": "#0D47A1",
+    "S6": "#4A148C",
+}
 ML_MAP_TRACK_LINEWIDTH = 3.5
 ML_MAP_TRACK_ALPHA = 0.94
 ML_MAP_TRACK_ALPHA_FULL = 0.75
@@ -350,6 +359,12 @@ ML_MAP_TRACK_OFFSET_M = MAP_TRACK_PERP_OFFSET_M
 DECISION_UNLABELED_ALPHA = 0.35
 DECISION_SIGMA_FLAG_ALPHA = 0.07
 DECISION_SIGMA_EDGE_THRESHOLD = 0.45
+LOCOMOTION_HIKE_COLOR = "#42A5F5"
+LOCOMOTION_RUN_COLOR = "#FFEB3B"
+LOCOMOTION_HIKE_BAR_HEIGHT = 0.32
+LOCOMOTION_RUN_BAR_HEIGHT = 0.88
+LOCOMOTION_STRIP_FILL_ALPHA = 0.88
+LOCOMOTION_PROFILE_HEIGHT_RATIO = 0.55
 
 AGREEMENT_TIER_ALPHA = {
     "gold": 0.28,
@@ -757,11 +772,14 @@ def _map_subplot_target_aspect(
     *,
     decision_mode: bool,
     with_cluster_ti: bool = True,
+    with_locomotion_strip: bool = False,
 ) -> float:
     """Width/height of map data limits needed to fill the top-left GridSpec cell."""
     map_h = DECISION_TOP_HEIGHT_RATIO if decision_mode else 1.85
     if decision_mode:
         profile_heights = [2.25, 1.45 if with_cluster_ti else 1.15]
+        if with_locomotion_strip:
+            profile_heights.append(LOCOMOTION_PROFILE_HEIGHT_RATIO)
     else:
         profile_heights = [2.0, 1.0]
     row_frac = map_h / (map_h + sum(profile_heights))
@@ -1017,11 +1035,47 @@ def resolve_axis_label(terrain_map: dict[str, Any], panel: pd.DataFrame) -> str:
         c_lo, c_hi = float(c_lo), float(c_hi)
         stale = not (c_lo <= p_hi + 0.5 and c_hi >= p_lo - 0.5)
     if stale or corridor.get("course_axis") == "stream_distance":
-        return "SUT_43 stream km"
+        race_id = str(corridor.get("race_id") or "stream")
+        if race_id == "SUT_43":
+            return "SUT_43 stream km"
+        return f"{race_id} stream km"
     race_id = corridor.get("race_id", "SUT_160")
     if race_id == "SUT_43":
         return "SUT_43 stream km"
     return f"{race_id} course km"
+
+
+def corridor_geography_label(terrain_map: dict[str, Any]) -> str | None:
+    """Human place label for map titles (e.g. Uskedalen · Kvinnherad · Vestland)."""
+    corridor = terrain_map.get("corridor") or {}
+    geo = corridor.get("geography") or {}
+    parts = [geo.get("settlement"), geo.get("municipality"), geo.get("county")]
+    label = " · ".join(str(p) for p in parts if p)
+    if label:
+        return label
+    race_id = corridor.get("race_id")
+    return str(race_id) if race_id else None
+
+
+def resolve_dashboard_gpx_path(
+    terrain_map: dict[str, Any],
+    explicit: Path | None,
+    *,
+    no_gpx: bool = False,
+) -> Path | None:
+    """Organiser GPX overlay — SUT_43 only unless explicitly passed (and not --no-gpx)."""
+    if no_gpx:
+        return None
+    if explicit is not None:
+        return explicit if explicit.is_absolute() else BASE_DIR / explicit
+    race_id = str((terrain_map.get("corridor") or {}).get("race_id") or "")
+    if race_id != "SUT_43":
+        return None
+    return DEFAULT_SUT43_GPX if DEFAULT_SUT43_GPX.exists() else None
+
+
+def corridor_allows_gpx_overlay(terrain_map: dict[str, Any]) -> bool:
+    return str((terrain_map.get("corridor") or {}).get("race_id") or "") == "SUT_43"
 
 
 def iter_review_chunks(
@@ -1434,6 +1488,21 @@ def _ml_pred_lookup(
     return lookup
 
 
+def resolve_map_first_ml_predictions_path(
+    panel_path: Path,
+    terrain_map: dict[str, Any],
+) -> Path | None:
+    """Per-course ML predictions parquet beside panel (map-first HITL export)."""
+    if not is_map_first_operator_gold(terrain_map):
+        return None
+    race_id = str((terrain_map.get("corridor") or {}).get("race_id") or "")
+    for name in (f"{race_id}_ml_predictions.parquet", "ml_predictions.parquet"):
+        candidate = panel_path.parent / name
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def resolve_ml_predictions_path(
     *,
     mode: MLPredictionsMode,
@@ -1466,14 +1535,54 @@ def ml_legend_label(mode: MLPredictionsMode) -> str:
     return "ML predicted (custom)"
 
 
-def _class_at_km_from_spans(spans: list[dict[str, Any]], km: float) -> str | None:
+def _span_km_bounds_dict(span: dict[str, Any]) -> tuple[float, float]:
+    """Resolve [km0, km1) from assigned-span or operator-gold dict keys."""
+    if "km0" in span and "km1" in span:
+        return float(span["km0"]), float(span["km1"])
+    return (
+        float(span.get("course_km_start", span.get("course_m_start", 0) / 1000.0)),
+        float(span.get("course_km_end", span.get("course_m_end", 0) / 1000.0)),
+    )
+
+
+def _span_width_km(span: dict[str, Any]) -> float:
+    km0, km1 = _span_km_bounds_dict(span)
+    return max(km1 - km0, 0.0)
+
+
+def _spans_matching_km(spans: list[dict[str, Any]], km: float) -> list[dict[str, Any]]:
+    """Half-open [start, end) interior match; exact end km resolves to that span."""
+    matches: list[dict[str, Any]] = []
     for span in spans:
-        km0 = float(span["km0"])
-        km1 = float(span["km1"])
+        km0, km1 = _span_km_bounds_dict(span)
         if km0 <= km < km1:
-            cls = span.get("class")
-            return _normalize_assigned_class(cls) if cls else None
-    return None
+            matches.append(span)
+    if matches:
+        return matches
+    for span in reversed(spans):
+        _, km1 = _span_km_bounds_dict(span)
+        if abs(km - km1) < 1e-6:
+            return [span]
+    return []
+
+
+def _pick_span_at_km(spans: list[dict[str, Any]], km: float) -> dict[str, Any] | None:
+    """Prefer the narrowest overlapping span (later entries win ties)."""
+    matches = _spans_matching_km(spans, km)
+    if not matches:
+        return None
+    return min(
+        matches,
+        key=lambda span: (_span_width_km(span), -matches.index(span)),
+    )
+
+
+def _class_at_km_from_spans(spans: list[dict[str, Any]], km: float) -> str | None:
+    span = _pick_span_at_km(spans, km)
+    if span is None:
+        return None
+    cls = span.get("class") or span.get("surface_class")
+    return _normalize_assigned_class(cls) if cls else None
 
 
 def _offset_map_segment_coords(
@@ -1510,6 +1619,7 @@ def _plot_class_coloured_map_track(
     alpha: float = ML_MAP_TRACK_ALPHA,
     zorder: int = ML_MAP_TRACK_ZORDER,
     offset_m: float = 0.0,
+    stroke_classes: frozenset[str] | None = None,
 ) -> bool:
     """Segment-coloured lat/lon track; optional perpendicular offset from centerline."""
     if km_axis not in geo.columns:
@@ -1538,13 +1648,14 @@ def _plot_class_coloured_map_track(
             km_mid,
             offset_m,
         )
-        if cls == "S1":
+        if cls == "S1" or (stroke_classes and cls in stroke_classes):
+            stroke = ASSIGNED_MAP_TRACK_STROKE.get(cls, "#1A1A1A")
             ax.plot(
                 xs,
                 ys,
-                color="#1A1A1A",
-                linewidth=linewidth + 1.2,
-                alpha=alpha,
+                color=stroke,
+                linewidth=linewidth + 1.4,
+                alpha=min(alpha + 0.08, 1.0),
                 solid_capstyle="round",
                 zorder=zorder - 1,
             )
@@ -1559,6 +1670,171 @@ def _plot_class_coloured_map_track(
         )
         drew = True
     return drew
+
+
+def plot_faint_centerline_track(
+    ax: plt.Axes,
+    geo: pd.DataFrame,
+    *,
+    km_axis: str = "course_km",
+    km_lo: float | None = None,
+    km_hi: float | None = None,
+    linewidth: float = 2.0,
+    alpha: float = 0.72,
+    zorder: int = 3,
+) -> bool:
+    """Neutral FIT/GPS centerline so decision-mode maps stay readable between gold locks."""
+    if km_axis not in geo.columns or geo.empty:
+        return False
+    pts = geo.sort_values(km_axis)
+    if len(pts) < 2:
+        return False
+    drew = False
+    for i in range(len(pts) - 1):
+        row0, row1 = pts.iloc[i], pts.iloc[i + 1]
+        km_mid = 0.5 * (float(row0[km_axis]) + float(row1[km_axis]))
+        if km_lo is not None and km_mid < km_lo:
+            continue
+        if km_hi is not None and km_mid > km_hi:
+            continue
+        ax.plot(
+            [row0["longitude"], row1["longitude"]],
+            [row0["latitude"], row1["latitude"]],
+            color="#E0E0E0",
+            linewidth=linewidth,
+            alpha=alpha,
+            solid_capstyle="round",
+            zorder=zorder,
+        )
+        drew = True
+    return drew
+
+
+def plot_assigned_span_labels_on_map(
+    ax: plt.Axes,
+    geo: pd.DataFrame,
+    assigned_spans: list[dict[str, Any]] | None,
+    *,
+    km_lo: float | None = None,
+    km_hi: float | None = None,
+    offset_m: float = ASSIGNED_MAP_TRACK_OFFSET_M,
+    min_label_span_km: float = ASSIGNED_MAP_LABEL_MIN_SPAN_KM,
+) -> None:
+    """Surface-class (+ F-tier) labels on the assigned map track for chunk QC."""
+    if not assigned_spans or geo.empty:
+        return
+    for span in assigned_spans:
+        if str(span.get("kind", "")) != "operator_gold":
+            continue
+        km0 = float(span["km0"])
+        km1 = float(span["km1"])
+        if km1 - km0 < min_label_span_km:
+            continue
+        cls = span.get("class")
+        if not cls:
+            continue
+        km_mid = 0.5 * (km0 + km1)
+        if km_lo is not None and km_mid < km_lo - 1e-9:
+            continue
+        if km_hi is not None and km_mid > km_hi + 1e-9:
+            continue
+        pt = _interp_latlon_at_km(geo, km_mid)
+        if pt is None:
+            continue
+        lat, lon = pt
+        label = str(cls)
+        friction_tier = span.get("friction_tier")
+        if friction_tier:
+            label = f"{label}/{friction_tier}"
+        bearing = _track_bearing_deg(geo, km_mid)
+        label_dist = 0.00014
+        if bearing is not None:
+            label_lat, label_lon = _offset_latlon_by_bearing(
+                lat, lon, bearing + 90.0, label_dist
+            )
+        else:
+            label_lat, label_lon = lat + label_dist, lon
+        text = ax.text(
+            label_lon,
+            label_lat,
+            label,
+            ha="center",
+            va="center",
+            fontsize=ASSIGNED_MAP_LABEL_FONTSIZE,
+            color="#F8F8F8" if str(cls) != "S1" else "#1A1A1A",
+            zorder=ASSIGNED_MAP_TRACK_ZORDER + 2,
+        )
+        text.set_path_effects(
+            [pe.withStroke(linewidth=1.4, foreground="#111111", alpha=0.85)]
+        )
+
+
+def plot_gold_class_seam_markers(
+    ax: plt.Axes,
+    geo: pd.DataFrame,
+    assigned_spans: list[dict[str, Any]] | None,
+    *,
+    km_lo: float | None = None,
+    km_hi: float | None = None,
+    offset_m: float = ASSIGNED_MAP_TRACK_OFFSET_M,
+) -> None:
+    """Tick + label at internal operator-gold class seams (e.g. km 4.5 S3→S4 on chunk 4–5)."""
+    if not assigned_spans or geo.empty or km_lo is None or km_hi is None:
+        return
+    gold = sorted(
+        (
+            s
+            for s in assigned_spans
+            if str(s.get("kind", "")) == "operator_gold" and s.get("class")
+        ),
+        key=lambda s: float(s["km0"]),
+    )
+    for left, right in zip(gold, gold[1:]):
+        seam_km = float(left["km1"])
+        if abs(seam_km - float(right["km0"])) > 1e-6:
+            continue
+        if not (km_lo + 1e-9 < seam_km < km_hi - 1e-9):
+            continue
+        pt = _interp_latlon_at_km(geo, seam_km)
+        if pt is None:
+            continue
+        lat, lon = pt
+        bearing = _track_bearing_deg(geo, seam_km)
+        tick_len = 0.00010
+        label_dist = 0.00018
+        if bearing is not None:
+            lat_a, lon_a = _offset_latlon_by_bearing(lat, lon, bearing + 90.0, tick_len)
+            lat_b, lon_b = _offset_latlon_by_bearing(lat, lon, bearing - 90.0, tick_len)
+            label_lat, label_lon = _offset_latlon_by_bearing(
+                lat, lon, bearing + 90.0, label_dist
+            )
+        else:
+            lat_a, lon_a = lat, lon - tick_len
+            lat_b, lon_b = lat, lon + tick_len
+            label_lat, label_lon = lat + label_dist, lon
+        ax.plot(
+            [lon_a, lon_b],
+            [lat_a, lat_b],
+            color="#FFD54F",
+            linewidth=1.6,
+            alpha=0.95,
+            solid_capstyle="round",
+            zorder=ASSIGNED_MAP_TRACK_ZORDER + 3,
+        )
+        label = f"{seam_km:g} {left['class']}|{right['class']}"
+        text = ax.text(
+            label_lon,
+            label_lat,
+            label,
+            ha="center",
+            va="center",
+            fontsize=6.0,
+            color="#FFFDE7",
+            zorder=ASSIGNED_MAP_TRACK_ZORDER + 4,
+        )
+        text.set_path_effects(
+            [pe.withStroke(linewidth=1.2, foreground="#111111", alpha=0.9)]
+        )
 
 
 def plot_assigned_gold_track_overlay(
@@ -1588,6 +1864,7 @@ def plot_assigned_gold_track_overlay(
         alpha=alpha,
         zorder=zorder,
         offset_m=offset_m,
+        stroke_classes=frozenset(ASSIGNED_MAP_TRACK_STROKE),
     )
 
 
@@ -2092,6 +2369,61 @@ def operator_gold_spans(terrain_map: dict[str, Any]) -> list[dict[str, Any]]:
     return list(terrain_map.get("hitl", {}).get("operator_gold_spans") or [])
 
 
+def is_map_first_operator_gold(terrain_map: dict[str, Any]) -> bool:
+    """Map-first HITL courses use operator_gold_spans[] only — not GMM/seed draft on export."""
+    clustering = terrain_map.get("clustering") or {}
+    if clustering.get("fallback") == "map_first_operator_gold":
+        return True
+    return str((terrain_map.get("corridor") or {}).get("race_id") or "") == "tverrfjell"
+
+
+def collect_decision_assigned_spans(
+    terrain_map: dict[str, Any],
+    *,
+    km_lo: float,
+    km_hi: float,
+    v1_df: pd.DataFrame | None = None,
+    agreement_df: pd.DataFrame | None = None,
+) -> list[dict[str, Any]]:
+    """Decision view: operator gold where locked; seed draft fills unlabeled gaps on map-first courses."""
+    return collect_assigned_class_spans(
+        terrain_map,
+        km_lo=km_lo,
+        km_hi=km_hi,
+        v1_df=v1_df,
+        agreement_df=agreement_df,
+    )
+
+
+def operator_gold_assigned_spans(
+    terrain_map: dict[str, Any],
+    km_lo: float,
+    km_hi: float,
+) -> list[dict[str, Any]]:
+    """operator_gold_spans[] clipped to window — decision-mode map/strip overlay."""
+    assigned: list[dict[str, Any]] = []
+    for span in operator_gold_spans(terrain_map):
+        s0 = float(span.get("course_km_start", span.get("course_m_start", 0) / 1000.0))
+        s1 = float(span.get("course_km_end", span.get("course_m_end", s0) / 1000.0))
+        if s1 <= km_lo or s0 >= km_hi:
+            continue
+        km0 = max(s0, km_lo)
+        km1 = min(s1, km_hi)
+        if km1 <= km0 + 1e-9:
+            continue
+        entry: dict[str, Any] = {
+            "km0": km0,
+            "km1": km1,
+            "class": str(span.get("surface_class", "S2")),
+            "kind": "operator_gold",
+        }
+        tier = str(span.get("friction_tier", "")).strip().upper()
+        if tier:
+            entry["friction_tier"] = tier
+        assigned.append(entry)
+    return assigned
+
+
 def annotate_operator_gold_on_class_axis(
     ax: plt.Axes,
     terrain_map: dict[str, Any],
@@ -2273,10 +2605,19 @@ def filter_map_track_panel(
     if activity_id and "activity_id" in work.columns:
         work = work[work["activity_id"] == activity_id]
     elif session_type and "session_type" in work.columns:
-        work = work[work["session_type"] == session_type]
+        sub = work[work["session_type"] == session_type]
+        work = sub if not sub.empty else work
     if donor_id and "donor_id" in work.columns:
         work = work[work["donor_id"] == donor_id]
     return work
+
+
+def select_primary_telemetry_panel(panel: pd.DataFrame) -> pd.DataFrame:
+    """Race sessions for multi-athlete corridors; full panel for training-only courses."""
+    if "session_type" not in panel.columns:
+        return panel
+    race = panel[panel["session_type"] == "race"]
+    return race if not race.empty else panel
 
 
 def build_activity_track_geography(
@@ -2325,8 +2666,23 @@ def resolve_default_map_track_activity(
     terrain_map: dict[str, Any],
     panel: pd.DataFrame,
 ) -> tuple[str | None, str | None]:
-    """Auto race FIT map track for SUT_43 gramstad_band HITL exports."""
-    if not resolve_axis_label(terrain_map, panel).startswith("SUT_43"):
+    """Auto map-track FIT for known HITL corridors (SUT_43 race, Tverrfjell training loop)."""
+    corridor = terrain_map.get("corridor") or {}
+    race_id = str(corridor.get("race_id") or "")
+
+    if race_id == "tverrfjell":
+        if "activity_id" in panel.columns:
+            for act in sorted(panel["activity_id"].astype(str).unique()):
+                if "tverrfjell" in act.lower():
+                    donor = None
+                    if "donor_id" in panel.columns:
+                        sub = panel[panel["activity_id"].astype(str) == act]
+                        if not sub.empty:
+                            donor = str(sub["donor_id"].iloc[0])
+                    return act, donor
+        return "Tverrfjell_20260704", "Subject_A"
+
+    if race_id != "SUT_43":
         return None, None
     if "sut43" not in panel_path.as_posix():
         return None, None
@@ -2750,7 +3106,8 @@ def render_reference_map(
 
     gpx_offset = 0.0
     gpx_geo = pd.DataFrame()
-    use_gpx_track = gpx_path is not None and gpx_path.exists()
+    allow_gpx = corridor_allows_gpx_overlay(terrain_map)
+    use_gpx_track = allow_gpx and gpx_path is not None and gpx_path.exists()
     fit_geo = build_activity_track_geography(
         panel,
         geo_lo,
@@ -2855,7 +3212,7 @@ def render_reference_map(
         if require_basemap:
             raise RuntimeError(msg)
 
-    if gpx_path is not None and gpx_path.exists() and not gpx_geo.empty:
+    if allow_gpx and gpx_path is not None and gpx_path.exists() and not gpx_geo.empty:
         try:
             g_lat, g_lon = load_gpx_latlon(gpx_path)
             step = max(1, len(g_lat) // 2000)
@@ -2936,6 +3293,12 @@ def render_reference_map(
 
     assigned_map_drawn = False
     if decision_mode:
+        plot_faint_centerline_track(
+            ax,
+            track_geo,
+            km_lo=ml_km_lo,
+            km_hi=ml_km_hi,
+        )
         assigned_map_drawn = plot_assigned_gold_track_overlay(
             ax,
             track_geo,
@@ -2943,6 +3306,21 @@ def render_reference_map(
             km_lo=ml_km_lo,
             km_hi=ml_km_hi,
         )
+        if assigned_map_drawn:
+            plot_assigned_span_labels_on_map(
+                ax,
+                track_geo,
+                assigned_spans,
+                km_lo=ml_km_lo,
+                km_hi=ml_km_hi,
+            )
+            plot_gold_class_seam_markers(
+                ax,
+                track_geo,
+                assigned_spans,
+                km_lo=ml_km_lo,
+                km_hi=ml_km_hi,
+            )
 
     ml_map_drawn = plot_ml_pred_track_overlay(
         ax,
@@ -2975,6 +3353,30 @@ def render_reference_map(
     ax.set_xticks([])
     ax.set_yticks([])
     plot_metric_scalebar(ax, map_bounds)
+
+    if chunk_km is not None and not track_geo.empty:
+        c_lo, c_hi = chunk_km
+        chunk_pts = track_geo[
+            (track_geo["course_km"] >= c_lo) & (track_geo["course_km"] <= c_hi)
+        ]
+        if not chunk_pts.empty:
+            clat = float(chunk_pts["latitude"].mean())
+            clon = float(chunk_pts["longitude"].mean())
+            west, south, east, north = map_bounds
+            ax.text(
+                west + (east - west) * 0.02,
+                south + (north - south) * 0.04,
+                f"FIT track {clat:.4f}°N {clon:.4f}°E",
+                fontsize=6.5,
+                color="#ECEFF1",
+                zorder=20,
+                va="bottom",
+                bbox=dict(
+                    boxstyle="round,pad=0.25",
+                    facecolor=(0, 0, 0, 0.55),
+                    edgecolor="none",
+                ),
+            )
 
     return basemap_status, ml_map_drawn, assigned_map_drawn
 
@@ -3108,9 +3510,7 @@ def build_validation_report(
     """Assemble validation dashboard metadata (flags + override protocol)."""
     flags = compute_variance_flags(panel, threshold=variance_threshold)
     segments = run_length_flag_segments(flags)
-    race_panel = panel
-    if "session_type" in panel.columns:
-        race_panel = panel[panel["session_type"] == "race"]
+    race_panel = select_primary_telemetry_panel(panel)
     consensus = aggregate_nti_by_course_m(race_panel) if not race_panel.empty else pd.DataFrame()
 
     report: dict[str, Any] = {
@@ -3147,20 +3547,8 @@ def _normalize_assigned_class(value: Any) -> str | None:
 
 
 def _operator_gold_span_at_km(terrain_map: dict[str, Any], km: float) -> dict[str, Any] | None:
-    """Half-open [start, end) match; interior seams resolve to the downstream span."""
-    spans = operator_gold_spans(terrain_map)
-    match: dict[str, Any] | None = None
-    for span in spans:
-        km0 = float(span["course_km_start"])
-        km1 = float(span["course_km_end"])
-        if km0 <= km < km1:
-            match = span
-    if match is not None:
-        return match
-    for span in reversed(spans):
-        if abs(km - float(span["course_km_end"])) < 1e-6:
-            return span
-    return None
+    """Narrowest operator-gold span at km (later span wins ties on overlap)."""
+    return _pick_span_at_km(operator_gold_spans(terrain_map), km)
 
 
 def operator_gold_class_at_km(terrain_map: dict[str, Any], km: float) -> str | None:
@@ -3333,6 +3721,9 @@ def resolve_assigned_display_at_km(
             return cls, "gmm_draft"
         return cls, "gmm_draft"
 
+    if is_map_first_operator_gold(terrain_map):
+        return None, "unassigned"
+
     gmm = surface_class_for_km(cluster_segments(terrain_map), km)
     return gmm, "gmm_draft"
 
@@ -3440,6 +3831,111 @@ def collect_ml_pred_spans(
         {"km0": km0, "km1": km1, "class": key[0]}
         for km0, km1, key in _rle_metre_rows(rows)
     ]
+
+
+def resolve_panel_session_type(panel: pd.DataFrame) -> str | None:
+    """Single session_type value when unambiguous; else None (no filter)."""
+    if "session_type" not in panel.columns:
+        return None
+    vals = sorted(str(v) for v in panel["session_type"].dropna().unique())
+    if len(vals) == 1:
+        return vals[0]
+    return None
+
+
+def resolve_locomotion_df(
+    panel: pd.DataFrame,
+    terrain_map: dict[str, Any],
+    panel_path: Path,
+    *,
+    sidecar: Path | None = None,
+    session_type: str | None = None,
+) -> pd.DataFrame | None:
+    """Load locomotion sidecar or compute four-gate run/hike tags for the strip."""
+    sidecar_path = sidecar or (panel_path.parent / "locomotion_mode_1m.parquet")
+    if sidecar_path.exists():
+        loaded = pd.read_parquet(sidecar_path)
+        if "locomotion_mode" in loaded.columns and "course_km" in loaded.columns:
+            return loaded
+
+    from spatial.locomotion_mode import tag_panel_locomotion  # noqa: WPS433
+
+    st = session_type if session_type is not None else resolve_panel_session_type(panel)
+    try:
+        tagged = tag_panel_locomotion(panel, terrain_map, session_type=st)
+    except Exception as exc:
+        logging.warning("locomotion_mode computation failed: %s", exc)
+        return None
+    if tagged.empty or "locomotion_mode" not in tagged.columns:
+        return None
+    export_cols = ["course_m", "course_km", "locomotion_mode"]
+    if "donor_id" in tagged.columns:
+        export_cols.insert(2, "donor_id")
+    return tagged[[c for c in export_cols if c in tagged.columns]]
+
+
+def collect_locomotion_spans(
+    loco_df: pd.DataFrame | None,
+    *,
+    km_lo: float,
+    km_hi: float,
+    mode_col: str = "locomotion_mode",
+    km_col: str = "course_km",
+) -> list[dict[str, Any]]:
+    """Merge per-metre run/hike tags into display spans."""
+    if loco_df is None or loco_df.empty or mode_col not in loco_df.columns or km_col not in loco_df.columns:
+        return []
+
+    window = loco_df[(loco_df[km_col] >= km_lo) & (loco_df[km_col] < km_hi)]
+    mode_by_km: dict[float, str | None] = {}
+    for km, mode in zip(window[km_col].astype(float), window[mode_col]):
+        mode_by_km[float(km)] = str(mode).lower() if pd.notna(mode) else None
+
+    rows: list[tuple[float, tuple[str | None, ...]]] = []
+    step = 0.001
+    km = km_lo
+    while km < km_hi - 1e-9:
+        mode = mode_by_km.get(round(km, 3))
+        rows.append((km, (mode,)))
+        km = round(km + step, 3)
+
+    return [
+        {"km0": km0, "km1": km1, "mode": key[0]}
+        for km0, km1, key in _rle_metre_rows(rows)
+    ]
+
+
+def annotate_locomotion_mode_strip(
+    ax: plt.Axes,
+    spans: list[dict[str, Any]],
+    *,
+    fill_alpha: float = LOCOMOTION_STRIP_FILL_ALPHA,
+) -> None:
+    """Locomotion strip — low blue bars (hike), tall yellow bars (run)."""
+    y_base = 0.0
+    for span in spans:
+        km0 = float(span["km0"])
+        km1 = float(span["km1"])
+        mode = str(span.get("mode", "run")).lower()
+        if mode == "hike":
+            height = LOCOMOTION_HIKE_BAR_HEIGHT
+            color = LOCOMOTION_HIKE_COLOR
+        else:
+            height = LOCOMOTION_RUN_BAR_HEIGHT
+            color = LOCOMOTION_RUN_COLOR
+        _solid_yband(
+            ax,
+            km0,
+            km1,
+            y_base,
+            y_base + height,
+            facecolor=color,
+            alpha=fill_alpha,
+            zorder=4,
+        )
+    y_max = LOCOMOTION_RUN_BAR_HEIGHT * 1.12
+    ax.set_ylim(-0.06, y_max)
+    ax.axhline(y_base, color="#444444", linewidth=0.5, zorder=1)
 
 
 def resolve_cluster_ti_parquet_paths(
@@ -3868,6 +4364,7 @@ def render_dashboard_legend(
     show_ml_map_track: bool = False,
     ml_predictions_mode: MLPredictionsMode = "full",
     show_cluster_ti_rank: bool = False,
+    show_locomotion_strip: bool = False,
 ) -> None:
     """Top-right legend panel — compact decision-mode key or full debug symbology."""
     ax.set_facecolor("#121212")
@@ -3960,6 +4457,25 @@ def render_dashboard_legend(
             labels.append(
                 f"High TI rank (≥R{HIGH_CLUSTER_TI_RANK_THRESHOLD}) — S4/S6 review priority"
             )
+        if show_locomotion_strip:
+            handles.append(
+                Patch(
+                    facecolor=LOCOMOTION_HIKE_COLOR,
+                    edgecolor="#555555",
+                    linewidth=0.4,
+                    alpha=LOCOMOTION_STRIP_FILL_ALPHA,
+                )
+            )
+            labels.append("Hike — low blue bar")
+            handles.append(
+                Patch(
+                    facecolor=LOCOMOTION_RUN_COLOR,
+                    edgecolor="#555555",
+                    linewidth=0.4,
+                    alpha=LOCOMOTION_STRIP_FILL_ALPHA,
+                )
+            )
+            labels.append("Run — tall yellow bar")
         if show_assigned_map_track:
             handles.append(
                 Line2D(
@@ -4203,6 +4719,8 @@ def render_validation_dashboard(
     basemap: BasemapChoice | None = None,
     cluster_ti_dfs: dict[str, pd.DataFrame] | None = None,
     verify_export: bool = False,
+    locomotion_df: pd.DataFrame | None = None,
+    show_locomotion_strip: bool = False,
 ) -> Path:
     """Stacked dashboard: map + legend, elevation/grade/NTI profile, assigned or debug class rows."""
     plt.style.use("dark_background")
@@ -4213,6 +4731,11 @@ def render_validation_dashboard(
     profile_height_ratios = [2.0] + [1.0] * (n_profile_rows - 1)
     if decision_mode:
         profile_height_ratios = [2.25, 1.45 if cluster_ti_dfs else 1.15]
+        if show_locomotion_strip:
+            profile_height_ratios.append(LOCOMOTION_PROFILE_HEIGHT_RATIO)
+            n_profile_rows = len(profile_height_ratios)
+        else:
+            n_profile_rows = 2
     fig_h = 12.5 if with_map and decision_mode else (12.0 if with_map else FIG_SIZE_IN[1])
     fig_w = DECISION_FIG_WIDTH_IN if with_map and decision_mode else FIG_SIZE_IN[0]
     if with_map:
@@ -4290,7 +4813,21 @@ def render_validation_dashboard(
         color="white",
         fontsize=14,
         fontweight="bold",
+        y=0.98,
     )
+    place_label = corridor_geography_label(terrain_map)
+    axis_label = resolve_axis_label(terrain_map, panel)
+    subtitle = " · ".join(p for p in (place_label, axis_label) if p)
+    if subtitle:
+        fig.text(
+            0.5,
+            0.955,
+            subtitle,
+            ha="center",
+            va="top",
+            color="#B0BEC5",
+            fontsize=9,
+        )
 
     ml_map_drawn = False
     assigned_map_drawn = False
@@ -4305,7 +4842,7 @@ def render_validation_dashboard(
             agr_map = agreement_df[
                 (agreement_df["course_km"] >= km_lo) & (agreement_df["course_km"] < km_hi)
             ]
-        assigned_spans_for_map = collect_assigned_class_spans(
+        assigned_spans_for_map = collect_decision_assigned_spans(
             terrain_map,
             km_lo=km_lo,
             km_hi=km_hi,
@@ -4316,6 +4853,7 @@ def render_validation_dashboard(
         map_display_aspect = _map_subplot_target_aspect(
             decision_mode=decision_mode,
             with_cluster_ti=bool(cluster_ti_dfs),
+            with_locomotion_strip=show_locomotion_strip,
         )
         _, ml_map_drawn, assigned_map_drawn = render_reference_map(
             ax_map,
@@ -4341,11 +4879,10 @@ def render_validation_dashboard(
             show_ml_map_track=ml_map_drawn,
             ml_predictions_mode=ml_predictions_mode,
             show_cluster_ti_rank=bool(cluster_ti_dfs) and decision_mode,
+            show_locomotion_strip=show_locomotion_strip,
         )
 
-    race_work = work
-    if "session_type" in work.columns:
-        race_work = work[work["session_type"] == "race"]
+    race_work = select_primary_telemetry_panel(work)
 
     for ax in profile_axes:
         ax.set_xlim(km_lo, km_hi)
@@ -4469,7 +5006,7 @@ def render_validation_dashboard(
             agr_window = agreement_df[
                 (agreement_df["course_km"] >= km_lo) & (agreement_df["course_km"] < km_hi)
             ]
-        assigned_spans = collect_assigned_class_spans(
+        assigned_spans = collect_decision_assigned_spans(
             terrain_map,
             km_lo=km_lo,
             km_hi=km_hi,
@@ -4497,6 +5034,18 @@ def render_validation_dashboard(
             ml_fill_alpha=ml_strip_alpha,
         )
         ax2.set_ylabel("Surface class", color="#A0A0A0")
+        if show_locomotion_strip and len(profile_axes) > row_delta + 1:
+            ax_loco = profile_axes[row_delta + 1]
+            loco_spans = collect_locomotion_spans(
+                locomotion_df, km_lo=km_lo, km_hi=km_hi
+            )
+            annotate_locomotion_mode_strip(ax_loco, loco_spans)
+            ax_loco.set_ylabel("Locomotion", color="#A0A0A0")
+            ax_loco.grid(color="#2A2A2A", linestyle="--", alpha=0.6)
+            ax_loco.set_xlabel(axis_label, color="#A0A0A0")
+            ax2.set_xlabel("")
+        else:
+            ax2.set_xlabel(axis_label, color="#A0A0A0")
     else:
         if ti_draft:
             annotate_ti_draft_on_class_axis(
@@ -4609,7 +5158,8 @@ def render_validation_dashboard(
     if not decision_mode:
         ax2.set_yticks(list(class_to_y.values()))
         ax2.set_yticklabels(list(class_to_y.keys()))
-    ax2.set_xlabel(axis_label, color="#A0A0A0")
+    if not (decision_mode and show_locomotion_strip):
+        ax2.set_xlabel(axis_label, color="#A0A0A0")
     ax2.grid(color="#2A2A2A", linestyle="--", alpha=0.6)
 
     if with_map:
@@ -4676,7 +5226,12 @@ def main() -> None:
         "--gpx",
         type=Path,
         default=None,
-        help="Organiser GPX for map context (default: SUT43 official GPX when panel is SUT_43)",
+        help="Organiser GPX for map context (default: SUT43 official GPX when race_id is SUT_43)",
+    )
+    parser.add_argument(
+        "--no-gpx",
+        action="store_true",
+        help="Never load organiser GPX (required for non-SUT stream courses e.g. Tverrfjell)",
     )
     parser.add_argument(
         "--activity",
@@ -4825,6 +5380,22 @@ def main() -> None:
         default=None,
         help="PIL-verify PNG after save; exit non-zero on corrupt export (default: on for chunk export)",
     )
+    parser.add_argument(
+        "--locomotion-sidecar",
+        type=Path,
+        default=None,
+        help="Per-metre locomotion_mode parquet (default: <panel_dir>/locomotion_mode_1m.parquet)",
+    )
+    parser.add_argument(
+        "--no-locomotion-strip",
+        action="store_true",
+        help="Hide decision-mode locomotion strip (run/hike bars)",
+    )
+    parser.add_argument(
+        "--locomotion-session-type",
+        default=None,
+        help="session_type filter for on-the-fly locomotion tagging (default: infer from panel)",
+    )
     args = parser.parse_args()
 
     if args.print_override_protocol:
@@ -4853,11 +5424,11 @@ def main() -> None:
     terrain_map = load_terrain_map(tmap_path)
     panel = normalize_panel_axes(pd.read_parquet(panel_path))
 
-    gpx_path = args.gpx
-    if gpx_path is not None:
-        gpx_path = gpx_path if gpx_path.is_absolute() else BASE_DIR / gpx_path
-    elif resolve_axis_label(terrain_map, panel).startswith("SUT_43"):
-        gpx_path = DEFAULT_SUT43_GPX if DEFAULT_SUT43_GPX.exists() else None
+    gpx_path = resolve_dashboard_gpx_path(
+        terrain_map,
+        args.gpx,
+        no_gpx=bool(args.no_gpx),
+    )
 
     map_track_activity = args.activity
     map_track_donor = args.map_track_donor
@@ -4951,17 +5522,42 @@ def main() -> None:
         parser.error("--ml-predictions-mode path requires --ml-predictions")
 
     if decision_mode or with_map:
-        ml_path = resolve_ml_predictions_path(
-            mode=ml_predictions_mode,
-            explicit_path=args.ml_predictions_parquet,
-        )
-        if ml_path.exists():
-            ml_pred_df = pd.read_parquet(ml_path)
-        elif ml_predictions_mode == "full":
-            print(
-                f"WARN full-corridor ML predictions missing: {ml_path.relative_to(BASE_DIR)} "
-                f"(run 07_ML_Models/predict_terrain_full_corridor.py)"
+        if args.ml_predictions_parquet is not None:
+            ml_path = resolve_ml_predictions_path(
+                mode="path",
+                explicit_path=args.ml_predictions_parquet,
             )
+            if ml_path.exists():
+                ml_pred_df = pd.read_parquet(ml_path)
+            else:
+                print(f"WARN ML predictions missing: {ml_path.relative_to(BASE_DIR)}")
+        elif is_map_first_operator_gold(terrain_map) and not args.ml_predictions_loocv:
+            map_first_ml_path = resolve_map_first_ml_predictions_path(panel_path, terrain_map)
+            if map_first_ml_path is not None:
+                ml_pred_df = pd.read_parquet(map_first_ml_path)
+                ml_predictions_mode = "path"
+                print(
+                    f"INFO map-first ML predictions → {map_first_ml_path.relative_to(BASE_DIR)}"
+                )
+            else:
+                race_id = str((terrain_map.get("corridor") or {}).get("race_id") or "course")
+                print(
+                    "INFO map-first operator gold — no course ML predictions sidecar "
+                    f"(expected {panel_path.parent / f'{race_id}_ml_predictions.parquet'}; "
+                    "run export_ml_predictions.py after training gold_suggester)"
+                )
+        else:
+            ml_path = resolve_ml_predictions_path(
+                mode=ml_predictions_mode,
+                explicit_path=args.ml_predictions_parquet,
+            )
+            if ml_path.exists():
+                ml_pred_df = pd.read_parquet(ml_path)
+            elif ml_predictions_mode == "full":
+                print(
+                    f"WARN full-corridor ML predictions missing: {ml_path.relative_to(BASE_DIR)} "
+                    f"(run 07_ML_Models/predict_terrain_full_corridor.py)"
+                )
 
     cluster_ti_dfs: dict[str, pd.DataFrame] | None = None
     if decision_mode:
@@ -4972,6 +5568,24 @@ def main() -> None:
         )
         if not cluster_ti_dfs:
             cluster_ti_dfs = None
+
+    locomotion_df: pd.DataFrame | None = None
+    show_locomotion_strip = decision_mode and not args.no_locomotion_strip
+    if show_locomotion_strip:
+        sidecar = args.locomotion_sidecar
+        if sidecar is not None and not sidecar.is_absolute():
+            sidecar = BASE_DIR / sidecar
+        locomotion_df = resolve_locomotion_df(
+            panel,
+            terrain_map,
+            panel_path,
+            sidecar=sidecar,
+            session_type=args.locomotion_session_type,
+        )
+        if locomotion_df is None or locomotion_df.empty:
+            print("WARN locomotion strip — no locomotion_mode data; strip hidden")
+            show_locomotion_strip = False
+            locomotion_df = None
 
     def _render_one(
         output: Path,
@@ -5013,6 +5627,8 @@ def main() -> None:
             basemap=basemap_choice,
             cluster_ti_dfs=cluster_ti_dfs,
             verify_export=verify_export,
+            locomotion_df=locomotion_df,
+            show_locomotion_strip=show_locomotion_strip,
         )
 
     def _chunk_export_bounds() -> tuple[float, float]:

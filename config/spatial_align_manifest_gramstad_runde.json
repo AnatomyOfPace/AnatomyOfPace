@@ -1,0 +1,45 @@
+{
+  "corridor_id": "gramstad_runde_course",
+  "race_id": "gramstad_runde",
+  "anchor_id": "gramstad_runde",
+  "terrain_map": "config/spatial_terrain_map_gramstad_runde.json",
+  "course_axis": "stream_distance",
+  "km_analysis_window": [
+    0.0,
+    1.0
+  ],
+  "km_viewport_window": [
+    0.0,
+    1.1
+  ],
+  "default_align_mode": "stream",
+  "default_direction": "auto",
+  "stream_race_id": "gramstad_runde",
+  "multi_fit": true,
+  "geography": {
+    "settlement": "Gramstad",
+    "municipality": "Sandnes",
+    "county": "Rogaland",
+    "region": "Jæren",
+    "not_sut43_sector": "gramstad_band km 29–41 is a separate SUT_43 organiser-axis sector — this course is map-first FIT stream only",
+    "notes": "Local training loop (Gramstad runden). Map-first FIT stream axis — not SUT_43 organiser GPX snap."
+  },
+  "panel_scope": "Subject_A anchor stream (stream-distance course axis). Gramstad, Sandnes. Run bootstrap_gramstad_runde_course.py after placing canonical FIT to set km_end from washed stream.",
+  "activities": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "Gramstad_Runde",
+      "session_type": "training",
+      "subject_id": "Subject_A",
+      "align_mode": "stream",
+      "note": "Gramstad Runde loop — canonical FIT defines stream-distance course axis (activity_id updated by bootstrap from FIT stem)."
+    }
+  ],
+  "build_commands": {
+    "bootstrap": "python3 04_Python_Scripts/spatial/bootstrap_gramstad_runde_course.py",
+    "wash": "python3 04_Python_Scripts/15_fit_micro_wash.py --donor Subject_A --activity <ACTIVITY_ID> --fit 02_Raw_Data/donors/Subject_A/<ACTIVITY_ID>.fit --race gramstad_runde --project-course --enrich-ti --no-privacy-clip",
+    "rebuild_panel": "python3 04_Python_Scripts/spatial/corridor_multi_fit.py --manifest config/spatial_align_manifest_gramstad_runde.json --enrich-if-needed",
+    "gold_training_export": "python3 04_Python_Scripts/spatial/build_gold_training_set.py --terrain-map config/spatial_terrain_map_gramstad_runde.json",
+    "hitl_export": "./04_Python_Scripts/spatial/export_hitl_chunks_gramstad_runde.sh"
+  }
+}

@@ -144,9 +144,10 @@
       "anchor_id": "selvikstakken",
       "display_name": "Selvikstakken",
       "subject_id": "Subject_A",
-      "fit_path": "02_Raw_Data/Selvikstakken_Subject_A_20260628.fit",
+      "fit_path": "02_Raw_Data/donors/Subject_A/Selviksstakken_Eirik_20260628.fit",
       "candidate_fit_paths": [
-        "02_Raw_Data/Selvikstakken_Subject_A_20260628.fit"
+        "02_Raw_Data/Selvikstakken_Subject_A_20260628.fit",
+        "02_Raw_Data/donors/Subject_A/Selviksstakken_Eirik_20260628.fit"
       ],
       "status": "ready",
       "expected": {
@@ -161,6 +162,30 @@
       "o2_role": "scramble_locomotion_anchor",
       "pole_policy": "on_mixed",
       "ingest_notes": "Dedicated scramble session for O₂ scramble anchor (local FIT filename may retain legacy spelling). SUT_160 race stream covers km 73–75 corridor only — insufficient as standalone scramble anchor."
+    },
+    {
+      "anchor_id": "tverrfjell",
+      "display_name": "Tverrfjell",
+      "subject_id": "Subject_A",
+      "fit_path": "02_Raw_Data/donors/Subject_A/Tverrfjell_20260704.fit",
+      "status": "pending",
+      "expected": {
+        "substrate_o1": "mixed",
+        "friction_o1": "mixed",
+        "locomotion_mix": { "run": 0.7, "walk": 0.25, "scramble": 0.05 },
+        "effort": "moderate"
+      },
+      "o2_role": "local_hill_loop_calibration",
+      "pole_policy": "off",
+      "geography": {
+        "settlement": "Uskedalen",
+        "municipality": "Kvinnherad",
+        "county": "Vestland",
+        "not_in": [
+          "Rogaland"
+        ]
+      },
+      "ingest_notes": "Local hill loop 2026-07-04, Uskedalen (Kvinnherad, Vestland) — not Rogaland, not SUT_43. Map-first HITL via config/spatial_terrain_map_tverrfjell.json. Bootstrap: python3 04_Python_Scripts/spatial/bootstrap_tverrfjell_course.py"
     }
   ]
 }

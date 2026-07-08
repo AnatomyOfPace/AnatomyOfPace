@@ -25,7 +25,25 @@ RACE_GPX: dict[str, str] = {
 }
 
 # Races where corridor km windows are calibrated on FIT stream distance (not GPX axis).
-STREAM_DISTANCE_RACES = frozenset({"LFI", "LFI_62", "LFI_2026", "SUT_43", "SUT_23", "SUT_10"})
+STREAM_DISTANCE_RACES = frozenset(
+    {
+        "LFI",
+        "LFI_62",
+        "LFI_2026",
+        "SUT_43",
+        "SUT_23",
+        "SUT_10",
+        "tverrfjell",
+        "klepp_runde",
+        "gramstad_runde",
+        "vinje_terrenglop",
+        "gjesdal_terrenglop_kongeparken",
+        "sandnes_6_nuter",
+        "scb_runde",
+        "selvikstakken",
+        "skafonnlega_sveivida",
+    }
+)
 
 
 def resolve_gpx_path(race_id: str | None, gpx_path: Path | None = None) -> Path | None:

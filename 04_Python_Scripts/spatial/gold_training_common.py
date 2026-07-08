@@ -16,6 +16,39 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DEFAULT_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_ontology" / "panel_1m.parquet"
 DEFAULT_TERRAIN_MAP = BASE_DIR / "config" / "spatial_terrain_map_sut43.json"
 DEFAULT_HMM_DRAFT = BASE_DIR / "07_ML_Models" / "terrain_hmm_sut43_draft_predictions.parquet"
+TVERFJELL_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "tverrfjell_course" / "panel_1m.parquet"
+TVERFJELL_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_tverrfjell.parquet"
+KLEPP_RUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "klepp_runde_course" / "panel_1m.parquet"
+KLEPP_RUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_klepp_runde.parquet"
+GRAMSTAD_RUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "gramstad_runde_course" / "panel_1m.parquet"
+GRAMSTAD_RUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_gramstad_runde.parquet"
+VINJE_TERRENGLOP_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "vinje_terrenglop_course" / "panel_1m.parquet"
+VINJE_TERRENGLOP_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_vinje_terrenglop.parquet"
+STAVANGER_HALVMARATHON_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "stavanger_halvmarathon_course" / "panel_1m.parquet"
+STAVANGER_HALVMARATHON_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_stavanger_halvmarathon.parquet"
+SJOERSLOPET_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "3_sjoerslopet_course" / "panel_1m.parquet"
+SJOERSLOPET_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_3_sjoerslopet.parquet"
+SUNDERUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sunderunde_training_loop" / "panel_1m.parquet"
+SUNDERUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_sunderunde.parquet"
+
+
+def _map_first_orphan_race_ids() -> frozenset[str]:
+    """race_id slugs from config/map_first_orphan_courses.json."""
+    path = BASE_DIR / "config" / "map_first_orphan_courses.json"
+    if not path.exists():
+        return frozenset()
+    import json
+
+    reg = json.loads(path.read_text(encoding="utf-8"))
+    return frozenset(str(c["race_id"]) for c in (reg.get("courses") or []) if c.get("race_id"))
+
+
+def _orphan_panel_path(race_id: str) -> Path:
+    return BASE_DIR / "03_Processed_Data" / "spatial" / f"{race_id}_course" / "panel_1m.parquet"
+
+
+def _orphan_gold_output_path(race_id: str) -> Path:
+    return BASE_DIR / "03_Processed_Data" / "spatial" / f"gold_training_set_{race_id}.parquet"
 
 SURFACE_CLASSES = ("S1", "S2", "S3", "S4", "S5", "S6")
 FRICTION_TIERS = ("F0", "F1", "F2", "F3", "F4")
@@ -39,6 +72,86 @@ FEATURE_COLUMNS = (
 HMM_CLASS_TO_ORD = {cls: i for i, cls in enumerate(SURFACE_CLASSES)}
 
 
+def resolve_gold_training_defaults(terrain_map_path: Path) -> dict[str, Any]:
+    """Derive panel/output/km window from terrain map race_id for non-SUT courses."""
+    tmap = load_terrain_map(terrain_map_path)
+    corridor = tmap.get("corridor") or {}
+    race_id = str(corridor.get("race_id") or "")
+    if race_id == "tverrfjell":
+        km_end = float(corridor.get("km_end") or 23.549)
+        return {
+            "panel": TVERFJELL_PANEL,
+            "output": TVERFJELL_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "klepp_runde":
+        km_end = float(corridor.get("km_end") or 1.0)
+        return {
+            "panel": KLEPP_RUNDE_PANEL,
+            "output": KLEPP_RUNDE_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "gramstad_runde":
+        km_end = float(corridor.get("km_end") or 1.0)
+        return {
+            "panel": GRAMSTAD_RUNDE_PANEL,
+            "output": GRAMSTAD_RUNDE_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "vinje_terrenglop":
+        km_end = float(corridor.get("km_end") or 1.0)
+        return {
+            "panel": VINJE_TERRENGLOP_PANEL,
+            "output": VINJE_TERRENGLOP_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "stavanger_halvmarathon":
+        km_end = float(corridor.get("km_end") or 21.38)
+        return {
+            "panel": STAVANGER_HALVMARATHON_PANEL,
+            "output": STAVANGER_HALVMARATHON_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "3_sjoerslopet":
+        km_end = float(corridor.get("km_end") or 21.25)
+        return {
+            "panel": SJOERSLOPET_PANEL,
+            "output": SJOERSLOPET_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id == "Sunderunde":
+        km_end = float(corridor.get("km_end") or 19.5)
+        return {
+            "panel": SUNDERUNDE_PANEL,
+            "output": SUNDERUNDE_GOLD_OUTPUT,
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    if race_id in _map_first_orphan_race_ids():
+        km_end = float(corridor.get("km_end") or 1.0)
+        return {
+            "panel": _orphan_panel_path(race_id),
+            "output": _orphan_gold_output_path(race_id),
+            "km_start": 0.0,
+            "km_end": km_end,
+            "hmm_draft": None,
+        }
+    return {}
+
+
 def _race_panel(panel: pd.DataFrame) -> pd.DataFrame:
     work = panel.copy()
     if "course_km" not in work.columns and "ref_chainage_m" in work.columns:
@@ -46,16 +159,35 @@ def _race_panel(panel: pd.DataFrame) -> pd.DataFrame:
     if "course_m" not in work.columns and "ref_chainage_m" in work.columns:
         work["course_m"] = work["ref_chainage_m"]
     if "session_type" in work.columns:
-        work = work[work["session_type"] == "race"]
+        race = work[work["session_type"] == "race"]
+        work = race if not race.empty else work
     return work.sort_values(["course_m", "donor_id"])
+
+
+def _ensure_grade_pct_column(panel: pd.DataFrame) -> pd.DataFrame:
+    """Populate grade_pct from grade or altitude diff when missing."""
+    work = panel.copy()
+    if "grade_pct" in work.columns and work["grade_pct"].notna().any():
+        return work
+    if "grade" in work.columns and work["grade"].notna().any():
+        work["grade_pct"] = pd.to_numeric(work["grade"], errors="coerce")
+        return work
+    if "altitude_m" in work.columns:
+        dalt = pd.to_numeric(work["altitude_m"], errors="coerce").diff()
+        work["grade_pct"] = (100.0 * dalt).fillna(0.0)
+    return work
 
 
 def build_consensus_profile(panel: pd.DataFrame) -> pd.DataFrame:
     """Consensus TI + kinematic medians per course metre."""
     race = _race_panel(panel)
+    race = _ensure_grade_pct_column(race)
     race = race.copy()
-    race["nti"] = compute_nti(race)
-    consensus = aggregate_nti_by_course_m(race, use_consensus=True)
+    if "ti" in race.columns:
+        race["nti"] = compute_nti(race)
+        consensus = aggregate_nti_by_course_m(race, use_consensus=True)
+    else:
+        consensus = pd.DataFrame()
     agg_spec: dict[str, tuple[str, str]] = {
         "course_km": ("course_km", "first"),
         "ti_median": ("ti", "median"),
@@ -69,6 +201,11 @@ def build_consensus_profile(panel: pd.DataFrame) -> pd.DataFrame:
     }
     present = {k: v for k, v in agg_spec.items() if v[0] in race.columns}
     per_m = race.groupby("course_m", as_index=False).agg(**present)
+    if consensus.empty:
+        profile = per_m.copy()
+        for col in ("consensus_nti", "nti_std", "nti_median"):
+            profile[col] = np.nan
+        return profile.sort_values("course_m").reset_index(drop=True)
     if "course_km" not in consensus.columns and "course_m" in consensus.columns:
         consensus = consensus.merge(per_m[["course_m", "course_km"]], on="course_m", how="left")
     profile = per_m.merge(
@@ -131,8 +268,14 @@ def load_panel_window(path: Path, km_lo: float, km_hi: float, *, buffer_km: floa
     return panel[(panel["course_km"] >= lo) & (panel["course_km"] <= hi)].copy()
 
 
-def load_hmm_window(path: Path, km_lo: float, km_hi: float, *, buffer_km: float = 0.0) -> pd.DataFrame:
-    if not path.exists():
+def load_hmm_window(
+    path: Path | None,
+    km_lo: float,
+    km_hi: float,
+    *,
+    buffer_km: float = 0.0,
+) -> pd.DataFrame:
+    if path is None or not path.exists() or path.stat().st_size == 0:
         return pd.DataFrame()
     lo = max(0.0, km_lo - buffer_km)
     hi = km_hi + buffer_km
@@ -145,7 +288,7 @@ def build_training_frame(
     panel_path: Path = DEFAULT_PANEL,
     terrain_map_path: Path = DEFAULT_TERRAIN_MAP,
     extra_terrain_map_paths: list[Path] | None = None,
-    hmm_path: Path = DEFAULT_HMM_DRAFT,
+    hmm_path: Path | None = DEFAULT_HMM_DRAFT,
     km_lo: float | None = None,
     km_hi: float | None = None,
 ) -> pd.DataFrame:
@@ -155,7 +298,14 @@ def build_training_frame(
     profile = build_consensus_profile(panel)
     if km_lo is not None and km_hi is not None:
         profile = profile[(profile["course_km"] >= km_lo) & (profile["course_km"] < km_hi)].copy()
-    hmm = load_hmm_window(hmm_path, km_lo or 0.0, km_hi or float(profile["course_km"].max()) + 0.001)
+    if hmm_path is not None:
+        hmm = load_hmm_window(
+            hmm_path,
+            km_lo or 0.0,
+            km_hi or float(profile["course_km"].max()) + 0.001,
+        )
+    else:
+        hmm = pd.DataFrame()
     frame = merge_hmm_features(profile, hmm)
     terrain_map = load_terrain_map(terrain_map_path)
     gold = list(operator_gold_spans(terrain_map))

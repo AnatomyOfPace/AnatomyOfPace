@@ -1,0 +1,60 @@
+{
+  "schema_version": "spatial_terrain_map_v0",
+  "ontology_version": "s6_v0",
+  "generated_at": "2026-07-07T21:00:00.000000+00:00",
+  "corridor": {
+    "corridor_id": "vinje_terrenglop_course",
+    "race_id": "vinje_terrenglop",
+    "anchor_id": "vinje_terrenglop",
+    "km_start": 0.0,
+    "km_end": 1.0,
+    "course_axis": "stream_distance",
+    "geography": {
+      "settlement": "Vinje",
+      "municipality": "Vinje",
+      "county": "Telemark",
+      "region": "Hardangervidda / Vestfold og Telemark",
+      "event": "Vinje Terrengløp",
+      "gps_bounds": {
+        "lat_min": 59.45,
+        "lat_max": 59.78,
+        "lon_min": 7.3,
+        "lon_max": 8.5,
+        "centroid_lat": 59.6,
+        "centroid_lon": 7.9,
+        "altitude_m_min": 300,
+        "altitude_m_max": 1200
+      },
+      "notes": "Vinje Terrengløp trail event (Telemark). Map-first stream-distance HITL — course geography from Subject_A FIT GPS after bootstrap."
+    },
+    "notes": "Tier 0 map-first Vinje Terrengløp. Stream-distance axis from Subject_A FIT."
+  },
+  "clustering": {
+    "method": null,
+    "n_clusters": null,
+    "fallback": "map_first_operator_gold",
+    "note": "Substrate from orthophoto + ML suggester until operator_gold_spans[] are locked."
+  },
+  "segments": [
+    {
+      "course_km_start": 0.0,
+      "course_km_end": 1.0,
+      "surface_class": "S3",
+      "friction_tier": "F2",
+      "source": "seed",
+      "label": "Trail tread (placeholder)",
+      "confidence": 0.3,
+      "operator_note": "Map-first seed — superseded by operator_gold_spans or ML review."
+    }
+  ],
+  "hitl": {
+    "status": "review",
+    "sector_id": "vinje_terrenglop_course",
+    "manual_overrides": [],
+    "operator_gold_spans": [],
+    "trf_exclusions": [],
+    "behavioral_stops": [],
+    "variance_gaps": [],
+    "notes": "Use gold_span_editor.py with --terrain-map config/spatial_terrain_map_vinje_terrenglop.json"
+  }
+}

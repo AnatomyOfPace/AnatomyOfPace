@@ -12,6 +12,7 @@ config/strava_leaderboards_excluded.local.csv
 config/strava_segments.local.json
 config/session_metadata.local.json
 config/*.backup_*.json
+config/*.gold_local.json
 config/*.local.json
 02_Raw_Data/inbox/
 02_Raw_Data/donors/

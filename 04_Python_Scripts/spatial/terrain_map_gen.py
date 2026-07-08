@@ -62,8 +62,13 @@ def compute_nti(
     Interim proxy until full Baseline TI matrix exists: NTI ≈ TI / median(TI | grade bin).
     """
     work = panel.copy()
-    ti = pd.to_numeric(work.get(ti_col), errors="coerce")
-    grade = pd.to_numeric(work.get(grade_col, work.get("grade", 0)), errors="coerce")
+    if ti_col not in work.columns:
+        return pd.Series(np.nan, index=work.index)
+    ti = pd.to_numeric(work[ti_col], errors="coerce")
+    grade_raw = work.get(grade_col, work.get("grade"))
+    if grade_raw is None:
+        return pd.Series(np.nan, index=work.index)
+    grade = pd.to_numeric(grade_raw, errors="coerce")
     if ti.isna().all():
         return pd.Series(np.nan, index=work.index)
 
@@ -136,11 +141,12 @@ def aggregate_nti_by_course_m(
                 ref_med = ref.groupby("course_m", as_index=False)["nti"].median()
                 ref_med = ref_med.rename(columns={"nti": "nti_reference"})
                 agg = agg.merge(ref_med, on="course_m", how="left")
-        if "ti_median" not in agg.columns:
+        if "ti_median" not in agg.columns and "ti" in panel.columns:
             ti_agg = panel.groupby("course_m", as_index=False).agg(
                 ti_median=("ti", "median"),
-                grade_pct_median=("grade_pct", "median"),
             )
+            if "grade_pct" in panel.columns:
+                ti_agg["grade_pct_median"] = panel.groupby("course_m")["grade_pct"].median().to_numpy()
             agg = agg.merge(ti_agg, on="course_m", how="left")
         return agg
 

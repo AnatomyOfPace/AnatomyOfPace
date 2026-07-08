@@ -29,6 +29,7 @@ if str(_SCRIPTS) not in sys.path:
 
 from spatial.gold_training_common import span_km_bounds, spans_overlap
 from spatial.spatial_hitl_overlay import load_terrain_map
+from spatial.suggest_gold_spans import ungolded_intervals
 from spatial.validation_dashboard import operator_gold_spans
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -58,11 +59,19 @@ def backup_terrain_map(path: Path) -> Path:
     return backup
 
 
+def sync_gold_local_mirror(path: Path, terrain_map: dict[str, Any]) -> Path | None:
+    """Write gitignored operator-gold mirror beside terrain map (survives git restore)."""
+    mirror = path.with_name(f"{path.stem}.gold_local.json")
+    mirror.write_text(json.dumps(terrain_map, indent=2) + "\n", encoding="utf-8")
+    return mirror
+
+
 def write_terrain_map(path: Path, terrain_map: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
     backup_terrain_map(path)
     path.write_text(json.dumps(terrain_map, indent=2) + "\n", encoding="utf-8")
+    sync_gold_local_mirror(path, terrain_map)
 
 
 def cmd_list(args: argparse.Namespace) -> int:
@@ -126,7 +135,9 @@ def cmd_add(args: argparse.Namespace) -> int:
     spans.append(entry)
     hitl["operator_gold_spans"] = spans
     write_terrain_map(args.terrain_map, terrain_map)
+    mirror = args.terrain_map.with_name(f"{args.terrain_map.stem}.gold_local.json")
     print(f"Appended span km {km_start:.3f}–{km_end:.3f} {args.surface}/{args.friction}")
+    print(f"Mirror → {mirror}")
     return 0
 
 
@@ -149,10 +160,173 @@ def cmd_delete(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_clear_window(args: argparse.Namespace) -> int:
+    """Remove all operator gold spans overlapping [km-start, km-end)."""
+    km_start = float(args.km_start)
+    km_end = float(args.km_end)
+    if km_end <= km_start:
+        print("Error: --km-end must exceed --km-start", file=sys.stderr)
+        return 1
+
+    terrain_map = load_terrain_map(args.terrain_map)
+    hitl = terrain_map.setdefault("hitl", {})
+    spans: list[dict[str, Any]] = list(hitl.get("operator_gold_spans") or [])
+    kept: list[dict[str, Any]] = []
+    removed: list[tuple[int, dict[str, Any]]] = []
+    for idx, span in enumerate(spans):
+        s0, s1 = span_km_bounds(span)
+        if spans_overlap(km_start, km_end, s0, s1):
+            removed.append((idx, span))
+        else:
+            kept.append(span)
+
+    if not removed:
+        print(f"No spans overlap km {km_start:.3f}–{km_end:.3f}")
+        return 0
+
+    for idx, span in removed:
+        s0, s1 = span_km_bounds(span)
+        print(f"  - [{idx}] km {s0:.3f}–{s1:.3f} {span.get('surface_class')}/{span.get('friction_tier')}")
+
+    if args.dry_run:
+        print(f"Would remove {len(removed)} span(s); keep {len(kept)}")
+        return 0
+
+    hitl["operator_gold_spans"] = kept
+    write_terrain_map(args.terrain_map, terrain_map)
+    print(f"Cleared {len(removed)} overlapping span(s); {len(kept)} remain")
+    return 0
+
+
+def cmd_restore(args: argparse.Namespace) -> int:
+    """Copy operator_gold_spans from gitignored .gold_local.json into terrain map."""
+    path = Path(args.terrain_map)
+    mirror = path.with_name(f"{path.stem}.gold_local.json")
+    if not mirror.exists():
+        print(f"No gold_local mirror: {mirror}", file=sys.stderr)
+        return 1
+    local = json.loads(mirror.read_text(encoding="utf-8"))
+    local_spans = local.get("hitl", {}).get("operator_gold_spans") or []
+    if not local_spans:
+        print(f"Mirror has no operator_gold_spans: {mirror}", file=sys.stderr)
+        return 1
+    terrain_map = json.loads(path.read_text(encoding="utf-8"))
+    terrain_map.setdefault("hitl", {})["operator_gold_spans"] = local_spans
+    if args.dry_run:
+        print(f"Would restore {len(local_spans)} span(s) from {mirror.name}")
+        return 0
+    write_terrain_map(path, terrain_map)
+    print(f"Restored {len(local_spans)} span(s) from {mirror.name}")
+    return 0
+
+
+def _neighbor_classes(
+    spans: list[dict[str, Any]],
+    gap_lo: float,
+    gap_hi: float,
+) -> tuple[str, str] | None:
+    """Pick surface/friction from upstream span, else downstream."""
+    left: dict[str, Any] | None = None
+    right: dict[str, Any] | None = None
+    left_end = -1.0
+    right_start = 1e9
+    for span in spans:
+        s0, s1 = span_km_bounds(span)
+        if s1 <= gap_lo + 1e-6 and s1 > left_end:
+            left = span
+            left_end = s1
+        if s0 >= gap_hi - 1e-6 and s0 < right_start:
+            right = span
+            right_start = s0
+    for candidate in (left, right):
+        if candidate is None:
+            continue
+        surf = str(candidate.get("surface_class", "")).strip().upper()
+        fric = str(candidate.get("friction_tier", "")).strip().upper()
+        if surf in SURFACE_CLASSES and fric in FRICTION_TIERS:
+            return surf, fric
+    return None
+
+
+def cmd_bridge_gaps(args: argparse.Namespace) -> int:
+    """Fill small unlabeled gaps between existing spans using neighbor S/F classes."""
+    km_start = float(args.km_start)
+    km_end = float(args.km_end)
+    max_gap_km = float(args.max_gap_m) / 1000.0
+    if km_end <= km_start:
+        print("Error: --km-end must exceed --km-start", file=sys.stderr)
+        return 1
+
+    terrain_map = load_terrain_map(args.terrain_map)
+    hitl = terrain_map.setdefault("hitl", {})
+    spans: list[dict[str, Any]] = list(hitl.get("operator_gold_spans") or [])
+    gaps = ungolded_intervals(km_start, km_end, spans)
+
+    to_add: list[dict[str, Any]] = []
+    skipped_large = 0
+    skipped_no_neighbor = 0
+    locked_at = date.today().isoformat()
+
+    for gap_lo, gap_hi in gaps:
+        length_km = gap_hi - gap_lo
+        if length_km > max_gap_km + 1e-9:
+            skipped_large += 1
+            continue
+        picked = _neighbor_classes(spans, gap_lo, gap_hi)
+        if picked is None:
+            skipped_no_neighbor += 1
+            continue
+        surf, fric = picked
+        if find_overlapping_spans(spans + to_add, gap_lo, gap_hi):
+            continue
+        to_add.append(
+            {
+                "course_km_start": round(gap_lo, 3),
+                "course_km_end": round(gap_hi, 3),
+                "surface_class": surf,
+                "friction_tier": fric,
+                "gold_source": "operator",
+                "mode": "operator_gold",
+                "locked_at": locked_at,
+                "reason": f"bridge_gaps <= {args.max_gap_m:.0f} m ({surf}/{fric} from neighbor)",
+            }
+        )
+
+    for entry in to_add:
+        s0, s1 = span_km_bounds(entry)
+        print(f"  + km {s0:.3f}–{s1:.3f} {entry['surface_class']}/{entry['friction_tier']}")
+
+    if not to_add:
+        print(
+            f"No bridge spans to add (gaps={len(gaps)}, "
+            f"skipped_large={skipped_large}, skipped_no_neighbor={skipped_no_neighbor})"
+        )
+        return 0
+
+    if args.dry_run:
+        print(f"Would bridge {len(to_add)} gap(s); skipped {skipped_large} larger than {args.max_gap_m:.0f} m")
+        return 0
+
+    spans.extend(to_add)
+    hitl["operator_gold_spans"] = spans
+    write_terrain_map(args.terrain_map, terrain_map)
+    print(f"Bridged {len(to_add)} gap(s); skipped {skipped_large} gap(s) > {args.max_gap_m:.0f} m")
+    return 0
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    argv_list = list(argv) if argv is not None else sys.argv[1:]
+    dry_run_flag = "--dry-run" in argv_list
+    if dry_run_flag:
+        argv_list = [token for token in argv_list if token != "--dry-run"]
+
     parser = argparse.ArgumentParser(description="Edit sparse operator gold spans in terrain map JSON.")
     parser.add_argument("--terrain-map", type=Path, default=DEFAULT_TERRAIN_MAP)
-    parser.add_argument("--dry-run", action="store_true", help="Validate without writing JSON")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Validate without writing JSON (may appear before or after subcommand)",
+    )
     sub = parser.add_subparsers(dest="command", required=True)
 
     sub.add_parser("list", help="List all operator gold spans with index")
@@ -167,7 +341,32 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     del_p = sub.add_parser("delete", help="Remove span by list index")
     del_p.add_argument("--index", type=int, required=True)
 
-    return parser.parse_args(argv)
+    clear_p = sub.add_parser(
+        "clear-window",
+        help="Remove all spans overlapping a km window (before clean orthophoto locks)",
+    )
+    clear_p.add_argument("--km-start", type=float, required=True)
+    clear_p.add_argument("--km-end", type=float, required=True)
+
+    bridge_p = sub.add_parser(
+        "bridge-gaps",
+        help="Fill sub-metre holes between GPS-transfer spans using neighbor S/F",
+    )
+    bridge_p.add_argument("--km-start", type=float, default=0.0)
+    bridge_p.add_argument("--km-end", type=float, required=True)
+    bridge_p.add_argument(
+        "--max-gap-m",
+        type=float,
+        default=100.0,
+        help="Only bridge gaps up to this length in metres (default 100)",
+    )
+
+    sub.add_parser("restore", help="Restore operator_gold_spans from .gold_local.json mirror")
+
+    args = parser.parse_args(argv_list)
+    if dry_run_flag:
+        args.dry_run = True
+    return args
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -181,6 +380,12 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_add(args)
     if args.command == "delete":
         return cmd_delete(args)
+    if args.command == "clear-window":
+        return cmd_clear_window(args)
+    if args.command == "bridge-gaps":
+        return cmd_bridge_gaps(args)
+    if args.command == "restore":
+        return cmd_restore(args)
     print(f"Unknown command: {args.command}", file=sys.stderr)
     return 1
 

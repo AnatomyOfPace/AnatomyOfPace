@@ -1,0 +1,37 @@
+{
+  "corridor_id": "vinje_terrenglop_course",
+  "race_id": "vinje_terrenglop",
+  "anchor_id": "vinje_terrenglop",
+  "terrain_map": "config/spatial_terrain_map_vinje_terrenglop.json",
+  "course_axis": "stream_distance",
+  "km_analysis_window": [0.0, 1.0],
+  "km_viewport_window": [0.0, 1.1],
+  "default_align_mode": "stream",
+  "default_direction": "auto",
+  "stream_race_id": "vinje_terrenglop",
+  "multi_fit": true,
+  "geography": {
+    "settlement": "Vinje",
+    "municipality": "Vinje",
+    "county": "Telemark",
+    "region": "Hardangervidda / Vestfold og Telemark",
+    "event": "Vinje Terrengløp",
+    "notes": "Trail race / training activity at Vinje Terrengløp. Map-first FIT stream axis."
+  },
+  "panel_scope": "Subject_A stream-distance axis. Run bootstrap_vinje_terrenglop_course.py after placing FIT.",
+  "activities": [
+    {
+      "donor_id": "Subject_A",
+      "activity_id": "Vinje_Terrenglop_20251005",
+      "session_type": "race",
+      "subject_id": "Subject_A",
+      "align_mode": "stream",
+      "note": "Vinje Terrengløp — FIT defines stream-distance course axis (activity_id updated by bootstrap from FIT stem)."
+    }
+  ],
+  "build_commands": {
+    "bootstrap": "python3 04_Python_Scripts/spatial/bootstrap_vinje_terrenglop_course.py",
+    "hitl_export": "./04_Python_Scripts/spatial/export_hitl_chunks_vinje_terrenglop.sh",
+    "ml_strip": "./04_Python_Scripts/spatial/start_vinje_terrenglop_ml_strip.sh"
+  }
+}

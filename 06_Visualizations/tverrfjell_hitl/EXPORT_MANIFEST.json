@@ -1,0 +1,19 @@
+{
+  "exported_at": "2026-07-07T07:07:18.771200+00:00",
+  "race_id": "tverrfjell",
+  "geography": "Uskedalen, Kvinnherad, Vestland",
+  "axis_label": "tverrfjell stream km",
+  "map_track": {
+    "activity_id": "Tverrfjell_20260704",
+    "donor_id": "Subject_A",
+    "gpx_overlay": false
+  },
+  "basemap": "opentopomap",
+  "gps_centroid": {
+    "lat": 59.9126,
+    "lon": 5.94932
+  },
+  "km_end": 23.549,
+  "n_chunks": 24,
+  "verify": "Title subtitle must read 'Uskedalen \u00b7 Kvinnherad \u00b7 Vestland \u00b7 tverrfjell stream km'"
+}

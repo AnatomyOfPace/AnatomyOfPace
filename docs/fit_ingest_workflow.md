@@ -191,3 +191,286 @@ Partial tiles (`SUT43_sector_31-32_reverse_20260627`, `Gramstad_runden_reverse_2
 - Per-athlete HR iso-effort TI (`fit_micro/effort_paradox.py`)
 - Full-course SUT_43 stretch (km 0.5–42.5) after gramstad_band sector lock
 - Reference_Elite_D `.fit` → SUT_160 Dale–Alsvik corridor (Phase D)
+
+## Tverrfjell local loop (map-first HITL, not SUT_43)
+
+**Geography:** Uskedalen, Kvinnherad, Vestland (Hardanger / Sunnhordland). **Not Rogaland.** SUT_43 (Sandnes) is a separate county ~120 km south — the Tverrfjell pipeline uses FIT stream distance only; never snap to SUT GPX or write into SUT terrain maps.
+
+| Step | Command |
+|------|---------|
+| Place FIT | `02_Raw_Data/donors/Subject_A/Tverrfjell_20260704.fit` (rename from legacy `Tverrfjell_*_20260704.fit`) |
+| Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_tverrfjell_course.py` |
+| Label | `gold_span_editor.py add --terrain-map config/spatial_terrain_map_tverrfjell.json ...` |
+| Dashboard PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_tverrfjell.sh` → `06_Visualizations/tverrfjell_hitl/chunk_t*.png` (24 × 1 km, km 0–23.549) |
+
+Configs: `config/spatial_align_manifest_tverrfjell.json`, `config/spatial_terrain_map_tverrfjell.json`.
+
+## Klepp Runde local loop (map-first HITL)
+
+**Geography:** Klepp — a very local place name in **Uskedalen** (Kvinnherad, Vestland), near Tverrfjell. Not Klepp municipality (Rogaland/Jæren). Map-first FIT stream axis — not SUT_43 organiser GPX.
+
+Expected GPS centroid ~59.9°N, ~5.9°E (Uskedalen band). A centroid near 58.8°N indicates the Rogaland homonym, not this course.
+
+### Avoiding Tverrfjell pitfalls
+
+| Tverrfjell issue | Klepp safeguard |
+|------------------|-----------------|
+| Wrong axis / SUT_43 geography | `verify_klepp_runde_hitl_exports.py` + `preflight_map_first_course.py` |
+| Lost `operator_gold_spans` on `git restore` | Backup after each session: `cp config/spatial_terrain_map_klepp_runde.json config/spatial_terrain_map_klepp_runde.gold_local.json` (gitignored copy — never rely on committed JSON for gold). **Recover:** `gold_span_editor.py restore --terrain-map config/spatial_terrain_map_klepp_runde.json` if `.gold_local.json` exists; pipelines also auto-read `.gold_local.json` when the tracked map has fewer spans. |
+| ML strip empty | Export script auto-loads `klepp_runde_ml_predictions.parquet` when model exists — **train before final PNG export** |
+| Locomotion strip missing | Export auto-generates `locomotion_mode_1m.parquet` |
+| Wrong training panel (SUT_43) | Always pass `--terrain-map config/spatial_terrain_map_klepp_runde.json` to `build_gold_training_set.py` |
+| Stale PNGs after code pull | Re-run `export_hitl_chunks_klepp_runde.sh` after `git pull` |
+| Weak TI / zero speed in panel | Bootstrap runs `--enrich-ti`; preflight warns if telemetry coverage is low |
+
+### Ordered workflow
+
+| Step | Command |
+|------|---------|
+| Pull branch | `git pull origin cursor/klepp-runde-bootstrap-0c6a` |
+| Place FIT | `02_Raw_Data/donors/Subject_A/Klepp_Runde_*.fit` |
+| Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_klepp_runde_course.py --fit <path>` |
+| Preflight | `python3 04_Python_Scripts/spatial/preflight_map_first_course.py --terrain-map config/spatial_terrain_map_klepp_runde.json` |
+| Label + backup | `gold_span_editor.py add ...` then `cp ...gold_local.json` |
+| Train ML | `build_gold_training_set.py` → `train_gold_suggester.py` with `--metadata-out ...klepp_runde_v0_metadata.json` |
+| Export PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_klepp_runde.sh` |
+
+**Quick start (bootstrap + PNGs + labeling hints):**
+
+```bash
+./04_Python_Scripts/spatial/start_klepp_annotation.sh --fit 02_Raw_Data/donors/Subject_A/YOUR_Klepp_Runde.fit
+```
+
+Configs: `config/spatial_align_manifest_klepp_runde.json`, `config/spatial_terrain_map_klepp_runde.json`.
+
+## Gramstad Runde local loop (map-first HITL)
+
+**Geography:** Gramstad, Sandnes, Rogaland (Jæren). Map-first FIT stream axis.
+
+**Not** the SUT_43 `gramstad_band` sector (km 29–41 organiser GPX axis). This course uses the FIT’s own stream-distance loop — same pattern as Klepp Runde and Tverrfjell.
+
+### Quick start
+
+```bash
+git pull origin cursor/gramstad-runde-bootstrap-0c6a
+
+cp ~/Downloads/Gramstad_runden_i__solnedgang.fit \
+  02_Raw_Data/donors/Subject_A/Gramstad_runden_i__solnedgang.fit
+
+./04_Python_Scripts/spatial/start_gramstad_annotation.sh \
+  --fit 02_Raw_Data/donors/Subject_A/Gramstad_runden_i__solnedgang.fit
+```
+
+Or step-by-step:
+
+| Step | Command |
+|------|---------|
+| Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_gramstad_runde_course.py --fit <path>` |
+| Label | `gold_span_editor.py --terrain-map config/spatial_terrain_map_gramstad_runde.json add ...` |
+| Train ML | `build_gold_training_set.py` → `train_gold_suggester.py --sector-id gramstad_runde` |
+| Export PNGs | `./04_Python_Scripts/spatial/export_hitl_chunks_gramstad_runde.sh` |
+
+Configs: `config/spatial_align_manifest_gramstad_runde.json`, `config/spatial_terrain_map_gramstad_runde.json`.
+
+**Pull recovery:** if `git pull` blocks on patched manifest/terrain map, `git checkout --` those two files then `bootstrap_gramstad_runde_course.py --skip-wash --fit <path>`.
+
+### Complete partial gold (Gramstad Runde)
+
+When `build_gold_training_set` reports fewer labeled metres than panel rows (e.g. ~52% on Gramstad), run the completion wave:
+
+```bash
+# 1. Gap report + GPS transfer dry-run + ML suggestions dry-run
+./04_Python_Scripts/spatial/complete_gramstad_gold_wave.sh
+
+# 2. Apply GPS overlap from SUT_43 gramstad_band where trails match
+./04_Python_Scripts/spatial/complete_gramstad_gold_wave.sh --apply-gps-transfer
+
+# 3. Auto-lock HIGH-confidence ML gap fills (review suggestions CSV first)
+./04_Python_Scripts/spatial/complete_gramstad_gold_wave.sh --apply-ml-locks
+
+# 4. Manual orthophoto lock on remaining gaps, then retrain pool
+python3 04_Python_Scripts/spatial/report_gold_coverage.py \
+  --terrain-map config/spatial_terrain_map_gramstad_runde.json
+./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-o1-anchors --rebuild-exports
+```
+
+Standalone gap report:
+
+```bash
+python3 04_Python_Scripts/spatial/report_gold_coverage.py \
+  --terrain-map config/spatial_terrain_map_gramstad_runde.json \
+  --json 03_Processed_Data/spatial/gramstad_runde_gold_gaps.json
+```
+
+
+Previous Gramstad HITL (`spatial_terrain_map_sut43.json`, km 29–41 organiser axis) **cannot** copy km breakpoints to `gramstad_runde` stream km — axes differ. GPS transfer remaps surface/friction where trails overlap:
+
+```bash
+# After bootstrap — dry-run first
+python3 04_Python_Scripts/spatial/transfer_gold_spans_gps.py \
+  --source-terrain-map config/spatial_terrain_map_sut43.gold_local.json \
+  --source-panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet \
+  --source-km-start 29 --source-km-end 41 \
+  --target-terrain-map config/spatial_terrain_map_gramstad_runde.json \
+  --target-panel 03_Processed_Data/spatial/gramstad_runde_course/panel_1m.parquet \
+  --dry-run
+```
+
+Use committed `spatial_terrain_map_sut43.json` if no `.gold_local.json`. Expect partial coverage — review PNGs and fix gaps with `gold_span_editor.py`. Falls back to manual labeling where GPS match exceeds `--max-match-m` (default 35 m).
+
+## Vinje Terrengløp (map-first HITL + ML suggester strip)
+
+**Geography:** Vinje, Telemark (Hardangervidda / Vestfold og Telemark band). Map-first FIT stream axis — not SUT_43 organiser GPX.
+
+After a pooled or course-specific gold suggester is trained locally (`gold_suggester_map_first_pool_v0.joblib` or `gold_suggester_gramstad_runde_v0.joblib`), export HITL PNGs with the **ML predicted** strip row (Assigned row empty until operator gold is added):
+
+```bash
+git pull origin cursor/vinje-terrenglop-bootstrap-0c6a
+
+cp <path/to/Vinje_Terrenglop*.fit> \
+  02_Raw_Data/donors/Subject_A/
+
+# Find the file if unsure (common: Terrengløp with ø, or Garmin date suffix):
+#   python3 04_Python_Scripts/spatial/bootstrap_vinje_terrenglop_course.py --discover
+#   mdfind -name vinje | grep -i '\.fit$'
+#   find ~/Downloads ~/Desktop -iname '*vinje*.fit' 2>/dev/null
+
+ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
+  ./04_Python_Scripts/spatial/start_vinje_terrenglop_ml_strip.sh \
+  --fit 02_Raw_Data/donors/Subject_A/Vinje_Terrenglop_20251005.fit
+```
+
+Or step-by-step:
+
+| Step | Command |
+|------|---------|
+| Bootstrap | `python3 04_Python_Scripts/spatial/bootstrap_vinje_terrenglop_course.py --fit <path>` |
+| Preflight | `python3 04_Python_Scripts/spatial/preflight_map_first_course.py --terrain-map config/spatial_terrain_map_vinje_terrenglop.json` |
+| ML strip export | `ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib ./04_Python_Scripts/spatial/export_hitl_chunks_vinje_terrenglop.sh` |
+| Label (optional) | `gold_span_editor.py --terrain-map config/spatial_terrain_map_vinje_terrenglop.json add ...` |
+
+Configs: `config/spatial_align_manifest_vinje_terrenglop.json`, `config/spatial_terrain_map_vinje_terrenglop.json`.
+
+**Pull recovery:** if `git pull` blocks on patched manifest/terrain map, `git checkout --` those two files then `bootstrap_vinje_terrenglop_course.py --skip-wash --fit <path>`.
+
+## Map-first orphan courses (unwashed Subject_A FIT inventory)
+
+Five local FIT streams were on disk under `donors/Subject_A/` without micro wash or HITL. Registry: `config/map_first_orphan_courses.json`.
+
+| race_id | FIT filename hint | Seed tread |
+|---------|-------------------|------------|
+| `gjesdal_terrenglop_kongeparken` | `Gjesdal*Terrengl*Kongeparken*.fit` | S3/F2 trail |
+| `sandnes_6_nuter` | `Sandnes*nuter*.fit` | S1/F0 road |
+| `scb_runde` | `SCB*runde*.fit` | S2/F2 gravel/trail |
+| `selvikstakken` | `*selvik*stakken*.fit` | S4/F3 scramble |
+| `skafonnlega_sveivida` | `*Sveivida*.fit` | S4/F3 plateau |
+
+**Bootstrap all (wash + panel + config stubs):**
+
+```bash
+git pull origin cursor/orphan-map-first-bootstrap-0c6a
+
+./04_Python_Scripts/spatial/bootstrap_map_first_orphans.sh
+# or one course:
+python3 04_Python_Scripts/spatial/bootstrap_map_first_orphan.py --course selvikstakken
+python3 04_Python_Scripts/spatial/bootstrap_map_first_orphan.py --discover scb_runde
+```
+
+**Export HITL PNGs (pooled ML strip for labeling):**
+
+```bash
+ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
+  ./04_Python_Scripts/spatial/export_map_first_orphans_pool.sh
+```
+
+**Label → join extended pool train:**
+
+```bash
+python3 04_Python_Scripts/spatial/gold_span_editor.py add \
+  --terrain-map config/spatial_terrain_map_selvikstakken.json \
+  --km-start 0 --km-end <km_end> --surface S4 --friction F3
+
+./04_Python_Scripts/spatial/train_map_first_gold_pool.sh \
+  --with-o1-anchors --with-orphans --rebuild-exports
+```
+
+Orphan courses enter the merged pool only after operator gold is locked (`--with-orphans`). Until then, exports still show the pooled suggester prediction strip from the existing seven-course model.
+
+## Map-first pooled gold suggester (Tverrfjell + Klepp + Gramstad + Vinje)
+
+Train one cross-course model from operator gold on all map-first FIT loops. Per-course parquets are merged with `source_anchor` traceability; the pooled model is written to `gold_suggester_map_first_pool_v0.joblib` (local only).
+
+**One-shot (after gold is locked on each course):**
+
+```bash
+./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --rebuild-exports
+```
+
+Or step-by-step:
+
+```bash
+# 1. Per-course exports (always pass --terrain-map for non-SUT courses)
+for TMAP in \
+  config/spatial_terrain_map_tverrfjell.json \
+  config/spatial_terrain_map_klepp_runde.json \
+  config/spatial_terrain_map_gramstad_runde.json \
+  config/spatial_terrain_map_vinje_terrenglop.json
+do
+  python3 04_Python_Scripts/spatial/build_gold_training_set.py --terrain-map "$TMAP"
+done
+
+# 2. Merge
+python3 04_Python_Scripts/spatial/merge_gold_training_sets.py \
+  --input 03_Processed_Data/spatial/gold_training_set_tverrfjell.parquet \
+  --input 03_Processed_Data/spatial/gold_training_set_klepp_runde.parquet \
+  --input 03_Processed_Data/spatial/gold_training_set_gramstad_runde.parquet \
+  --input 03_Processed_Data/spatial/gold_training_set_vinje_terrenglop.parquet \
+  --output 03_Processed_Data/spatial/gold_training_set_map_first_pool.parquet \
+  --summary-json 03_Processed_Data/spatial/gold_training_set_map_first_pool.summary.json
+
+# 3. Train
+python3 04_Python_Scripts/spatial/train_gold_suggester.py \
+  --training-set 03_Processed_Data/spatial/gold_training_set_map_first_pool.parquet \
+  --sector-id map_first_pool \
+  --model-out 07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
+  --metadata-out 07_ML_Models/spatial/gold_suggester_map_first_pool_v0_metadata.json
+```
+
+Check metadata for `per_source_accuracy` on the random holdout and `source_anchor_counts`. Re-export any course with the pooled model:
+
+```bash
+ML_MODEL=07_ML_Models/spatial/gold_suggester_map_first_pool_v0.joblib \
+  ./04_Python_Scripts/spatial/export_hitl_chunks_vinje_terrenglop.sh
+```
+
+Optional `--source-weight klepp_runde:0.8` on `train_gold_suggester.py` if one course should count less in the merge.
+
+**Re-export all Subject_A map-first courses with pooled ML strip:**
+
+```bash
+./04_Python_Scripts/spatial/export_map_first_hitl_pool.sh
+```
+
+Runs Tverrfjell → Klepp Runde → Gramstad Runde → Vinje Terrengløp with `gold_suggester_map_first_pool_v0.joblib` by default.
+
+**O₁ asphalt / gravel anchors (recommended):** Trail loops are S2/S3-heavy; Stavanger Halvmarathon (~86% S1/F0 asphalt) and 3-sjøersløpet (~72% S2/F1 gravel road) are locked operator-gold calibration runs in `config/anchor_runs_manifest.json`. Merge them with downweighted sample weights so the model learns clean S1/S2 class boundaries without drowning trail signal:
+
+```bash
+./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-o1-anchors --rebuild-exports
+```
+
+Requires local panels: `stavanger_halvmarathon_course/panel_1m.parquet`, `3_sjoerslopet_course/panel_1m.parquet`, `sunderunde_training_loop/panel_1m.parquet` (from anchor ingest). Adjust weights on `train_gold_suggester.py` if anchors still dominate (`--source-weight stavanger_halvmarathon:0.35`).
+
+**O₁ anchor HITL PNG export** (after panels exist and pooled model is trained):
+
+```bash
+# Individual courses
+./04_Python_Scripts/spatial/export_hitl_chunks_stavanger_halvmarathon.sh
+./04_Python_Scripts/spatial/export_hitl_chunks_3_sjoerslopet.sh
+./04_Python_Scripts/spatial/export_hitl_chunks_sunderunde.sh
+
+# Batch all three with pooled ML strip
+./04_Python_Scripts/spatial/export_o1_anchor_hitl_pool.sh
+```
+
+Each script runs preflight, generates locomotion sidecar if missing, applies `gold_suggester_map_first_pool_v0.joblib` (or `ML_MODEL`), writes 1 km chunk PNGs to `06_Visualizations/{stavanger_halvmarathon,3_sjoerslopet,sunderunde}_hitl/`, and verifies geography with the matching `verify_*_hitl_exports.py`.

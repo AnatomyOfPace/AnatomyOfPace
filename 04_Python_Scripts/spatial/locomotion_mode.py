@@ -219,9 +219,13 @@ def classify_locomotion_mode(
     When ``subject_id`` or ``subject_id_col`` plus ``kinematics_config`` are set,
     thresholds resolve per athlete (Subject_A, Subject_B, …).
     """
-    grade = pd.to_numeric(df.get(grade_col, 0), errors="coerce").fillna(0.0)
-    cadence = pd.to_numeric(df.get(cadence_col), errors="coerce")
-    speed = pd.to_numeric(df.get(speed_col), errors="coerce")
+    grade_raw = df[grade_col] if grade_col in df.columns else df.get("grade_pct", df.get("grade"))
+    if grade_raw is None or isinstance(grade_raw, (int, float)):
+        grade = pd.Series(0.0, index=df.index, dtype=float)
+    else:
+        grade = pd.to_numeric(grade_raw, errors="coerce").fillna(0.0)
+    cadence = pd.to_numeric(df[cadence_col], errors="coerce") if cadence_col in df.columns else pd.Series(index=df.index, dtype=float)
+    speed = pd.to_numeric(df[speed_col], errors="coerce") if speed_col in df.columns else pd.Series(index=df.index, dtype=float)
     friction = df[friction_tier_col] if friction_tier_col and friction_tier_col in df.columns else None
 
     if thresholds is not None:
@@ -251,6 +255,23 @@ def classify_locomotion_mode(
     return _classify_gate_slice(grade, cadence, speed, friction, SubjectKinematics())
 
 
+def _ensure_grade_pct(work: pd.DataFrame) -> pd.DataFrame:
+    """Derive grade_pct from altitude when the panel lacks a populated grade column."""
+    if "grade_pct" in work.columns and work["grade_pct"].notna().any():
+        return work
+    if "grade" in work.columns and work["grade"].notna().any():
+        out = work.copy()
+        if "grade_pct" not in out.columns:
+            out["grade_pct"] = pd.to_numeric(out["grade"], errors="coerce")
+        return out
+    if "altitude_m" not in work.columns:
+        return work
+    out = work.copy()
+    dalt = pd.to_numeric(out["altitude_m"], errors="coerce").diff()
+    out["grade_pct"] = (100.0 * dalt).fillna(0.0)
+    return out
+
+
 def tag_panel_locomotion(
     panel: pd.DataFrame,
     terrain_map: dict[str, Any],
@@ -271,7 +292,10 @@ def tag_panel_locomotion(
 
     work = normalize_panel_axes(panel.copy())
     if session_type and "session_type" in work.columns:
-        work = work[work["session_type"] == session_type]
+        filtered = work[work["session_type"] == session_type]
+        if not filtered.empty:
+            work = filtered
+    work = _ensure_grade_pct(work)
     work = resolve_friction_tiers(work, terrain_map)
     if kinematics_config is None:
         kinematics_config = load_subject_kinematics_config()
