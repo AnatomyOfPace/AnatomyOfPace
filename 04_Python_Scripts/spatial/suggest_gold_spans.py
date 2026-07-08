@@ -524,8 +524,8 @@ def load_panel_window(path: Path, km_lo: float, km_hi: float, *, buffer_km: floa
     return panel[(panel["course_km"] >= lo) & (panel["course_km"] <= hi)].copy()
 
 
-def load_hmm_window(path: Path, km_lo: float, km_hi: float, *, buffer_km: float = 0.5) -> pd.DataFrame:
-    if not path.exists():
+def load_hmm_window(path: Path | None, km_lo: float, km_hi: float, *, buffer_km: float = 0.5) -> pd.DataFrame:
+    if path is None or not path.exists():
         return pd.DataFrame()
     lo = max(0.0, km_lo - buffer_km)
     hi = km_hi + buffer_km
