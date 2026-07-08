@@ -274,7 +274,34 @@ Configs: `config/spatial_align_manifest_gramstad_runde.json`, `config/spatial_te
 
 **Pull recovery:** if `git pull` blocks on patched manifest/terrain map, `git checkout --` those two files then `bootstrap_gramstad_runde_course.py --skip-wash --fit <path>`.
 
-### Transfer labels from SUT_43 gramstad_band
+### Complete partial gold (Gramstad Runde)
+
+When `build_gold_training_set` reports fewer labeled metres than panel rows (e.g. ~52% on Gramstad), run the completion wave:
+
+```bash
+# 1. Gap report + GPS transfer dry-run + ML suggestions dry-run
+./04_Python_Scripts/spatial/complete_gramstad_gold_wave.sh
+
+# 2. Apply GPS overlap from SUT_43 gramstad_band where trails match
+./04_Python_Scripts/spatial/complete_gramstad_gold_wave.sh --apply-gps-transfer
+
+# 3. Auto-lock HIGH-confidence ML gap fills (review suggestions CSV first)
+./04_Python_Scripts/spatial/complete_gramstad_gold_wave.sh --apply-ml-locks
+
+# 4. Manual orthophoto lock on remaining gaps, then retrain pool
+python3 04_Python_Scripts/spatial/report_gold_coverage.py \
+  --terrain-map config/spatial_terrain_map_gramstad_runde.json
+./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-o1-anchors --rebuild-exports
+```
+
+Standalone gap report:
+
+```bash
+python3 04_Python_Scripts/spatial/report_gold_coverage.py \
+  --terrain-map config/spatial_terrain_map_gramstad_runde.json \
+  --json 03_Processed_Data/spatial/gramstad_runde_gold_gaps.json
+```
+
 
 Previous Gramstad HITL (`spatial_terrain_map_sut43.json`, km 29–41 organiser axis) **cannot** copy km breakpoints to `gramstad_runde` stream km — axes differ. GPS transfer remaps surface/friction where trails overlap:
 

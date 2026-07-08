@@ -167,7 +167,7 @@ def collect_ml_suggestions(
     panel_path: Path,
     terrain_map_path: Path,
     model_path: Path,
-    hmm_path: Path,
+    hmm_path: Path | None,
     km_lo: float,
     km_hi: float,
     chunk_id: str,
@@ -306,7 +306,7 @@ def auto_lock_sector(
     *,
     panel_path: Path,
     model_path: Path,
-    hmm_path: Path,
+    hmm_path: Path | None,
     allow_revise: bool,
     dry_run: bool,
     set_locked: bool,
@@ -401,6 +401,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--model", type=Path, default=DEFAULT_MODEL)
     parser.add_argument("--hmm-draft", type=Path, default=DEFAULT_HMM_DRAFT)
     parser.add_argument(
+        "--no-hmm-draft",
+        action="store_true",
+        help="Skip HMM draft merge (map-first courses without SUT_43 HMM parquet)",
+    )
+    parser.add_argument(
         "--allow-revise",
         action="store_true",
         help="Auto-accept HIGH-confidence REVISE rows (overwrites via new non-overlapping spans only)",
@@ -467,6 +472,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
 
+    hmm_path: Path | None = None if args.no_hmm_draft else args.hmm_draft
+
     results: list[AutoLockResult] = []
     for spec in sectors:
         if not spec.terrain_map.exists():
@@ -476,7 +483,7 @@ def main(argv: list[str] | None = None) -> int:
             spec,
             panel_path=args.panel,
             model_path=args.model,
-            hmm_path=args.hmm_draft,
+            hmm_path=hmm_path,
             allow_revise=args.allow_revise,
             dry_run=args.dry_run,
             set_locked=not args.no_set_locked,
@@ -546,19 +553,15 @@ def main(argv: list[str] | None = None) -> int:
     if args.rebuild_training and not args.dry_run:
         from spatial.build_gold_training_set import main as build_main
 
-        build_argv = [
-            "--panel",
-            str(args.panel),
-            "--terrain-map",
-            str(DEFAULT_GRAMSTAD_MAP),
-            "--extra-terrain-map",
-            str(DEFAULT_UPSTREAM_MAP),
-            "--km-start",
-            str(combined["panel_km_start"]),
-            "--km-end",
-            str(combined["panel_km_end"]),
-        ]
-        print("Rebuilding gold training set (full panel window)…")
+        rebuild_map = sectors[0].terrain_map if len(sectors) == 1 else DEFAULT_GRAMSTAD_MAP
+        build_argv = ["--terrain-map", str(rebuild_map)]
+        if args.panel != DEFAULT_PANEL:
+            build_argv.extend(["--panel", str(args.panel)])
+        if args.km_start is not None:
+            build_argv.extend(["--km-start", str(args.km_start)])
+        if args.km_end is not None:
+            build_argv.extend(["--km-end", str(args.km_end)])
+        print(f"Rebuilding gold training export for {rebuild_map.name}…")
         rc = build_main(build_argv)
         if rc != 0:
             return rc
