@@ -106,6 +106,7 @@ if [[ -z "$SKIP_ML" ]]; then
       --panel "$PANEL" \
       --model "$MODEL" \
       --no-hmm-draft \
+      --min-span-m 1 \
       --km-start 0 --km-end "$KM_END" \
       --output "$SUGGEST_CSV" \
       --print-sample
