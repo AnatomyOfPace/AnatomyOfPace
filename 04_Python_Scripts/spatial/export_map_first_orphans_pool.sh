@@ -30,8 +30,13 @@ fi
 while IFS= read -r race_id; do
   [[ -z "$race_id" ]] && continue
   panel="03_Processed_Data/spatial/${race_id}_course/panel_1m.parquet"
+  tmap="config/spatial_terrain_map_${race_id}.json"
   if [[ ! -f "$panel" ]]; then
     echo "SKIP $race_id — panel missing (bootstrap first)" >&2
+    continue
+  fi
+  if [[ ! -f "$tmap" ]]; then
+    echo "SKIP $race_id — terrain map missing (excluded or not bootstrapped)" >&2
     continue
   fi
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
