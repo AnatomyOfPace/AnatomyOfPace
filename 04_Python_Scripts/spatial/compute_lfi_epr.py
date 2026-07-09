@@ -297,6 +297,16 @@ def main(argv: list[str] | None = None) -> int:
         )
     )
 
+    overlap_rows = compute_epr_cell(
+        athlete,
+        elite,
+        corridor_id="full_overlap",
+        label="Full stream overlap",
+        km_start=float(max(athlete["course_km"].min(), elite["course_km"].min())),
+        km_end=float(min(athlete["course_km"].max(), elite["course_km"].max())),
+        min_samples=args.min_samples,
+    )
+
     report = _json_safe(
         {
             "schema_version": "lfi_epr_v0",
@@ -328,6 +338,7 @@ def main(argv: list[str] | None = None) -> int:
                 "assumes comparable stream axis on same race tread."
             ),
             "corridors": rows,
+            "full_overlap": overlap_rows,
             "paired_count": sum(1 for r in rows if r["paired"]),
         }
     )
@@ -370,6 +381,12 @@ def main(argv: list[str] | None = None) -> int:
     print(f"OK LFI EPR — {report['paired_count']}/{len(rows)} corridors paired")
     print(f"  athlete km {report['athlete']['course_km'][0]:.2f}–{report['athlete']['course_km'][1]:.2f}")
     print(f"  elite   km {report['elite']['course_km'][0]:.2f}–{report['elite']['course_km'][1]:.2f}")
+    fo = report["full_overlap"]
+    if fo.get("epr_mean") is not None:
+        print(
+            f"  full overlap EPR={fo['epr_mean']:.4f}  "
+            f"(TI {fo['athlete']['mean_ti']:.4f} / {fo['elite']['mean_ti']:.4f})"
+        )
     print()
     for r in rows:
         if not r["paired"]:
@@ -378,7 +395,8 @@ def main(argv: list[str] | None = None) -> int:
         flag = "↑ tax" if r["epr_mean"] > 1.05 else "↓ eff" if r["epr_mean"] < 0.95 else "≈ parity"
         print(
             f"  {r['corridor_id']:28s} km {r['km_start']:5.1f}–{r['km_end']:5.1f}  "
-            f"EPR={r['epr_mean']:.3f}  ({flag})  "
+            f"EPR={r['epr_mean']:.4f}  ({flag})  "
+            f"TI {r['athlete']['mean_ti']:.3f}/{r['elite']['mean_ti']:.3f}  "
             f"n={r['athlete']['n_samples']}/{r['elite']['n_samples']}"
         )
     print()
