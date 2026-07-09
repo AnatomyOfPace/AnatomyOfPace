@@ -552,17 +552,23 @@ def render_qc_plot(
 
 
 def resolve_defaults(terrain_map_path: Path) -> dict[str, Any]:
+    """Derive panel/km window from terrain map; Baseline TI paths are never gold-training paths."""
     resolved = resolve_gold_training_defaults(terrain_map_path)
     if not resolved:
         return {}
-    race_id = json.loads(terrain_map_path.read_text(encoding="utf-8")).get("corridor", {}).get("race_id")
-    out = dict(resolved)
+    corridor = json.loads(terrain_map_path.read_text(encoding="utf-8")).get("corridor") or {}
+    race_id = corridor.get("race_id")
+    out: dict[str, Any] = {
+        "panel": resolved.get("panel"),
+        "km_start": resolved.get("km_start"),
+        "km_end": resolved.get("km_end"),
+    }
     if race_id == "SUT_43":
         slug = "sut43_full"
-        out.setdefault("output", BASE_DIR / f"03_Processed_Data/spatial/baseline_ti_{slug}.parquet")
-        out.setdefault("matrix_output", BASE_DIR / f"03_Processed_Data/spatial/baseline_ti_{slug}_matrix.parquet")
-        out.setdefault("report", BASE_DIR / f"07_ML_Models/spatial/baseline_ti_{slug}_report.json")
-        out.setdefault("qc_png", BASE_DIR / "06_Visualizations/sut43_baseline_ti_qc.png")
+        out["output"] = BASE_DIR / f"03_Processed_Data/spatial/baseline_ti_{slug}.parquet"
+        out["matrix_output"] = BASE_DIR / f"03_Processed_Data/spatial/baseline_ti_{slug}_matrix.parquet"
+        out["report"] = BASE_DIR / f"07_ML_Models/spatial/baseline_ti_{slug}_report.json"
+        out["qc_png"] = BASE_DIR / "06_Visualizations/sut43_baseline_ti_qc.png"
     return out
 
 

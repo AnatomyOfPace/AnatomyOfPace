@@ -17,6 +17,7 @@ if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
 from spatial.build_baseline_ti import (  # noqa: E402
+    BASE_DIR,
     build_baseline_matrix,
     build_course_grid,
     locked_gold_mask,
@@ -224,6 +225,17 @@ class BuildBaselineTiTests(unittest.TestCase):
             self.assertTrue(mat.exists())
             payload = json.loads(report.read_text(encoding="utf-8"))
             self.assertEqual(payload["schema_version"], "baseline_ti_v0")
+
+
+    def test_resolve_defaults_sut43_full_paths(self) -> None:
+        from spatial.build_baseline_ti import resolve_defaults
+
+        tmap_path = BASE_DIR / "config" / "spatial_terrain_map_sut43_full.json"
+        if not tmap_path.exists():
+            self.skipTest("spatial_terrain_map_sut43_full.json not in workspace")
+        defaults = resolve_defaults(tmap_path)
+        self.assertIn("baseline_ti_sut43_full.parquet", str(defaults["output"]))
+        self.assertNotIn("gold_training_set", str(defaults["output"]))
 
 
 if __name__ == "__main__":
