@@ -92,11 +92,11 @@ MODEL="${MODEL_DIR}/gold_suggester_map_first_pool_v0.joblib"
 METADATA="${MODEL_DIR}/gold_suggester_map_first_pool_v0_metadata.json"
 
 SCB_TMAP="config/spatial_terrain_map_scb_runde.json"
-SCB_LOCK="04_Python_Scripts/spatial/lock_scb_runde_tail_gap.sh"
-if [[ -n "$WITH_ORPHANS" && -f "$SCB_TMAP" && -x "$SCB_LOCK" ]]; then
-  echo "=== SCB Runde tail gap (pre-build) ==="
-  ./"$SCB_LOCK" || {
-    echo "WARN $SCB_LOCK failed — fix operator gold manually before pool train" >&2
+SCB_FIX="04_Python_Scripts/spatial/fix_scb_runde_gold_gaps.py"
+if [[ -n "$WITH_ORPHANS" && -f "$SCB_TMAP" && -f "$SCB_FIX" ]]; then
+  echo "=== SCB Runde gold gaps (pre-build) ==="
+  python3 "$SCB_FIX" || {
+    echo "WARN $SCB_FIX failed — fix operator gold manually before pool train" >&2
   }
   echo ""
 fi
@@ -195,8 +195,8 @@ for anchor, counts in sorted(gaps.items()):
     print(f"  {anchor}: {labeled}/{rows} labeled ({rows - labeled} m gap)")
 if "scb_runde" in gaps:
     print(
-        "\n  scb_runde tail: ./04_Python_Scripts/spatial/lock_scb_runde_tail_gap.sh\n"
-        "  then re-run this script (tail lock also runs automatically with --with-orphans)"
+        "\n  scb_runde: python3 04_Python_Scripts/spatial/fix_scb_runde_gold_gaps.py\n"
+        "  then re-run this script (auto-runs with --with-orphans)"
     )
 raise SystemExit(1)
 PY
