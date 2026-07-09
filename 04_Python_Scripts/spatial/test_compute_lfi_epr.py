@@ -72,5 +72,22 @@ class ComputeLfiEprTests(unittest.TestCase):
             self.assertTrue(any(r["paired"] for r in rows))
 
 
+    def test_report_json_serializable(self) -> None:
+        import json
+
+        athlete = _synthetic_lfi_frame(1.15)
+        elite = _synthetic_lfi_frame(1.0)
+        rows = compute_all_epr(
+            athlete,
+            elite,
+            load_lfi_corridors()[:2],
+            min_samples=10,
+        )
+        payload = {"corridors": rows, "paired_count": sum(1 for r in rows if r["paired"])}
+        from spatial.compute_lfi_epr import _json_safe
+
+        json.dumps(_json_safe(payload))
+
+
 if __name__ == "__main__":
     unittest.main()

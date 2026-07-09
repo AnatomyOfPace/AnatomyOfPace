@@ -108,6 +108,21 @@ def window_stats(
     }
 
 
+def _json_safe(value: Any) -> Any:
+    """Coerce numpy scalars for json.dumps."""
+    if isinstance(value, dict):
+        return {k: _json_safe(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_json_safe(v) for v in value]
+    if isinstance(value, (np.bool_, bool)):
+        return bool(value)
+    if isinstance(value, np.integer):
+        return int(value)
+    if isinstance(value, np.floating):
+        return None if np.isnan(value) else float(value)
+    return value
+
+
 def compute_epr_cell(
     athlete: pd.DataFrame,
     elite: pd.DataFrame,
@@ -168,7 +183,7 @@ def compute_epr_cell(
         "epr_mean": epr_mean,
         "epr_median": epr_median,
         "interpretation": interpretation,
-        "paired": paired,
+        "paired": bool(paired),
     }
 
 
@@ -282,38 +297,40 @@ def main(argv: list[str] | None = None) -> int:
         )
     )
 
-    report = {
-        "schema_version": "lfi_epr_v0",
-        "generated_at": _utc_now(),
-        "formula": "EPR = mean(TI_athlete) / mean(TI_elite) on course_km window",
-        "interpretation": {
-            "epr_gt_1": "athlete pays more terrain tax than reference",
-            "epr_lt_1": "athlete more terrain-efficient than reference",
-            "parity_band": "0.95–1.05",
-        },
-        "athlete": {
-            "donor_id": args.athlete_donor,
-            "activity_id": args.athlete_activity,
-            "path": str(athlete_path.relative_to(BASE_DIR)),
-            "course_km": [
-                float(athlete["course_km"].min()),
-                float(athlete["course_km"].max()),
-            ],
-        },
-        "elite": {
-            "donor_id": args.elite_donor,
-            "activity_id": args.elite_activity,
-            "path": str(elite_path.relative_to(BASE_DIR)),
-            "course_km": [float(elite["course_km"].min()), float(elite["course_km"].max())],
-        },
-        "axis_note": (
-            "LFI course_km is FIT stream distance per course_project STREAM_DISTANCE_RACES. "
-            "Sub-corridor windows calibrated from Subject_A LFI_20260606 — cross-edition pairing "
-            "assumes comparable stream axis on same race tread."
-        ),
-        "corridors": rows,
-        "paired_count": sum(1 for r in rows if r["paired"]),
-    }
+    report = _json_safe(
+        {
+            "schema_version": "lfi_epr_v0",
+            "generated_at": _utc_now(),
+            "formula": "EPR = mean(TI_athlete) / mean(TI_elite) on course_km window",
+            "interpretation": {
+                "epr_gt_1": "athlete pays more terrain tax than reference",
+                "epr_lt_1": "athlete more terrain-efficient than reference",
+                "parity_band": "0.95–1.05",
+            },
+            "athlete": {
+                "donor_id": args.athlete_donor,
+                "activity_id": args.athlete_activity,
+                "path": str(athlete_path.relative_to(BASE_DIR)),
+                "course_km": [
+                    float(athlete["course_km"].min()),
+                    float(athlete["course_km"].max()),
+                ],
+            },
+            "elite": {
+                "donor_id": args.elite_donor,
+                "activity_id": args.elite_activity,
+                "path": str(elite_path.relative_to(BASE_DIR)),
+                "course_km": [float(elite["course_km"].min()), float(elite["course_km"].max())],
+            },
+            "axis_note": (
+                "LFI course_km is FIT stream distance per course_project STREAM_DISTANCE_RACES. "
+                "Sub-corridor windows calibrated from Subject_A LFI_20260606 — cross-edition pairing "
+                "assumes comparable stream axis on same race tread."
+            ),
+            "corridors": rows,
+            "paired_count": sum(1 for r in rows if r["paired"]),
+        }
+    )
 
     json_path = args.output_json if args.output_json.is_absolute() else BASE_DIR / args.output_json
     csv_path = args.output_csv if args.output_csv.is_absolute() else BASE_DIR / args.output_csv
