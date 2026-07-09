@@ -9,6 +9,11 @@
 #   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --rebuild-exports
 #   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-o1-anchors --rebuild-exports
 #   ./04_Python_Scripts/spatial/train_map_first_gold_pool.sh --with-orphans --rebuild-exports
+#
+# Without --rebuild-exports, stale exports auto-rebuild when:
+#   - sibling .summary.json reports unlabeled_metres > 0
+#   - terrain map is newer than the parquet
+#   - parquet lacks is_labeled or labeled count < row count
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -86,6 +91,54 @@ POOL="${PROCESSED}/gold_training_set_map_first_pool.parquet"
 MODEL="${MODEL_DIR}/gold_suggester_map_first_pool_v0.joblib"
 METADATA="${MODEL_DIR}/gold_suggester_map_first_pool_v0_metadata.json"
 
+SCB_TMAP="config/spatial_terrain_map_scb_runde.json"
+SCB_FIX="04_Python_Scripts/spatial/fix_scb_runde_gold_gaps.py"
+if [[ -n "$WITH_ORPHANS" && -f "$SCB_TMAP" && -f "$SCB_FIX" ]]; then
+  echo "=== SCB Runde gold gaps (pre-build) ==="
+  python3 "$SCB_FIX" || {
+    echo "WARN $SCB_FIX failed — fix operator gold manually before pool train" >&2
+  }
+  echo ""
+fi
+
+needs_rebuild_export() {
+  local tmap="$1"
+  local pq="$2"
+  python3 - <<PY
+import json
+import sys
+from pathlib import Path
+
+import pandas as pd
+
+tmap = Path("$tmap")
+pq = Path("$pq")
+if not pq.exists():
+    print("missing parquet")
+    raise SystemExit(0)
+
+summary_path = pq.with_suffix(".summary.json")
+if summary_path.exists():
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    unlabeled = int(summary.get("unlabeled_metres") or 0)
+    if unlabeled > 0:
+        print(f"{unlabeled} unlabeled m in summary")
+        raise SystemExit(0)
+
+if tmap.exists() and tmap.stat().st_mtime > pq.stat().st_mtime:
+    print("terrain map newer than parquet")
+    raise SystemExit(0)
+
+df = pd.read_parquet(pq, columns=["is_labeled"])
+labeled = int(df["is_labeled"].sum())
+if labeled < len(df):
+    print(f"parquet {labeled}/{len(df)} labeled")
+    raise SystemExit(0)
+
+raise SystemExit(1)
+PY
+}
+
 echo "=== Build per-course gold training exports ==="
 for i in "${!TERRAIN_MAPS[@]}"; do
   tmap="${TERRAIN_MAPS[$i]}"
@@ -94,7 +147,13 @@ for i in "${!TERRAIN_MAPS[@]}"; do
     echo "→ $tmap"
     python3 "$BUILD" --terrain-map "$tmap"
   else
-    echo "OK skip (exists): $pq"
+    rebuild_reason="$(needs_rebuild_export "$tmap" "$pq" || true)"
+    if [[ -n "$rebuild_reason" ]]; then
+      echo "→ $tmap  (rebuild: ${rebuild_reason})"
+      python3 "$BUILD" --terrain-map "$tmap"
+    else
+      echo "OK skip (exists): $pq"
+    fi
   fi
 done
 
@@ -113,6 +172,34 @@ python3 "$MERGE" \
   "${MERGE_ARGS[@]}" \
   --output "$POOL" \
   --summary-json "${PROCESSED}/gold_training_set_map_first_pool.summary.json"
+
+python3 - <<'PY'
+import json
+import sys
+from pathlib import Path
+
+summary = json.loads(
+    Path("03_Processed_Data/spatial/gold_training_set_map_first_pool.summary.json").read_text()
+)
+gaps = {
+    anchor: counts
+    for anchor, counts in (summary.get("sources") or {}).items()
+    if int(counts.get("labeled", 0)) < int(counts.get("rows", 0))
+}
+if not gaps:
+    raise SystemExit(0)
+print("\nERROR incomplete gold coverage in pooled inputs — aborting before train:")
+for anchor, counts in sorted(gaps.items()):
+    rows = int(counts["rows"])
+    labeled = int(counts["labeled"])
+    print(f"  {anchor}: {labeled}/{rows} labeled ({rows - labeled} m gap)")
+if "scb_runde" in gaps:
+    print(
+        "\n  scb_runde: python3 04_Python_Scripts/spatial/fix_scb_runde_gold_gaps.py\n"
+        "  then re-run this script (auto-runs with --with-orphans)"
+    )
+raise SystemExit(1)
+PY
 
 echo ""
 echo "=== Train pooled gold suggester ==="

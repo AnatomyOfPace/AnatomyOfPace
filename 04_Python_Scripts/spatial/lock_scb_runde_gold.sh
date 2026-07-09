@@ -40,13 +40,24 @@ import json
 import sys
 from pathlib import Path
 
+import pandas as pd
+
 sys.path.insert(0, "04_Python_Scripts")
 from spatial.spatial_hitl_overlay import load_terrain_map
 from spatial.validation_dashboard import operator_gold_spans
 
 race_id = "${RACE_ID}"
 manifest = Path(f"config/spatial_align_manifest_{race_id}.json")
-km_end = json.loads(manifest.read_text())["km_analysis_window"][1]
+manifest_end = float(json.loads(manifest.read_text())["km_analysis_window"][1])
+panel_path = Path(f"03_Processed_Data/spatial/{race_id}_course/panel_1m.parquet")
+km_end = manifest_end
+if panel_path.exists():
+    panel = pd.read_parquet(panel_path)
+    if "course_km" not in panel.columns and "ref_chainage_m" in panel.columns:
+        panel = panel.copy()
+        panel["course_km"] = panel["ref_chainage_m"] / 1000.0
+    panel_max = round(float(panel["course_km"].max()), 3)
+    km_end = max(manifest_end, panel_max)
 tmap = load_terrain_map(Path(f"config/spatial_terrain_map_{race_id}.json"))
 print(km_end, len(operator_gold_spans(tmap)))
 PY

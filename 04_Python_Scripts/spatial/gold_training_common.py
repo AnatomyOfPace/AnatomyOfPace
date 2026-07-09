@@ -30,6 +30,8 @@ SJOERSLOPET_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "3_sjoerslopet_
 SJOERSLOPET_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_3_sjoerslopet.parquet"
 SUNDERUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sunderunde_training_loop" / "panel_1m.parquet"
 SUNDERUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_sunderunde.parquet"
+SUT43_FULL_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_ontology" / "panel_full_1m.parquet"
+SUT43_FULL_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_sut43_full.parquet"
 
 
 def _map_first_orphan_race_ids() -> frozenset[str]:
@@ -149,6 +151,17 @@ def resolve_gold_training_defaults(terrain_map_path: Path) -> dict[str, Any]:
             "km_end": km_end,
             "hmm_draft": None,
         }
+    sector_id = str(corridor.get("sector_id") or "")
+    if race_id == "SUT_43" and sector_id == "sut43_full_course":
+        km_lo = float(corridor.get("km_start") or 0.5)
+        km_hi = float(corridor.get("km_end") or 43.0)
+        return {
+            "panel": SUT43_FULL_PANEL,
+            "output": SUT43_FULL_GOLD_OUTPUT,
+            "km_start": km_lo,
+            "km_end": km_hi,
+            "hmm_draft": DEFAULT_HMM_DRAFT,
+        }
     return {}
 
 
@@ -222,8 +235,33 @@ def span_km_bounds(span: dict[str, Any]) -> tuple[float, float]:
     return s0, s1
 
 
+def span_metre_bounds(span: dict[str, Any]) -> tuple[float, float]:
+    """Reconcile km/m span fields — use the wider extent when both are present."""
+    km0, km1 = span_km_bounds(span)
+    m0 = span.get("course_m_start")
+    m1 = span.get("course_m_end")
+    if m0 is not None:
+        km0 = min(km0, float(m0) / 1000.0)
+    if m1 is not None:
+        km1 = max(km1, float(m1) / 1000.0)
+    return km0 * 1000.0, km1 * 1000.0
+
+
 def spans_overlap(km_start_a: float, km_end_a: float, km_start_b: float, km_end_b: float) -> bool:
     return km_start_a < km_end_b and km_start_b < km_end_a
+
+
+def panel_gold_label_stats(panel: pd.DataFrame, gold_spans: list[dict[str, Any]]) -> dict[str, int]:
+    """Label panel rows with operator gold; return total/ labeled / unlabeled counts."""
+    work = panel.copy()
+    if "course_km" not in work.columns and "ref_chainage_m" in work.columns:
+        work["course_km"] = work["ref_chainage_m"] / 1000.0
+    if "course_m" not in work.columns and "ref_chainage_m" in work.columns:
+        work["course_m"] = work["ref_chainage_m"]
+    labeled = attach_gold_labels(work, gold_spans)
+    total = len(labeled)
+    labeled_n = int(labeled["is_labeled"].sum())
+    return {"total": total, "labeled": labeled_n, "unlabeled": total - labeled_n}
 
 
 def attach_gold_labels(frame: pd.DataFrame, gold_spans: list[dict[str, Any]]) -> pd.DataFrame:
@@ -232,9 +270,16 @@ def attach_gold_labels(frame: pd.DataFrame, gold_spans: list[dict[str, Any]]) ->
     work["label_surface"] = None
     work["label_friction"] = None
     work["is_labeled"] = False
+    use_metres = "course_m" in work.columns
     for span in gold_spans:
-        km_start, km_end = span_km_bounds(span)
-        mask = (work["course_km"] >= km_start) & (work["course_km"] < km_end)
+        if use_metres and (
+            span.get("course_m_start") is not None or span.get("course_m_end") is not None
+        ):
+            m0, m1 = span_metre_bounds(span)
+            mask = (work["course_m"] >= m0) & (work["course_m"] < m1)
+        else:
+            km_start, km_end = span_km_bounds(span)
+            mask = (work["course_km"] >= km_start) & (work["course_km"] < km_end)
         if not mask.any():
             continue
         work.loc[mask, "label_surface"] = span.get("surface_class")

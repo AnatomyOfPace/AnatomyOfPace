@@ -88,10 +88,16 @@ def main(argv: list[str] | None = None) -> int:
             km_end = resolved.get("km_end")
         if args.hmm_draft == DEFAULT_HMM_DRAFT and resolved.get("hmm_draft") is None:
             hmm_path = None
-    elif args.terrain_map != DEFAULT_TERRAIN_MAP:
+    elif (
+        panel_path == DEFAULT_PANEL
+        and output_path == DEFAULT_OUTPUT
+        and km_start is None
+        and km_end is None
+    ):
         print(
             f"No build defaults for {terrain_map_path.name} — "
-            "pass --panel and --output explicitly, or extend resolve_gold_training_defaults.",
+            "pass --panel, --output, and optional --km-start/--km-end, "
+            "or extend resolve_gold_training_defaults.",
             file=sys.stderr,
         )
         return 1

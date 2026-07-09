@@ -79699,17 +79699,17 @@
         "gold_source": "operator",
         "locked_at": "2026-06-28",
         "course_km_start": 38.35,
-        "course_km_end": 38.4,
-        "reason": "operator gold: dirt transition tread \u2014 runnable wet forest dirt approach immediately upstream of Paradisskaret gravel road S2/F3 @ km 38.4 (chunk_09). GMM S3 cluster km 38.35\u201338.40; low-friction transition before coarse gravel road. S3/F3 per friction_index_spec (rooty/muddy dirt trail). Non-overlapping boundary @ km 38.4 before Paradisskaret gravel lock."
+        "course_km_end": 39.0,
+        "reason": "operator gold: forest dirt / muddy tread approach (chunk_09 km 38\u201339) \u2014 ML REVISE adopted 2026-07-09: S3/F3 replaces prior S2/F3 Paradisskaret gravel lock km 38.4\u201339.0. Merges dirt transition km 38.35\u201338.4 with ML-predicted S3/F3 corridor km 38.4\u201339.0 (suggest_gold_spans HIGH revise vs operator S2/F3). S3/F3 per friction_index_spec (rooty/muddy forest trail; race GPS tread reads trail not coarse gravel). Gravel road resumes @ km 39.0 toward stile."
       },
       {
         "surface_class": "S2",
         "friction_tier": "F3",
         "gold_source": "operator",
-        "reason": "operator gold: Paradisskaret gravel road \u2014 coarse gravel road tread upstream through stile (gjerdeklyver) @ km 39.135 (chunk_09/chunk_10). Rocky gravel road toward Bj\u00f8rndalsfjellet km 38.4\u201338.9 through Paradisskaret gravel corridor to stile boundary. S2/F3 per friction_index_spec (chunky coarse gravel; matches Paradisskaret gravel crossing @ km 33.39). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m; panel snap raw 39.135 km, residual 1.4 m (Subject_A race GPS), elev \u0394 +9.8 m vs pin cartography. Subject_A SUT43_20260418 race stop/wait cluster km 39.125\u201339.132 (7 m, 0 m/s; stile crossing). Supersedes variance-gap km 38.0\u201339.135; tier lock 2026-06-28.",
-        "course_km_start": 38.4,
+        "reason": "operator gold: Paradisskaret gravel road \u2014 coarse gravel road tread km 39.0\u201339.135 through stile (gjerdeklyver) @ km 39.135 (chunk_09/chunk_10). Prior lock extended from km 38.4; upstream km 38.4\u201339.0 reclassified S3/F3 per ML adopt 2026-07-09. S2/F3 per friction_index_spec (chunky coarse gravel). norgeskart pin UTM-32 E 315959.62 N 6530127.48 elev 38.2 m.",
+        "course_km_start": 39.0,
         "course_km_end": 39.135,
-        "locked_at": "2026-06-28"
+        "locked_at": "2026-07-09"
       },
       {
         "course_km_start": 39.135,

@@ -77,6 +77,11 @@ else
   DASH_ARGS+=(--chunk-index "$CHUNK_INDEX" --output-dir "06_Visualizations/sut43_hitl")
 fi
 
-python3 04_Python_Scripts/spatial/validation_dashboard.py \
-  "${DASH_ARGS[@]}" \
-  "${PASS_ARGS[@]}"
+if ((${#PASS_ARGS[@]})); then
+  python3 04_Python_Scripts/spatial/validation_dashboard.py \
+    "${DASH_ARGS[@]}" \
+    "${PASS_ARGS[@]}"
+else
+  python3 04_Python_Scripts/spatial/validation_dashboard.py \
+    "${DASH_ARGS[@]}"
+fi
