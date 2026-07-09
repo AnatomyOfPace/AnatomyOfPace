@@ -4,7 +4,8 @@
 **To:** Gemini AI  
 **Date:** 2026-07-09  
 **Type:** Internal AI handoff — **not** public copy  
-**Action requested:** Editorial + scientific QC review before Substack publication
+**Action requested:** Editorial + scientific QC review before Substack publication  
+**Revision status (2026-07-09):** Gemini verdict **Revise** applied in PR #23 — optional second pass welcome
 
 ---
 
