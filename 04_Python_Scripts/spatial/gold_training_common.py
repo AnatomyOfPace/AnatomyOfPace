@@ -30,6 +30,8 @@ SJOERSLOPET_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "3_sjoerslopet_
 SJOERSLOPET_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_3_sjoerslopet.parquet"
 SUNDERUNDE_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sunderunde_training_loop" / "panel_1m.parquet"
 SUNDERUNDE_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_sunderunde.parquet"
+SUT43_FULL_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_ontology" / "panel_full_1m.parquet"
+SUT43_FULL_GOLD_OUTPUT = BASE_DIR / "03_Processed_Data" / "spatial" / "gold_training_set_sut43_full.parquet"
 
 
 def _map_first_orphan_race_ids() -> frozenset[str]:
@@ -148,6 +150,17 @@ def resolve_gold_training_defaults(terrain_map_path: Path) -> dict[str, Any]:
             "km_start": 0.0,
             "km_end": km_end,
             "hmm_draft": None,
+        }
+    sector_id = str(corridor.get("sector_id") or "")
+    if race_id == "SUT_43" and sector_id == "sut43_full_course":
+        km_lo = float(corridor.get("km_start") or 0.5)
+        km_hi = float(corridor.get("km_end") or 43.0)
+        return {
+            "panel": SUT43_FULL_PANEL,
+            "output": SUT43_FULL_GOLD_OUTPUT,
+            "km_start": km_lo,
+            "km_end": km_hi,
+            "hmm_draft": DEFAULT_HMM_DRAFT,
         }
     return {}
 
