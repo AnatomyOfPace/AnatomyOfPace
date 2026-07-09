@@ -39,6 +39,8 @@ if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
 from spatial.corridor_scope import (  # noqa: E402
+    SUT43_FULL_RACE_KM_END,
+    SUT43_FULL_RACE_KM_START,
     SUT43_PRIMARY_KM_END,
     SUT43_PRIMARY_KM_START,
     SUT43_SECTOR_ID,
@@ -677,6 +679,7 @@ def build_cross_athlete_summary(
     km_start: float = SUT43_PRIMARY_KM_START,
     km_end: float = SUT43_PRIMARY_KM_END,
     session_type: str = "race",
+    sector_id: str = SUT43_SECTOR_ID,
     output_dir: Path = DEFAULT_OUTPUT_DIR,
     delta_threshold: float = DEFAULT_DELTA_THRESHOLD,
     terrain_map_path: Path = DEFAULT_TERRAIN_MAP,
@@ -706,6 +709,7 @@ def build_cross_athlete_summary(
             km_start=km_start,
             km_end=km_end,
             session_type=session_type,
+            sector_id=sector_id,
             fit_ti_path=fit_ti_path,
             locomotion_thresholds=locomotion_thresholds,
             kinematics_config=kinematics_config,
@@ -715,7 +719,7 @@ def build_cross_athlete_summary(
             df,
             subject_id=subject_id,
             output_dir=output_dir,
-            sector_id=SUT43_SECTOR_ID,
+            sector_id=sector_id,
             baseline_mode=baseline_mode,
             delta_threshold=delta_threshold,
             terrain_map_path=terrain_map_path,
@@ -833,6 +837,11 @@ def main() -> None:
     )
     parser.add_argument("--km-start", type=float, default=SUT43_PRIMARY_KM_START)
     parser.add_argument("--km-end", type=float, default=SUT43_PRIMARY_KM_END)
+    parser.add_argument(
+        "--sector-id",
+        default=SUT43_SECTOR_ID,
+        help="Sector label for cell records (default: gramstad_band)",
+    )
     parser.add_argument("--session-type", default="race")
     parser.add_argument(
         "--run-cadence-spm",
@@ -890,6 +899,7 @@ def main() -> None:
             km_start=args.km_start,
             km_end=args.km_end,
             session_type=args.session_type,
+            sector_id=args.sector_id,
             output_dir=output_dir,
             delta_threshold=args.delta_threshold,
             terrain_map_path=terrain_map_path,
@@ -927,6 +937,7 @@ def main() -> None:
         km_start=args.km_start,
         km_end=args.km_end,
         session_type=args.session_type,
+        sector_id=args.sector_id,
         fit_ti_path=fit_ti_path,
         locomotion_thresholds=thresholds,
         kinematics_config=kinematics_config,
@@ -936,7 +947,7 @@ def main() -> None:
         residual_df,
         subject_id=args.subject,
         output_dir=output_dir,
-        sector_id=SUT43_SECTOR_ID,
+        sector_id=args.sector_id,
         baseline_mode=args.baseline_mode,
         delta_threshold=args.delta_threshold,
         terrain_map_path=terrain_map_path,
