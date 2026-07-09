@@ -307,7 +307,7 @@ Metrics align with friction ground truth — not ML surface-class leaderboard sc
 | Terrain map + HITL block | `config/spatial_terrain_map_sut43.json` |
 | JSON schema | `config/spatial_terrain_map.schema.json` |
 | HITL NTI consistency | `04_Python_Scripts/spatial/hitl_nti_consistency.py` |
-| Per-athlete TI clusters | `04_Python_Scripts/spatial/fit_ti_cluster_pilot.py` |
+| Baseline TI builder (C2) | `04_Python_Scripts/spatial/build_baseline_ti.py` |
 | Validation dashboard | `04_Python_Scripts/spatial/validation_dashboard.py` |
 | HITL dashboard runbook | `docs/hitl_dashboard_runbook.md` |
 | GBM pilot (diagnostic) | `07_ML_Models/train_terrain_gb.py` |
