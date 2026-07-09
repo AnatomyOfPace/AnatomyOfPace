@@ -5,7 +5,7 @@
 **Date:** 2026-07-09  
 **Type:** Internal AI handoff — **not** public copy  
 **Action requested:** Editorial + scientific QC review before Substack publication  
-**Revision status (2026-07-09):** Gemini verdict **Revise** applied in PR #23 — optional second pass welcome
+**Revision status (2026-07-09):** Gemini verdict **Ready to Publish** — corridor metre_count QC added; 4,422 m artifact removed from manuscript pending Mac re-run
 
 ---
 
@@ -69,7 +69,7 @@ Please confirm prose matches these operator-run values (2026-07-09 Mac):
 
 | Cell | Subject_A | Subject_B |
 |------|-----------|-----------|
-| F3 · downhill · hike | **+0.967** · km **31.08–33.80** · 955 m | **−0.119** · 4422 m |
+| F3 · downhill · hike | **+0.967** · km **31.08–33.80** | **−0.119** · km **31.08–33.80** |
 | F3 · uphill · hike | +0.232 | +0.066 |
 | F2 · downhill · hike | −0.448 · 179 m | −1.025 · 202 m (small n) |
 

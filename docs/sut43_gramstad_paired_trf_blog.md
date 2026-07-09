@@ -92,7 +92,7 @@ Restricting TRF to the **corridor slice** (km **31.08–33.80**; analysis envelo
 
 | Cell | Subject_A | Subject_B |
 |------|-----------|-----------|
-| **F3 · downhill · hike** | **ΔTI +0.97** · km **31.08–33.80** · 955 m | **ΔTI −0.12** · 4,422 m |
+| **F3 · downhill · hike** | **ΔTI +0.97** · km **31.08–33.80** | **ΔTI −0.12** · km **31.08–33.80** |
 | F3 · uphill · hike | +0.23 | +0.07 |
 | F2 · downhill · hike | −0.45 | −1.03 (202 m — small cell) |
 
@@ -107,7 +107,7 @@ On **F2 · downhill · hike** across gramstad, below-cohort residuals (negative 
 1. **Cohort n = 2.** Residuals rank cells for diagnostic focus; population inference is not supported.  
 2. **Internal paired reference only.** Subject_B serves as cohort median co-athlete, not an external proficiency anchor.  
 3. **Hike-dominant window** (~89–93% hike in gramstad). Run-mode cells exist but are secondary.  
-4. **Metre counts differ within cells** (e.g. 955 vs 4,422 F3 DH metres in the corridor slice) due to locomotion classification and grade-bin assignment—not evidence of divergent routes on the paired spine.  
+4. **Cell metre counts** in TRF JSON are deduplicated panel-row totals on `ref_chainage_m` per subject and must not exceed the analysis envelope (~3,000 m for km 31.0–34.0). Corridor tables report telemetric km bounds; metre volumes are QC-checked at render via `verify_trf_corridor_blog_cells.py`.  
 5. **Single race edition** on stream-distance km; cross-year pairing assumptions apply if extended.  
 6. **QC cells** (e.g. F0 downhill artefacts on small spans) are excluded from narrative claims.
 

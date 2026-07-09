@@ -246,11 +246,24 @@ def cross_athlete_exclusion_mask(
     return drop
 
 
+def dedupe_spine_metres(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    One panel row per ref_chainage_m per subject on spine panels.
+
+    Duplicate spine keys (reprojection overlap) inflate metre_count in cell aggregation.
+    """
+    if not is_spine_panel(df) or "ref_chainage_m" not in df.columns:
+        return df
+    sid_col = subject_id_column(df)
+    work = df.sort_values("course_m")
+    return work.drop_duplicates(subset=[sid_col, "ref_chainage_m"], keep="last")
+
+
 def trf_analysis_frame(df: pd.DataFrame) -> pd.DataFrame:
     """Metres eligible for TRF cell aggregation and summary stats."""
-    if "in_trf_exclusion" not in df.columns:
-        return df
-    return df.loc[~df["in_trf_exclusion"]].copy()
+    if "in_trf_exclusion" in df.columns:
+        df = df.loc[~df["in_trf_exclusion"]].copy()
+    return dedupe_spine_metres(df)
 
 
 def resolve_friction_tiers(

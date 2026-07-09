@@ -118,5 +118,40 @@ class ComputeTrainingResidualTests(unittest.TestCase):
         self.assertTrue(all(c["sector_id"] == "sut43_full_race" for c in cells))
 
 
+    def test_dedupe_spine_metres_before_cell_count(self) -> None:
+        panel = _synthetic_race_panel(100)
+        # Duplicate every spine metre for Subject_B (simulates reprojection overlap).
+        dup = panel[panel["donor_id"] == "Subject_B"].copy()
+        dup["course_m"] = dup["course_m"] + 1
+        panel = pd.concat([panel, dup], ignore_index=True)
+        terrain = _minimal_terrain_map()
+        df = build_subject_residual(
+            panel,
+            terrain,
+            subject_id="Subject_B",
+            baseline_mode="cohort_median",
+            km_start=31.0,
+            km_end=34.0,
+            sector_id="bedrock_late_braking",
+        )
+        from spatial.compute_training_residual import trf_analysis_frame
+
+        analysis = trf_analysis_frame(df)
+        self.assertLessEqual(
+            len(analysis),
+            3000,
+            "Corridor window should not exceed ~3k deduped spine metres",
+        )
+        cells = aggregate_residual_cells(
+            analysis,
+            subject_id="Subject_B",
+            sector_id="bedrock_late_braking",
+            delta_threshold=0.15,
+            baseline_mode="cohort_median",
+        )
+        total_metres = sum(c["metre_count"] for c in cells)
+        self.assertLessEqual(total_metres, len(analysis))
+
+
 if __name__ == "__main__":
     unittest.main()

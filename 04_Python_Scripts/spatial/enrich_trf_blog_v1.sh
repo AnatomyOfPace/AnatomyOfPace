@@ -44,6 +44,13 @@ echo "=== Blog figures (ghost-safe) ==="
 python3 04_Python_Scripts/spatial/render_sut43_gramstad_trf_blog.py
 
 echo ""
+echo "=== Corridor blog QC ==="
+python3 04_Python_Scripts/spatial/verify_trf_corridor_blog_cells.py \
+  --corridor-dir "$CORRIDOR_OUT" \
+  --km-start "$KM_START" \
+  --km-end "$KM_END"
+
+echo ""
 echo "OK TRF blog v1 enrichment complete."
 echo "  Corridor reports → ${CORRIDOR_OUT}/training_residual_report_Subject_*.json"
 echo "  Figures → 06_Visualizations/sut43_*_blog.png"
