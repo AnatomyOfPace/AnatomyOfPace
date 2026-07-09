@@ -91,6 +91,16 @@ POOL="${PROCESSED}/gold_training_set_map_first_pool.parquet"
 MODEL="${MODEL_DIR}/gold_suggester_map_first_pool_v0.joblib"
 METADATA="${MODEL_DIR}/gold_suggester_map_first_pool_v0_metadata.json"
 
+SCB_TMAP="config/spatial_terrain_map_scb_runde.json"
+SCB_LOCK="04_Python_Scripts/spatial/lock_scb_runde_tail_gap.sh"
+if [[ -n "$WITH_ORPHANS" && -f "$SCB_TMAP" && -x "$SCB_LOCK" ]]; then
+  echo "=== SCB Runde tail gap (pre-build) ==="
+  ./"$SCB_LOCK" || {
+    echo "WARN $SCB_LOCK failed — fix operator gold manually before pool train" >&2
+  }
+  echo ""
+fi
+
 needs_rebuild_export() {
   local tmap="$1"
   local pq="$2"
@@ -165,6 +175,7 @@ python3 "$MERGE" \
 
 python3 - <<'PY'
 import json
+import sys
 from pathlib import Path
 
 summary = json.loads(
@@ -177,17 +188,17 @@ gaps = {
 }
 if not gaps:
     raise SystemExit(0)
-print("\nWARN incomplete gold coverage in pooled inputs:")
+print("\nERROR incomplete gold coverage in pooled inputs — aborting before train:")
 for anchor, counts in sorted(gaps.items()):
     rows = int(counts["rows"])
     labeled = int(counts["labeled"])
     print(f"  {anchor}: {labeled}/{rows} labeled ({rows - labeled} m gap)")
 if "scb_runde" in gaps:
     print(
-        "  scb_runde: run ./04_Python_Scripts/spatial/lock_scb_runde_tail_gap.sh "
-        "then re-run pool train (or --rebuild-exports)"
+        "\n  scb_runde tail: ./04_Python_Scripts/spatial/lock_scb_runde_tail_gap.sh\n"
+        "  then re-run this script (tail lock also runs automatically with --with-orphans)"
     )
-raise SystemExit(0)
+raise SystemExit(1)
 PY
 
 echo ""

@@ -113,42 +113,6 @@ echo "  gold tail:     km ${TAIL_START}–${TAIL_END} (span [${TAIL_IDX}] ${TAIL
 echo "  tail gap:      ${GAP_M} m"
 echo ""
 
-if python3 - <<'PY'
-import sys
-from pathlib import Path
-
-sys.path.insert(0, "04_Python_Scripts")
-from spatial.report_gold_coverage import report_coverage
-
-report = report_coverage(
-    Path("config/spatial_terrain_map_scb_runde.json"),
-    panel_path=Path("03_Processed_Data/spatial/scb_runde_course/panel_1m.parquet"),
-    km_end=None,
-)
-raise SystemExit(0 if report["unlabeled_metres"] == 0 else 1)
-PY
-then
-  echo "OK full gold coverage — nothing to do."
-  exit 0
-fi
-
-if awk -v g="$GAP_M" -v m="$MAX_TAIL_GAP_M" 'BEGIN { exit !(g > 0.05 && g <= m) }'; then
-  :
-elif awk -v g="$GAP_M" 'BEGIN { exit !(g <= 0.05) }'; then
-  echo "Gold tail meets panel — only patching km_end if needed."
-else
-  echo "Tail gap ${GAP_M} m exceeds ${MAX_TAIL_GAP_M} m cap — review orthophoto before locking." >&2
-  exit 1
-fi
-
-run() {
-  if [[ -n "$DRY_RUN" ]]; then
-    echo "  [dry-run] $*"
-  else
-    "$@"
-  fi
-}
-
 patch_km_end() {
   python3 - <<PY
 import json
@@ -189,6 +153,32 @@ if panel_max > old_c + 1e-6:
 PY
 }
 
+if awk -v g="$GAP_M" 'BEGIN { exit !(g <= 0.05) }'; then
+  if awk -v p="$PANEL_MAX" -v m="$MANIFEST_END" -v c="$CORRIDOR_END" \
+    'BEGIN { exit !((p > m + 0.0001) || (p > c + 0.0001)) }'; then
+    echo "Gold spans cover panel — patching km_end only."
+    patch_km_end
+  else
+    echo "OK full gold coverage — nothing to do."
+  fi
+  exit 0
+fi
+
+if awk -v g="$GAP_M" -v m="$MAX_TAIL_GAP_M" 'BEGIN { exit !(g > 0.05 && g <= m) }'; then
+  :
+else
+  echo "Tail gap ${GAP_M} m exceeds ${MAX_TAIL_GAP_M} m cap — review orthophoto before locking." >&2
+  exit 1
+fi
+
+run() {
+  if [[ -n "$DRY_RUN" ]]; then
+    echo "  [dry-run] $*"
+  else
+    "$@"
+  fi
+}
+
 if awk -v g="$GAP_M" 'BEGIN { exit !(g > 0.05) }'; then
   echo "━━━ 1/3 Extend terminal gold span to panel max ━━━"
   TAIL_REASON_DISPLAY="${TAIL_REASON//_/ }"
@@ -219,7 +209,8 @@ fi
 
 python3 04_Python_Scripts/spatial/report_gold_coverage.py \
   --terrain-map "$TERRAIN_MAP" \
-  --panel "$PANEL"
+  --panel "$PANEL" \
+  --km-end "$PANEL_MAX"
 
 echo ""
 echo "Next (optional):"
