@@ -42,7 +42,7 @@ for req in "$TERRAIN_MAP" "$MANIFEST" "$PANEL"; do
   fi
 done
 
-read -r PANEL_MAX MANIFEST_END CORRIDOR_END TAIL_START TAIL_END GAP_M TAIL_IDX TAIL_SC TAIL_FR TAIL_REASON <<<"$(python3 - <<'PY'
+read -r PANEL_MAX PANEL_MAX_M MANIFEST_END CORRIDOR_END SPAN_KM_END TAIL_START TAIL_END GAP_M LABELED_M TAIL_IDX TAIL_SC TAIL_FR TAIL_REASON <<<"$(python3 - <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -52,9 +52,8 @@ import pandas as pd
 sys.path.insert(0, "04_Python_Scripts")
 from spatial.spatial_hitl_overlay import load_terrain_map
 from spatial.validation_dashboard import operator_gold_spans
-from spatial.gold_training_common import span_km_bounds
+from spatial.gold_training_common import panel_gold_label_stats, span_km_bounds
 
-race_id = "scb_runde"
 panel_path = Path("03_Processed_Data/spatial/scb_runde_course/panel_1m.parquet")
 manifest_path = Path("config/spatial_align_manifest_scb_runde.json")
 tmap_path = Path("config/spatial_terrain_map_scb_runde.json")
@@ -63,7 +62,10 @@ panel = pd.read_parquet(panel_path)
 if "course_km" not in panel.columns and "ref_chainage_m" in panel.columns:
     panel = panel.copy()
     panel["course_km"] = panel["ref_chainage_m"] / 1000.0
+if "course_m" not in panel.columns and "ref_chainage_m" in panel.columns:
+    panel["course_m"] = panel["ref_chainage_m"]
 panel_max = round(float(panel["course_km"].max()), 3)
+panel_max_m = int(round(float(panel["course_m"].max())))
 
 manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
 manifest_end = round(float(manifest["km_analysis_window"][1]), 3)
@@ -76,22 +78,28 @@ if not spans:
     print("ERROR no operator gold spans", file=sys.stderr)
     raise SystemExit(2)
 
+stats = panel_gold_label_stats(panel, spans)
+gap_m = float(stats["unlabeled"])
+
 tail_idx = max(range(len(spans)), key=lambda i: span_km_bounds(spans[i])[1])
 tail = spans[tail_idx]
 tail_lo, tail_hi = span_km_bounds(tail)
-gap_m = round(max(0.0, (panel_max - tail_hi) * 1000.0), 1)
 
 tail_sc = str(tail.get("surface_class") or "S2")
 tail_fr = str(tail.get("friction_tier") or "F2")
 tail_reason = str(tail.get("reason") or "orthophoto: gravel tail extension to panel extent")
+span_km_end = round(panel_max + 0.001, 3)
 
 print(
     panel_max,
+    panel_max_m,
     manifest_end,
     corridor_end,
+    span_km_end,
     round(tail_lo, 3),
     round(tail_hi, 3),
-    gap_m,
+    round(gap_m, 1),
+    stats["labeled"],
     tail_idx,
     tail_sc,
     tail_fr,
@@ -106,11 +114,12 @@ if [[ "$GAP_M" == "ERROR"* ]] || [[ -z "$GAP_M" ]]; then
 fi
 
 echo "=== SCB Runde — close tail gap ==="
-echo "  panel max:     km ${PANEL_MAX}"
+echo "  panel max:     km ${PANEL_MAX} (${PANEL_MAX_M} m)"
 echo "  manifest end:  km ${MANIFEST_END}"
 echo "  corridor end:  km ${CORRIDOR_END}"
 echo "  gold tail:     km ${TAIL_START}–${TAIL_END} (span [${TAIL_IDX}] ${TAIL_SC}/${TAIL_FR})"
-echo "  tail gap:      ${GAP_M} m"
+echo "  panel labeled: ${LABELED_M}/${PANEL_MAX_M} m"
+echo "  tail gap:      ${GAP_M} m (panel label check)"
 echo ""
 
 patch_km_end() {
@@ -184,11 +193,11 @@ if awk -v g="$GAP_M" 'BEGIN { exit !(g > 0.05) }'; then
   TAIL_REASON_DISPLAY="${TAIL_REASON//_/ }"
   if [[ -n "$DRY_RUN" ]]; then
     echo "  delete span [${TAIL_IDX}] km ${TAIL_START}–${TAIL_END}"
-    echo "  add km ${TAIL_START}–${PANEL_MAX} ${TAIL_SC}/${TAIL_FR}"
+    echo "  add km ${TAIL_START}–${SPAN_KM_END} ${TAIL_SC}/${TAIL_FR} (+1 m exclusive end)"
   else
     run python3 "$EDITOR" --terrain-map "$TERRAIN_MAP" delete --index "$TAIL_IDX"
     run python3 "$EDITOR" --terrain-map "$TERRAIN_MAP" add \
-      --km-start "$TAIL_START" --km-end "$PANEL_MAX" \
+      --km-start "$TAIL_START" --km-end "$SPAN_KM_END" \
       --surface "$TAIL_SC" --friction "$TAIL_FR" \
       --reason "${TAIL_REASON_DISPLAY} — tail gap closed to panel km ${PANEL_MAX}"
   fi

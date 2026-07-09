@@ -121,6 +121,8 @@ def cmd_add(args: argparse.Namespace) -> int:
     entry: dict[str, Any] = {
         "course_km_start": round(km_start, 3),
         "course_km_end": round(km_end, 3),
+        "course_m_start": round(km_start * 1000.0, 3),
+        "course_m_end": round(km_end * 1000.0, 3),
         "surface_class": args.surface,
         "friction_tier": args.friction,
         "gold_source": "operator",
@@ -283,6 +285,8 @@ def cmd_bridge_gaps(args: argparse.Namespace) -> int:
             {
                 "course_km_start": round(gap_lo, 3),
                 "course_km_end": round(gap_hi, 3),
+                "course_m_start": round(gap_lo * 1000.0, 3),
+                "course_m_end": round(gap_hi * 1000.0, 3),
                 "surface_class": surf,
                 "friction_tier": fric,
                 "gold_source": "operator",
