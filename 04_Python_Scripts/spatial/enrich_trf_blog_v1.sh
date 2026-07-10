@@ -44,6 +44,14 @@ echo "=== Blog figures (ghost-safe) ==="
 python3 04_Python_Scripts/spatial/render_sut43_gramstad_trf_blog.py
 
 echo ""
+echo "=== Bedrock corridor HITL basemap ==="
+if [[ -f "$SPINE_PANEL" ]]; then
+  ./04_Python_Scripts/spatial/export_bedrock_corridor_basemap.sh
+else
+  echo "SKIP basemap — missing $SPINE_PANEL" >&2
+fi
+
+echo ""
 echo "=== Corridor blog QC ==="
 python3 04_Python_Scripts/spatial/verify_trf_corridor_blog_cells.py \
   --corridor-dir "$CORRIDOR_OUT" \

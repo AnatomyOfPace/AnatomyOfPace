@@ -38,6 +38,16 @@ python3 04_Python_Scripts/spatial/validation_dashboard.py \
 
 Writes `06_Visualizations/sut43_hitl/chunk_04_km33-34.png`.
 
+### Bedrock corridor basemap (TRF slice km 31.08–33.80)
+
+Map-only HITL export — Kartverket topo, operator gold S4/F3 track, orange corridor-slice highlight for the paired TRF blog window:
+
+```bash
+./04_Python_Scripts/spatial/export_bedrock_corridor_basemap.sh
+```
+
+Writes `06_Visualizations/sut43_bedrock_corridor_hitl_basemap.png`. Uses `panel_race_1m_spine.parquet` by default (`SPINE_PANEL=0` → legacy `panel_1m.parquet`). Also invoked from `enrich_trf_blog_v1.sh` when the spine panel exists.
+
 ### Bulk export (12 × 1 km chunks, km 29–41)
 
 ```bash

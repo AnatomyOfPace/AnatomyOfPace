@@ -132,7 +132,21 @@ Sandnes Ultra Trail is not just a line on a GPX map. It is a constantly shifting
 
 ## Publication checklist (operator)
 
-- [ ] Embed Figure 1–3 from `06_Visualizations/sut43_*_blog.png`  
+**Hold:** Do not publish to Substack until v2 revision pass is complete.
+
+### v2 revision backlog
+
+- [ ] Integrate **Fig 4** (`sut43_trf_delta_gap_spine_blog.png`) into §4 — real spine gap profile (operator Mac render complete)
+- [ ] Export **bedrock corridor basemap** (`./04_Python_Scripts/spatial/export_bedrock_corridor_basemap.sh` → `sut43_bedrock_corridor_hitl_basemap.png`) for §5 / operator QC
+- [ ] Prose pass: align active voice with Ghost-safe identifiers (no coaching prescription overreach)
+- [ ] Reconcile mean spine gap **+0.396** with narrative (+0.40) after Fig 4 embed
+- [ ] Regenerate PDF: `python3 04_Python_Scripts/render_sut43_substack_pdf.py` (4 figures)
+- [ ] Optional: second editorial QC pass (Gemini or manual)
+- [ ] Ghost Authority scan before publish
+
+### Publish (when v2 signed off)
+
+- [ ] Embed Figures 1–4 from `06_Visualizations/sut43_*_blog.png`  
 - [ ] Paste from `docs/publications/sut43_gramstad_paired_trf_substack.md`  
 - [ ] Substack header: `assets/brand/substack/`  
 - [ ] Tags: terrain index, ultra running, Rogaland, biomechanics, data science  
