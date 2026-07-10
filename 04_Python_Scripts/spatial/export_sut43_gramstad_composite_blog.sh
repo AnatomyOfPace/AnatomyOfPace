@@ -15,10 +15,16 @@ cd "$ROOT"
 export MPLCONFIGDIR="${MPLCONFIGDIR:-$ROOT/.mplconfig}"
 mkdir -p "$MPLCONFIGDIR"
 
+OUTPUT="06_Visualizations/sut43_gramstad_composite_blog.png"
+
 python3 04_Python_Scripts/spatial/render_sut43_bedrock_corridor_composite.py \
   --panel "03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet" \
   --spine-dir "03_Processed_Data/spatial/sut43_terrain_ontology/race_trf_spine" \
-  --output "06_Visualizations/sut43_gramstad_composite_blog.png" \
+  --output "$OUTPUT" \
   --blog-style \
   --verify-export \
   "$@"
+
+if [[ "$(uname -s)" == "Darwin" ]] && command -v open >/dev/null 2>&1; then
+  open "$OUTPUT"
+fi
