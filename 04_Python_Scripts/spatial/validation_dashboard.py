@@ -3881,7 +3881,9 @@ def resolve_locomotion_df(
     if sidecar_path.exists():
         loaded = pd.read_parquet(sidecar_path)
         if "locomotion_mode" in loaded.columns and "course_km" in loaded.columns:
-            return loaded
+            from spatial.locomotion_mode import apply_operator_locomotion_gold  # noqa: WPS433
+
+            return apply_operator_locomotion_gold(loaded, terrain_map)
 
     from spatial.locomotion_mode import tag_panel_locomotion  # noqa: WPS433
 

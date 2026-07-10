@@ -1,0 +1,28 @@
+{
+  "schema_version": "sut43_full_course_hitl_review_v0",
+  "race_id": "SUT_43",
+  "km_window": [0.5, 43.0],
+  "terrain_map": "config/spatial_terrain_map_sut43_full.json",
+  "chunks": [
+    {
+      "chunk_index": 0,
+      "km_lo": 0.5,
+      "km_hi": 1.5,
+      "png_hint": "chunk_00_km0-1.png",
+      "status": "approved_with_edit",
+      "terrain": "S2/F1 gravel — revised from prior S1/F0 sealed chute",
+      "locomotion": "run",
+      "reviewed_at": "2026-07-10"
+    },
+    {
+      "chunk_index": 1,
+      "km_lo": 1.5,
+      "km_hi": 2.5,
+      "png_hint": "chunk_01_km1-2.png",
+      "status": "approved",
+      "terrain": "S2/F1 gravel (1.5–2.0) + S3/F2 trail (2.0–2.5) — terrain approved as locked",
+      "locomotion": "run on gravel through km 2.0; hike from gravel→trail transition @ km 2.0",
+      "reviewed_at": "2026-07-10"
+    }
+  ]
+}

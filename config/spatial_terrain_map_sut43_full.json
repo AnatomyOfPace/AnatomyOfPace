@@ -1,7 +1,7 @@
 {
   "schema_version": "spatial_terrain_map_v0",
   "ontology_version": "s6_v0",
-  "generated_at": "2026-07-10T13:45:14.887773+00:00",
+  "generated_at": "2026-07-10T13:54:10.808572+00:00",
   "corridor": {
     "corridor_id": "sut43_terrain_ontology",
     "sector_id": "sut43_full_course",
@@ -1137,7 +1137,7 @@
   ],
   "hitl": {
     "status": "locked",
-    "reviewed_at": "2026-07-10T13:45:14.887896+00:00",
+    "reviewed_at": "2026-07-10T13:54:10.808696+00:00",
     "reviewer": "merge_terrain_maps.py",
     "authority": "operator_gold",
     "operator_gold_spans": [
@@ -1171,7 +1171,7 @@
         "gold_source": "operator",
         "mode": "operator_gold",
         "locked_at": "2026-07-01",
-        "reason": "operator gold: post-lake trail tread after Fr\u00f8ylandsvatnet departure (km 2.0\u20133.0). S3/F2 per operator topo review: runnable dirt trail ascending toward Eilevfjellet \u2014 not S4/F3 technical rock. TI median 1.46 (consensus NTI 1.06) sits in F2 moderate band; grade step at km 2.0 (+12% med) marks departure from lakeshore gravel not bedrock tread. Supersedes prior S4/F3 \u00d8ykjafjellet rock lock and background S4/F3 traverse stub; defers seed technical traverse until operator HITL km 3.0+.",
+        "reason": "operator gold: post-lake trail tread after Fr\u00f8ylandsvatnet departure (km 2.0\u20133.0). S3/F2 per operator topo review: runnable dirt trail ascending toward Eilevfjellet \u2014 not S4/F3 technical rock. Locomotion hike from gravel\u2192trail transition @ km 2.0 (chunk_01 HITL approved 2026-07-10). TI median 1.46 (consensus NTI 1.06) sits in F2 moderate band; grade step at km 2.0 (+12% med) marks departure from lakeshore gravel not bedrock tread. Supersedes prior S4/F3 \u00d8ykjafjellet rock lock and background S4/F3 traverse stub; defers seed technical traverse until operator HITL km 3.0+.",
         "source_sector": "leg_a_technical"
       },
       {
@@ -2337,6 +2337,26 @@
         "locked_at": "2026-07-05",
         "reason": "operator gold: Loen-Alsvik asphalt finish tail into organiser M\u00e5l \u2014 sealed S1/F0 continuous from locked finish_band @ km 42.5. GMM 27 micro-segments collapsed under single parent per Tier 3; TI med ~1.19\u20131.33 (F0); grade med flat to \u22120.7%. chunk_f02 HITL QC.",
         "source_sector": "finish_tail"
+      }
+    ],
+    "locomotion_gold_spans": [
+      {
+        "course_km_start": 0.5,
+        "course_km_end": 2.0,
+        "locomotion_mode": "run",
+        "gold_source": "operator",
+        "locked_at": "2026-07-10",
+        "reason": "chunk_01 HITL: S2/F1 gravel band km 0.5\u20132.0 \u2014 run locomotion through lakeshore departure.",
+        "source_sector": "leg_a_technical"
+      },
+      {
+        "course_km_start": 2.0,
+        "course_km_end": 3.0,
+        "locomotion_mode": "hike",
+        "gold_source": "operator",
+        "locked_at": "2026-07-10",
+        "reason": "chunk_01 HITL: gravel\u2192trail transition @ km 2.0 (S2/F1 \u2192 S3/F2). Power-hike on ascending post-lake tread; terrain S2\u2013S3 approved as locked.",
+        "source_sector": "leg_a_technical"
       }
     ],
     "notes": "Full-course operator gold km 0.5\u201343.0 \u2014 115 spans from 6 sector maps."
