@@ -123,13 +123,23 @@
     "operator_gold_spans": [
       {
         "course_km_start": 0.5,
-        "course_km_end": 0.66,
-        "surface_class": "S1",
-        "friction_tier": "F0",
+        "course_km_end": 1.5,
+        "surface_class": "S2",
+        "friction_tier": "F1",
         "gold_source": "operator",
         "mode": "operator_gold",
-        "locked_at": "2026-06-30",
-        "reason": "operator gold: Hommers\u00e5k start chute sealed roll (km 0.5\u20130.66). S1/F0 Tier 1 map-first; Hogstad timing index calibration anchor @ km 0.66. TI \u22481.1 both race donors; matches sealed_road \u00d7 run anchor family (Halvmarathon S1/F0)."
+        "locked_at": "2026-07-10",
+        "reason": "operator gold: Hommers\u00e5k start band through Hogstad approach (km 0.5\u20131.5). S2/F1 gravel road per full-course HITL review 2026-07-10: compacted gravel, locomotion run, F1 low-friction band per friction_index_spec. Supersedes prior S1/F0 sealed-chute lock km 0.5\u20130.66. Hogstad timing index organiser anchor @ km 0.66 falls within this parent lock."
+      },
+      {
+        "course_km_start": 1.5,
+        "course_km_end": 2.0,
+        "surface_class": "S2",
+        "friction_tier": "F1",
+        "gold_source": "operator",
+        "mode": "operator_gold",
+        "locked_at": "2026-07-10",
+        "reason": "operator gold: Fr\u00f8ylandsvatnet lakeshore gravel road (km 1.5\u20132.0). S2/F1 continuation from locked start band; compacted gravel along lakeshore to departure near km 2.0. Locomotion run; F1 low-friction. Seam @ km 1.5 from start-sector gravel lock; seam @ km 2.0 to S3/F2 post-lake trail."
       },
       {
         "course_km_start": 2.0,
@@ -140,16 +150,6 @@
         "mode": "operator_gold",
         "locked_at": "2026-07-01",
         "reason": "operator gold: post-lake trail tread after Fr\u00f8ylandsvatnet departure (km 2.0\u20133.0). S3/F2 per operator topo review: runnable dirt trail ascending toward Eilevfjellet \u2014 not S4/F3 technical rock. TI median 1.46 (consensus NTI 1.06) sits in F2 moderate band; grade step at km 2.0 (+12% med) marks departure from lakeshore gravel not bedrock tread. Supersedes prior S4/F3 \u00d8ykjafjellet rock lock and background S4/F3 traverse stub; defers seed technical traverse until operator HITL km 3.0+."
-      },
-      {
-        "course_km_start": 0.66,
-        "course_km_end": 2.0,
-        "surface_class": "S2",
-        "friction_tier": "F1",
-        "gold_source": "operator",
-        "mode": "operator_gold",
-        "locked_at": "2026-07-01",
-        "reason": "operator gold: Fr\u00f8ylandsvatnet lakeshore gravel road (km 0.66\u20132.0). S2/F1 per operator topo review: compacted gravel along Fr\u00f8ylandsvatnet from Hogstad timing index through lakeshore departure near km 2.0; supersedes prior S3/F2 grass/hard-dirt lock. Race TI median 1.23 (consensus NTI 0.85) aligns with Sunderunde S2/F1 calibration ~1.33; flat grade med 0.4%; F1 low-friction band per friction_index_spec."
       },
       {
         "course_km_start": 3.0,
@@ -254,6 +254,6 @@
       }
     ],
     "authority": "operator_gold",
-    "notes": "Phase E start operator gold km 0.5\u20138.0 locked 2026-07-03 (12 spans). Seam @ km 8.0 defers to spatial_terrain_map_sut43_bridge.json (S4/F3 chunk_00 entry @ 8.0\u20138.2). Append-only operator_gold_spans[] \u2014 use hitl_annotator_app.py with this file only. Do not write start-sector locks into spatial_terrain_map_sut43.json or spatial_terrain_map_sut43_upstream.json."
+    "notes": "Phase E start operator gold km 0.5\u20138.0 locked (12 spans). km 0.5\u20131.5 S2/F1 gravel revised 2026-07-10 (full-course HITL). Seam @ km 8.0 defers to spatial_terrain_map_sut43_bridge.json (S4/F3 chunk_00 entry @ 8.0\u20138.2). Append-only operator_gold_spans[] \u2014 use hitl_annotator_app.py with this file only. Do not write start-sector locks into spatial_terrain_map_sut43.json or spatial_terrain_map_sut43_upstream.json."
   }
 }
