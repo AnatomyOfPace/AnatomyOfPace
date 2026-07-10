@@ -89,7 +89,7 @@ This isn't just a case of "Subject_A is a slower runner." When both athletes hit
 |-------------|--------|------------------|
 | 29.4–30.0 | Gramstad entry | Rocky approach |
 | 30.1–30.35 | Pre-corridor | Technical rocky core |
-| **31.08–33.80** | **Corridor slice** | Operator-locked S4/F3 bedrock descent |
+| **31.08–33.80** | **Corridor slice** | Operator-locked S4/F3 bedrock band (mixed grade — Bjørndalsfjellet climb/roll, not descent-only) |
 | 34.0–36.7 | Post-corridor rollers | Gravel/dirt (mostly F2) |
 | 36.7–39.1 | Vassfjellet → Paradisskaret | Forest tread |
 | 39.14+ | Finish band | Asphalt (excluded from F3 DH cell) |
@@ -98,7 +98,7 @@ This isn't just a case of "Subject_A is a slower runner." When both athletes hit
 
 ## 5. Finding C — the bedrock hotspot
 
-Zooming in one final time—focusing exclusively on the most technical bedrock section of the race (the corridor slice, km 31.08–33.80)—the data becomes razor-sharp:
+Zooming in one final time—focusing on the operator-defined bedrock band (corridor slice, km 31.08–33.80)—the data becomes razor-sharp. On the course profile this window is **mixed grade** (climb and roll across Bjørndalsfjellet, not a pure descent); the headline TRF cell below is **F3 technical downhill · hike** within that geography.
 
 | Terrain type in corridor slice | Subject_A | Subject_B |
 |--------------------------------|-----------|-----------|
@@ -132,6 +132,6 @@ Sandnes Ultra Trail is not just a line on a GPX map. It is a constantly shifting
 
 ## Pull quote
 
-> On the exact same bedrock descent, the trail exacted a massive **+0.97** terrain tax from Subject_A, while Subject_B efficiently banked a **−0.12** residual. Overall race pace is lying—the real story is hidden in the friction.
+> On the exact same bedrock band, the trail exacted a massive **+0.97** terrain tax from Subject_A on F3 downhill hike, while Subject_B efficiently banked a **−0.12** residual. Overall race pace is lying—the real story is hidden in the friction.
 
 ---

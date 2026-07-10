@@ -2997,9 +2997,13 @@ def plot_course_km_markers(
     km_hi: float,
     *,
     map_bounds: tuple[float, float, float, float],
+    km_step: float | None = None,
 ) -> None:
     """Small stream-km labels on the panel centerline for chunk ↔ profile correlation."""
-    ticks = _course_km_marker_ticks(km_lo, km_hi)
+    if km_step is not None:
+        ticks = _regular_km_ticks(km_lo, km_hi, float(km_step))
+    else:
+        ticks = _course_km_marker_ticks(km_lo, km_hi)
     if not ticks:
         return
     _, south, _, north = map_bounds
@@ -3086,6 +3090,7 @@ def render_reference_map(
     lon_offset: float = 0.0,
     show_map_km_markers: bool = True,
     show_fit_track_caption: bool = True,
+    map_km_marker_step_km: float | None = None,
 ) -> tuple[str, bool, bool]:
     """Topo basemap + race FIT or GPX S-class centerline, faint athlete GPS, chunk highlight."""
     panel = offset_panel_gps(panel, lat_offset=lat_offset, lon_offset=lon_offset)
@@ -3352,19 +3357,21 @@ def render_reference_map(
 
     if chunk_km is not None and not track_geo.empty and show_map_km_markers:
         c_lo, c_hi = chunk_km
-        plot_100m_distance_markers(
-            ax,
-            track_geo,
-            c_lo,
-            c_hi,
-            map_bounds=map_bounds,
-        )
+        if map_km_marker_step_km is None:
+            plot_100m_distance_markers(
+                ax,
+                track_geo,
+                c_lo,
+                c_hi,
+                map_bounds=map_bounds,
+            )
         plot_course_km_markers(
             ax,
             track_geo,
             c_lo,
             c_hi,
             map_bounds=map_bounds,
+            km_step=map_km_marker_step_km,
         )
 
     ax.set_xticks([])

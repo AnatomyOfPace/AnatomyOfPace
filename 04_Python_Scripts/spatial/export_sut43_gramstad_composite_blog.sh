@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Blog composite — Dalsnuten summit (km 25) → Gramstad band end (km 41).
-# Grey label-free basemap; no map km tick labels; shared-km elevation + delta-TI gap.
+# Grey label-free basemap; map course-km labels every 5 km; shared-km elevation + delta-TI gap.
 #
 # Re-run cross-athlete TRF first if paired gap starts after km 25:
 #   ./04_Python_Scripts/spatial/compute_trf_race_sut43.sh --spine-only

@@ -79,6 +79,7 @@ DALSENUTEN_SUMMIT_KM = SUT43_DALSNUTEN_SUMMIT_KM
 GRAMSTAD_BAND_END_KM = SUT43_PRIMARY_KM_END  # 41.0
 DEFAULT_GRAMSTAD_BLOG_VIEWPORT_KM = SUT43_DALSNUTEN_GRAMSTAD_VIEWPORT_KM
 DEFAULT_BLOG_BASEMAP: BasemapChoice = "carto_nolabels"
+DEFAULT_BLOG_MAP_KM_STEP = 5.0
 
 BG = "#0A0A0A"
 PANEL = "#111111"
@@ -192,6 +193,7 @@ def render_bedrock_corridor_composite(
     rolling_m: int = 75,
     show_map_km_markers: bool = True,
     show_fit_track_caption: bool = True,
+    map_km_marker_step_km: float | None = None,
     viewport_label: str | None = None,
 ) -> Path:
     """Basemap + elevation + paired delta-TI gap on a shared course-km axis."""
@@ -277,6 +279,7 @@ def render_bedrock_corridor_composite(
         require_basemap=require_basemap,
         show_map_km_markers=show_map_km_markers,
         show_fit_track_caption=show_fit_track_caption,
+        map_km_marker_step_km=map_km_marker_step_km,
     )
     track_geo = build_activity_track_geography(
         panel,
@@ -397,9 +400,16 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--blog-style",
         action="store_true",
-        help="Dalsnuten summit (km 25) → Gramstad end (km 41); grey no-label basemap; hide map km ticks.",
+        help="Dalsnuten summit (km 25) → Gramstad end (km 41); grey no-label basemap; map km labels every 5 km.",
     )
     parser.add_argument("--show-map-km-markers", action=argparse.BooleanOptionalAction, default=None)
+    parser.add_argument(
+        "--map-km-marker-step",
+        type=float,
+        default=None,
+        metavar="KM",
+        help="Map course-km labels every N km (skips 100 m ticks); blog-style default 5.",
+    )
     parser.add_argument("--no-require-basemap", action="store_true")
     parser.add_argument("--verify-export", action="store_true")
     return parser.parse_args(argv)
@@ -426,12 +436,15 @@ def main(argv: list[str] | None = None) -> int:
     viewport = (float(args.viewport_km[0]), float(args.viewport_km[1]))
     basemap = args.basemap
     show_map_km_markers = args.show_map_km_markers
+    map_km_marker_step_km = args.map_km_marker_step
     viewport_label: str | None = None
     if args.blog_style:
         viewport = DEFAULT_GRAMSTAD_BLOG_VIEWPORT_KM
         basemap = DEFAULT_BLOG_BASEMAP
         if show_map_km_markers is None:
-            show_map_km_markers = False
+            show_map_km_markers = True
+        if map_km_marker_step_km is None:
+            map_km_marker_step_km = DEFAULT_BLOG_MAP_KM_STEP
         viewport_label = (
             f"Dalsnuten summit → Gramstad band — bedrock corridor km {BEDROCK_CORRIDOR_KM[0]:.2f}–"
             f"{BEDROCK_CORRIDOR_KM[1]:.2f}"
@@ -454,7 +467,8 @@ def main(argv: list[str] | None = None) -> int:
         verify_export=args.verify_export,
         rolling_m=int(args.rolling_m),
         show_map_km_markers=show_map_km_markers,
-        show_fit_track_caption=show_map_km_markers,
+        show_fit_track_caption=False if args.blog_style else show_map_km_markers,
+        map_km_marker_step_km=map_km_marker_step_km,
         viewport_label=viewport_label,
     )
     print(f"OK bedrock corridor composite → {path.relative_to(BASE_DIR)}")
