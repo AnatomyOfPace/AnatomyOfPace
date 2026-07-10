@@ -105,17 +105,18 @@ fi
 
 python3 04_Python_Scripts/spatial/validation_dashboard.py \
   "${DASH_ARGS[@]}" \
-  "${PASS_ARGS[@]}"
+  ${PASS_ARGS[@]+"${PASS_ARGS[@]}"}
 
 if [[ "$EXPORT_CHUNKS" == "1" ]]; then
   python3 - <<PY
 import json
-import math
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
 
+sys.path.insert(0, "04_Python_Scripts")
 from spatial.spatial_hitl_overlay import load_terrain_map
 from spatial.validation_dashboard import operator_gold_spans
 

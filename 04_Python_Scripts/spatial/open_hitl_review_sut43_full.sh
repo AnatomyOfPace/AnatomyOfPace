@@ -36,7 +36,11 @@ if [[ ! -d "$OUT_DIR" ]]; then
   exit 1
 fi
 
-mapfile -t CHUNKS < <(find "$OUT_DIR" -maxdepth 1 -name 'chunk_*.png' | sort)
+CHUNKS=()
+while IFS= read -r chunk_path; do
+  CHUNKS+=("$chunk_path")
+done < <(find "$OUT_DIR" -maxdepth 1 -name 'chunk_*.png' | sort)
+
 if [[ ${#CHUNKS[@]} -eq 0 ]]; then
   echo "No chunk_*.png in $OUT_DIR — run export_hitl_chunks_sut43_full.sh first" >&2
   exit 1
@@ -62,9 +66,9 @@ for f in "${CHUNKS[@]}"; do
     echo "  $f"
   fi
   read -r -p "Enter = next chunk · q = quit · e = edit sector note: " ans || true
-  case "${ans,,}" in
-    q|quit) echo "Stopped at $base"; exit 0 ;;
-    e)
+  case "$ans" in
+    q|Q|quit|Quit|QUIT) echo "Stopped at $base"; exit 0 ;;
+    e|E)
       read -r -p "  Note (logged only): " note
       echo "  note: ${note:-}" ;;
   esac
