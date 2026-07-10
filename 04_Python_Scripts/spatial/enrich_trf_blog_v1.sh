@@ -52,6 +52,14 @@ else
 fi
 
 echo ""
+echo "=== Bedrock corridor composite (basemap + elevation + delta-TI) ==="
+if [[ -f "$SPINE_PANEL" && -f "${ONTOLOGY}/race_trf_spine/cross_athlete_trf_paired.parquet" ]]; then
+  ./04_Python_Scripts/spatial/export_bedrock_corridor_composite.sh
+else
+  echo "SKIP composite — need spine panel + race_trf_spine/cross_athlete_trf_paired.parquet" >&2
+fi
+
+echo ""
 echo "=== Corridor blog QC ==="
 python3 04_Python_Scripts/spatial/verify_trf_corridor_blog_cells.py \
   --corridor-dir "$CORRIDOR_OUT" \

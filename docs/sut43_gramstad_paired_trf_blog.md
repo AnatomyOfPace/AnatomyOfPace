@@ -138,6 +138,7 @@ Sandnes Ultra Trail is not just a line on a GPX map. It is a constantly shifting
 
 - [ ] Integrate **Fig 4** (`sut43_trf_delta_gap_spine_blog.png`) into §4 — real spine gap profile (operator Mac render complete)
 - [ ] Export **bedrock corridor basemap** (`./04_Python_Scripts/spatial/export_bedrock_corridor_basemap.sh` → `sut43_bedrock_corridor_hitl_basemap.png`) for §5 / operator QC
+- [ ] Export **bedrock corridor composite** (`./04_Python_Scripts/spatial/export_bedrock_corridor_composite.sh` → `sut43_bedrock_corridor_composite.png`) — basemap + elevation + ΔTI gap
 - [ ] Prose pass: align active voice with Ghost-safe identifiers (no coaching prescription overreach)
 - [ ] Reconcile mean spine gap **+0.396** with narrative (+0.40) after Fig 4 embed
 - [ ] Regenerate PDF: `python3 04_Python_Scripts/render_sut43_substack_pdf.py` (4 figures)

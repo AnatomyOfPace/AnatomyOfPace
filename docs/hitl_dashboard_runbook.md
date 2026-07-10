@@ -48,6 +48,16 @@ Map-only HITL export — Kartverket topo, operator gold S4/F3 track, orange corr
 
 Writes `06_Visualizations/sut43_bedrock_corridor_hitl_basemap.png`. Uses `panel_race_1m_spine.parquet` by default (`SPINE_PANEL=0` → legacy `panel_1m.parquet`). Also invoked from `enrich_trf_blog_v1.sh` when the spine panel exists.
 
+### Bedrock corridor composite (basemap + elevation + delta-TI)
+
+Stacked figure with shared course-km axis on the profile row:
+
+```bash
+./04_Python_Scripts/spatial/export_bedrock_corridor_composite.sh
+```
+
+Writes `06_Visualizations/sut43_bedrock_corridor_composite.png`. Requires `panel_race_1m_spine.parquet` and `race_trf_spine/cross_athlete_trf_paired.parquet` (from `compute_trf_race_sut43.sh --spine-only`).
+
 ### Bulk export (12 × 1 km chunks, km 29–41)
 
 ```bash
