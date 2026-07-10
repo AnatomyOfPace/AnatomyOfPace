@@ -60,7 +60,7 @@ DEFAULT_TERRAIN_MAP = BASE_DIR / "config" / "spatial_terrain_map_sut43.json"
 VIS_DIR = BASE_DIR / "06_Visualizations"
 DEFAULT_OUTPUT = VIS_DIR / "sut43_bedrock_corridor_hitl_basemap.png"
 
-# TRF telemetric corridor slice (F3 · downhill · hike top cell span).
+# TRF telemetric corridor slice — headline cell is F3 · downhill · hike; geography is mixed grade.
 BEDROCK_CORRIDOR_KM: tuple[float, float] = (31.08, 33.80)
 # Map viewport — padded context around operator bedrock + late_braking band.
 DEFAULT_VIEWPORT_KM: tuple[float, float] = (30.35, 34.35)
@@ -145,7 +145,7 @@ def plot_corridor_slice_highlight(
         banner = ax.text(
             lon,
             lat,
-            "corridor slice\nS4/F3 bedrock",
+            "corridor slice\nS4/F3 bedrock band",
             ha="center",
             va="center",
             fontsize=8.0,
@@ -197,7 +197,7 @@ def render_bedrock_corridor_basemap(
     ax_map = fig.add_subplot(gs[0, 0])
     ax_legend = fig.add_subplot(gs[0, 1])
 
-    title = f"Bedrock corridor — operator gold (km {c_lo:.2f}–{c_hi:.2f})"
+    title = f"Bedrock corridor — operator gold (km {c_lo:.2f}–{c_hi:.2f}; mixed grade)"
     fig.suptitle(title, color="white", fontsize=14, fontweight="bold", y=0.98)
     place = corridor_geography_label(terrain_map)
     axis_label = resolve_axis_label(terrain_map, panel)
@@ -253,7 +253,8 @@ def render_bedrock_corridor_basemap(
             0.02,
             0.02,
             f"TRF corridor slice km {c_lo:.2f}–{c_hi:.2f}\n"
-            "S4/F3 bedrock descent (operator lock)",
+            "S4/F3 bedrock band (operator lock)\n"
+            "mixed grade — climb, roll, and descent",
             transform=ax_legend.transAxes,
             ha="left",
             va="bottom",

@@ -15,7 +15,7 @@ Figures (upload in order): sut43_gramstad_friction_strip_blog.png, sut43_trf_dil
 
 ## Summary
 
-When two runners finish the exact same 43 km trail race, their total times often hide the real story. In this post, the laboratory dives into the telemetry of two athletes on **Sandnes Ultra Trail (SUT_43)**. Looking at the entire race averages out the pain. For **Subject_A**, a full-race average showed only a tiny penalty on steep, technical descents (**ΔTI ≈ +0.08**). But zooming in on the brutal Gramstad section (km 29–41), the truth emerges: Subject_A was hit with a massive terrain tax (**ΔTI ≈ +0.68**), which spiked even higher on a specific 3 km bedrock descent (**ΔTI ≈ +0.97**, km 31.08–33.80).
+When two runners finish the exact same 43 km trail race, their total times often hide the real story. In this post, the laboratory dives into the telemetry of two athletes on **Sandnes Ultra Trail (SUT_43)**. Looking at the entire race averages out the pain. For **Subject_A**, a full-race average showed only a tiny penalty on steep, technical descents (**ΔTI ≈ +0.08**). But zooming in on the brutal Gramstad section (km 29–41), the truth emerges: Subject_A was hit with a massive terrain tax (**ΔTI ≈ +0.68**), which spiked even higher on a specific ~2.7 km bedrock band (**ΔTI ≈ +0.97** on F3 downhill hike, km 31.08–33.80).
 
 Meanwhile, **Subject_B** flew down those exact same technical descents, actually gaining time against the cohort average (**−0.18** and **−0.12**). Interestingly, both runners were highly efficient on smooth gravel. The takeaway? Technical terrain taxes runners completely differently, and overall race pace is hiding specific weaknesses.
 
