@@ -38,11 +38,61 @@ python3 04_Python_Scripts/spatial/validation_dashboard.py \
 
 Writes `06_Visualizations/sut43_hitl/chunk_04_km33-34.png`.
 
+### Bedrock corridor basemap (TRF slice km 31.08–33.80)
+
+Map-only HITL export — Kartverket topo, operator gold S4/F3 track, orange corridor-slice highlight for the paired TRF blog window:
+
+```bash
+./04_Python_Scripts/spatial/export_bedrock_corridor_basemap.sh
+```
+
+Writes `06_Visualizations/sut43_bedrock_corridor_hitl_basemap.png`. Uses `panel_race_1m_spine.parquet` by default (`SPINE_PANEL=0` → legacy `panel_1m.parquet`). Also invoked from `enrich_trf_blog_v1.sh` when the spine panel exists.
+
+### Bedrock corridor composite (basemap + elevation + delta-TI)
+
+Stacked figure with shared course-km axis on the profile row:
+
+```bash
+./04_Python_Scripts/spatial/export_bedrock_corridor_composite.sh
+```
+
+Writes `06_Visualizations/sut43_bedrock_corridor_composite.png`. Requires `panel_race_1m_spine.parquet` and `race_trf_spine/cross_athlete_trf_paired.parquet` (from `compute_trf_race_sut43.sh --spine-only`).
+
 ### Bulk export (12 × 1 km chunks, km 29–41)
 
 ```bash
 ./04_Python_Scripts/spatial/export_hitl_chunks.sh
 ```
+
+### Full course (km 0.5–43.0, merged operator gold)
+
+Visual review from Hogstad start through finish — **43 × 1 km** decision dashboards on the merged full terrain map.
+
+```bash
+# Export all chunks (~30–45 min on Mac; tile cache + verify per chunk):
+./04_Python_Scripts/spatial/export_hitl_chunks_sut43_full.sh
+
+# Step through PNGs in order (Preview):
+./04_Python_Scripts/spatial/open_hitl_review_sut43_full.sh
+
+# Resume at Dalsnuten / gramstad entry (chunk index ≈ stream km):
+./04_Python_Scripts/spatial/open_hitl_review_sut43_full.sh --from-chunk 25
+
+# Re-export one chunk after a gold edit:
+./04_Python_Scripts/spatial/export_hitl_chunks_sut43_full.sh --chunk-index 25
+```
+
+| Item | Path |
+|------|------|
+| Terrain map | `config/spatial_terrain_map_sut43_full.json` |
+| Panel | `03_Processed_Data/spatial/sut43_terrain_ontology/panel_full_1m.parquet` |
+| Output | `06_Visualizations/sut43_hitl_full/chunk_XX_kmA-B.png` |
+| Sector registry | `config/spatial_terrain_sectors_sut43.json` |
+
+**Sector seams to watch:** km 8 (start→bridge), km 22 (bridge→upstream), km 29 (upstream→gramstad), km 41 (gramstad→finish). Edit gold in the **sector** JSON listed in the registry, then re-merge into `spatial_terrain_map_sut43_full.json` before re-export.
+
+Legacy gramstad-only export (km 29–41) remains `export_hitl_chunks.sh`.
+
 
 ### Spine-panel cross-athlete export (race panel on ref_chainage_m)
 

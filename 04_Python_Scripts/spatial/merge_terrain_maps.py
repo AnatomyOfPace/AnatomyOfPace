@@ -148,6 +148,7 @@ def merge_maps(
     course_hi = km_hi if km_hi is not None else sectors[-1].km_hi
 
     merged_spans: list[dict[str, Any]] = []
+    merged_loco_spans: list[dict[str, Any]] = []
     source_sectors: list[dict[str, Any]] = []
     boundaries = [s.km_lo for s in sectors[1:]]
 
@@ -158,12 +159,21 @@ def merge_maps(
         gold = spans_in_window(operator_gold_spans(terrain_map), spec.km_lo, spec.km_hi)
         if not gold:
             raise ValueError(f"No operator_gold_spans in {spec.path} for km {spec.km_lo}–{spec.km_hi}")
+        loco = spans_in_window(
+            list((terrain_map.get("hitl") or {}).get("locomotion_gold_spans") or []),
+            spec.km_lo,
+            spec.km_hi,
+        )
         tagged = []
         for span in gold:
             entry = dict(span)
             entry["source_sector"] = sector_id
             tagged.append(entry)
         merged_spans.extend(tagged)
+        for span in loco:
+            entry = dict(span)
+            entry["source_sector"] = sector_id
+            merged_loco_spans.append(entry)
         source_sectors.append(
             {
                 "sector_id": sector_id,
@@ -176,6 +186,7 @@ def merge_maps(
         )
 
     merged_spans.sort(key=lambda s: span_km_bounds(s)[0])
+    merged_loco_spans.sort(key=lambda s: span_km_bounds(s)[0])
     overlaps: list[str] = []
     for i in range(len(merged_spans) - 1):
         _, e0 = span_km_bounds(merged_spans[i])
@@ -222,6 +233,7 @@ def merge_maps(
             "reviewer": "merge_terrain_maps.py",
             "authority": "operator_gold",
             "operator_gold_spans": merged_spans,
+            "locomotion_gold_spans": merged_loco_spans,
             "notes": (
                 f"Full-course operator gold km {course_lo}–{course_hi} — "
                 f"{len(merged_spans)} spans from {len(sectors)} sector maps."

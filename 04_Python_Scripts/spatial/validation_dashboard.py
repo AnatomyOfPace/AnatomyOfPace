@@ -49,8 +49,8 @@ from pathlib import Path
 from typing import Any, Literal
 
 OverrideMode = Literal["guidance", "lock"]
-BasemapLayerId = Literal["topo_standard", "topo_grayscale", "satellite_flyfoto"]
-BasemapChoice = BasemapLayerId | Literal["kartverket-topo", "kartverket-gray", "opentopomap"]
+BasemapLayerId = Literal["topo_standard", "topo_grayscale", "satellite_flyfoto", "carto_nolabels"]
+BasemapChoice = BasemapLayerId | Literal["kartverket-topo", "kartverket-gray", "opentopomap", "blog_grey"]
 MLPredictionsMode = Literal["full", "loocv", "path"]
 
 import matplotlib
@@ -482,6 +482,8 @@ def normalize_basemap_layer(basemap: BasemapChoice | str) -> BasemapLayerId | Li
         "flyfoto": "satellite_flyfoto",
         "orthophoto": "satellite_flyfoto",
         "opentopomap": "opentopomap",
+        "carto_nolabels": "carto_nolabels",
+        "blog_grey": "carto_nolabels",
     }
     if token in aliases:
         return aliases[token]
@@ -969,6 +971,19 @@ def _try_add_basemap(
             str(getattr(cx.providers.OpenStreetMap.Mapnik, "url", "OpenStreetMap")),
         ),
     ]
+
+    if layer == "carto_nolabels":
+        carto_url = str(getattr(cx.providers.CartoDB.PositronNoLabels, "url", "CartoDB PositronNoLabels"))
+        try:
+            return _add(
+                cx.providers.CartoDB.PositronNoLabels,
+                label="CartoDB Positron (no labels)",
+                url=carto_url,
+                attribution="© OpenStreetMap © CARTO",
+            )
+        except Exception as exc:
+            logging.warning("CartoDB PositronNoLabels fetch failed (%s); trying Kartverket greyscale", exc)
+            layer = "topo_grayscale"
 
     if layer != "opentopomap":
         url, label, attribution = resolve_basemap_tile_source(layer)
@@ -2982,9 +2997,13 @@ def plot_course_km_markers(
     km_hi: float,
     *,
     map_bounds: tuple[float, float, float, float],
+    km_step: float | None = None,
 ) -> None:
     """Small stream-km labels on the panel centerline for chunk ↔ profile correlation."""
-    ticks = _course_km_marker_ticks(km_lo, km_hi)
+    if km_step is not None:
+        ticks = _regular_km_ticks(km_lo, km_hi, float(km_step))
+    else:
+        ticks = _course_km_marker_ticks(km_lo, km_hi)
     if not ticks:
         return
     _, south, _, north = map_bounds
@@ -3069,6 +3088,10 @@ def render_reference_map(
     require_basemap: bool = False,
     lat_offset: float = 0.0,
     lon_offset: float = 0.0,
+    show_map_km_markers: bool = True,
+    show_fit_track_caption: bool = True,
+    map_km_marker_step_km: float | None = None,
+    map_minimal_overlays: bool = False,
 ) -> tuple[str, bool, bool]:
     """Topo basemap + race FIT or GPX S-class centerline, faint athlete GPS, chunk highlight."""
     panel = offset_panel_gps(panel, lat_offset=lat_offset, lon_offset=lon_offset)
@@ -3265,7 +3288,7 @@ def render_reference_map(
                     km_hi=c_hi,
                 )
         chunk_geo = track_geo[(track_geo["course_km"] >= c_lo) & (track_geo["course_km"] <= c_hi)]
-        if not chunk_geo.empty:
+        if not chunk_geo.empty and not map_minimal_overlays:
             pad_m = 60.0
             center_lat = float(chunk_geo["latitude"].mean())
             lon_m_per_deg = 111_320.0 * max(np.cos(np.radians(center_lat)), 1e-6)
@@ -3306,7 +3329,7 @@ def render_reference_map(
             km_lo=ml_km_lo,
             km_hi=ml_km_hi,
         )
-        if assigned_map_drawn:
+        if assigned_map_drawn and not map_minimal_overlays:
             plot_assigned_span_labels_on_map(
                 ax,
                 track_geo,
@@ -3333,28 +3356,30 @@ def render_reference_map(
         offset_m=ML_MAP_TRACK_OFFSET_M if decision_mode else 0.0,
     )
 
-    if chunk_km is not None and not track_geo.empty:
+    if chunk_km is not None and not track_geo.empty and show_map_km_markers:
         c_lo, c_hi = chunk_km
-        plot_100m_distance_markers(
-            ax,
-            track_geo,
-            c_lo,
-            c_hi,
-            map_bounds=map_bounds,
-        )
+        if map_km_marker_step_km is None:
+            plot_100m_distance_markers(
+                ax,
+                track_geo,
+                c_lo,
+                c_hi,
+                map_bounds=map_bounds,
+            )
         plot_course_km_markers(
             ax,
             track_geo,
             c_lo,
             c_hi,
             map_bounds=map_bounds,
+            km_step=map_km_marker_step_km,
         )
 
     ax.set_xticks([])
     ax.set_yticks([])
     plot_metric_scalebar(ax, map_bounds)
 
-    if chunk_km is not None and not track_geo.empty:
+    if chunk_km is not None and not track_geo.empty and show_fit_track_caption:
         c_lo, c_hi = chunk_km
         chunk_pts = track_geo[
             (track_geo["course_km"] >= c_lo) & (track_geo["course_km"] <= c_hi)
@@ -3856,7 +3881,9 @@ def resolve_locomotion_df(
     if sidecar_path.exists():
         loaded = pd.read_parquet(sidecar_path)
         if "locomotion_mode" in loaded.columns and "course_km" in loaded.columns:
-            return loaded
+            from spatial.locomotion_mode import apply_operator_locomotion_gold  # noqa: WPS433
+
+            return apply_operator_locomotion_gold(loaded, terrain_map)
 
     from spatial.locomotion_mode import tag_panel_locomotion  # noqa: WPS433
 

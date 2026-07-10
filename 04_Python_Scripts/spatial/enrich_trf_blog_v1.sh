@@ -44,6 +44,29 @@ echo "=== Blog figures (ghost-safe) ==="
 python3 04_Python_Scripts/spatial/render_sut43_gramstad_trf_blog.py
 
 echo ""
+echo "=== Bedrock corridor HITL basemap ==="
+if [[ -f "$SPINE_PANEL" ]]; then
+  ./04_Python_Scripts/spatial/export_bedrock_corridor_basemap.sh
+else
+  echo "SKIP basemap — missing $SPINE_PANEL" >&2
+fi
+
+echo ""
+echo "=== Bedrock corridor composite (basemap + elevation + delta-TI) ==="
+if [[ -f "$SPINE_PANEL" && -f "${ONTOLOGY}/race_trf_spine/cross_athlete_trf_paired.parquet" ]]; then
+  ./04_Python_Scripts/spatial/export_bedrock_corridor_composite.sh
+else
+  echo "SKIP composite — need spine panel + race_trf_spine/cross_athlete_trf_paired.parquet" >&2
+fi
+
+echo ""
+echo "=== Corridor blog QC ==="
+python3 04_Python_Scripts/spatial/verify_trf_corridor_blog_cells.py \
+  --corridor-dir "$CORRIDOR_OUT" \
+  --km-start "$KM_START" \
+  --km-end "$KM_END"
+
+echo ""
 echo "OK TRF blog v1 enrichment complete."
 echo "  Corridor reports → ${CORRIDOR_OUT}/training_residual_report_Subject_*.json"
 echo "  Figures → 06_Visualizations/sut43_*_blog.png"

@@ -246,11 +246,24 @@ def cross_athlete_exclusion_mask(
     return drop
 
 
+def dedupe_spine_metres(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    One panel row per ref_chainage_m per subject on spine panels.
+
+    Duplicate spine keys (reprojection overlap) inflate metre_count in cell aggregation.
+    """
+    if not is_spine_panel(df) or "ref_chainage_m" not in df.columns:
+        return df
+    sid_col = subject_id_column(df)
+    work = df.sort_values("course_m")
+    return work.drop_duplicates(subset=[sid_col, "ref_chainage_m"], keep="last")
+
+
 def trf_analysis_frame(df: pd.DataFrame) -> pd.DataFrame:
     """Metres eligible for TRF cell aggregation and summary stats."""
-    if "in_trf_exclusion" not in df.columns:
-        return df
-    return df.loc[~df["in_trf_exclusion"]].copy()
+    if "in_trf_exclusion" in df.columns:
+        df = df.loc[~df["in_trf_exclusion"]].copy()
+    return dedupe_spine_metres(df)
 
 
 def resolve_friction_tiers(
@@ -728,7 +741,11 @@ def build_cross_athlete_summary(
         reports[subject_id] = json.loads(json_path.read_text(encoding="utf-8"))
 
     join_cols = ["ref_chainage_m", "course_km"]
-    a_df = per_subject[subjects[0]][join_cols + ["friction_tier", "grade_bin", "locomotion_mode", "ti", "ti_expected", "delta_ti"]].rename(
+    a_analysis = trf_analysis_frame(per_subject[subjects[0]])
+    b_analysis = trf_analysis_frame(per_subject[subjects[1]])
+    a_df = a_analysis[
+        join_cols + ["friction_tier", "grade_bin", "locomotion_mode", "ti", "ti_expected", "delta_ti"]
+    ].rename(
         columns={
             "friction_tier": f"friction_tier_{subjects[0]}",
             "grade_bin": f"grade_bin_{subjects[0]}",
@@ -738,7 +755,9 @@ def build_cross_athlete_summary(
             "delta_ti": f"delta_ti_{subjects[0]}",
         }
     )
-    b_df = per_subject[subjects[1]][join_cols + ["friction_tier", "grade_bin", "locomotion_mode", "ti", "ti_expected", "delta_ti"]].rename(
+    b_df = b_analysis[
+        join_cols + ["friction_tier", "grade_bin", "locomotion_mode", "ti", "ti_expected", "delta_ti"]
+    ].rename(
         columns={
             "friction_tier": f"friction_tier_{subjects[1]}",
             "grade_bin": f"grade_bin_{subjects[1]}",
@@ -753,7 +772,21 @@ def build_cross_athlete_summary(
     paired["ti_gap"] = paired[f"ti_{subjects[0]}"] - paired[f"ti_{subjects[1]}"]
 
     exclusion_mask = cross_athlete_exclusion_mask(paired, terrain_map, subjects=subjects)
-    paired_eligible = paired.loc[~exclusion_mask]
+    paired_eligible = paired.loc[~exclusion_mask].copy()
+    paired_export_cols = [
+        "ref_chainage_m",
+        "course_km",
+        "delta_ti_gap",
+        "ti_gap",
+        f"delta_ti_{subjects[0]}",
+        f"delta_ti_{subjects[1]}",
+        f"friction_tier_{subjects[0]}",
+        f"grade_bin_{subjects[0]}",
+        f"locomotion_mode_{subjects[0]}",
+    ]
+    paired_export = paired_eligible[paired_export_cols].sort_values("course_km")
+    paired_parquet = output_dir / "cross_athlete_trf_paired.parquet"
+    paired_export.to_parquet(paired_parquet, index=False)
     delta_gap = paired_eligible["delta_ti_gap"].dropna()
     ti_gap = paired_eligible["ti_gap"].dropna()
     summary = {
@@ -770,6 +803,7 @@ def build_cross_athlete_summary(
         "paired_metres": int(len(paired)),
         "paired_metres_trf_eligible": int(len(paired_eligible)),
         "paired_metres_trf_excluded": int(exclusion_mask.sum()),
+        "paired_parquet": str(paired_parquet.relative_to(BASE_DIR)),
         "trf_exclusions": _trf_exclusion_spans(terrain_map),
         "mean_delta_ti_gap": round(float(delta_gap.mean()), 4) if len(delta_gap) else None,
         "median_delta_ti_gap": round(float(delta_gap.median()), 4) if len(delta_gap) else None,

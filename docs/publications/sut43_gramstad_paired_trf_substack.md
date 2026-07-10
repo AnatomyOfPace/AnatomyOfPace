@@ -1,9 +1,15 @@
+<!-- SUBSTACK METADATA (operator — remove before publish or paste into Substack fields)
+Status: HOLD — v2 revisions pending; do not publish yet
+Title: Same Metres, Different Tax: Paired Residual Analysis on Sandnes Ultra Trail
+Subtitle: Phase B TRF on SUT_43 — How full-race averages hide technical weaknesses
+Byline: Dr. Anatomy Pace
+Tags: terrain index, ultra running, Rogaland, biomechanics, data science
+Figures (upload in order): sut43_gramstad_friction_strip_blog.png, sut43_trf_dilution_blog.png, sut43_gramstad_paired_trf_blog.png, sut43_trf_delta_gap_spine_blog.png
+-->
+
 # Same Metres, Different Tax: Paired Residual Analysis on Sandnes Ultra Trail
 
-**The Anatomy of Pace** · Dr. Anatomy Pace  
-**Status:** v2 draft — **publish hold** (not scheduled) · **Case:** SUT_43 `gramstad_band` km 29–41  
-**Identifiers:** `Subject_A`, `Subject_B` only  
-**Voice:** Active, runner-facing English (Substack v2)
+**The Anatomy of Pace** · Dr. Anatomy Pace
 
 ---
 
@@ -52,11 +58,11 @@ But isolating the Gramstad window (km 29–41) changes the story completely. On 
 
 **The takeaway:** Choosing where you look matters. Full-race averages act like a screen, hiding the specific sections where mechanics actually break down.
 
-![Friction tier strip km 29–39](../06_Visualizations/sut43_gramstad_friction_strip_blog.png)
+![Friction tier strip km 29–39](<!-- UPLOAD: 06_Visualizations/sut43_gramstad_friction_strip_blog.png -->)
 
 *Figure 1. The Gramstad terrain strip. Vertical lines mark the start and end of the brutal bedrock corridor (km 31.08–33.80) and the final asphalt transition.*
 
-![Dilution effect](../06_Visualizations/sut43_trf_dilution_blog.png)
+![Dilution effect](<!-- UPLOAD: 06_Visualizations/sut43_trf_dilution_blog.png -->)
 
 *Figure 2. Subject_A's technical downhill penalty. Notice how isolating the Gramstad sector amplifies the specific weakness that the full-race average hid.*
 
@@ -75,7 +81,7 @@ Because the data is aligned to the exact meter, Subject_A and Subject_B can be c
 
 This isn't just a case of "Subject_A is a slower runner." When both athletes hit highly technical descents, Subject_A bled time, while Subject_B extracted speed better than the cohort average. The trail simply did not treat them equally.
 
-![Paired residuals](../06_Visualizations/sut43_gramstad_paired_trf_blog.png)
+![Paired residuals](<!-- UPLOAD: 06_Visualizations/sut43_gramstad_paired_trf_blog.png -->)
 
 *Figure 3. Side-by-side comparison. Notice that both runners perform well on F2 gravel, but their skills diverge drastically the moment they hit F3 technical terrain.*
 
@@ -129,53 +135,3 @@ Sandnes Ultra Trail is not just a line on a GPX map. It is a constantly shifting
 > On the exact same bedrock band, the trail exacted a massive **+0.97** terrain tax from Subject_A on F3 downhill hike, while Subject_B efficiently banked a **−0.12** residual. Overall race pace is lying—the real story is hidden in the friction.
 
 ---
-
-## Publication checklist (operator)
-
-**Hold:** Do not publish to Substack until v2 revision pass is complete.
-
-**Gold gate (2026-07-10):** Operator flagged incorrect S-class at sector entry (e.g. S2 bleed on Dalsnuten approach). **Review all operator gold on all runs** before composite export, TRF re-run, or publication.
-
-```bash
-# Portfolio audit (all terrain maps):
-./04_Python_Scripts/spatial/audit_operator_gold_portfolio.sh
-
-# Full-course visual HITL review (km 0.5–43):
-./04_Python_Scripts/spatial/export_hitl_chunks_sut43_full.sh
-./04_Python_Scripts/spatial/open_hitl_review_sut43_full.sh
-
-# Per-sector gap reports:
-
-# Per-chunk HITL PNG review (upstream example km 23–24):
-python3 04_Python_Scripts/spatial/validation_dashboard.py \
-  --terrain-map config/spatial_terrain_map_sut43_upstream.json \
-  --panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet \
-  --km-start 22 --km-end 29 --chunk-km 1 --chunk-index 1 \
-  --output 06_Visualizations/sut43_hitl_upstream/chunk_u01_km23-24.png \
-  --with-map --decision-mode --verify-export
-```
-
-Edit gold in `hitl.operator_gold_spans[]` (Streamlit: `hitl_annotator_app.py` or `gold_span_editor.py`). Re-merge full map if sector files change. See `docs/hitl_dashboard_runbook.md`.
-
-### v2 revision backlog
-
-- [ ] Integrate **Fig 4** (`sut43_trf_delta_gap_spine_blog.png`) into §4 — real spine gap profile (operator Mac render complete)
-- [ ] Export **bedrock corridor basemap** (`./04_Python_Scripts/spatial/export_bedrock_corridor_basemap.sh` → `sut43_bedrock_corridor_hitl_basemap.png`) for §5 / operator QC
-- [ ] Export **gramstad blog composite** (`./04_Python_Scripts/spatial/export_sut43_gramstad_composite_blog.sh` → `sut43_gramstad_composite_blog.png`) — Dalsnuten summit → km 41; replaces standalone Fig 4
-- [ ] Prose pass: align active voice with Ghost-safe identifiers (no coaching prescription overreach)
-- [ ] Reconcile mean spine gap **+0.396** with narrative (+0.40) after Fig 4 embed
-- [ ] Regenerate PDF: `python3 04_Python_Scripts/render_sut43_substack_pdf.py` (4 figures)
-- [ ] Optional: second editorial QC pass (Gemini or manual)
-- [ ] Ghost Authority scan before publish
-
-### Publish (when v2 signed off)
-
-- [ ] Embed Figures 1–4 from `06_Visualizations/sut43_*_blog.png`  
-- [ ] Paste from `docs/publications/sut43_gramstad_paired_trf_substack.md`  
-- [ ] Substack header: `assets/brand/substack/`  
-- [ ] Tags: terrain index, ultra running, Rogaland, biomechanics, data science  
-- [ ] Internal Sync Log entry (not for publication)
-
----
-
-*Draft: The Anatomy of Pace laboratory. Telemetry: SUT_43 race-day panel, TRF Phase B cohort median.*

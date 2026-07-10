@@ -9,11 +9,15 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import numpy as np
+import pandas as pd
+
 _SCRIPTS = Path(__file__).resolve().parent.parent
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
 from spatial.render_sut43_gramstad_trf_blog import (  # noqa: E402
+    render_delta_ti_gap_spine,
     render_dilution_figure,
     render_friction_strip,
     render_paired_figure,
@@ -59,6 +63,22 @@ class RenderTrfBlogTests(unittest.TestCase):
             render_dilution_figure(rf, ra, tmp_path / "dilution.png")
             self.assertTrue((tmp_path / "paired.png").exists())
             self.assertTrue((tmp_path / "dilution.png").exists())
+
+    def test_delta_ti_gap_spine_png(self) -> None:
+        km = np.linspace(29.0, 40.99, 2400)
+        gap = 0.05 * np.sin((km - 29.0) * 0.8)
+        gap += np.where((km >= 31.08) & (km <= 33.80), 0.85 + 0.1 * np.sin(km * 12), 0.0)
+        paired = pd.DataFrame(
+            {
+                "course_km": km,
+                "ref_chainage_m": (km * 1000).astype(int),
+                "delta_ti_gap": gap,
+            }
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "gap.png"
+            render_delta_ti_gap_spine(paired, output_path=out)
+            self.assertGreater(out.stat().st_size, 1000)
 
 
 if __name__ == "__main__":

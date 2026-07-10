@@ -201,6 +201,36 @@ def _classify_gate_slice(
     return mode
 
 
+def operator_locomotion_spans(terrain_map: dict[str, Any]) -> list[dict[str, Any]]:
+    """Operator-locked run/hike spans from terrain map hitl.locomotion_gold_spans[]."""
+    return list((terrain_map.get("hitl") or {}).get("locomotion_gold_spans") or [])
+
+
+def apply_operator_locomotion_gold(
+    work: pd.DataFrame,
+    terrain_map: dict[str, Any],
+    *,
+    km_col: str = "course_km",
+) -> pd.DataFrame:
+    """Override four-gate locomotion tags where operator gold spans exist."""
+    spans = operator_locomotion_spans(terrain_map)
+    if not spans or km_col not in work.columns:
+        return work
+    out = work.copy()
+    if "locomotion_mode" not in out.columns:
+        out["locomotion_mode"] = "run"
+    km = pd.to_numeric(out[km_col], errors="coerce")
+    for span in spans:
+        s0 = float(span.get("course_km_start", span.get("course_m_start", 0) / 1000.0))
+        s1 = float(span.get("course_km_end", span.get("course_m_end", s0) / 1000.0))
+        mode = str(span.get("locomotion_mode", "run")).lower()
+        if mode not in ("run", "hike"):
+            continue
+        mask = (km >= s0 - 1e-9) & (km < s1 + 1e-9)
+        out.loc[mask, "locomotion_mode"] = mode
+    return out
+
+
 def classify_locomotion_mode(
     df: pd.DataFrame,
     *,
@@ -305,6 +335,7 @@ def tag_panel_locomotion(
         subject_id_col=sid_col,
         kinematics_config=kinematics_config,
     )
+    work = apply_operator_locomotion_gold(work, terrain_map)
     return work
 
 
