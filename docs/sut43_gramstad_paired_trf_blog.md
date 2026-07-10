@@ -134,6 +134,30 @@ Sandnes Ultra Trail is not just a line on a GPX map. It is a constantly shifting
 
 **Hold:** Do not publish to Substack until v2 revision pass is complete.
 
+**Gold gate (2026-07-10):** Operator flagged incorrect S-class at sector entry (e.g. S2 bleed on Dalsnuten approach). **Review all operator gold on all runs** before composite export, TRF re-run, or publication.
+
+```bash
+# Portfolio audit (all terrain maps):
+./04_Python_Scripts/spatial/audit_operator_gold_portfolio.sh
+
+# SUT_43 sectors (review in order):
+#   upstream km 22–29  → config/spatial_terrain_map_sut43_upstream.json
+#   gramstad km 29–41  → config/spatial_terrain_map_sut43.json
+#   merged full course → config/spatial_terrain_map_sut43_full.json (blog composite + cross-athlete TRF)
+python3 04_Python_Scripts/spatial/report_gold_coverage.py --terrain-map config/spatial_terrain_map_sut43_upstream.json
+python3 04_Python_Scripts/spatial/report_gold_coverage.py --terrain-map config/spatial_terrain_map_sut43.json
+
+# Per-chunk HITL PNG review (upstream example km 23–24):
+python3 04_Python_Scripts/spatial/validation_dashboard.py \
+  --terrain-map config/spatial_terrain_map_sut43_upstream.json \
+  --panel 03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet \
+  --km-start 22 --km-end 29 --chunk-km 1 --chunk-index 1 \
+  --output 06_Visualizations/sut43_hitl_upstream/chunk_u01_km23-24.png \
+  --with-map --decision-mode --verify-export
+```
+
+Edit gold in `hitl.operator_gold_spans[]` (Streamlit: `hitl_annotator_app.py` or `gold_span_editor.py`). Re-merge full map if sector files change. See `docs/hitl_dashboard_runbook.md`.
+
 ### v2 revision backlog
 
 - [ ] Integrate **Fig 4** (`sut43_trf_delta_gap_spine_blog.png`) into §4 — real spine gap profile (operator Mac render complete)

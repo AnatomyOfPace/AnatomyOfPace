@@ -71,6 +71,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DEFAULT_PANEL = BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_ontology" / "panel_race_1m_spine.parquet"
 DEFAULT_SPINE_DIR = BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_ontology" / "race_trf_spine"
 DEFAULT_TERRAIN_MAP = BASE_DIR / "config" / "spatial_terrain_map_sut43.json"
+DEFAULT_TERRAIN_MAP_FULL = BASE_DIR / "config" / "spatial_terrain_map_sut43_full.json"
 VIS_DIR = BASE_DIR / "06_Visualizations"
 DEFAULT_OUTPUT = VIS_DIR / "sut43_bedrock_corridor_composite.png"
 
@@ -174,6 +175,19 @@ def build_delta_ti_gap_profile(
         .median()
     )
     return work.dropna(subset=["gap_smooth"])
+
+
+def resolve_composite_terrain_map(
+    terrain_map: Path,
+    *,
+    blog_style: bool,
+) -> Path:
+    """Blog viewport km 25–41 needs merged upstream + gramstad gold (full map)."""
+    if terrain_map != DEFAULT_TERRAIN_MAP:
+        return terrain_map
+    if blog_style and DEFAULT_TERRAIN_MAP_FULL.exists():
+        return DEFAULT_TERRAIN_MAP_FULL
+    return terrain_map
 
 
 def render_bedrock_corridor_composite(
@@ -431,6 +445,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     terrain_path = args.terrain_map if args.terrain_map.is_absolute() else BASE_DIR / args.terrain_map
+    terrain_path = resolve_composite_terrain_map(terrain_path, blog_style=args.blog_style)
     panel_path = args.panel if args.panel.is_absolute() else BASE_DIR / args.panel
     spine_dir = args.spine_dir if args.spine_dir.is_absolute() else BASE_DIR / args.spine_dir
     out_path = args.output if args.output.is_absolute() else BASE_DIR / args.output
