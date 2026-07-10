@@ -1,7 +1,7 @@
 # Same Metres, Different Tax: Paired Residual Analysis on Sandnes Ultra Trail
 
 **The Anatomy of Pace** · Dr. Anatomy Pace  
-**Status:** Publication draft · **Case:** SUT_43 `gramstad_band` km 29–41  
+**Status:** v2 draft — **publish hold** (not scheduled) · **Case:** SUT_43 `gramstad_band` km 29–41  
 **Identifiers:** `Subject_A`, `Subject_B` only  
 **Voice:** Active, runner-facing English (Substack v2)
 

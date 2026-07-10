@@ -1,9 +1,10 @@
 <!-- SUBSTACK METADATA (operator — remove before publish or paste into Substack fields)
+Status: HOLD — v2 revisions pending; do not publish yet
 Title: Same Metres, Different Tax: Paired Residual Analysis on Sandnes Ultra Trail
 Subtitle: Phase B TRF on SUT_43 — How full-race averages hide technical weaknesses
 Byline: Dr. Anatomy Pace
 Tags: terrain index, ultra running, Rogaland, biomechanics, data science
-Figures (upload in order): sut43_gramstad_friction_strip_blog.png, sut43_trf_dilution_blog.png, sut43_gramstad_paired_trf_blog.png
+Figures (upload in order): sut43_gramstad_friction_strip_blog.png, sut43_trf_dilution_blog.png, sut43_gramstad_paired_trf_blog.png, sut43_trf_delta_gap_spine_blog.png
 -->
 
 # Same Metres, Different Tax: Paired Residual Analysis on Sandnes Ultra Trail
