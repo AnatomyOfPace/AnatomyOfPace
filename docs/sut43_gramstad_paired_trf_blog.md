@@ -1,79 +1,83 @@
 # Same Metres, Different Tax: Paired Residual Analysis on Sandnes Ultra Trail
 
 **The Anatomy of Pace** · Dr. Anatomy Pace  
-**Status:** Publication draft (Ghost Authority safe) · **Case:** SUT_43 `gramstad_band` km 29–41  
-**Identifiers:** `Subject_A`, `Subject_B` only
+**Status:** Publication draft · **Case:** SUT_43 `gramstad_band` km 29–41  
+**Identifiers:** `Subject_A`, `Subject_B` only  
+**Voice:** Active, runner-facing English (Substack v2)
 
 ---
 
 ## Summary
 
-In this analysis of **Sandnes Ultra Trail (SUT_43)**, paired **Training Residual Framework (TRF)** residuals are examined within a Phase B cohort (**n = 2**). Global race aggregation is shown to mask isolated biomechanical degradation. While full-lap aggregation indicated a marginal **F3 · downhill · hike** penalty for Subject_A (**ΔTI ≈ +0.08**), localized analysis within the **gramstad_band** (km 29–41) revealed severe structural friction (**ΔTI ≈ +0.68**). This penalty was further amplified within the **corridor slice** (km 31.08–33.80) to **ΔTI ≈ +0.97**. Conversely, negative residual friction was maintained by Subject_B throughout identical technical descents (**−0.18** and **−0.12**, respectively). Below-cohort residuals on **F2 gravel descents** were observed for both athletes. These findings indicate that localized technical segments inflict disproportionate, idiosyncratic friction penalties that remain obscured by full-race median metrics. The result is **diagnostic**, not a public ranking.
+When two runners finish the exact same 43 km trail race, their total times often hide the real story. In this post, the laboratory dives into the telemetry of two athletes on **Sandnes Ultra Trail (SUT_43)**. Looking at the entire race averages out the pain. For **Subject_A**, a full-race average showed only a tiny penalty on steep, technical descents (**ΔTI ≈ +0.08**). But zooming in on the brutal Gramstad section (km 29–41), the truth emerges: Subject_A was hit with a massive terrain tax (**ΔTI ≈ +0.68**), which spiked even higher on a specific 3 km bedrock descent (**ΔTI ≈ +0.97**, km 31.08–33.80).
+
+Meanwhile, **Subject_B** flew down those exact same technical descents, actually gaining time against the cohort average (**−0.18** and **−0.12**). Interestingly, both runners were highly efficient on smooth gravel. The takeaway? Technical terrain taxes runners completely differently, and overall race pace is hiding specific weaknesses.
 
 ---
 
-## 1. Grade-only models and the residual question
+## 1. Why GAP lies to trail runners
 
-When two athletes complete the same 43 km Rogaland ultra, summary statistics often collapse performance into a single efficiency narrative. **Grade-Adjusted Pace (GAP)** applies hill correction on a conceptual smooth belt; it does not encode surface friction, root grip, eccentric braking on bedrock steps, or hike–run transition tax. The laboratory’s **Terrain Index (TI)** measures friction *beyond* Minetti-grade physics via an asphalt anchor at matched effort—but even a session mean blends intrinsic course friction, athlete-specific tread skill, fatigue, and sensor noise. **Training residuals** isolate a narrower quantity: on a fixed friction tier, grade band, and locomotion mode, the deviation of observed TI from cohort median expectation.
+If you run ultras, you probably look at Grade-Adjusted Pace (GAP) after a race. GAP corrects for hills, but it assumes you are running on a smooth treadmill. It doesn't care if you are bounding down soft gravel, braking hard on wet bedrock, or navigating a root-choked singletrack.
+
+At **The Anatomy of Pace**, the **Terrain Index (TI)** measures the actual friction of the trail. TI looks beyond the steepness of the hill and measures how much the specific surface slows you down compared to running on flat asphalt at the exact same effort.
+
+But even a race-day average TI isn't enough. The laboratory needs to know exactly how a runner performs on specific types of terrain (like a steep, highly technical descent) compared to what the cohort expects. That quantity is the **Training Residual**. If the residual is positive, extra terrain tax is being paid. If it is negative, time is being banked efficiently.
 
 ```text
 ΔTI = TI_athlete − median(TI | friction_tier, grade_band, locomotion_mode)
 ```
 
-Friction tiers **F0–F4** derive from operator-locked ontology spans on the course axis. Locomotion mode (hike vs run) is classified per subject kinematics. Aid-station halts, co-waits, and asymmetric stops are masked from paired comparison. This is **Phase B** TRF: cohort median baseline on a **two-athlete race panel**—exploratory, not a population norm.
+Friction tiers **F0–F4** come from operator-locked course spans. Hike vs run is classified per athlete kinematics. Aid-station halts, co-waits, and asymmetric stops are masked from paired comparison. This is an exploratory **Phase B** cohort comparing two athletes—not a global population study.
 
 ---
 
-## 2. Method
+## 2. The setup
 
-| Element | Specification |
-|---------|----------------|
-| **Race** | SUT_43, April 2026 edition (stream-distance course km) |
-| **Analysis window** | `gramstad_band` km **29.0–41.0**; **corridor slice** km **31.08–33.80** (primary F3 DH span; analysis envelope km 31.0–34.0) |
-| **Athletes** | `Subject_A`, `Subject_B` — race-day finisher telemetry |
-| **Alignment** | Shared reference spine (`ref_chainage_m`) for cross-athlete comparison |
-| **Ground truth** | Operator gold friction tiers on `config/spatial_terrain_map_sut43.json` |
-| **Baseline** | Cohort median (Subject_A + Subject_B, same window) |
-| **Exclusions** | Food/drink CP corridors, STILE-31 co-wait, single-athlete halt asymmetry |
+| Element | The details |
+|---------|-------------|
+| **The race** | SUT_43, April 2026 edition |
+| **The focus area** | The Gramstad window (km 29–41) and the hyper-technical corridor slice (km 31.08–33.80) |
+| **The runners** | Subject_A and Subject_B (race-day finisher telemetry) |
+| **The method** | Both runners aligned meter-by-meter on the exact same stretches of trail. Aid-station stops and traffic jams were removed |
 
-**Not in scope for this case:** iso-HR cardiovascular drift where heart rate was absent, or inferential statistics beyond **n = 2**.
+*Note: Missing heart-rate data and external elite proficiency scaling are not in scope for this specific analysis.*
 
 ---
 
-## 3. Finding A — full lap dilutes the signal
+## 3. Finding A — the full-race average hides the pain
 
-Aggregating TRF across km 0.5–43 merges every **F3 · downhill · hike** metre into one cell spanning roughly km 4.5–39. For Subject_A, that cell reports **ΔTI ≈ +0.08**—a magnitude readily dismissed as noise.
+If Subject_A's performance is viewed across the entire 43 km race—combining every single technical hike downhill—the average penalty is just **+0.08**. At first glance, that looks like statistical noise. Subject_A might appear fine on descents.
 
-Re-running TRF on the **gramstad_band** window alone (km 29–41) elevates the same cell to **ΔTI ≈ +0.68** on km **29.82–39.14** (cell terminates at the asphalt transition near km 39.14).
+But isolating the Gramstad window (km 29–41) changes the story completely. On this specific sector, Subject_A's penalty on technical downhill hiking jumps to **+0.68**.
 
-**Interpretation:** window selection is part of the measurement. Full-race heatmaps screen; sector windows prescribe.
+**The takeaway:** Choosing where you look matters. Full-race averages act like a screen, hiding the specific sections where mechanics actually break down.
 
 ![Friction tier strip km 29–39](../06_Visualizations/sut43_gramstad_friction_strip_blog.png)
 
-*Figure 1. Locked friction tiers on the gramstad_band spine. Vertical markers: corridor slice onset (km 31.08), corridor slice terminus (km 33.80), asphalt onset (km 39.14).*
+*Figure 1. The Gramstad terrain strip. Vertical lines mark the start and end of the brutal bedrock corridor (km 31.08–33.80) and the final asphalt transition.*
 
 ![Dilution effect](../06_Visualizations/sut43_trf_dilution_blog.png)
 
-*Figure 2. Subject_A — F3 · downhill · hike: full-race ΔTI vs gramstad-only ΔTI. Sector localization amplifies the residual.*
+*Figure 2. Subject_A's technical downhill penalty. Notice how isolating the Gramstad sector amplifies the specific weakness that the full-race average hid.*
 
 ---
 
-## 4. Finding B — paired same-metre geometry
+## 4. Finding B — same metres, different tax
 
-On the shared spine, **F3 · downhill · hike** occupies nearly the same course shell for both athletes:
+Because the data is aligned to the exact meter, Subject_A and Subject_B can be compared on the very same technical downhill stretches (**F3** terrain) between km 29 and 41:
 
-| Athlete | km span (F3 DH hike) | ΔTI vs cohort |
-|---------|----------------------|---------------|
-| **Subject_A** | 29.82 – 39.14 | **+0.68** |
-| **Subject_B** | 29.55 – 39.14 | **−0.18** |
+| Athlete | km span (F3 DH hike) | Technical downhill penalty (ΔTI) |
+|---------|---------------------|----------------------------------|
+| **Subject_A** | 29.82 – 39.14 | **+0.68** (paying heavy terrain tax) |
+| **Subject_B** | 29.55 – 39.14 | **−0.18** (banking time efficiently) |
 
-**Cell-key gap (A − B) ≈ +0.86.** Spine-wide cross-athlete summary over km 29–41 reports mean **ΔTI gap (A − B) ≈ +0.40**, including all tier × grade × mode cells—not only F3 descents.
+**Cell-key gap (A − B) ≈ +0.86.**
 
-On identical ontology geometry, elevated terrain tax on **F3 technical descents under hike locomotion** is observed for Subject_A; speed extraction below cohort expectation on the same cell key is observed for Subject_B. Performance degradation on F3 friction tiers is indicated independently of general lap-speed narrative.
+This isn't just a case of "Subject_A is a slower runner." When both athletes hit highly technical descents, Subject_A bled time, while Subject_B extracted speed better than the cohort average. The trail simply did not treat them equally.
 
 ![Paired residuals](../06_Visualizations/sut43_gramstad_paired_trf_blog.png)
 
-*Figure 3. Paired ΔTI by cell key, gramstad_band km 29–41. Below-cohort residuals on F2 gravel descents are maintained by both athletes; divergence concentrates on F3.*
+*Figure 3. Side-by-side comparison. Notice that both runners perform well on F2 gravel, but their skills diverge drastically the moment they hit F3 technical terrain.*
 
 | km (course) | Sector | Friction context |
 |-------------|--------|------------------|
@@ -86,55 +90,54 @@ On identical ontology geometry, elevated terrain tax on **F3 technical descents 
 
 ---
 
-## 5. Finding C — corridor slice sharpens the hotspot
+## 5. Finding C — the bedrock hotspot
 
-Restricting TRF to the **corridor slice** (km **31.08–33.80**; analysis envelope km 31.0–34.0) targets the densest F3 descent material:
+Zooming in one final time—focusing exclusively on the most technical bedrock section of the race (the corridor slice, km 31.08–33.80)—the data becomes razor-sharp:
 
-| Cell | Subject_A | Subject_B |
-|------|-----------|-----------|
-| **F3 · downhill · hike** | **ΔTI +0.97** · km **31.08–33.80** | **ΔTI −0.12** · km **31.08–33.80** |
-| F3 · uphill · hike | +0.23 | +0.07 |
-| F2 · downhill · hike | −0.45 | −1.03 (202 m — small cell) |
+| Terrain type in corridor slice | Subject_A | Subject_B |
+|--------------------------------|-----------|-----------|
+| **F3 technical downhill · hike** | **+0.97** penalty | **−0.12** bonus |
+| F3 uphill · hike | +0.23 | +0.07 |
+| F2 gravel downhill · hike | −0.45 bonus | −1.03 bonus (202 m — small cell) |
 
-Within the corridor slice, the F3 downhill residual for Subject_A is amplified from **+0.68** (gramstad) to **≈ +0.97**—the primary diagnostic hotspot on operator-locked bedrock descent geometry.
+Inside this specific bedrock corridor, Subject_A's technical downhill penalty spikes to **+0.97**. This is the ultimate diagnostic hotspot.
 
-On **F2 · downhill · hike** across gramstad, below-cohort residuals (negative ΔTI) are maintained by both athletes. A **tier-asymmetric** pattern is indicated: elevated tax on **F3** descent cells; efficient extraction on **F2** gravel descent cells. Generic downhill volume is a common misinterpretation of such telemetry; eccentric control and line choice on operator-locked **F3** descents within the corridor slice (km 31.08–33.80) are indicated by the residual structure, with F2 gravel efficiency preserved.
+But look at the **F2 gravel downhill** numbers. Both athletes have a negative penalty here, meaning they are both highly efficient when running downhill on smooth gravel.
 
----
-
-## 6. Limitations
-
-1. **Cohort n = 2.** Residuals rank cells for diagnostic focus; population inference is not supported.  
-2. **Internal paired reference only.** Subject_B serves as cohort median co-athlete, not an external proficiency anchor.  
-3. **Hike-dominant window** (~89–93% hike in gramstad). Run-mode cells exist but are secondary.  
-4. **Cell metre counts** in TRF JSON are deduplicated panel-row totals on `ref_chainage_m` per subject and must not exceed the analysis envelope (~3,000 m for km 31.0–34.0). Corridor tables report telemetric km bounds; metre volumes are QC-checked at render via `verify_trf_corridor_blog_cells.py`.  
-5. **Single race edition** on stream-distance km; cross-year pairing assumptions apply if extended.  
-6. **QC cells** (e.g. F0 downhill artefacts on small spans) are excluded from narrative claims.
+**The coaching mistake:** A generic prescription of "more downhill running volume" misses the signal. The data shows Subject_A is already great at gravel downhills. What Subject_A actually needs to train is eccentric control and line choice specifically on steep, uneven bedrock.
 
 ---
 
-## 7. Laboratory implication
+## 6. Limitations to keep in mind
 
-Sandnes Ultra Trail is not only a GPX polyline. It is a **friction ontology**: operator-locked tiers on a course axis. Paired residuals convert Kinematic_Scan heatmaps into **cell keys** (`F3 · downhill · hike`) that survive contact with mesocycle design. A subsequent maturity step—**ΔTI against Baseline TI / TFI_expected** at course-level expected tax—extends the same decomposition beyond a two-athlete cohort median without invalidating this case.
+1. **Two-runner sample** — compares two specific athletes to find diagnostic weaknesses; not a broad population study.  
+2. **Internal reference** — Subject_B acts as the baseline comparison here, not an external recruited elite.  
+3. **Hike-dominant window** (~89–93% hike in gramstad).  
+4. **Data matching** — metre counts vary slightly based on exactly when each runner transitioned between hiking and running, not because they took different routes.  
+5. **Single race edition** on stream-distance km.
+
+---
+
+## 7. The laboratory implication
+
+Sandnes Ultra Trail is not just a line on a GPX map. It is a constantly shifting friction map. By comparing runners on identical sections of trail, a general feeling of "slow at the end" converts into actionable, surgical data. Don't just train for elevation—train for the specific friction of the terrain.
 
 ---
 
 ## Pull quote
 
-> On identical bedrock descent parameters, a **+0.97** terrain tax above the cohort median was exacted on F3 technical descent for Subject_A, whereas a **−0.12** residual was maintained by Subject_B on the same cell geometry. Divergent **friction signatures** were indicated independently of aggregate lap-speed narrative.
+> On the exact same bedrock descent, the trail exacted a massive **+0.97** terrain tax from Subject_A, while Subject_B efficiently banked a **−0.12** residual. Overall race pace is lying—the real story is hidden in the friction.
 
 ---
 
 ## Publication checklist (operator)
 
-- [ ] Embed Figure 1–3 from `06_Visualizations/sut43_*_blog.png` (operator Mac — run `enrich_trf_blog_v1.sh`)  
-- [x] Ghost Authority scan: PASS (`python3 04_Python_Scripts/ghost_authority_scan.py --strict docs/sut43_gramstad_paired_trf_blog.md`)  
-- [ ] Paste from `docs/publications/sut43_gramstad_paired_trf_substack.md`; upload figures in Substack editor  
+- [ ] Embed Figure 1–3 from `06_Visualizations/sut43_*_blog.png`  
+- [ ] Paste from `docs/publications/sut43_gramstad_paired_trf_substack.md`  
 - [ ] Substack header: `assets/brand/substack/`  
 - [ ] Tags: terrain index, ultra running, Rogaland, biomechanics, data science  
-- [ ] Social preview: `assets/brand/substack/substack_social_preview_1200x630.jpg` (or figure crop)  
 - [ ] Internal Sync Log entry (not for publication)
 
 ---
 
-*Draft generated by The Anatomy of Pace laboratory. Telemetry: SUT_43 race-day panel, TRF Phase B cohort median. Figures require local render via `enrich_trf_blog_v1.sh`.*
+*Draft: The Anatomy of Pace laboratory. Telemetry: SUT_43 race-day panel, TRF Phase B cohort median.*
