@@ -32,6 +32,7 @@ _SCRIPTS = Path(__file__).resolve().parent.parent
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
+from spatial.corridor_scope import SUT43_PRIMARY_KM_END  # noqa: E402
 from spatial.render_sut43_bedrock_corridor_basemap import (  # noqa: E402
     BEDROCK_CORRIDOR_KM,
     CORRIDOR_HIGHLIGHT_COLOR,
@@ -68,6 +69,12 @@ DEFAULT_SPINE_DIR = BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_
 DEFAULT_TERRAIN_MAP = BASE_DIR / "config" / "spatial_terrain_map_sut43.json"
 VIS_DIR = BASE_DIR / "06_Visualizations"
 DEFAULT_OUTPUT = VIS_DIR / "sut43_bedrock_corridor_composite.png"
+
+# Geographic Dalsnuten summit (Garmin marker 25) — race_corridors.json dalsnuten_summit.
+DALSENUTEN_SUMMIT_KM = 25.0
+GRAMSTAD_BAND_END_KM = SUT43_PRIMARY_KM_END  # 41.0
+DEFAULT_GRAMSTAD_BLOG_VIEWPORT_KM: tuple[float, float] = (DALSENUTEN_SUMMIT_KM, GRAMSTAD_BAND_END_KM)
+DEFAULT_BLOG_BASEMAP: BasemapChoice = "carto_nolabels"
 
 BG = "#0A0A0A"
 PANEL = "#111111"
@@ -179,6 +186,9 @@ def render_bedrock_corridor_composite(
     require_basemap: bool = True,
     verify_export: bool = False,
     rolling_m: int = 75,
+    show_map_km_markers: bool = True,
+    show_fit_track_caption: bool = True,
+    viewport_label: str | None = None,
 ) -> Path:
     """Basemap + elevation + paired delta-TI gap on a shared course-km axis."""
     panel = normalize_panel_axes(panel)
@@ -218,7 +228,9 @@ def render_bedrock_corridor_composite(
     ax_elev = fig.add_subplot(gs[1, 0])
     ax_gap = fig.add_subplot(gs[2, 0], sharex=ax_elev)
 
-    title = f"Bedrock corridor composite — operator gold (km {c_lo:.2f}–{c_hi:.2f}; mixed grade)"
+    title = viewport_label or (
+        f"Bedrock corridor composite — operator gold (km {c_lo:.2f}–{c_hi:.2f}; mixed grade)"
+    )
     fig.suptitle(title, color="white", fontsize=14, fontweight="bold", y=0.98)
     place = corridor_geography_label(terrain_map)
     axis_label = resolve_axis_label(terrain_map, panel)
@@ -251,6 +263,8 @@ def render_bedrock_corridor_composite(
         map_track_donor=map_track_donor,
         map_display_aspect=map_aspect,
         require_basemap=require_basemap,
+        show_map_km_markers=show_map_km_markers,
+        show_fit_track_caption=show_fit_track_caption,
     )
     track_geo = build_activity_track_geography(
         panel,
@@ -284,6 +298,25 @@ def render_bedrock_corridor_composite(
         )
 
     plot_corridor_km_band(ax_elev, corridor_km, km_lo=v_lo, km_hi=v_hi)
+    if abs(v_lo - DALSENUTEN_SUMMIT_KM) < 0.05:
+        ax_elev.axvline(
+            DALSENUTEN_SUMMIT_KM,
+            color="#9E9E9E",
+            linestyle=":",
+            linewidth=0.9,
+            alpha=0.75,
+            zorder=1,
+        )
+        ax_elev.text(
+            DALSENUTEN_SUMMIT_KM,
+            0.04,
+            "Dalsnuten summit",
+            transform=ax_elev.get_xaxis_transform(),
+            ha="left",
+            va="bottom",
+            fontsize=7.5,
+            color="#B0BEC5",
+        )
     ax_elev.plot(elev["course_km"], elev["altitude_m"], color="#00E5FF", linewidth=1.6, zorder=3)
     ax_elev.set_ylabel("Elevation (m)", color=TEXT)
     ax_elev.set_title("Course profile — Subject_A race spine", color=TEXT, fontsize=10, pad=6)
@@ -337,9 +370,24 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--rolling-m", type=int, default=75)
     parser.add_argument(
         "--basemap",
-        choices=["topo_standard", "topo_grayscale", "satellite_flyfoto", "kartverket-topo", "kartverket-gray", "opentopomap"],
+        choices=[
+            "topo_standard",
+            "topo_grayscale",
+            "satellite_flyfoto",
+            "kartverket-topo",
+            "kartverket-gray",
+            "opentopomap",
+            "carto_nolabels",
+            "blog_grey",
+        ],
         default=DEFAULT_BASEMAP_LAYER,
     )
+    parser.add_argument(
+        "--blog-style",
+        action="store_true",
+        help="Dalsnuten summit (km 25) → Gramstad end (km 41); grey no-label basemap; hide map km ticks.",
+    )
+    parser.add_argument("--show-map-km-markers", action=argparse.BooleanOptionalAction, default=None)
     parser.add_argument("--no-require-basemap", action="store_true")
     parser.add_argument("--verify-export", action="store_true")
     return parser.parse_args(argv)
@@ -363,20 +411,39 @@ def main(argv: list[str] | None = None) -> int:
     paired = load_paired_gap_frame(spine_dir)
     gpx = gpx_path if gpx_path.exists() else None
 
+    viewport = (float(args.viewport_km[0]), float(args.viewport_km[1]))
+    basemap = args.basemap
+    show_map_km_markers = args.show_map_km_markers
+    viewport_label: str | None = None
+    if args.blog_style:
+        viewport = DEFAULT_GRAMSTAD_BLOG_VIEWPORT_KM
+        basemap = DEFAULT_BLOG_BASEMAP
+        if show_map_km_markers is None:
+            show_map_km_markers = False
+        viewport_label = (
+            f"Dalsnuten summit → Gramstad band — bedrock corridor km {BEDROCK_CORRIDOR_KM[0]:.2f}–"
+            f"{BEDROCK_CORRIDOR_KM[1]:.2f}"
+        )
+    if show_map_km_markers is None:
+        show_map_km_markers = True
+
     path = render_bedrock_corridor_composite(
         terrain_map,
         panel,
         paired,
         output_path=out_path,
-        viewport_km=(float(args.viewport_km[0]), float(args.viewport_km[1])),
+        viewport_km=viewport,
         corridor_km=(float(args.corridor_km[0]), float(args.corridor_km[1])),
         gpx_path=gpx,
         map_track_activity=args.activity,
         map_track_donor=args.map_track_donor,
-        basemap=args.basemap,
+        basemap=basemap,
         require_basemap=not args.no_require_basemap,
         verify_export=args.verify_export,
         rolling_m=int(args.rolling_m),
+        show_map_km_markers=show_map_km_markers,
+        show_fit_track_caption=show_map_km_markers,
+        viewport_label=viewport_label,
     )
     print(f"OK bedrock corridor composite → {path.relative_to(BASE_DIR)}")
     return 0

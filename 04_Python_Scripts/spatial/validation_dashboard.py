@@ -49,8 +49,8 @@ from pathlib import Path
 from typing import Any, Literal
 
 OverrideMode = Literal["guidance", "lock"]
-BasemapLayerId = Literal["topo_standard", "topo_grayscale", "satellite_flyfoto"]
-BasemapChoice = BasemapLayerId | Literal["kartverket-topo", "kartverket-gray", "opentopomap"]
+BasemapLayerId = Literal["topo_standard", "topo_grayscale", "satellite_flyfoto", "carto_nolabels"]
+BasemapChoice = BasemapLayerId | Literal["kartverket-topo", "kartverket-gray", "opentopomap", "blog_grey"]
 MLPredictionsMode = Literal["full", "loocv", "path"]
 
 import matplotlib
@@ -482,6 +482,8 @@ def normalize_basemap_layer(basemap: BasemapChoice | str) -> BasemapLayerId | Li
         "flyfoto": "satellite_flyfoto",
         "orthophoto": "satellite_flyfoto",
         "opentopomap": "opentopomap",
+        "carto_nolabels": "carto_nolabels",
+        "blog_grey": "carto_nolabels",
     }
     if token in aliases:
         return aliases[token]
@@ -969,6 +971,19 @@ def _try_add_basemap(
             str(getattr(cx.providers.OpenStreetMap.Mapnik, "url", "OpenStreetMap")),
         ),
     ]
+
+    if layer == "carto_nolabels":
+        carto_url = str(getattr(cx.providers.CartoDB.PositronNoLabels, "url", "CartoDB PositronNoLabels"))
+        try:
+            return _add(
+                cx.providers.CartoDB.PositronNoLabels,
+                label="CartoDB Positron (no labels)",
+                url=carto_url,
+                attribution="© OpenStreetMap © CARTO",
+            )
+        except Exception as exc:
+            logging.warning("CartoDB PositronNoLabels fetch failed (%s); trying Kartverket greyscale", exc)
+            layer = "topo_grayscale"
 
     if layer != "opentopomap":
         url, label, attribution = resolve_basemap_tile_source(layer)
@@ -3069,6 +3084,8 @@ def render_reference_map(
     require_basemap: bool = False,
     lat_offset: float = 0.0,
     lon_offset: float = 0.0,
+    show_map_km_markers: bool = True,
+    show_fit_track_caption: bool = True,
 ) -> tuple[str, bool, bool]:
     """Topo basemap + race FIT or GPX S-class centerline, faint athlete GPS, chunk highlight."""
     panel = offset_panel_gps(panel, lat_offset=lat_offset, lon_offset=lon_offset)
@@ -3333,7 +3350,7 @@ def render_reference_map(
         offset_m=ML_MAP_TRACK_OFFSET_M if decision_mode else 0.0,
     )
 
-    if chunk_km is not None and not track_geo.empty:
+    if chunk_km is not None and not track_geo.empty and show_map_km_markers:
         c_lo, c_hi = chunk_km
         plot_100m_distance_markers(
             ax,
@@ -3354,7 +3371,7 @@ def render_reference_map(
     ax.set_yticks([])
     plot_metric_scalebar(ax, map_bounds)
 
-    if chunk_km is not None and not track_geo.empty:
+    if chunk_km is not None and not track_geo.empty and show_fit_track_caption:
         c_lo, c_hi = chunk_km
         chunk_pts = track_geo[
             (track_geo["course_km"] >= c_lo) & (track_geo["course_km"] <= c_hi)

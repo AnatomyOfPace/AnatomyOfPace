@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Blog composite — Dalsnuten summit (km 25) → Gramstad band end (km 41).
+# Grey label-free basemap; no map km tick labels; shared-km elevation + delta-TI gap.
+#
+# Usage (repo root, on Mac with local panel + TRF spine):
+#   ./04_Python_Scripts/spatial/export_sut43_gramstad_composite_blog.sh
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$ROOT"
+
+export MPLCONFIGDIR="${MPLCONFIGDIR:-$ROOT/.mplconfig}"
+mkdir -p "$MPLCONFIGDIR"
+
+python3 04_Python_Scripts/spatial/render_sut43_bedrock_corridor_composite.py \
+  --panel "03_Processed_Data/spatial/sut43_terrain_ontology/panel_race_1m_spine.parquet" \
+  --spine-dir "03_Processed_Data/spatial/sut43_terrain_ontology/race_trf_spine" \
+  --output "06_Visualizations/sut43_gramstad_composite_blog.png" \
+  --blog-style \
+  --verify-export \
+  "$@"
