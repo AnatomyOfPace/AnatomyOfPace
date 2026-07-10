@@ -32,7 +32,11 @@ _SCRIPTS = Path(__file__).resolve().parent.parent
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
-from spatial.corridor_scope import SUT43_PRIMARY_KM_END  # noqa: E402
+from spatial.corridor_scope import (  # noqa: E402
+    SUT43_DALSNUTEN_GRAMSTAD_VIEWPORT_KM,
+    SUT43_DALSNUTEN_SUMMIT_KM,
+    SUT43_PRIMARY_KM_END,
+)
 from spatial.render_sut43_bedrock_corridor_basemap import (  # noqa: E402
     BEDROCK_CORRIDOR_KM,
     CORRIDOR_HIGHLIGHT_COLOR,
@@ -71,9 +75,9 @@ VIS_DIR = BASE_DIR / "06_Visualizations"
 DEFAULT_OUTPUT = VIS_DIR / "sut43_bedrock_corridor_composite.png"
 
 # Geographic Dalsnuten summit (Garmin marker 25) — race_corridors.json dalsnuten_summit.
-DALSENUTEN_SUMMIT_KM = 25.0
+DALSENUTEN_SUMMIT_KM = SUT43_DALSNUTEN_SUMMIT_KM
 GRAMSTAD_BAND_END_KM = SUT43_PRIMARY_KM_END  # 41.0
-DEFAULT_GRAMSTAD_BLOG_VIEWPORT_KM: tuple[float, float] = (DALSENUTEN_SUMMIT_KM, GRAMSTAD_BAND_END_KM)
+DEFAULT_GRAMSTAD_BLOG_VIEWPORT_KM = SUT43_DALSNUTEN_GRAMSTAD_VIEWPORT_KM
 DEFAULT_BLOG_BASEMAP: BasemapChoice = "carto_nolabels"
 
 BG = "#0A0A0A"
@@ -208,6 +212,14 @@ def render_bedrock_corridor_composite(
         raise ValueError(f"No elevation metres in viewport km {v_lo}–{v_hi}")
     if gap.empty:
         raise ValueError(f"No paired delta-TI gap metres in viewport km {v_lo}–{v_hi}")
+    gap_lo = float(gap["course_km"].min())
+    if gap_lo > v_lo + 0.15:
+        raise ValueError(
+            f"Paired delta-TI gap starts at km {gap_lo:.2f} but viewport begins at km {v_lo:.2f}. "
+            "Re-run cross-athlete TRF from Dalsnuten: "
+            "./04_Python_Scripts/spatial/compute_trf_race_sut43.sh --spine-only "
+            "(requires config/spatial_terrain_map_sut43_full.json for km 25–29)."
+        )
 
     assigned_spans = collect_decision_assigned_spans(terrain_map, km_lo=v_lo, km_hi=v_hi)
     gold_spans = operator_gold_assigned_spans(terrain_map, v_lo, v_hi)

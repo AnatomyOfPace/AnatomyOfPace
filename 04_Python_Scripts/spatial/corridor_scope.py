@@ -35,6 +35,10 @@ SUT43_FULL_KM_END = 42.5
 SUT43_PRIMARY_KM_START = 29.0
 SUT43_PRIMARY_KM_END = 41.0
 SUT43_PRIMARY_VIEWPORT_KM_END = 41.5
+# Geographic Dalsnuten summit (Garmin marker 25) — race_corridors.json dalsnuten_summit.
+SUT43_DALSNUTEN_SUMMIT_KM = 25.0
+# Blog composite viewport: Dalsnuten summit through Gramstad band end.
+SUT43_DALSNUTEN_GRAMSTAD_VIEWPORT_KM: tuple[float, float] = (SUT43_DALSNUTEN_SUMMIT_KM, SUT43_PRIMARY_KM_END)
 SUT43_FULL_RACE_KM_START = 0.5
 SUT43_FULL_RACE_KM_END = 43.0
 SUT43_FULL_RACE_SECTOR_ID = "sut43_full_race"
