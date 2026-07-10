@@ -64,6 +64,36 @@ Writes `06_Visualizations/sut43_bedrock_corridor_composite.png`. Requires `panel
 ./04_Python_Scripts/spatial/export_hitl_chunks.sh
 ```
 
+### Full course (km 0.5–43.0, merged operator gold)
+
+Visual review from Hogstad start through finish — **43 × 1 km** decision dashboards on the merged full terrain map.
+
+```bash
+# Export all chunks (~30–45 min on Mac; tile cache + verify per chunk):
+./04_Python_Scripts/spatial/export_hitl_chunks_sut43_full.sh
+
+# Step through PNGs in order (Preview):
+./04_Python_Scripts/spatial/open_hitl_review_sut43_full.sh
+
+# Resume at Dalsnuten / gramstad entry (chunk index ≈ stream km):
+./04_Python_Scripts/spatial/open_hitl_review_sut43_full.sh --from-chunk 25
+
+# Re-export one chunk after a gold edit:
+./04_Python_Scripts/spatial/export_hitl_chunks_sut43_full.sh --chunk-index 25
+```
+
+| Item | Path |
+|------|------|
+| Terrain map | `config/spatial_terrain_map_sut43_full.json` |
+| Panel | `03_Processed_Data/spatial/sut43_terrain_ontology/panel_full_1m.parquet` |
+| Output | `06_Visualizations/sut43_hitl_full/chunk_XX_kmA-B.png` |
+| Sector registry | `config/spatial_terrain_sectors_sut43.json` |
+
+**Sector seams to watch:** km 8 (start→bridge), km 22 (bridge→upstream), km 29 (upstream→gramstad), km 41 (gramstad→finish). Edit gold in the **sector** JSON listed in the registry, then re-merge into `spatial_terrain_map_sut43_full.json` before re-export.
+
+Legacy gramstad-only export (km 29–41) remains `export_hitl_chunks.sh`.
+
+
 ### Spine-panel cross-athlete export (race panel on ref_chainage_m)
 
 Use when verifying per-subject NTI/speed overlays on the Subject_A race spine (Subject_A + Subject_B race streams):

@@ -140,12 +140,11 @@ Sandnes Ultra Trail is not just a line on a GPX map. It is a constantly shifting
 # Portfolio audit (all terrain maps):
 ./04_Python_Scripts/spatial/audit_operator_gold_portfolio.sh
 
-# SUT_43 sectors (review in order):
-#   upstream km 22–29  → config/spatial_terrain_map_sut43_upstream.json
-#   gramstad km 29–41  → config/spatial_terrain_map_sut43.json
-#   merged full course → config/spatial_terrain_map_sut43_full.json (blog composite + cross-athlete TRF)
-python3 04_Python_Scripts/spatial/report_gold_coverage.py --terrain-map config/spatial_terrain_map_sut43_upstream.json
-python3 04_Python_Scripts/spatial/report_gold_coverage.py --terrain-map config/spatial_terrain_map_sut43.json
+# Full-course visual HITL review (km 0.5–43):
+./04_Python_Scripts/spatial/export_hitl_chunks_sut43_full.sh
+./04_Python_Scripts/spatial/open_hitl_review_sut43_full.sh
+
+# Per-sector gap reports:
 
 # Per-chunk HITL PNG review (upstream example km 23–24):
 python3 04_Python_Scripts/spatial/validation_dashboard.py \
