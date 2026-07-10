@@ -3091,6 +3091,7 @@ def render_reference_map(
     show_map_km_markers: bool = True,
     show_fit_track_caption: bool = True,
     map_km_marker_step_km: float | None = None,
+    map_minimal_overlays: bool = False,
 ) -> tuple[str, bool, bool]:
     """Topo basemap + race FIT or GPX S-class centerline, faint athlete GPS, chunk highlight."""
     panel = offset_panel_gps(panel, lat_offset=lat_offset, lon_offset=lon_offset)
@@ -3287,7 +3288,7 @@ def render_reference_map(
                     km_hi=c_hi,
                 )
         chunk_geo = track_geo[(track_geo["course_km"] >= c_lo) & (track_geo["course_km"] <= c_hi)]
-        if not chunk_geo.empty:
+        if not chunk_geo.empty and not map_minimal_overlays:
             pad_m = 60.0
             center_lat = float(chunk_geo["latitude"].mean())
             lon_m_per_deg = 111_320.0 * max(np.cos(np.radians(center_lat)), 1e-6)
@@ -3328,7 +3329,7 @@ def render_reference_map(
             km_lo=ml_km_lo,
             km_hi=ml_km_hi,
         )
-        if assigned_map_drawn:
+        if assigned_map_drawn and not map_minimal_overlays:
             plot_assigned_span_labels_on_map(
                 ax,
                 track_geo,

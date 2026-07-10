@@ -77,6 +77,7 @@ def plot_corridor_slice_highlight(
     corridor_km: tuple[float, float],
     *,
     pad_m: float = 75.0,
+    show_map_labels: bool = True,
 ) -> bool:
     """Orange bbox + thick track emphasis for the TRF corridor slice on the basemap."""
     if track_geo.empty:
@@ -119,6 +120,9 @@ def plot_corridor_slice_highlight(
         zorder=CORRIDOR_TRACK_ZORDER - 1,
     )
     ax.add_patch(rect)
+
+    if not show_map_labels:
+        return True
 
     for km_mark, ha in ((c_lo, "left"), (c_hi, "right")):
         pt = _interp_latlon_at_km(track_geo, km_mark)
