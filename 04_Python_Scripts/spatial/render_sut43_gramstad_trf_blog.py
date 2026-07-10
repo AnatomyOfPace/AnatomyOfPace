@@ -25,6 +25,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import numpy as np
+import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DEFAULT_GRAMSTAD_DIR = (
@@ -32,6 +34,9 @@ DEFAULT_GRAMSTAD_DIR = (
 )
 DEFAULT_FULL_DIR = (
     BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_ontology" / "race_trf_full"
+)
+DEFAULT_SPINE_DIR = (
+    BASE_DIR / "03_Processed_Data" / "spatial" / "sut43_terrain_ontology" / "race_trf_spine"
 )
 DEFAULT_TERRAIN_MAP = BASE_DIR / "config" / "spatial_terrain_map_sut43.json"
 VIS_DIR = BASE_DIR / "06_Visualizations"
@@ -78,6 +83,121 @@ def _cell_delta(cell: dict[str, Any] | None) -> float | None:
         return None
     val = cell.get("delta_ti_mean")
     return float(val) if val is not None else None
+
+
+def load_paired_gap_frame(spine_dir: Path) -> pd.DataFrame:
+    """Load metre-level delta-TI gap (Subject_A - Subject_B) on ref_chainage_m."""
+    spine_dir = spine_dir if spine_dir.is_absolute() else BASE_DIR / spine_dir
+    paired_path = spine_dir / "cross_athlete_trf_paired.parquet"
+    if paired_path.exists():
+        return pd.read_parquet(paired_path)
+
+    a_path = spine_dir / "training_residual_Subject_A.parquet"
+    b_path = spine_dir / "training_residual_Subject_B.parquet"
+    if not a_path.exists() or not b_path.exists():
+        raise FileNotFoundError(
+            f"Missing paired gap data in {spine_dir.relative_to(BASE_DIR)}. "
+            "Run compute_trf_race_sut43.sh --cross-athlete first."
+        )
+    a = pd.read_parquet(a_path)
+    b = pd.read_parquet(b_path)
+    if "in_trf_exclusion" in a.columns:
+        a = a.loc[~a["in_trf_exclusion"]]
+        b = b.loc[~b["in_trf_exclusion"]]
+    if "ref_chainage_m" in a.columns:
+        a = a.drop_duplicates(subset=["ref_chainage_m"], keep="last")
+        b = b.drop_duplicates(subset=["ref_chainage_m"], keep="last")
+    join_cols = ["ref_chainage_m", "course_km"]
+    paired = a[join_cols + ["delta_ti"]].merge(
+        b[join_cols + ["delta_ti"]],
+        on=join_cols,
+        how="inner",
+        suffixes=("_a", "_b"),
+    )
+    paired["delta_ti_gap"] = paired["delta_ti_a"] - paired["delta_ti_b"]
+    return paired
+
+
+def render_delta_ti_gap_spine(
+    paired: pd.DataFrame,
+    *,
+    km_start: float = 29.0,
+    km_end: float = 39.5,
+    corridor_km: tuple[float, float] = (31.08, 33.80),
+    rolling_m: int = 75,
+    output_path: Path,
+) -> Path:
+    """Figure 4 — paired delta-TI gap (A - B) along gramstad spine with corridor markers."""
+    work = paired.copy()
+    work["course_km"] = pd.to_numeric(work["course_km"], errors="coerce")
+    work["delta_ti_gap"] = pd.to_numeric(work["delta_ti_gap"], errors="coerce")
+    work = work.dropna(subset=["course_km", "delta_ti_gap"])
+    work = work[(work["course_km"] >= km_start) & (work["course_km"] <= km_end)].sort_values("course_km")
+    if work.empty:
+        raise ValueError(f"No paired gap metres in km {km_start}–{km_end}")
+
+    work["gap_smooth"] = (
+        work["delta_ti_gap"].rolling(window=rolling_m, center=True, min_periods=max(10, rolling_m // 5)).median()
+    )
+    plot_df = work.dropna(subset=["gap_smooth"])
+
+    fig, ax = plt.subplots(figsize=(12, 3.8))
+    fig.patch.set_facecolor(BG)
+    ax.set_facecolor(PANEL)
+
+    c_lo, c_hi = corridor_km
+    ax.axvspan(c_lo, c_hi, color="#FFA726", alpha=0.12, zorder=0)
+    ax.axvline(c_lo, color="#FFA726", linestyle="--", linewidth=0.9, alpha=0.85)
+    ax.axvline(c_hi, color="#FFA726", linestyle="--", linewidth=0.9, alpha=0.85)
+    ax.axhline(0, color="#888888", linewidth=1, zorder=1)
+
+    ax.plot(
+        plot_df["course_km"],
+        plot_df["gap_smooth"],
+        color="#EF5350",
+        linewidth=2.0,
+        label="Rolling median gap (A − B)",
+        zorder=3,
+    )
+    ax.fill_between(
+        plot_df["course_km"],
+        0,
+        plot_df["gap_smooth"],
+        where=plot_df["gap_smooth"] > 0,
+        color="#EF5350",
+        alpha=0.18,
+        zorder=2,
+    )
+
+    ax.set_xlim(km_start, km_end)
+    ymax = float(np.nanpercentile(plot_df["gap_smooth"].abs(), 99)) * 1.25
+    ymax = max(ymax, 0.5)
+    ax.set_ylim(-ymax, ymax)
+    ax.set_xlabel("Course km (gramstad_band)", color=TEXT)
+    ax.set_ylabel("delta-TI gap (A − B)", color=TEXT)
+    ax.set_title(
+        "Paired residual gap along spine — corridor slice highlighted",
+        color=TEXT,
+        fontsize=11,
+        pad=8,
+    )
+    ax.text(
+        (c_lo + c_hi) / 2,
+        ymax * 0.92,
+        "corridor slice",
+        color="#FFB74D",
+        fontsize=8,
+        ha="center",
+    )
+    ax.tick_params(colors=TEXT)
+    for spine in ax.spines.values():
+        spine.set_color(GRID)
+    ax.legend(loc="upper right", fontsize=8, framealpha=0.2, labelcolor=TEXT)
+    fig.tight_layout()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=150, facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return output_path
 
 
 def render_friction_strip(
@@ -243,6 +363,7 @@ def render_paired_figure(
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Render ghost-safe SUT_43 gramstad TRF blog figures.")
     parser.add_argument("--gramstad-dir", type=Path, default=DEFAULT_GRAMSTAD_DIR)
+    parser.add_argument("--spine-dir", type=Path, default=DEFAULT_SPINE_DIR)
     parser.add_argument("--full-dir", type=Path, default=DEFAULT_FULL_DIR)
     parser.add_argument("--terrain-map", type=Path, default=DEFAULT_TERRAIN_MAP)
     parser.add_argument("--output-dir", type=Path, default=VIS_DIR)
@@ -252,6 +373,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     gramstad_dir = args.gramstad_dir if args.gramstad_dir.is_absolute() else BASE_DIR / args.gramstad_dir
+    spine_dir = args.spine_dir if args.spine_dir.is_absolute() else BASE_DIR / args.spine_dir
     full_dir = args.full_dir if args.full_dir.is_absolute() else BASE_DIR / args.full_dir
     terrain_map = args.terrain_map if args.terrain_map.is_absolute() else BASE_DIR / args.terrain_map
     out_dir = args.output_dir if args.output_dir.is_absolute() else BASE_DIR / args.output_dir
@@ -290,6 +412,27 @@ def main(argv: list[str] | None = None) -> int:
         )
     )
     print(f"  Fig 3 → {paths[-1].relative_to(BASE_DIR)}")
+
+    paired_path = spine_dir / "cross_athlete_trf_paired.parquet"
+    fallback_a = spine_dir / "training_residual_Subject_A.parquet"
+    if paired_path.exists() or fallback_a.exists():
+        try:
+            paired = load_paired_gap_frame(spine_dir)
+            paths.append(
+                render_delta_ti_gap_spine(
+                    paired,
+                    output_path=out_dir / "sut43_trf_delta_gap_spine_blog.png",
+                )
+            )
+            print(f"  Fig 4 → {paths[-1].relative_to(BASE_DIR)}")
+        except (FileNotFoundError, ValueError) as exc:
+            print(f"  SKIP Fig 4 — {exc}", file=sys.stderr)
+    else:
+        print(
+            f"  SKIP Fig 4 — missing {spine_dir.relative_to(BASE_DIR)}/cross_athlete_trf_paired.parquet",
+            file=sys.stderr,
+        )
+
     print("OK blog figures rendered (ghost-safe clinical IDs).")
     return 0
 

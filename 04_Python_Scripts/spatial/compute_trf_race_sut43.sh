@@ -91,4 +91,5 @@ if [[ "$SPINE_ONLY" -eq 0 ]]; then
   echo "  Full course reports → ${FULL_OUT}/training_residual_report_Subject_*.json"
 fi
 echo "  Cross-athlete summary → ${SPINE_OUT}/cross_athlete_trf_summary.json"
+echo "  Paired gap spine      → ${SPINE_OUT}/cross_athlete_trf_paired.parquet"
 echo "  Per-subject spine reports → ${SPINE_OUT}/training_residual_report_Subject_*.json"
