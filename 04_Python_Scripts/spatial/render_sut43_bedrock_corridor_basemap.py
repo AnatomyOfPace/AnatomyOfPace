@@ -32,6 +32,7 @@ _SCRIPTS = Path(__file__).resolve().parent.parent
 if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
+from spatial.reproject_to_spine import normalize_panel_axes  # noqa: E402
 from spatial.spatial_hitl_overlay import load_terrain_map  # noqa: E402
 from spatial.validation_dashboard import (  # noqa: E402
     DEFAULT_BASEMAP_LAYER,
@@ -170,6 +171,7 @@ def render_bedrock_corridor_basemap(
     verify_export: bool = False,
 ) -> Path:
     """Map-only HITL export — operator gold on topo with corridor slice highlight."""
+    panel = normalize_panel_axes(panel)
     plt.style.use("dark_background")
     v_lo, v_hi = viewport_km
     c_lo, c_hi = corridor_km
@@ -318,7 +320,7 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     terrain_map = load_terrain_map(terrain_path)
-    panel = pd.read_parquet(panel_path)
+    panel = normalize_panel_axes(pd.read_parquet(panel_path))
     gpx = gpx_path if gpx_path.exists() else None
 
     path = render_bedrock_corridor_basemap(

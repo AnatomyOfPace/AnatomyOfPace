@@ -59,6 +59,15 @@ class BedrockCorridorBasemapTests(unittest.TestCase):
         plt.close(fig)
         self.assertTrue(drawn)
 
+    def test_normalize_spine_panel_axes(self) -> None:
+        from spatial.reproject_to_spine import normalize_panel_axes
+
+        spine = _synthetic_panel().drop(columns=["course_km", "course_m"])
+        spine["ref_chainage_m"] = spine.index.astype(float) * 100.0 + 30_000.0
+        normed = normalize_panel_axes(spine)
+        self.assertIn("course_km", normed.columns)
+        self.assertAlmostEqual(float(normed["course_km"].iloc[0]), 30.0, places=2)
+
     def test_render_writes_png_without_basemap(self) -> None:
         if not TERRAIN.exists():
             self.skipTest("terrain map not in workspace")
@@ -75,6 +84,26 @@ class BedrockCorridorBasemapTests(unittest.TestCase):
             )
             self.assertTrue(path.exists())
             self.assertGreater(path.stat().st_size, 500)
+
+    def test_render_spine_panel_without_course_km(self) -> None:
+        if not TERRAIN.exists():
+            self.skipTest("terrain map not in workspace")
+        from spatial.reproject_to_spine import normalize_panel_axes
+
+        terrain_map = load_terrain_map(TERRAIN)
+        spine = _synthetic_panel().drop(columns=["course_km", "course_m"])
+        spine["ref_chainage_m"] = (spine.index.astype(float) * 100.0) + 30_000.0
+        panel = normalize_panel_axes(spine)
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "corridor_basemap_spine.png"
+            path = render_bedrock_corridor_basemap(
+                terrain_map,
+                panel,
+                output_path=out,
+                gpx_path=None,
+                require_basemap=False,
+            )
+            self.assertTrue(path.exists())
 
 
 if __name__ == "__main__":
