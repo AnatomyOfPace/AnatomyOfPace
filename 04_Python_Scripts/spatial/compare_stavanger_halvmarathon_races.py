@@ -68,11 +68,33 @@ def _resample_1m(frame: pd.DataFrame) -> pd.DataFrame:
     return out.sort_values("course_km")
 
 
+def _series_or_empty(frame: pd.DataFrame, col: str) -> pd.Series:
+    if col not in frame.columns:
+        return pd.Series(dtype=float)
+    return pd.to_numeric(frame[col], errors="coerce")
+
+
+def _align_on_course_grid(a: pd.DataFrame, b: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, float]:
+    """Reindex both 1 m frames onto shared stream course_m (0 … km_hi)."""
+    km_hi = min(float(a["course_km"].max()), float(b["course_km"].max()))
+    grid = pd.DataFrame(
+        {
+            "course_m": np.arange(0, int(km_hi * 1000.0) + 1, dtype=int),
+        }
+    )
+    grid["course_km"] = grid["course_m"] / 1000.0
+    a_cols = [c for c in a.columns if c not in {"course_km"}]
+    b_cols = [c for c in b.columns if c not in {"course_km"}]
+    a_grid = grid.merge(a[a_cols], on="course_m", how="left")
+    b_grid = grid.merge(b[b_cols], on="course_m", how="left")
+    return a_grid, b_grid, km_hi
+
+
 def _race_summary(frame: pd.DataFrame, label: str) -> dict[str, Any]:
     km = frame["course_km"]
-    speed = pd.to_numeric(frame.get("speed_mps"), errors="coerce")
-    ti = pd.to_numeric(frame.get("ti"), errors="coerce")
-    hr = pd.to_numeric(frame.get("heart_rate"), errors="coerce")
+    speed = _series_or_empty(frame, "speed_mps")
+    ti = _series_or_empty(frame, "ti")
+    hr = _series_or_empty(frame, "heart_rate")
     valid_speed = speed[speed > 0.3]
     pace_min_km = float((1000.0 / valid_speed.median() / 60.0)) if not valid_speed.empty else None
     return {
@@ -136,19 +158,25 @@ def compare_races(
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     a = _resample_1m(frame_a)
     b = _resample_1m(frame_b)
-    km_hi = min(float(a["course_km"].max()), float(b["course_km"].max()))
-    a = a[a["course_km"] <= km_hi + 1e-9].copy()
-    b = b[b["course_km"] <= km_hi + 1e-9].copy()
+    a, b, km_hi = _align_on_course_grid(a, b)
 
     rename_a = {c: f"{c}_{label_a}" for c in COMPARE_COLS if c in a.columns}
     rename_b = {c: f"{c}_{label_b}" for c in COMPARE_COLS if c in b.columns}
     paired = a.rename(columns=rename_a).merge(
         b.rename(columns=rename_b),
-        on="course_km",
-        how="inner",
+        on=["course_m", "course_km"],
+        how="left",
     )
+    spd_a = f"speed_mps_{label_a}"
+    spd_b = f"speed_mps_{label_b}"
+    if spd_a in paired.columns and spd_b in paired.columns:
+        valid = (
+            pd.to_numeric(paired[spd_a], errors="coerce").gt(0.3)
+            & pd.to_numeric(paired[spd_b], errors="coerce").gt(0.3)
+        )
+        paired = paired.loc[valid].copy()
     if paired.empty:
-        raise ValueError("No overlapping course_km metres after 1 m resample")
+        raise ValueError("No overlapping course metres with speed in both races after 1 m grid align")
 
     paired["surface_class"] = paired["course_km"].apply(
         lambda km: operator_gold_class_at_km(terrain_map, float(km))
@@ -170,14 +198,19 @@ def compare_races(
             - pd.to_numeric(paired[f"ti_{label_a}"], errors="coerce")
         )
 
+    tiered = paired["friction_tier"].notna()
+    substrate_bands = _substrate_breakdown(paired, terrain_map, label_a=label_a, label_b=label_b)
     report: dict[str, Any] = {
         "race_id": "stavanger_halvmarathon",
         "donor_id": "Subject_A",
         "compare_window_km": [0.0, round(km_hi, 3)],
+        "grid_metres": int(km_hi * 1000.0) + 1,
         "overlap_metres": int(len(paired)),
+        "tier_assigned_metres": int(tiered.sum()),
+        "substrate_band_metres": int(sum(row["metres"] for row in substrate_bands)),
         "summary_a": _race_summary(a, label_a),
         "summary_b": _race_summary(b, label_b),
-        "substrate_bands": _substrate_breakdown(paired, terrain_map, label_a=label_a, label_b=label_b),
+        "substrate_bands": substrate_bands,
     }
     if "delta_speed_mps" in paired.columns:
         d_spd = paired["delta_speed_mps"].dropna()
