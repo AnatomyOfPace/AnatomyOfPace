@@ -11,6 +11,14 @@ Writes (optional):
 
 Does not touch anatomy_macro.db. Personal nutrition / body-mass anchors are
 never required for pace evaluation and are never written to public paths.
+
+Recovery weeks (``is_recovery_week: true`` at activity, current_week, or file
+top-level) skip the 4:44 min/km delta and cardiac-drift parsing and return
+``status=recovery_exempt`` instead of a false 0.0 compliance miss.
+
+Pipeline note: the next FIT ingestion for the standard fast-finish simulator
+is scheduled for Sunday 2026-09-13, after which evaluators resume normal
+target-pace / drift logic (clear or set ``is_recovery_week`` false).
 """
 
 from __future__ import annotations
@@ -171,12 +179,38 @@ def score_fast_finish(
     return score, held, delta_sec
 
 
+def resolve_is_recovery_week(
+    session_meta: dict[str, Any],
+    *,
+    meta_root: dict[str, Any] | None = None,
+) -> bool:
+    """True if activity, current_week, or file top-level marks recovery week.
+
+    Explicit activity ``is_recovery_week`` wins (including ``false`` after the
+    2026-09-13 fast-finish resume). Otherwise inherit from matching
+    ``current_week`` or top-level metadata.
+    """
+    if "is_recovery_week" in session_meta:
+        return bool(session_meta["is_recovery_week"])
+    root = meta_root or {}
+    current = root.get("current_week") or {}
+    act_week = session_meta.get("week_id")
+    cur_week = current.get("week_id")
+    if "is_recovery_week" in current:
+        if act_week is None or cur_week is None or act_week == cur_week:
+            return bool(current["is_recovery_week"])
+    if "is_recovery_week" in root:
+        return bool(root["is_recovery_week"])
+    return False
+
+
 def evaluate_activity(
     frame: pd.DataFrame,
     *,
     activity_id: str,
     blueprint: dict[str, Any],
     session_meta: dict[str, Any],
+    meta_root: dict[str, Any] | None = None,
 ) -> FastFinishResult:
     subject_id = str(
         session_meta.get("subject_id")
@@ -185,7 +219,7 @@ def evaluate_activity(
     )
     session_type = str(session_meta.get("session_type", "unknown"))
     week_id = session_meta.get("week_id")
-    is_recovery = bool(session_meta.get("is_recovery_week", False))
+    is_recovery = resolve_is_recovery_week(session_meta, meta_root=meta_root)
     month_key = session_meta.get("month_key")
 
     sunday = blueprint.get("week_matrix", {}).get("sunday", {})
@@ -427,15 +461,19 @@ def main(argv: list[str] | None = None) -> int:
         "subject_id": meta_root.get("subject_id", blueprint.get("subject_id")),
         **activities[args.activity_id],
     }
-    # Inherit recovery flag / caps from current_week when activity omits them
+    # Inherit recovery flag / caps from top-level + current_week when needed
     current_week = meta_root.get("current_week") or {}
-    if "is_recovery_week" not in session_meta and "is_recovery_week" in current_week:
-        session_meta["is_recovery_week"] = current_week["is_recovery_week"]
+    if "is_recovery_week" not in session_meta:
+        if "is_recovery_week" in meta_root:
+            session_meta["is_recovery_week"] = meta_root["is_recovery_week"]
+        elif "is_recovery_week" in current_week:
+            if (
+                not session_meta.get("week_id")
+                or session_meta.get("week_id") == current_week.get("week_id")
+            ):
+                session_meta["is_recovery_week"] = current_week["is_recovery_week"]
     if session_meta.get("week_id") and current_week.get("week_id"):
         if session_meta["week_id"] == current_week["week_id"]:
-            session_meta.setdefault(
-                "is_recovery_week", current_week.get("is_recovery_week", False)
-            )
             session_meta.setdefault(
                 "sunday_distance_cap_km", current_week.get("sunday_distance_cap_km")
             )
@@ -450,6 +488,7 @@ def main(argv: list[str] | None = None) -> int:
         activity_id=args.activity_id,
         blueprint=blueprint,
         session_meta=session_meta,
+        meta_root=meta_root,
     )
 
     print("fast_finish_evaluation")

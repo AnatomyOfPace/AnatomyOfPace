@@ -3,6 +3,8 @@
   "_notice": "Copy to config/session_metadata.local.json (gitignored). Map washed micro activity_id values to private session types. Clinical IDs only.",
   "subject_id": "Subject_A",
   "donor_id": "Subject_A",
+  "is_recovery_week": true,
+  "next_fast_finish_simulator_date": "2026-09-13",
   "session_type_conventions": {
     "tuesday_micro": "Standard micro-interval day",
     "tuesday_rest": "Recovery-week rest day (preferred over generic rest_override)",
@@ -30,10 +32,11 @@
       "sunday": {
         "session_type": "sunday_simulator",
         "distance_cap_km": 12.0,
-        "fast_finish": false
+        "fast_finish": false,
+        "notes": "Sunday capped at 12 km, no fast finish."
       }
     },
-    "notes": "Recovery override: Tue rest; Wed 8.2 km; Fri 5–7 km + 80% lift intensity; Sun 12 km cap; fast finish removed"
+    "notes": "Recovery override: Tue rest; Wed 8.2 km; Fri 5–7 km + 80% lift intensity; Sun 12 km cap; fast finish removed. Next standard fast-finish simulator FIT: 2026-09-13."
   },
   "activities": {
     "EXAMPLE_SUNDAY_RECOVERY": {
@@ -45,7 +48,7 @@
       "is_recovery_week": true,
       "sunday_distance_cap_km": 12.0,
       "fast_finish_required": false,
-      "notes": "Recovery week: Sunday distance cap 12 km; fast-finish requirement removed"
+      "notes": "Sunday capped at 12 km, no fast finish."
     },
     "EXAMPLE_TUESDAY_REST": {
       "session_type": "tuesday_rest",
@@ -57,12 +60,12 @@
     },
     "EXAMPLE_ACTIVITY_ID": {
       "session_type": "sunday_simulator",
-      "week_id": "2026-W37",
+      "week_id": "2026-W38",
       "week_index": 1,
       "phase": "base",
       "month_key": "2026-09",
       "is_recovery_week": false,
-      "notes": "Replace EXAMPLE_ACTIVITY_ID with washed micro activity_id (non-recovery week)"
+      "notes": "Replace EXAMPLE_ACTIVITY_ID with washed micro activity_id after 2026-09-13 (standard fast-finish resume)"
     }
   }
 }

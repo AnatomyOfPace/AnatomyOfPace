@@ -19,6 +19,7 @@ from evaluate_fast_finish import (  # noqa: E402
     evaluate_activity,
     pace_str_to_min_per_km,
     resolve_fast_finish_km,
+    resolve_is_recovery_week,
     score_fast_finish,
 )
 from init_training_compliance_local import init_compliance_db  # noqa: E402
@@ -128,6 +129,24 @@ class EvaluateFastFinishTests(unittest.TestCase):
         self.assertIsNone(result.held_target)
         self.assertIsNone(result.pace_delta_sec_per_km)
         self.assertIsNone(result.target_pace_min_per_km)
+
+    def test_top_level_recovery_flag_inherits(self) -> None:
+        self.assertTrue(
+            resolve_is_recovery_week(
+                {"session_type": "sunday_simulator", "week_id": "2026-W36"},
+                meta_root={"is_recovery_week": True},
+            )
+        )
+        self.assertFalse(
+            resolve_is_recovery_week(
+                {
+                    "session_type": "sunday_simulator",
+                    "week_id": "2026-W38",
+                    "is_recovery_week": False,
+                },
+                meta_root={"is_recovery_week": True},
+            )
+        )
 
     def test_held_target_on_444_finish(self) -> None:
         frame = _synthetic_frame(finish_pace_min_km=4.7333)

@@ -4,7 +4,17 @@
 Inserts one row into existing compliance_flags — no schema changes.
 Never touches anatomy_macro.db.
 
+Approved recovery protocol logged in the flag payload:
+  Tuesday  — rest (session_type ``tuesday_rest``)
+  Wednesday — 8.2 km active recovery
+  Friday — 5–7 km easy + 80% lift intensity
+  Sunday — 12 km cap, no fast finish
+
 Tuesday rest session_type convention: ``tuesday_rest`` (not generic rest_override).
+
+Pipeline note: next standard fast-finish simulator FIT ingestion is Sunday
+2026-09-13; until then keep ``is_recovery_week`` true so evaluate_fast_finish
+returns recovery_exempt.
 """
 
 from __future__ import annotations
@@ -127,8 +137,10 @@ def sync_current_week_metadata(
     data = load_session_meta(meta_path)
     notes_text = notes or (
         "Recovery override: Tue rest; Wed 8.2 km; Fri 5–7 km + 80% lift; "
-        "Sun 12 km cap; fast finish removed"
+        "Sun 12 km cap; fast finish removed. Next standard simulator FIT: 2026-09-13."
     )
+    data["is_recovery_week"] = True
+    data["next_fast_finish_simulator_date"] = "2026-09-13"
     data["current_week"] = {
         "week_id": week_id,
         "month_key": month_key,
@@ -140,6 +152,9 @@ def sync_current_week_metadata(
         "protocol": protocol,
         "notes": notes_text,
     }
+    sunday_proto = (data["current_week"].get("protocol") or {}).get("sunday") or {}
+    sunday_proto.setdefault("notes", "Sunday capped at 12 km, no fast finish.")
+    data["current_week"]["protocol"]["sunday"] = sunday_proto
     # Stamp existing activity tags in this week as recovery
     activities = data.get("activities") or {}
     for _aid, meta in activities.items():
@@ -149,10 +164,8 @@ def sync_current_week_metadata(
             meta["is_recovery_week"] = True
             meta["sunday_distance_cap_km"] = data["current_week"]["sunday_distance_cap_km"]
             meta["fast_finish_required"] = False
-            if meta.get("session_type") == "sunday_simulator" and "notes" not in meta:
-                meta["notes"] = (
-                    "Recovery week: Sunday distance cap 12 km; fast-finish removed"
-                )
+            if meta.get("session_type") == "sunday_simulator":
+                meta["notes"] = "Sunday capped at 12 km, no fast finish."
     data["activities"] = activities
     meta_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 
