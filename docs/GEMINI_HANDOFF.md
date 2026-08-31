@@ -3,7 +3,8 @@
 **From:** Cursor AI  
 **To:** Gemini AI  
 **Purpose:** Project context, current status, and active workstreams  
-**Date:** 2026-06-30  
+**Date:** 2026-08-31  
+**Paste-ready short brief:** [`GEMINI_BRIEF.md`](GEMINI_BRIEF.md) — use that for new Gemini sessions; this file is the full status handoff.  
 **Note:** Internal AI handoff — not public copy. Ghost Authority and English-only rules apply to all generated output destined for GitHub, Substack, Instagram, or donor deliverables.
 
 ---
@@ -109,7 +110,7 @@ config/               Config + gitignored subject_registry.local.json
 | Layer | Source | Storage | Status |
 |-------|--------|---------|--------|
 | **Macro** | Race result scraping (e.g. runster.no) | SQLite `anatomy_macro.db` | Partial — LFI 2026 results with checkpoint splits |
-| **Meso** | Strava km-splits (planned) | TBD | Not built |
+| **Meso** | Private training blueprint + compliance | Gitignored `training_blueprint.local.json` + `training_compliance.local.db`; public `evaluate_fast_finish.py` | Scaffold — **never** extend `anatomy_macro.db` |
 | **Micro** | Garmin `.fit` telemetry | `02_Raw_Data/` → cleaned Parquet in `03_Processed_Data/micro/` | Partial |
 | **Spatial panel** | Multi-FIT align to course spine | `03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet` | **Operator scope km 22.0–41.0** (Subject_A / Subject_B) |
 
@@ -239,7 +240,10 @@ All scripts live in `04_Python_Scripts/`.
 | `06_benchmark.py` | Paired APR comparison (EAR logic) |
 | `07_batch_benchmark.py` | Multi-session benchmark trends |
 | `05_radar_scrape.py` | Scrape runster.no race results |
-| `init_db.py` | Initialize macro DB schema |
+| `init_db.py` | Initialize **macro** DB schema only (`races` / `athletes` / `race_results`) |
+| `init_training_compliance_local.py` | Initialize gitignored `training_compliance.local.db` (meso only) |
+| `log_recovery_compliance.py` | Insert recovery-week override into `compliance_flags` (no schema change) |
+| `evaluate_fast_finish.py` | Sunday fast-finish score vs local blueprint + micro Parquet |
 | `05_vam_kalkulator.py` | Vertical ascent rate analysis |
 
 **Still not built:**
@@ -247,8 +251,8 @@ All scripts live in `04_Python_Scripts/`.
 - `01_strava_fetcher.py` (OAuth + `.fit` download from reference elites)
 - Full GAP calculation module (unlocks production TI)
 - Kinematic_Scan v0 automation (donor PDF pipeline)
+- Full meso weekly rollups / nutrition logging UI (local DB schema exists)
 - English migration of legacy Norwegian documentation in untouched local files
-
 ---
 
 ## 9. Documentation Index
@@ -315,6 +319,19 @@ Intake method: Strava OAuth 2.0 (`activity:read_all`). Operational routine in ou
 - GeoPandas / Snap-to-Route at scale
 - Parquet + DuckDB micro processing layer
 
+### Meso scaffold (local only) — live on operator Mac 2026-08-31
+
+- Horizon: **Sub-1:40 / 3_sjoerslopet**, race date **2026-11-07** — full calendar in `docs/GEMINI_BRIEF.md`
+- Example blueprint: `config/training_blueprint.local.example.json` (protocols: `2026-09-13`, `2026-10-peak`, `2026-11-taper`)
+- Example session tags: `config/session_metadata.local.example.json` (includes recovery-week `current_week` + `tuesday_rest`)
+- Compliance DB init: `python3 04_Python_Scripts/init_training_compliance_local.py`
+- Recovery override log: `python3 04_Python_Scripts/log_recovery_compliance.py --sync-metadata`
+- October local base 6:45: `python3 04_Python_Scripts/apply_october_local_overrides.py`
+- Fast-finish eval: `python3 04_Python_Scripts/evaluate_fast_finish.py --activity-id <id> [--write-db]`
+  - Recovery weeks return `status=recovery_exempt` / compliance `N/A` (not a false 0.0 miss)
+- Unit tests: covering recovery exempt + flag insert + October slow-base → 4:44
+- Branch / PR: `cursor/meso-fast-finish-eval-0c6a` / #26
+
 ---
 
 ## 12. Recommended Next Steps (Priority Order)
@@ -343,6 +360,16 @@ When assisting on this project:
 9. For HITL work, read `docs/hitl_annotator.md` before modifying `hitl_annotator_app.py`.
 10. Legacy Norwegian filenames and content may exist locally — translate on contact; do not reproduce Norwegian conceptual terms in new output (except permitted proper nouns).
 11. Attribute public-facing work to **Dr. Anatomy Pace** — never to real individuals.
+
+### 13.1 Reject or redirect: meso / Sub-1:40 proposals
+
+| Gemini-style request | Verdict | What to do instead |
+|---------------------|---------|-------------------|
+| `ALTER TABLE` on `anatomy_macro.db` for workouts | **Reject** | Macro DB = race ecology only (`init_db.py`) |
+| Log body weight / protein / carbs in public schema | **Reject** | `training_compliance.local.db` (gitignored) |
+| Hard-code 4:44 / 84.4 kg / 160 g in public Python | **Reject** | Read `training_blueprint.local.json` |
+| Project all training FITs on `3_sjoerslopet` axis | **Reject** | Stream distance unless explicit course sim |
+| Sunday fast-finish compliance scoring | **Approve** | Existing `evaluate_fast_finish.py` + local tags |
 
 ---
 

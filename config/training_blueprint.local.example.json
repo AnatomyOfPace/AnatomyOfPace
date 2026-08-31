@@ -1,0 +1,214 @@
+{
+  "_schema": "training_blueprint_v1",
+  "_notice": "Copy to config/training_blueprint.local.json (gitignored). Private meso only — never commit, never publish under The Anatomy of Pace, never merge into anatomy_macro.db.",
+  "block_id": "3_sjoerslopet_sub_140",
+  "subject_id": "Subject_A",
+  "horizon": {
+    "label": "Sub-1:40",
+    "reference_course": "3_sjoerslopet",
+    "distance_km": 21.25,
+    "target_finish_sec": 6000,
+    "target_finish_pace_min_per_km": "4:44",
+    "race_date": "2026-11-07",
+    "notes": "reference_course is the race-anchor identity; weekly venues use stream distance unless session is an explicit course simulation. Period plan runs through race_date."
+  },
+  "week_matrix": {
+    "tuesday": {
+      "session_type": "tuesday_micro",
+      "role": "micro_intervals",
+      "structure": "3x10min work / 45s-15s rest",
+      "target_pace_min_per_km": "4:50",
+      "surface_hint": "gravel"
+    },
+    "wednesday": {
+      "session_type": "wednesday_recovery",
+      "role": "active_recovery",
+      "distance_km": 8.0,
+      "pace_floor_min_per_km": "5:45",
+      "surface_hint": "easy_loop"
+    },
+    "friday": {
+      "session_type": "friday_aerobic",
+      "role": "aerobic_plus_strength",
+      "easy_jog_km": 5.0,
+      "pace_floor_min_per_km": "5:30",
+      "lifting_block": "private_manual"
+    },
+    "sunday": {
+      "session_type": "sunday_simulator",
+      "role": "long_run_simulator",
+      "distance_km_default": 21.0,
+      "fast_finish": {
+        "enabled": true,
+        "target_pace_min_per_km": "4:44",
+        "tolerance_sec_per_km": 5.0,
+        "progression_by_month": {
+          "2026-09": {
+            "fast_finish_km_min": 1.5,
+            "fast_finish_km_max": 2.0
+          },
+          "2026-10": {
+            "fast_finish_km_min": 3.0,
+            "fast_finish_km_max": 5.0
+          }
+        },
+        "default_fast_finish_km": 2.0,
+        "recovery_week_every_n": 4,
+        "recovery_week": {
+          "drop_fast_finish": true,
+          "sunday_distance_cap_km": 14.0,
+          "tuesday_volume_factor": 0.5
+        }
+      },
+      "execution_protocols": {
+        "2026-09-13": {
+          "label": "september_13_stokkavatnet_fast_finish",
+          "is_recovery_week": false,
+          "venue": {
+            "loop": "Store_Stokkavatnet_Lille_Stokkavatnet",
+            "notes": "Base cruise on Store/Lille Stokkavatnet; stream distance (not 3_sjoerslopet course projection)"
+          },
+          "base_volume": {
+            "distance_km_min": 12.5,
+            "distance_km_max": 13.5,
+            "pace_min_per_km_lo": "5:35",
+            "pace_min_per_km_hi": "5:50"
+          },
+          "trigger": {
+            "stream_km_approx": 13.0,
+            "action": "shift_to_target_pace",
+            "target_pace_min_per_km": "4:44"
+          },
+          "finish": {
+            "fast_finish_km_min": 1.5,
+            "fast_finish_km_max": 2.0,
+            "target_pace_min_per_km": "4:44",
+            "condition": "depleted_legs"
+          },
+          "fueling": {
+            "carbs_g_per_hr_min": 45,
+            "carbs_g_per_hr_max": 60,
+            "product_hint": "threshold_gel_support",
+            "intent": "support_threshold_without_spiking_muscular_fatigue"
+          },
+          "evaluator": {
+            "session_type": "sunday_simulator",
+            "month_key": "2026-09",
+            "is_recovery_week": false,
+            "fast_finish_required": true,
+            "notes": "Resume standard evaluate_fast_finish after recovery week; score final 1.5–2 km vs 4:44"
+          }
+        },
+        "2026-10-peak": {
+          "label": "october_peak_stokkavatnet_halandsvatnet",
+          "phase": "peak_race_simulator",
+          "is_recovery_week": false,
+          "demand": "highest_blueprint_block",
+          "intent": "Maximize time-on-feet then lock long fast-finish on depleted legs; build half-marathon late-km tolerance",
+          "venue": {
+            "loop": "Store_Stokkavatnet_Halandsvatnet",
+            "planned_combo_km_min": 16.0,
+            "planned_combo_km_max": 17.0,
+            "notes": "Store Stokkavatnet + Hålandsvatnet combo hits 16–17 km sweet spot; stream distance (not 3_sjoerslopet projection)"
+          },
+          "total_volume": {
+            "distance_km_min": 16.0,
+            "distance_km_max": 18.0
+          },
+          "base_execution": {
+            "distance_km_min": 11.0,
+            "distance_km_max": 15.0,
+            "pace_min_per_km_lo": "5:35",
+            "pace_min_per_km_hi": "5:50",
+            "notes": "Default template band. Operator local override (gitignored): run apply_october_local_overrides.py → 6:45 easy companion cruise. evaluate_fast_finish ignores base pace and still scores final 3–5 km @ 4:44."
+          },
+          "trigger": {
+            "stream_km_window_start_min": 11.0,
+            "stream_km_window_start_max": 15.0,
+            "action": "shift_to_target_pace",
+            "target_pace_min_per_km": "4:44",
+            "notes": "Begin fast finish so final 3–5 km land at target"
+          },
+          "finish": {
+            "fast_finish_km_min": 3.0,
+            "fast_finish_km_max": 5.0,
+            "target_pace_min_per_km": "4:44",
+            "condition": "depleted_legs",
+            "notes": "Expanded vs September 1.5–2 km — full race-simulation finish"
+          },
+          "fueling": {
+            "mandatory": true,
+            "carbs_g_per_hr_min": 45,
+            "carbs_g_per_hr_max": 60,
+            "start_early": true,
+            "product_hint": "threshold_gel_support",
+            "intent": "Hit 45–60 g/hr early so expanded 3–5 km @ 4:44 does not hit the wall; support late threshold without spiking muscular fatigue"
+          },
+          "evaluator": {
+            "session_type": "sunday_simulator",
+            "month_key": "2026-10",
+            "is_recovery_week": false,
+            "fast_finish_required": true,
+            "fast_finish_km_band": [3.0, 5.0],
+            "notes": "evaluate_fast_finish uses October progression midpoint (~4 km) vs 4:44; log carbs to training_compliance.local.db session_fueling"
+          }
+        },
+        "2026-11-taper": {
+          "label": "pre_race_taper_toward_2026-11-07",
+          "phase": "taper",
+          "race_date": "2026-11-07",
+          "is_recovery_week": false,
+          "intent": "Reduce volume; keep neuromuscular freshness; protect 4:44 finish competence without peak TOF",
+          "total_volume": {
+            "distance_km_min": 10.0,
+            "distance_km_max": 14.0,
+            "notes": "Shorter Sundays; no new peak distance after October block"
+          },
+          "base_execution": {
+            "pace_min_per_km_lo": "5:35",
+            "pace_min_per_km_hi": "5:50",
+            "notes": "Easy-aerobic cruise; optional brief strides only if operator blueprint allows"
+          },
+          "finish": {
+            "fast_finish_km_min": 1.0,
+            "fast_finish_km_max": 2.0,
+            "target_pace_min_per_km": "4:44",
+            "optional": true,
+            "notes": "Short touch of race pace only — not a 3–5 km peak sim"
+          },
+          "fueling": {
+            "mandatory": true,
+            "carbs_g_per_hr_min": 45,
+            "carbs_g_per_hr_max": 60,
+            "intent": "Rehearse race-day fueling pattern at lower volume"
+          },
+          "race_week": {
+            "week_of": "2026-W45",
+            "tuesday": "tuesday_rest_or_shakeout",
+            "wednesday": "short_easy",
+            "friday": "shakeout_plus_optional_light_lift",
+            "sunday": "race_day_2026-11-07",
+            "notes": "Do not run evaluate_fast_finish against race-day as a miss if open effort; optional post-race baseline tag only"
+          },
+          "evaluator": {
+            "month_key": "2026-11",
+            "is_recovery_week": false,
+            "fast_finish_required": false,
+            "notes": "Taper Sundays may skip or shorten fast-finish scoring; race day 2026-11-07 is race-anchor telemetry, not weekly compliance"
+          }
+        }
+      }
+    }
+  },
+  "nutrition_anchors": {
+    "_private": true,
+    "body_mass_target_kg": 84.4,
+    "daily_protein_g": 160,
+    "sunday_carbs_g_per_hr_min": 45,
+    "sunday_carbs_g_per_hr_max": 60
+  },
+  "compliance": {
+    "local_db": "training_compliance.local.db",
+    "write_session_summaries": true
+  }
+}
