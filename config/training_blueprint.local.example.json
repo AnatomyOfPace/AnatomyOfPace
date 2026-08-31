@@ -8,7 +8,9 @@
     "reference_course": "3_sjoerslopet",
     "distance_km": 21.25,
     "target_finish_sec": 6000,
-    "notes": "reference_course is the race-anchor identity; weekly venues use stream distance unless session is an explicit course simulation"
+    "target_finish_pace_min_per_km": "4:44",
+    "race_date": "2026-11-07",
+    "notes": "reference_course is the race-anchor identity; weekly venues use stream distance unless session is an explicit course simulation. Period plan runs through race_date."
   },
   "week_matrix": {
     "tuesday": {
@@ -149,6 +151,50 @@
             "fast_finish_required": true,
             "fast_finish_km_band": [3.0, 5.0],
             "notes": "evaluate_fast_finish uses October progression midpoint (~4 km) vs 4:44; log carbs to training_compliance.local.db session_fueling"
+          }
+        },
+        "2026-11-taper": {
+          "label": "pre_race_taper_toward_2026-11-07",
+          "phase": "taper",
+          "race_date": "2026-11-07",
+          "is_recovery_week": false,
+          "intent": "Reduce volume; keep neuromuscular freshness; protect 4:44 finish competence without peak TOF",
+          "total_volume": {
+            "distance_km_min": 10.0,
+            "distance_km_max": 14.0,
+            "notes": "Shorter Sundays; no new peak distance after October block"
+          },
+          "base_execution": {
+            "pace_min_per_km_lo": "5:35",
+            "pace_min_per_km_hi": "5:50",
+            "notes": "Easy-aerobic cruise; optional brief strides only if operator blueprint allows"
+          },
+          "finish": {
+            "fast_finish_km_min": 1.0,
+            "fast_finish_km_max": 2.0,
+            "target_pace_min_per_km": "4:44",
+            "optional": true,
+            "notes": "Short touch of race pace only — not a 3–5 km peak sim"
+          },
+          "fueling": {
+            "mandatory": true,
+            "carbs_g_per_hr_min": 45,
+            "carbs_g_per_hr_max": 60,
+            "intent": "Rehearse race-day fueling pattern at lower volume"
+          },
+          "race_week": {
+            "week_of": "2026-W45",
+            "tuesday": "tuesday_rest_or_shakeout",
+            "wednesday": "short_easy",
+            "friday": "shakeout_plus_optional_light_lift",
+            "sunday": "race_day_2026-11-07",
+            "notes": "Do not run evaluate_fast_finish against race-day as a miss if open effort; optional post-race baseline tag only"
+          },
+          "evaluator": {
+            "month_key": "2026-11",
+            "is_recovery_week": false,
+            "fast_finish_required": false,
+            "notes": "Taper Sundays may skip or shorten fast-finish scoring; race day 2026-11-07 is race-anchor telemetry, not weekly compliance"
           }
         }
       }
