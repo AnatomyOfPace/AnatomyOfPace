@@ -36,58 +36,103 @@ if str(_SCRIPTS) not in sys.path:
 
 from fit_micro.activity_frame import read_parquet  # noqa: E402
 from spatial.compute_training_residual import resolve_friction_tiers  # noqa: E402
+from spatial.spatial_align import (  # noqa: E402
+    aligned_parquet_path,
+    panel_parquet_path,
+    resample_to_grid_1m,
+)
 from spatial.spatial_hitl_overlay import load_terrain_map  # noqa: E402
 from spatial.validation_dashboard import operator_gold_class_at_km  # noqa: E402
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+DEFAULT_CORRIDOR_ID = "stavanger_halvmarathon_course"
+DEFAULT_PANEL = panel_parquet_path(corridor_id=DEFAULT_CORRIDOR_ID)
 DEFAULT_TERRAIN_MAP = BASE_DIR / "config" / "spatial_terrain_map_stavanger_halvmarathon.json"
 DEFAULT_OUTPUT = BASE_DIR / "06_Visualizations" / "stavanger_halvmarathon_race_compare.png"
 DEFAULT_JSON = BASE_DIR / "03_Processed_Data" / "spatial" / "stavanger_halvmarathon_race_compare.json"
+DEFAULT_KM_WINDOW = (0.0, 21.38)
 
 COMPARE_COLS = ("speed_mps", "ti", "heart_rate", "cadence_spm", "grade_pct", "altitude_m")
 
 
-def _resample_1m(frame: pd.DataFrame) -> pd.DataFrame:
-    """Median telemetry on 1 m course_km bins."""
-    work = frame.copy()
-    if "course_km" not in work.columns:
-        raise ValueError("course_km missing — re-wash with --project-course --race stavanger_halvmarathon")
-    work["course_km"] = pd.to_numeric(work["course_km"], errors="coerce")
-    work = work.dropna(subset=["course_km"])
-    work["course_m"] = (work["course_km"] * 1000.0).round().astype(int)
-    if "grade_pct" not in work.columns and "grade" in work.columns:
-        work["grade_pct"] = pd.to_numeric(work["grade"], errors="coerce")
-    agg: dict[str, Any] = {}
-    for col in COMPARE_COLS:
-        if col in work.columns:
-            agg[col] = "median"
-    if not agg:
-        raise ValueError("No comparable telemetry columns in activity frame")
-    out = work.groupby("course_m", as_index=False).agg(agg)
-    out["course_km"] = out["course_m"] / 1000.0
-    return out.sort_values("course_km")
+def _resolve_km_window(terrain_map: dict[str, Any], km_window: tuple[float, float] | None) -> tuple[float, float]:
+    if km_window is not None:
+        return km_window
+    corridor = terrain_map.get("corridor") or {}
+    km_lo = float(corridor.get("km_start", DEFAULT_KM_WINDOW[0]))
+    km_hi = float(corridor.get("km_end", DEFAULT_KM_WINDOW[1]))
+    return km_lo, km_hi
+
+
+def _load_panel_activity(panel_path: Path, activity_id: str, km_lo: float, km_hi: float) -> pd.DataFrame | None:
+    if not panel_path.is_file():
+        return None
+    panel = pd.read_parquet(panel_path)
+    if "activity_id" not in panel.columns:
+        return None
+    sub = panel.loc[panel["activity_id"] == activity_id].copy()
+    if sub.empty:
+        return None
+    sub["course_km"] = pd.to_numeric(sub["course_km"], errors="coerce")
+    return sub.loc[(sub["course_km"] >= km_lo) & (sub["course_km"] <= km_hi + 1e-9)].copy()
+
+
+def _load_aligned_activity(
+    donor_id: str,
+    activity_id: str,
+    *,
+    corridor_id: str,
+    km_lo: float,
+    km_hi: float,
+) -> pd.DataFrame | None:
+    path = aligned_parquet_path(donor_id, activity_id, corridor_id=corridor_id, session_type="race")
+    if not path.is_file():
+        return None
+    frame = pd.read_parquet(path)
+    frame["course_km"] = pd.to_numeric(frame["course_km"], errors="coerce")
+    return frame.loc[(frame["course_km"] >= km_lo) & (frame["course_km"] <= km_hi + 1e-9)].copy()
+
+
+def _load_compare_frame(
+    donor_id: str,
+    activity_id: str,
+    *,
+    corridor_id: str,
+    panel_path: Path,
+    km_lo: float,
+    km_hi: float,
+    prefer_panel: bool,
+) -> tuple[pd.DataFrame, str]:
+    if prefer_panel:
+        panel_frame = _load_panel_activity(panel_path, activity_id, km_lo, km_hi)
+        if panel_frame is not None and not panel_frame.empty:
+            return panel_frame, "panel_1m"
+        aligned = _load_aligned_activity(
+            donor_id, activity_id, corridor_id=corridor_id, km_lo=km_lo, km_hi=km_hi
+        )
+        if aligned is not None and not aligned.empty:
+            return aligned, "aligned_parquet"
+
+    raw = read_parquet(donor_id, activity_id)
+    return resample_to_grid_1m(raw, km_lo, km_hi), "resample_to_grid_1m"
+
+
+def _prepare_compare_grid(frame: pd.DataFrame, km_lo: float, km_hi: float) -> pd.DataFrame:
+    """Ensure activity telemetry sits on the corridor 1 m interpolation grid."""
+    if "course_m" in frame.columns:
+        course_m = pd.to_numeric(frame["course_m"], errors="coerce")
+        expected = float(int((km_hi - km_lo) * 1000.0) + 1)
+        if course_m.notna().sum() >= expected * 0.95:
+            out = frame.copy()
+            out["course_km"] = pd.to_numeric(out["course_km"], errors="coerce")
+            return out.loc[(out["course_km"] >= km_lo) & (out["course_km"] <= km_hi + 1e-9)].copy()
+    return resample_to_grid_1m(frame, km_lo, km_hi)
 
 
 def _series_or_empty(frame: pd.DataFrame, col: str) -> pd.Series:
     if col not in frame.columns:
         return pd.Series(dtype=float)
     return pd.to_numeric(frame[col], errors="coerce")
-
-
-def _align_on_course_grid(a: pd.DataFrame, b: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, float]:
-    """Reindex both 1 m frames onto shared stream course_m (0 … km_hi)."""
-    km_hi = min(float(a["course_km"].max()), float(b["course_km"].max()))
-    grid = pd.DataFrame(
-        {
-            "course_m": np.arange(0, int(km_hi * 1000.0) + 1, dtype=int),
-        }
-    )
-    grid["course_km"] = grid["course_m"] / 1000.0
-    a_cols = [c for c in a.columns if c not in {"course_km"}]
-    b_cols = [c for c in b.columns if c not in {"course_km"}]
-    a_grid = grid.merge(a[a_cols], on="course_m", how="left")
-    b_grid = grid.merge(b[b_cols], on="course_m", how="left")
-    return a_grid, b_grid, km_hi
 
 
 def _race_summary(frame: pd.DataFrame, label: str) -> dict[str, Any]:
@@ -155,17 +200,20 @@ def compare_races(
     *,
     label_a: str = "2025",
     label_b: str = "2026",
+    km_window: tuple[float, float] | None = None,
+    source_a: str = "unknown",
+    source_b: str = "unknown",
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
-    a = _resample_1m(frame_a)
-    b = _resample_1m(frame_b)
-    a, b, km_hi = _align_on_course_grid(a, b)
+    km_lo, km_hi = _resolve_km_window(terrain_map, km_window)
+    a = _prepare_compare_grid(frame_a, km_lo, km_hi)
+    b = _prepare_compare_grid(frame_b, km_lo, km_hi)
 
     rename_a = {c: f"{c}_{label_a}" for c in COMPARE_COLS if c in a.columns}
     rename_b = {c: f"{c}_{label_b}" for c in COMPARE_COLS if c in b.columns}
     paired = a.rename(columns=rename_a).merge(
         b.rename(columns=rename_b),
         on=["course_m", "course_km"],
-        how="left",
+        how="inner",
     )
     spd_a = f"speed_mps_{label_a}"
     spd_b = f"speed_mps_{label_b}"
@@ -203,11 +251,13 @@ def compare_races(
     report: dict[str, Any] = {
         "race_id": "stavanger_halvmarathon",
         "donor_id": "Subject_A",
-        "compare_window_km": [0.0, round(km_hi, 3)],
-        "grid_metres": int(km_hi * 1000.0) + 1,
+        "compare_window_km": [round(km_lo, 3), round(km_hi, 3)],
+        "grid_metres": int((km_hi - km_lo) * 1000.0) + 1,
         "overlap_metres": int(len(paired)),
         "tier_assigned_metres": int(tiered.sum()),
         "substrate_band_metres": int(sum(row["metres"] for row in substrate_bands)),
+        "source_a": source_a,
+        "source_b": source_b,
         "summary_a": _race_summary(a, label_a),
         "summary_b": _race_summary(b, label_b),
         "substrate_bands": substrate_bands,
@@ -289,6 +339,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--activity-b", default="Stavanger_Halvmarathon_20260829")
     parser.add_argument("--label-a", default="2025")
     parser.add_argument("--label-b", default="2026")
+    parser.add_argument("--panel", type=Path, default=DEFAULT_PANEL, help="Dual-activity panel parquet (preferred)")
+    parser.add_argument("--corridor-id", default=DEFAULT_CORRIDOR_ID)
+    parser.add_argument("--raw-parquet", action="store_true", help="Skip panel/aligned parquets; resample washed micro frames")
     parser.add_argument("--terrain-map", type=Path, default=DEFAULT_TERRAIN_MAP)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--json", type=Path, default=DEFAULT_JSON)
@@ -299,15 +352,35 @@ def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     terrain_path = args.terrain_map if args.terrain_map.is_absolute() else BASE_DIR / args.terrain_map
     terrain_map = load_terrain_map(terrain_path)
+    panel_path = args.panel if args.panel.is_absolute() else BASE_DIR / args.panel
+    km_lo, km_hi = _resolve_km_window(terrain_map, None)
 
-    frame_a = read_parquet(args.donor, args.activity_a)
-    frame_b = read_parquet(args.donor, args.activity_b)
+    frame_a, source_a = _load_compare_frame(
+        args.donor,
+        args.activity_a,
+        corridor_id=args.corridor_id,
+        panel_path=panel_path,
+        km_lo=km_lo,
+        km_hi=km_hi,
+        prefer_panel=not args.raw_parquet,
+    )
+    frame_b, source_b = _load_compare_frame(
+        args.donor,
+        args.activity_b,
+        corridor_id=args.corridor_id,
+        panel_path=panel_path,
+        km_lo=km_lo,
+        km_hi=km_hi,
+        prefer_panel=not args.raw_parquet,
+    )
     paired, report = compare_races(
         frame_a,
         frame_b,
         terrain_map,
         label_a=args.label_a,
         label_b=args.label_b,
+        source_a=source_a,
+        source_b=source_b,
     )
     report["activity_a"] = args.activity_a
     report["activity_b"] = args.activity_b
@@ -321,6 +394,17 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"OK compare → {out_png.relative_to(BASE_DIR)}")
     print(f"    report → {out_json.relative_to(BASE_DIR)}")
+    print(f"    source {args.label_a}: {report.get('source_a')} · {args.label_b}: {report.get('source_b')}")
+    print(
+        f"    overlap {report['overlap_metres']} m / grid {report['grid_metres']} m · "
+        f"substrate bands {report.get('substrate_band_metres')} m"
+    )
+    if report["overlap_metres"] < int(report["grid_metres"] * 0.9):
+        print(
+            "    WARN: overlap <90% of corridor grid — rebuild panel: "
+            "./04_Python_Scripts/spatial/compare_stavanger_halvmarathon_races.sh",
+            file=sys.stderr,
+        )
     print(
         f"    {args.label_a}: {report['summary_a']['distance_km']} km, "
         f"pace {report['summary_a']['median_pace_min_per_km']} min/km, "
