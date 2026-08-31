@@ -3,7 +3,8 @@
 **From:** Cursor AI  
 **To:** Gemini AI  
 **Purpose:** Project context, current status, and active workstreams  
-**Date:** 2026-06-30  
+**Date:** 2026-08-31  
+**Paste-ready short brief:** [`GEMINI_BRIEF.md`](GEMINI_BRIEF.md) — use that for new Gemini sessions; this file is the full status handoff.  
 **Note:** Internal AI handoff — not public copy. Ghost Authority and English-only rules apply to all generated output destined for GitHub, Substack, Instagram, or donor deliverables.
 
 ---
@@ -317,12 +318,15 @@ Intake method: Strava OAuth 2.0 (`activity:read_all`). Operational routine in ou
 - GeoPandas / Snap-to-Route at scale
 - Parquet + DuckDB micro processing layer
 
-### Meso scaffold (local only)
+### Meso scaffold (local only) — live on operator Mac 2026-08-31
 
 - Example blueprint: `config/training_blueprint.local.example.json` → copy to gitignored `.local.json`
 - Example session tags: `config/session_metadata.local.example.json`
 - Compliance DB init: `python3 04_Python_Scripts/init_training_compliance_local.py`
 - Fast-finish eval: `python3 04_Python_Scripts/evaluate_fast_finish.py --activity-id <id> [--write-db]`
+- Unit tests: **9/9 OK** (`test_evaluate_fast_finish.py`)
+- First live score: Subject_A `3_Sjoerslopet_20251108` → finish 4:59 vs target 4:44 (+15.4 s/km), drift +6.2 bpm, compliance 0.0 (race-anchor baseline, not weekly sim)
+- Branch / PR: `cursor/meso-fast-finish-eval-0c6a` / #26
 
 ---
 
