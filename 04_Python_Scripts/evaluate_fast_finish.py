@@ -46,12 +46,13 @@ class FastFinishResult:
     window_start_km: float
     window_end_km: float
     median_pace_min_per_km: float | None
-    target_pace_min_per_km: float
+    target_pace_min_per_km: float | None
     pace_delta_sec_per_km: float | None
     cardiac_drift_bpm: float | None
-    compliance_score: float
-    held_target: bool
+    compliance_score: float | None
+    held_target: bool | None
     skipped_reason: str | None = None
+    status: str = "scored"  # scored | recovery_exempt | skipped
 
 
 def pace_str_to_min_per_km(value: str | float | int) -> float:
@@ -201,6 +202,26 @@ def evaluate_activity(
         blueprint, month_key=month_key, is_recovery_week=is_recovery
     )
     if finish_km is None:
+        # Recovery weeks must not register as a 0.0 miss against 4:44.
+        if is_recovery:
+            return FastFinishResult(
+                activity_id=activity_id,
+                subject_id=subject_id,
+                session_type=session_type,
+                week_id=week_id,
+                stream_distance_km=stream_distance_km,
+                fast_finish_km=0.0,
+                window_start_km=end_km,
+                window_end_km=end_km,
+                median_pace_min_per_km=None,
+                target_pace_min_per_km=None,
+                pace_delta_sec_per_km=None,
+                cardiac_drift_bpm=None,
+                compliance_score=None,
+                held_target=None,
+                skipped_reason="recovery_exempt",
+                status="recovery_exempt",
+            )
         return FastFinishResult(
             activity_id=activity_id,
             subject_id=subject_id,
@@ -214,9 +235,10 @@ def evaluate_activity(
             target_pace_min_per_km=target_pace,
             pace_delta_sec_per_km=None,
             cardiac_drift_bpm=None,
-            compliance_score=0.0,
-            held_target=False,
-            skipped_reason="fast_finish_disabled_or_recovery_week",
+            compliance_score=None,
+            held_target=None,
+            skipped_reason="fast_finish_disabled",
+            status="skipped",
         )
 
     if session_type != "sunday_simulator":
@@ -233,9 +255,10 @@ def evaluate_activity(
             target_pace_min_per_km=target_pace,
             pace_delta_sec_per_km=None,
             cardiac_drift_bpm=None,
-            compliance_score=0.0,
-            held_target=False,
+            compliance_score=None,
+            held_target=None,
             skipped_reason=f"session_type_not_sunday_simulator:{session_type}",
+            status="skipped",
         )
 
     window_start = max(start_stream, end_km - finish_km)
@@ -255,9 +278,10 @@ def evaluate_activity(
             target_pace_min_per_km=target_pace,
             pace_delta_sec_per_km=None,
             cardiac_drift_bpm=None,
-            compliance_score=0.0,
-            held_target=False,
+            compliance_score=None,
+            held_target=None,
             skipped_reason="empty_fast_finish_window",
+            status="skipped",
         )
 
     speed = pd.to_numeric(window.get("speed_mps"), errors="coerce")
@@ -296,6 +320,7 @@ def evaluate_activity(
         compliance_score=score,
         held_target=held,
         skipped_reason=None,
+        status="scored",
     )
 
 
@@ -346,7 +371,9 @@ def write_session_summary(db_path: Path, result: FastFinishResult) -> None:
                 result.pace_delta_sec_per_km,
                 result.cardiac_drift_bpm,
                 result.compliance_score,
-                1 if result.held_target else 0,
+                None
+                if result.held_target is None
+                else (1 if result.held_target else 0),
                 json.dumps(payload),
             ),
         )
@@ -400,6 +427,18 @@ def main(argv: list[str] | None = None) -> int:
         "subject_id": meta_root.get("subject_id", blueprint.get("subject_id")),
         **activities[args.activity_id],
     }
+    # Inherit recovery flag / caps from current_week when activity omits them
+    current_week = meta_root.get("current_week") or {}
+    if "is_recovery_week" not in session_meta and "is_recovery_week" in current_week:
+        session_meta["is_recovery_week"] = current_week["is_recovery_week"]
+    if session_meta.get("week_id") and current_week.get("week_id"):
+        if session_meta["week_id"] == current_week["week_id"]:
+            session_meta.setdefault(
+                "is_recovery_week", current_week.get("is_recovery_week", False)
+            )
+            session_meta.setdefault(
+                "sunday_distance_cap_km", current_week.get("sunday_distance_cap_km")
+            )
     donor_id = args.donor_id or meta_root.get("donor_id") or session_meta.get("subject_id")
     path = micro_path(str(donor_id), args.activity_id)
     if not path.exists():
@@ -417,6 +456,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  activity_id:        {result.activity_id}")
     print(f"  subject_id:         {result.subject_id}")
     print(f"  session_type:       {result.session_type}")
+    print(f"  status:             {result.status}")
     print(f"  stream_distance_km: {result.stream_distance_km:.2f}")
     print(f"  fast_finish_km:     {result.fast_finish_km:.2f}")
     print(
@@ -428,8 +468,18 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  pace_delta_s/km:    {result.pace_delta_sec_per_km:+.1f}")
     if result.cardiac_drift_bpm is not None:
         print(f"  cardiac_drift_bpm:  {result.cardiac_drift_bpm:+.1f}")
-    print(f"  compliance_score:   {result.compliance_score:.1f}")
-    print(f"  held_target:        {result.held_target}")
+    if result.status == "recovery_exempt":
+        print("  compliance_score:   N/A (recovery_exempt)")
+        print("  held_target:        N/A")
+    else:
+        score_txt = (
+            "N/A"
+            if result.compliance_score is None
+            else f"{result.compliance_score:.1f}"
+        )
+        held_txt = "N/A" if result.held_target is None else str(result.held_target)
+        print(f"  compliance_score:   {score_txt}")
+        print(f"  held_target:        {held_txt}")
     if result.skipped_reason:
         print(f"  skipped_reason:     {result.skipped_reason}")
 

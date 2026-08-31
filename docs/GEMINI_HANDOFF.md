@@ -321,11 +321,13 @@ Intake method: Strava OAuth 2.0 (`activity:read_all`). Operational routine in ou
 ### Meso scaffold (local only) — live on operator Mac 2026-08-31
 
 - Example blueprint: `config/training_blueprint.local.example.json` → copy to gitignored `.local.json`
-- Example session tags: `config/session_metadata.local.example.json`
+- Example session tags: `config/session_metadata.local.example.json` (includes recovery-week `current_week` + `tuesday_rest`)
 - Compliance DB init: `python3 04_Python_Scripts/init_training_compliance_local.py`
+- Recovery override log: `python3 04_Python_Scripts/log_recovery_compliance.py --sync-metadata`
 - Fast-finish eval: `python3 04_Python_Scripts/evaluate_fast_finish.py --activity-id <id> [--write-db]`
-- Unit tests: **9/9 OK** (`test_evaluate_fast_finish.py`)
-- First live score: Subject_A `3_Sjoerslopet_20251108` → finish 4:59 vs target 4:44 (+15.4 s/km), drift +6.2 bpm, compliance 0.0 (race-anchor baseline, not weekly sim)
+  - Recovery weeks return `status=recovery_exempt` / compliance `N/A` (not a false 0.0 miss)
+- Unit tests: **11** covering recovery exempt + flag insert
+- First live score: Subject_A `3_Sjoerslopet_20251108` → finish 4:59 vs target 4:44 (+15.4 s/km), drift +6.2 bpm (race-anchor baseline)
 - Branch / PR: `cursor/meso-fast-finish-eval-0c6a` / #26
 
 ---
@@ -356,6 +358,16 @@ When assisting on this project:
 9. For HITL work, read `docs/hitl_annotator.md` before modifying `hitl_annotator_app.py`.
 10. Legacy Norwegian filenames and content may exist locally — translate on contact; do not reproduce Norwegian conceptual terms in new output (except permitted proper nouns).
 11. Attribute public-facing work to **Dr. Anatomy Pace** — never to real individuals.
+
+### 13.1 Reject or redirect: meso / Sub-1:40 proposals
+
+| Gemini-style request | Verdict | What to do instead |
+|---------------------|---------|-------------------|
+| `ALTER TABLE` on `anatomy_macro.db` for workouts | **Reject** | Macro DB = race ecology only (`init_db.py`) |
+| Log body weight / protein / carbs in public schema | **Reject** | `training_compliance.local.db` (gitignored) |
+| Hard-code 4:44 / 84.4 kg / 160 g in public Python | **Reject** | Read `training_blueprint.local.json` |
+| Project all training FITs on `3_sjoerslopet` axis | **Reject** | Stream distance unless explicit course sim |
+| Sunday fast-finish compliance scoring | **Approve** | Existing `evaluate_fast_finish.py` + local tags |
 
 ---
 

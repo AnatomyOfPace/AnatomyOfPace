@@ -22,6 +22,11 @@ from evaluate_fast_finish import (  # noqa: E402
     score_fast_finish,
 )
 from init_training_compliance_local import init_compliance_db  # noqa: E402
+from log_recovery_compliance import (  # noqa: E402
+    DEFAULT_PROTOCOL,
+    build_override_payload,
+    insert_recovery_flag,
+)
 
 
 def _blueprint() -> dict:
@@ -101,6 +106,29 @@ class EvaluateFastFinishTests(unittest.TestCase):
         )
         self.assertIsNone(km)
 
+    def test_recovery_week_evaluate_is_exempt_not_zero_miss(self) -> None:
+        frame = _synthetic_frame(total_km=12.0, finish_pace_min_km=5.5)
+        result = evaluate_activity(
+            frame,
+            activity_id="synth_recovery",
+            blueprint=_blueprint(),
+            session_meta={
+                "subject_id": "Subject_A",
+                "session_type": "sunday_simulator",
+                "week_id": "2026-W36",
+                "month_key": "2026-09",
+                "is_recovery_week": True,
+                "sunday_distance_cap_km": 12.0,
+                "fast_finish_required": False,
+            },
+        )
+        self.assertEqual(result.status, "recovery_exempt")
+        self.assertEqual(result.skipped_reason, "recovery_exempt")
+        self.assertIsNone(result.compliance_score)
+        self.assertIsNone(result.held_target)
+        self.assertIsNone(result.pace_delta_sec_per_km)
+        self.assertIsNone(result.target_pace_min_per_km)
+
     def test_held_target_on_444_finish(self) -> None:
         frame = _synthetic_frame(finish_pace_min_km=4.7333)
         result = evaluate_activity(
@@ -157,6 +185,23 @@ class EvaluateFastFinishTests(unittest.TestCase):
             db = Path(tmp) / "training_compliance.local.db"
             init_compliance_db(db)
             self.assertTrue(db.exists())
+
+    def test_log_recovery_inserts_compliance_flag(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            db = Path(tmp) / "training_compliance.local.db"
+            init_compliance_db(db)
+            payload = build_override_payload(
+                subject_id="Subject_A",
+                week_id="2026-W36",
+                month_key="2026-09",
+                protocol=DEFAULT_PROTOCOL,
+                notes=None,
+            )
+            self.assertEqual(
+                payload["protocol"]["tuesday"]["session_type"], "tuesday_rest"
+            )
+            flag_id = insert_recovery_flag(db, payload=payload, metric_date="2026-09-01")
+            self.assertGreaterEqual(flag_id, 1)
 
 
 if __name__ == "__main__":

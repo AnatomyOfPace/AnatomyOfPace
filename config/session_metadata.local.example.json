@@ -3,15 +3,66 @@
   "_notice": "Copy to config/session_metadata.local.json (gitignored). Map washed micro activity_id values to private session types. Clinical IDs only.",
   "subject_id": "Subject_A",
   "donor_id": "Subject_A",
+  "session_type_conventions": {
+    "tuesday_micro": "Standard micro-interval day",
+    "tuesday_rest": "Recovery-week rest day (preferred over generic rest_override)",
+    "wednesday_recovery": "Active recovery",
+    "friday_aerobic": "Easy jog + strength",
+    "sunday_simulator": "Long run / simulator (fast finish may be dropped in recovery weeks)"
+  },
+  "current_week": {
+    "week_id": "2026-W36",
+    "week_index": 4,
+    "phase": "base",
+    "month_key": "2026-09",
+    "is_recovery_week": true,
+    "sunday_distance_cap_km": 12.0,
+    "fast_finish_required": false,
+    "protocol": {
+      "tuesday": {"session_type": "tuesday_rest", "status": "rest"},
+      "wednesday": {"session_type": "wednesday_recovery", "distance_km": 8.2},
+      "friday": {
+        "session_type": "friday_aerobic",
+        "easy_jog_km_min": 5.0,
+        "easy_jog_km_max": 7.0,
+        "lift_intensity_factor": 0.8
+      },
+      "sunday": {
+        "session_type": "sunday_simulator",
+        "distance_cap_km": 12.0,
+        "fast_finish": false
+      }
+    },
+    "notes": "Recovery override: Tue rest; Wed 8.2 km; Fri 5–7 km + 80% lift intensity; Sun 12 km cap; fast finish removed"
+  },
   "activities": {
-    "EXAMPLE_ACTIVITY_ID": {
+    "EXAMPLE_SUNDAY_RECOVERY": {
       "session_type": "sunday_simulator",
       "week_id": "2026-W36",
+      "week_index": 4,
+      "phase": "base",
+      "month_key": "2026-09",
+      "is_recovery_week": true,
+      "sunday_distance_cap_km": 12.0,
+      "fast_finish_required": false,
+      "notes": "Recovery week: Sunday distance cap 12 km; fast-finish requirement removed"
+    },
+    "EXAMPLE_TUESDAY_REST": {
+      "session_type": "tuesday_rest",
+      "week_id": "2026-W36",
+      "week_index": 4,
+      "month_key": "2026-09",
+      "is_recovery_week": true,
+      "notes": "Mandated Tuesday rest — no micro intervals"
+    },
+    "EXAMPLE_ACTIVITY_ID": {
+      "session_type": "sunday_simulator",
+      "week_id": "2026-W37",
       "week_index": 1,
       "phase": "base",
       "month_key": "2026-09",
       "is_recovery_week": false,
-      "notes": "Replace EXAMPLE_ACTIVITY_ID with washed micro activity_id"
+      "notes": "Replace EXAMPLE_ACTIVITY_ID with washed micro activity_id (non-recovery week)"
     }
   }
 }
