@@ -41,5 +41,17 @@
     "compare_races": "./04_Python_Scripts/spatial/compare_stavanger_halvmarathon_races.sh",
     "rebuild_panel": "python3 04_Python_Scripts/spatial/corridor_multi_fit.py --manifest config/spatial_align_manifest_stavanger_halvmarathon.json --enrich-if-needed",
     "gold_training_export": "python3 04_Python_Scripts/spatial/build_gold_training_set.py --panel 03_Processed_Data/spatial/stavanger_halvmarathon_course/panel_1m.parquet --terrain-map config/spatial_terrain_map_stavanger_halvmarathon.json --km-start 0 --km-end 21.38 --output 03_Processed_Data/spatial/gold_training_set_stavanger_halvmarathon.parquet"
-  }
+  },
+  "yoy_route_changes": [
+    {
+      "course_km_start": 9.6,
+      "course_km_end": 13.1,
+      "note": "2025 vs 2026 organiser reroute — elevation/GPS divergence km ~10–13"
+    },
+    {
+      "course_km_start": 16.4,
+      "course_km_end": 17.6,
+      "note": "2025 vs 2026 organiser reroute — elevation/GPS divergence km ~16.5–17.5"
+    }
+  ]
 }

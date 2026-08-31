@@ -50,6 +50,8 @@ DEFAULT_PANEL = panel_parquet_path(corridor_id=DEFAULT_CORRIDOR_ID)
 DEFAULT_TERRAIN_MAP = BASE_DIR / "config" / "spatial_terrain_map_stavanger_halvmarathon.json"
 DEFAULT_OUTPUT = BASE_DIR / "06_Visualizations" / "stavanger_halvmarathon_race_compare.png"
 DEFAULT_JSON = BASE_DIR / "03_Processed_Data" / "spatial" / "stavanger_halvmarathon_race_compare.json"
+DEFAULT_MANIFEST = BASE_DIR / "config" / "spatial_align_manifest_stavanger_halvmarathon.json"
+COMPARE_VERSION = "2026-08-31-gps-yoy"
 DEFAULT_KM_WINDOW = (0.0, 21.38)
 
 # Route-change detection on shared stream-km axis.
@@ -78,6 +80,55 @@ def _resolve_km_window(terrain_map: dict[str, Any], km_window: tuple[float, floa
     km_lo = float(corridor.get("km_start", DEFAULT_KM_WINDOW[0]))
     km_hi = float(corridor.get("km_end", DEFAULT_KM_WINDOW[1]))
     return km_lo, km_hi
+
+
+def _load_manifest_route_changes(manifest_path: Path) -> list[dict[str, Any]]:
+    if not manifest_path.is_file():
+        return []
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    rows: list[dict[str, Any]] = []
+    for span in manifest.get("yoy_route_changes") or []:
+        rows.append(
+            {
+                "course_km_start": round(float(span["course_km_start"]), 3),
+                "course_km_end": round(float(span["course_km_end"]), 3),
+                "metres": int(round((float(span["course_km_end"]) - float(span["course_km_start"])) * 1000.0)),
+                "route_change_method": "operator_locked_yoy",
+                "note": span.get("note") or "Locked YoY route-change window (manifest)",
+            }
+        )
+    return rows
+
+
+def _route_change_mask(paired: pd.DataFrame, spans: list[dict[str, Any]]) -> pd.Series:
+    mask = pd.Series(False, index=paired.index)
+    km = pd.to_numeric(paired["course_km"], errors="coerce")
+    for span in spans:
+        mask |= (km >= float(span["course_km_start"])) & (km < float(span["course_km_end"]))
+    return mask
+
+
+def _backfill_gps_columns(
+    frame: pd.DataFrame,
+    *,
+    donor_id: str,
+    activity_id: str,
+    km_lo: float,
+    km_hi: float,
+) -> pd.DataFrame:
+    if all(col in frame.columns and pd.to_numeric(frame[col], errors="coerce").notna().any() for col in GPS_COLS):
+        return frame
+    try:
+        raw = read_parquet(donor_id, activity_id)
+        gridded = resample_to_grid_1m(raw, km_lo, km_hi)
+        out = frame.copy()
+        for col in GPS_COLS:
+            if col in gridded.columns:
+                out = out.drop(columns=[col], errors="ignore")
+                out = out.merge(gridded[["course_m", col]], on="course_m", how="left")
+        return out
+    except Exception:
+        return frame
 
 
 def _load_panel_activity(panel_path: Path, activity_id: str, km_lo: float, km_hi: float) -> pd.DataFrame | None:
@@ -495,11 +546,14 @@ def detect_course_route_changes(
     if gps_offset is not None and gps_offset.notna().sum() >= MIN_CLUSTER_METRES:
         paired = paired.copy()
         paired["gps_offset_m"] = gps_offset
+        valid = gps_offset.dropna()
+        baseline = float(valid.quantile(0.50)) if not valid.empty else 0.0
+        threshold = max(GPS_OFFSET_THRESHOLD_M, baseline + 10.0)
         frags, clusters, primary, mask = _detect_route_changes_from_signal(
             paired,
             gps_offset,
             km_hi=km_hi,
-            threshold=GPS_OFFSET_THRESHOLD_M,
+            threshold=threshold,
             min_span_m=GPS_MIN_ROUTE_CHANGE_M,
             merge_gap_m=GPS_MERGE_GAP_M,
             smooth_window_m=GPS_SMOOTH_WINDOW_M,
@@ -508,6 +562,9 @@ def detect_course_route_changes(
             score_key="gps_divergence_score",
         )
         if primary:
+            for item in primary:
+                item["gps_baseline_offset_m"] = round(baseline, 2)
+                item["gps_threshold_m"] = round(threshold, 2)
             return frags, clusters, primary, mask, "gps_lateral_offset", elev_audit
 
     if col_a in paired.columns and col_b in paired.columns:
@@ -541,6 +598,7 @@ def compare_races(
     km_window: tuple[float, float] | None = None,
     source_a: str = "unknown",
     source_b: str = "unknown",
+    manifest_route_changes: list[dict[str, Any]] | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     km_lo, km_hi = _resolve_km_window(terrain_map, km_window)
     a = _prepare_compare_grid(frame_a, km_lo, km_hi)
@@ -593,13 +651,21 @@ def compare_races(
         )
         paired["abs_delta_elev_m"] = paired["delta_elev_m"].abs()
 
-    route_fragments, route_clusters, route_changes, route_change_mask, route_method, elev_audit = (
+    route_fragments, route_clusters, auto_primary, auto_mask, route_method, elev_audit = (
         detect_course_route_changes(paired, label_a=label_a, label_b=label_b, km_hi=km_hi)
     )
+    if manifest_route_changes:
+        route_changes = manifest_route_changes
+        route_method = "operator_locked_yoy"
+        route_change_mask = _route_change_mask(paired, manifest_route_changes)
+    else:
+        route_changes = auto_primary
+        route_change_mask = auto_mask
     if "gps_offset_m" not in paired.columns:
         gps_offset = _compute_gps_offset_m(paired, label_a=label_a, label_b=label_b)
         if gps_offset is not None:
             paired["gps_offset_m"] = gps_offset
+    gps_paired = int(paired["gps_offset_m"].notna().sum()) if "gps_offset_m" in paired.columns else 0
     stable_route = ~route_change_mask
 
     tiered = paired["friction_tier"].notna()
@@ -621,8 +687,11 @@ def compare_races(
         "course_route_change_fragments": route_fragments,
         "course_route_change_clusters": route_clusters,
         "course_route_changes": route_changes,
+        "course_route_changes_auto": auto_primary,
         "course_route_change_method": route_method,
         "elev_divergence_audit_fragments": elev_audit,
+        "gps_paired_metres": gps_paired,
+        "compare_version": COMPARE_VERSION,
         "primary_route_change_count": len(route_changes),
         "tier_assigned_metres": int(tiered.sum()),
         "substrate_band_metres": int(sum(row["metres"] for row in substrate_bands)),
@@ -773,6 +842,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--panel", type=Path, default=DEFAULT_PANEL, help="Dual-activity panel parquet (preferred)")
     parser.add_argument("--corridor-id", default=DEFAULT_CORRIDOR_ID)
     parser.add_argument("--raw-parquet", action="store_true", help="Skip panel/aligned parquets; resample washed micro frames")
+    parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--terrain-map", type=Path, default=DEFAULT_TERRAIN_MAP)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--json", type=Path, default=DEFAULT_JSON)
@@ -784,7 +854,9 @@ def main(argv: list[str] | None = None) -> int:
     terrain_path = args.terrain_map if args.terrain_map.is_absolute() else BASE_DIR / args.terrain_map
     terrain_map = load_terrain_map(terrain_path)
     panel_path = args.panel if args.panel.is_absolute() else BASE_DIR / args.panel
+    manifest_path = args.manifest if args.manifest.is_absolute() else BASE_DIR / args.manifest
     km_lo, km_hi = _resolve_km_window(terrain_map, None)
+    manifest_route_changes = _load_manifest_route_changes(manifest_path)
 
     frame_a, source_a = _load_compare_frame(
         args.donor,
@@ -804,6 +876,12 @@ def main(argv: list[str] | None = None) -> int:
         km_hi=km_hi,
         prefer_panel=not args.raw_parquet,
     )
+    frame_a = _backfill_gps_columns(
+        frame_a, donor_id=args.donor, activity_id=args.activity_a, km_lo=km_lo, km_hi=km_hi
+    )
+    frame_b = _backfill_gps_columns(
+        frame_b, donor_id=args.donor, activity_id=args.activity_b, km_lo=km_lo, km_hi=km_hi
+    )
     paired, report = compare_races(
         frame_a,
         frame_b,
@@ -812,6 +890,7 @@ def main(argv: list[str] | None = None) -> int:
         label_b=args.label_b,
         source_a=source_a,
         source_b=source_b,
+        manifest_route_changes=manifest_route_changes or None,
     )
     report["activity_a"] = args.activity_a
     report["activity_b"] = args.activity_b
@@ -825,6 +904,7 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"OK compare → {out_png.relative_to(BASE_DIR)}")
     print(f"    report → {out_json.relative_to(BASE_DIR)}")
+    print(f"    compare version {COMPARE_VERSION}")
     print(f"    source {args.label_a}: {report.get('source_a')} · {args.label_b}: {report.get('source_b')}")
     print(
         f"    overlap {report['overlap_metres']} m / grid {report['grid_metres']} m · "
