@@ -52,13 +52,15 @@ DEFAULT_OUTPUT = BASE_DIR / "06_Visualizations" / "stavanger_halvmarathon_race_c
 DEFAULT_JSON = BASE_DIR / "03_Processed_Data" / "spatial" / "stavanger_halvmarathon_race_compare.json"
 DEFAULT_KM_WINDOW = (0.0, 21.38)
 
-# Elevation divergence → year-over-year route change on a fixed stream-km axis.
+# Route-change detection on shared stream-km axis.
+GPS_OFFSET_THRESHOLD_M = 18.0
+GPS_SMOOTH_WINDOW_M = 40
+GPS_MIN_ROUTE_CHANGE_M = 120
+GPS_MERGE_GAP_M = 200
+GPS_CLUSTER_GAP_KM = 0.8
 ELEV_DIVERGENCE_THRESHOLD_M = 5.0
-MIN_ROUTE_CHANGE_M = 100
-ROUTE_CHANGE_MERGE_GAP_M = 150
-ROUTE_CHANGE_CLUSTER_GAP_KM = 1.5
 MIN_FRAGMENT_METRES = 80
-MIN_CLUSTER_METRES = 250
+MIN_CLUSTER_METRES = 200
 ELEV_SMOOTH_WINDOW_M = 50
 ROUTE_CHANGE_FILL = "#FF5252"
 START_CALIBRATION_KM = 0.5
@@ -66,6 +68,7 @@ FINISH_CALIBRATION_KM = 0.5
 PRIMARY_ROUTE_CHANGE_COUNT = 2
 
 COMPARE_COLS = ("speed_mps", "ti", "heart_rate", "cadence_spm", "grade_pct", "altitude_m")
+GPS_COLS = ("latitude", "longitude")
 
 
 def _resolve_km_window(terrain_map: dict[str, Any], km_window: tuple[float, float] | None) -> tuple[float, float]:
@@ -212,29 +215,38 @@ def _smooth_series(values: pd.Series, window_m: int) -> pd.Series:
     return values.rolling(window=window_m, center=True, min_periods=max(3, window_m // 4)).median()
 
 
-def _span_elev_stats(
-    paired: pd.DataFrame,
-    course_m: pd.Series,
-    delta: pd.Series,
-    lo_m: int,
-    hi_m: int,
-    *,
-    min_metres: int = MIN_FRAGMENT_METRES,
-) -> dict[str, Any] | None:
-    mask = (course_m >= lo_m) & (course_m <= hi_m)
-    sub_delta = delta.loc[mask].dropna()
-    if sub_delta.empty or int(mask.sum()) < min_metres:
+def _haversine_m(
+    lat1: np.ndarray | pd.Series,
+    lon1: np.ndarray | pd.Series,
+    lat2: np.ndarray | pd.Series,
+    lon2: np.ndarray | pd.Series,
+) -> np.ndarray:
+    """Great-circle distance (m) — vectorized."""
+    r = 6_371_000.0
+    p1 = np.radians(np.asarray(lat1, dtype=float))
+    p2 = np.radians(np.asarray(lat2, dtype=float))
+    dlat = np.radians(np.asarray(lat2, dtype=float) - np.asarray(lat1, dtype=float))
+    dlon = np.radians(np.asarray(lon2, dtype=float) - np.asarray(lon1, dtype=float))
+    a = np.sin(dlat / 2.0) ** 2 + np.cos(p1) * np.cos(p2) * np.sin(dlon / 2.0) ** 2
+    return 2.0 * r * np.arcsin(np.sqrt(np.clip(a, 0.0, 1.0)))
+
+
+def _compute_gps_offset_m(paired: pd.DataFrame, *, label_a: str, label_b: str) -> pd.Series | None:
+    lat_a = f"latitude_{label_a}"
+    lon_a = f"longitude_{label_a}"
+    lat_b = f"latitude_{label_b}"
+    lon_b = f"longitude_{label_b}"
+    if not all(col in paired.columns for col in (lat_a, lon_a, lat_b, lon_b)):
         return None
-    return {
-        "course_km_start": round(lo_m / 1000.0, 3),
-        "course_km_end": round((hi_m + 1) / 1000.0, 3),
-        "metres": int(mask.sum()),
-        "median_delta_elev_m": round(float(sub_delta.median()), 2),
-        "max_delta_elev_m": round(float(sub_delta.max()), 2),
-        "mean_delta_elev_m": round(float(sub_delta.mean()), 2),
-        "elev_divergence_score": round(float(sub_delta.sum()), 1),
-        "detection": "elevation_profile_divergence",
-    }
+    lat1 = pd.to_numeric(paired[lat_a], errors="coerce").to_numpy(dtype=float)
+    lon1 = pd.to_numeric(paired[lon_a], errors="coerce").to_numpy(dtype=float)
+    lat2 = pd.to_numeric(paired[lat_b], errors="coerce").to_numpy(dtype=float)
+    lon2 = pd.to_numeric(paired[lon_b], errors="coerce").to_numpy(dtype=float)
+    valid = np.isfinite(lat1) & np.isfinite(lon1) & np.isfinite(lat2) & np.isfinite(lon2)
+    out = np.full(len(paired), np.nan, dtype=float)
+    if valid.any():
+        out[valid] = _haversine_m(lat1[valid], lon1[valid], lat2[valid], lon2[valid])
+    return pd.Series(out, index=paired.index)
 
 
 def _merge_span_ranges(spans: list[tuple[int, int]], gap_m: int) -> list[tuple[int, int]]:
@@ -250,7 +262,66 @@ def _merge_span_ranges(spans: list[tuple[int, int]], gap_m: int) -> list[tuple[i
     return merged
 
 
-def _cluster_route_fragments(fragments: list[dict[str, Any]], *, gap_km: float) -> list[dict[str, Any]]:
+def _extract_flagged_spans(
+    course_m: pd.Series,
+    flagged: pd.Series,
+    *,
+    min_span_m: int,
+    merge_gap_m: int,
+) -> list[tuple[int, int]]:
+    flagged_m = course_m.loc[flagged].astype(int).sort_values().tolist()
+    if not flagged_m:
+        return []
+
+    raw_spans: list[tuple[int, int]] = []
+    start_m = flagged_m[0]
+    prev_m = flagged_m[0]
+    for metre in flagged_m[1:]:
+        if metre - prev_m <= merge_gap_m + 1:
+            prev_m = metre
+            continue
+        if prev_m - start_m + 1 >= min_span_m:
+            raw_spans.append((start_m, prev_m))
+        start_m = metre
+        prev_m = metre
+    if prev_m - start_m + 1 >= min_span_m:
+        raw_spans.append((start_m, prev_m))
+    return _merge_span_ranges(raw_spans, merge_gap_m)
+
+
+def _span_signal_stats(
+    course_m: pd.Series,
+    signal: pd.Series,
+    lo_m: int,
+    hi_m: int,
+    *,
+    min_metres: int,
+    detection: str,
+    score_key: str,
+) -> dict[str, Any] | None:
+    mask = (course_m >= lo_m) & (course_m <= hi_m)
+    sub = signal.loc[mask].dropna()
+    if sub.empty or int(mask.sum()) < min_metres:
+        return None
+    return {
+        "course_km_start": round(lo_m / 1000.0, 3),
+        "course_km_end": round((hi_m + 1) / 1000.0, 3),
+        "metres": int(mask.sum()),
+        "median_signal": round(float(sub.median()), 2),
+        "max_signal": round(float(sub.max()), 2),
+        "mean_signal": round(float(sub.mean()), 2),
+        score_key: round(float(sub.sum()), 1),
+        "detection": detection,
+    }
+
+
+def _cluster_route_fragments(
+    fragments: list[dict[str, Any]],
+    *,
+    gap_km: float,
+    score_key: str,
+    detection: str,
+) -> list[dict[str, Any]]:
     if not fragments:
         return []
     spans = [
@@ -272,21 +343,16 @@ def _cluster_route_fragments(fragments: list[dict[str, Any]], *, gap_km: float) 
                 "course_km_start": round(lo_m / 1000.0, 3),
                 "course_km_end": round((hi_m + 1) / 1000.0, 3),
                 "metres": int(sum(int(m["metres"]) for m in members)),
-                "median_delta_elev_m": round(
-                    float(np.median([m["median_delta_elev_m"] for m in members])), 2
-                ),
-                "max_delta_elev_m": round(float(max(m["max_delta_elev_m"] for m in members)), 2),
-                "mean_delta_elev_m": round(
-                    float(np.average(
-                        [m["mean_delta_elev_m"] for m in members],
-                        weights=[m["metres"] for m in members],
-                    )),
+                "median_signal": round(float(np.median([m["median_signal"] for m in members])), 2),
+                "max_signal": round(float(max(m["max_signal"] for m in members)), 2),
+                "mean_signal": round(
+                    float(np.average([m["mean_signal"] for m in members], weights=[m["metres"] for m in members])),
                     2,
                 ),
-                "elev_divergence_score": round(float(sum(m["elev_divergence_score"] for m in members)), 1),
+                score_key: round(float(sum(float(m[score_key]) for m in members)), 1),
                 "fragment_count": len(members),
-                "detection": "elevation_profile_divergence_cluster",
-                "note": "Merged elevation-divergence cluster — probable organiser reroute",
+                "detection": detection,
+                "note": "Merged route-divergence cluster",
             }
         )
     return clusters
@@ -296,6 +362,7 @@ def _select_primary_route_changes(
     clusters: list[dict[str, Any]],
     *,
     km_hi: float,
+    score_key: str,
     top_n: int = PRIMARY_ROUTE_CHANGE_COUNT,
 ) -> list[dict[str, Any]]:
     """Keep the strongest mid-course clusters; drop start/finish calibration bands."""
@@ -308,13 +375,85 @@ def _select_primary_route_changes(
     ]
     ranked = sorted(
         candidates,
-        key=lambda c: (float(c["elev_divergence_score"]), float(c["median_delta_elev_m"])),
+        key=lambda c: (float(c[score_key]), float(c["max_signal"])),
         reverse=True,
     )
     primary = ranked[:top_n]
     for item in primary:
-        item["note"] = "Primary organiser route-change window (elevation divergence)"
-    return primary
+        item["note"] = "Primary organiser route-change window"
+    return sorted(primary, key=lambda c: float(c["course_km_start"]))
+
+
+def _normalize_route_span(span: dict[str, Any], *, method: str) -> dict[str, Any]:
+    out = dict(span)
+    if method == "gps_lateral_offset":
+        out["median_gps_offset_m"] = out.pop("median_signal")
+        out["max_gps_offset_m"] = out.pop("max_signal")
+        out["mean_gps_offset_m"] = out.pop("mean_signal")
+    else:
+        out["median_delta_elev_m"] = out.pop("median_signal")
+        out["max_delta_elev_m"] = out.pop("max_signal")
+        out["mean_delta_elev_m"] = out.pop("mean_signal")
+    out["route_change_method"] = method
+    return out
+
+
+def _detect_route_changes_from_signal(
+    paired: pd.DataFrame,
+    signal: pd.Series,
+    *,
+    km_hi: float,
+    threshold: float,
+    min_span_m: int,
+    merge_gap_m: int,
+    smooth_window_m: int,
+    cluster_gap_km: float,
+    detection: str,
+    score_key: str,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], pd.Series]:
+    smoothed = _smooth_series(signal, smooth_window_m)
+    flagged = signal.notna() & smoothed.ge(threshold)
+    if not flagged.any():
+        return [], [], [], pd.Series(False, index=paired.index)
+
+    course_m = pd.to_numeric(paired["course_m"], errors="coerce")
+    spans = _extract_flagged_spans(
+        course_m, flagged, min_span_m=min_span_m, merge_gap_m=merge_gap_m
+    )
+
+    fragments: list[dict[str, Any]] = []
+    for lo_m, hi_m in spans:
+        stats = _span_signal_stats(
+            course_m,
+            smoothed,
+            lo_m,
+            hi_m,
+            min_metres=MIN_FRAGMENT_METRES,
+            detection=detection,
+            score_key=score_key,
+        )
+        if stats is None:
+            continue
+        stats["note"] = "Route-divergence fragment"
+        fragments.append(stats)
+
+    clusters = _cluster_route_fragments(
+        fragments,
+        gap_km=cluster_gap_km,
+        score_key=score_key,
+        detection=f"{detection}_cluster",
+    )
+    clusters = [c for c in clusters if int(c["metres"]) >= MIN_CLUSTER_METRES]
+    primary_raw = _select_primary_route_changes(clusters, km_hi=km_hi, score_key=score_key)
+    primary = [_normalize_route_span(c, method=detection) for c in primary_raw]
+    fragments_out = [_normalize_route_span(f, method=detection) for f in fragments]
+    clusters_out = [_normalize_route_span(c, method=detection) for c in clusters]
+
+    primary_mask = pd.Series(False, index=paired.index)
+    km = pd.to_numeric(paired["course_km"], errors="coerce")
+    for span in primary:
+        primary_mask |= (km >= float(span["course_km_start"])) & (km < float(span["course_km_end"]))
+    return fragments_out, clusters_out, primary, primary_mask
 
 
 def detect_course_route_changes(
@@ -323,69 +462,73 @@ def detect_course_route_changes(
     label_a: str,
     label_b: str,
     km_hi: float,
-    elev_threshold_m: float = ELEV_DIVERGENCE_THRESHOLD_M,
-    min_span_m: int = MIN_ROUTE_CHANGE_M,
-    merge_gap_m: int = ROUTE_CHANGE_MERGE_GAP_M,
-    smooth_window_m: int = ELEV_SMOOTH_WINDOW_M,
-    cluster_gap_km: float = ROUTE_CHANGE_CLUSTER_GAP_KM,
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], pd.Series]:
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], pd.Series, str, list[dict[str, Any]]]:
     """
-    Flag windows where elevation profiles diverge on the shared stream axis.
+    Detect organiser reroutes on a fixed stream-km axis.
 
-    Returns (fragments, clusters, primary_route_changes, metre_mask).
+    Prefers GPS lateral offset (same km, different lat/lon) over elevation delta.
+    Returns fragments, clusters, primary windows, mask, method, elev_audit_fragments.
     """
+    gps_offset = _compute_gps_offset_m(paired, label_a=label_a, label_b=label_b)
+    elev_audit: list[dict[str, Any]] = []
+
     col_a = f"altitude_m_{label_a}"
     col_b = f"altitude_m_{label_b}"
-    if col_a not in paired.columns or col_b not in paired.columns:
-        return [], [], [], pd.Series(False, index=paired.index)
+    if col_a in paired.columns and col_b in paired.columns:
+        elev_delta = (
+            pd.to_numeric(paired[col_b], errors="coerce") - pd.to_numeric(paired[col_a], errors="coerce")
+        ).abs()
+        elev_frags, _, _, _ = _detect_route_changes_from_signal(
+            paired,
+            elev_delta,
+            km_hi=km_hi,
+            threshold=ELEV_DIVERGENCE_THRESHOLD_M,
+            min_span_m=GPS_MIN_ROUTE_CHANGE_M,
+            merge_gap_m=GPS_MERGE_GAP_M,
+            smooth_window_m=ELEV_SMOOTH_WINDOW_M,
+            cluster_gap_km=1.5,
+            detection="elevation_profile_divergence",
+            score_key="elev_divergence_score",
+        )
+        elev_audit = elev_frags
 
-    elev_a = pd.to_numeric(paired[col_a], errors="coerce")
-    elev_b = pd.to_numeric(paired[col_b], errors="coerce")
-    valid = elev_a.notna() & elev_b.notna()
-    delta = (elev_b - elev_a).abs()
-    smoothed = _smooth_series(delta.where(valid), smooth_window_m)
+    if gps_offset is not None and gps_offset.notna().sum() >= MIN_CLUSTER_METRES:
+        paired = paired.copy()
+        paired["gps_offset_m"] = gps_offset
+        frags, clusters, primary, mask = _detect_route_changes_from_signal(
+            paired,
+            gps_offset,
+            km_hi=km_hi,
+            threshold=GPS_OFFSET_THRESHOLD_M,
+            min_span_m=GPS_MIN_ROUTE_CHANGE_M,
+            merge_gap_m=GPS_MERGE_GAP_M,
+            smooth_window_m=GPS_SMOOTH_WINDOW_M,
+            cluster_gap_km=GPS_CLUSTER_GAP_KM,
+            detection="gps_lateral_offset",
+            score_key="gps_divergence_score",
+        )
+        if primary:
+            return frags, clusters, primary, mask, "gps_lateral_offset", elev_audit
 
-    flagged = valid & smoothed.ge(elev_threshold_m)
-    if not flagged.any():
-        return [], [], [], flagged
+    if col_a in paired.columns and col_b in paired.columns:
+        elev_delta = (
+            pd.to_numeric(paired[col_b], errors="coerce") - pd.to_numeric(paired[col_a], errors="coerce")
+        ).abs()
+        frags, clusters, primary, mask = _detect_route_changes_from_signal(
+            paired,
+            elev_delta,
+            km_hi=km_hi,
+            threshold=ELEV_DIVERGENCE_THRESHOLD_M,
+            min_span_m=GPS_MIN_ROUTE_CHANGE_M,
+            merge_gap_m=GPS_MERGE_GAP_M,
+            smooth_window_m=ELEV_SMOOTH_WINDOW_M,
+            cluster_gap_km=1.5,
+            detection="elevation_profile_divergence",
+            score_key="elev_divergence_score",
+        )
+        return frags, clusters, primary, mask, "elevation_profile_divergence", elev_audit
 
-    course_m = pd.to_numeric(paired["course_m"], errors="coerce")
-    flagged_m = course_m.loc[flagged].astype(int).sort_values().tolist()
-    if not flagged_m:
-        return [], [], [], flagged
-
-    raw_spans: list[tuple[int, int]] = []
-    start_m = flagged_m[0]
-    prev_m = flagged_m[0]
-    for metre in flagged_m[1:]:
-        if metre - prev_m <= merge_gap_m + 1:
-            prev_m = metre
-            continue
-        if prev_m - start_m + 1 >= min_span_m:
-            raw_spans.append((start_m, prev_m))
-        start_m = metre
-        prev_m = metre
-    if prev_m - start_m + 1 >= min_span_m:
-        raw_spans.append((start_m, prev_m))
-
-    fragments: list[dict[str, Any]] = []
-    for lo_m, hi_m in _merge_span_ranges(raw_spans, merge_gap_m):
-        stats = _span_elev_stats(paired, course_m, delta, lo_m, hi_m)
-        if stats is None:
-            continue
-        stats["note"] = "Elevation-divergence fragment"
-        fragments.append(stats)
-
-    clusters = _cluster_route_fragments(fragments, gap_km=cluster_gap_km)
-    clusters = [c for c in clusters if int(c["metres"]) >= MIN_CLUSTER_METRES]
-    primary = _select_primary_route_changes(clusters, km_hi=km_hi)
-
-    primary_mask = pd.Series(False, index=paired.index)
-    km = pd.to_numeric(paired["course_km"], errors="coerce")
-    for span in primary:
-        primary_mask |= (km >= float(span["course_km_start"])) & (km < float(span["course_km_end"]))
-
-    return fragments, clusters, primary, primary_mask
+    return [], [], [], pd.Series(False, index=paired.index), "none", elev_audit
 
 
 def compare_races(
@@ -403,8 +546,8 @@ def compare_races(
     a = _prepare_compare_grid(frame_a, km_lo, km_hi)
     b = _prepare_compare_grid(frame_b, km_lo, km_hi)
 
-    rename_a = {c: f"{c}_{label_a}" for c in COMPARE_COLS if c in a.columns}
-    rename_b = {c: f"{c}_{label_b}" for c in COMPARE_COLS if c in b.columns}
+    rename_a = {c: f"{c}_{label_a}" for c in (*COMPARE_COLS, *GPS_COLS) if c in a.columns}
+    rename_b = {c: f"{c}_{label_b}" for c in (*COMPARE_COLS, *GPS_COLS) if c in b.columns}
     paired = a.rename(columns=rename_a).merge(
         b.rename(columns=rename_b),
         on=["course_m", "course_km"],
@@ -450,9 +593,13 @@ def compare_races(
         )
         paired["abs_delta_elev_m"] = paired["delta_elev_m"].abs()
 
-    route_fragments, route_clusters, route_changes, route_change_mask = detect_course_route_changes(
-        paired, label_a=label_a, label_b=label_b, km_hi=km_hi
+    route_fragments, route_clusters, route_changes, route_change_mask, route_method, elev_audit = (
+        detect_course_route_changes(paired, label_a=label_a, label_b=label_b, km_hi=km_hi)
     )
+    if "gps_offset_m" not in paired.columns:
+        gps_offset = _compute_gps_offset_m(paired, label_a=label_a, label_b=label_b)
+        if gps_offset is not None:
+            paired["gps_offset_m"] = gps_offset
     stable_route = ~route_change_mask
 
     tiered = paired["friction_tier"].notna()
@@ -474,6 +621,8 @@ def compare_races(
         "course_route_change_fragments": route_fragments,
         "course_route_change_clusters": route_clusters,
         "course_route_changes": route_changes,
+        "course_route_change_method": route_method,
+        "elev_divergence_audit_fragments": elev_audit,
         "primary_route_change_count": len(route_changes),
         "tier_assigned_metres": int(tiered.sum()),
         "substrate_band_metres": int(sum(row["metres"] for row in substrate_bands)),
@@ -537,25 +686,38 @@ def render_compare_figure(
         ax0.plot(km, paired[col_elev_b], color="#FFE082", linewidth=1.0, alpha=0.85, label=label_b)
     if "abs_delta_elev_m" in paired.columns:
         ax0_t = ax0.twinx()
-        ax0_t.plot(
-            km,
-            paired["abs_delta_elev_m"],
-            color=ROUTE_CHANGE_FILL,
-            linewidth=0.9,
-            alpha=0.75,
-            label=f"|Δelev| ({label_b}−{label_a})",
-        )
-        ax0_t.set_ylabel("|Δ elevation| (m)", color=ROUTE_CHANGE_FILL, fontsize=8)
-        ax0_t.tick_params(axis="y", labelcolor=ROUTE_CHANGE_FILL, labelsize=7)
+        if "gps_offset_m" in paired.columns:
+            ax0_t.plot(
+                km,
+                paired["gps_offset_m"],
+                color="#FF8A80",
+                linewidth=1.0,
+                alpha=0.9,
+                label="GPS offset (2026 vs 2025)",
+            )
+            ax0_t.set_ylabel("GPS offset (m)", color="#FF8A80", fontsize=8)
+            ax0_t.tick_params(axis="y", labelcolor="#FF8A80", labelsize=7)
+        else:
+            ax0_t.plot(
+                km,
+                paired["abs_delta_elev_m"],
+                color=ROUTE_CHANGE_FILL,
+                linewidth=0.9,
+                alpha=0.75,
+                label=f"|Δelev| ({label_b}−{label_a})",
+            )
+            ax0_t.set_ylabel("|Δ elevation| (m)", color=ROUTE_CHANGE_FILL, fontsize=8)
+            ax0_t.tick_params(axis="y", labelcolor=ROUTE_CHANGE_FILL, labelsize=7)
     ax0.set_ylabel("Elevation (m)")
     ax0.legend(loc="upper left", fontsize=8)
     ax0.grid(color="#333", linestyle="--", alpha=0.4)
     route_note = report.get("course_route_changes") or []
     if route_note:
+        method = report.get("course_route_change_method", "gps")
         ax0.text(
             0.99,
             0.02,
-            f"{len(route_note)} primary route-change window(s) shaded",
+            f"{len(route_note)} route change(s) · {method}",
             transform=ax0.transAxes,
             ha="right",
             va="bottom",
@@ -670,12 +832,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     route_changes = report.get("course_route_changes") or []
     if route_changes:
-        print(f"    primary route changes {len(route_changes)} · stable route {report.get('stable_route_metres')} m")
+        print(
+            f"    route changes ({report.get('course_route_change_method')}): "
+            f"{len(route_changes)} · stable route {report.get('stable_route_metres')} m"
+        )
         for span in route_changes:
-            print(
-                f"      km {span['course_km_start']:.2f}–{span['course_km_end']:.2f} · "
-                f"median |Δelev| {span['median_delta_elev_m']} m · score {span.get('elev_divergence_score')}"
-            )
+            if "median_gps_offset_m" in span:
+                detail = f"median GPS offset {span['median_gps_offset_m']} m"
+            else:
+                detail = f"median |Δelev| {span.get('median_delta_elev_m')} m"
+            print(f"      km {span['course_km_start']:.2f}–{span['course_km_end']:.2f} · {detail}")
     clusters = report.get("course_route_change_clusters") or []
     if clusters and len(clusters) != len(route_changes):
         print(f"    ({len(clusters)} merged clusters · {len(report.get('course_route_change_fragments') or [])} fragments in JSON)")
