@@ -321,14 +321,15 @@ Intake method: Strava OAuth 2.0 (`activity:read_all`). Operational routine in ou
 
 ### Meso scaffold (local only) — live on operator Mac 2026-08-31
 
-- Example blueprint: `config/training_blueprint.local.example.json` → copy to gitignored `.local.json`
+- Horizon: **Sub-1:40 / 3_sjoerslopet**, race date **2026-11-07** — full calendar in `docs/GEMINI_BRIEF.md`
+- Example blueprint: `config/training_blueprint.local.example.json` (protocols: `2026-09-13`, `2026-10-peak`, `2026-11-taper`)
 - Example session tags: `config/session_metadata.local.example.json` (includes recovery-week `current_week` + `tuesday_rest`)
 - Compliance DB init: `python3 04_Python_Scripts/init_training_compliance_local.py`
 - Recovery override log: `python3 04_Python_Scripts/log_recovery_compliance.py --sync-metadata`
+- October local base 6:45: `python3 04_Python_Scripts/apply_october_local_overrides.py`
 - Fast-finish eval: `python3 04_Python_Scripts/evaluate_fast_finish.py --activity-id <id> [--write-db]`
   - Recovery weeks return `status=recovery_exempt` / compliance `N/A` (not a false 0.0 miss)
-- Unit tests: **11** covering recovery exempt + flag insert
-- First live score: Subject_A `3_Sjoerslopet_20251108` → finish 4:59 vs target 4:44 (+15.4 s/km), drift +6.2 bpm (race-anchor baseline)
+- Unit tests: covering recovery exempt + flag insert + October slow-base → 4:44
 - Branch / PR: `cursor/meso-fast-finish-eval-0c6a` / #26
 
 ---

@@ -5,6 +5,8 @@
   "donor_id": "Subject_A",
   "is_recovery_week": true,
   "next_fast_finish_simulator_date": "2026-09-13",
+  "race_horizon_date": "2026-11-07",
+  "race_horizon_label": "Sub-1:40_3_sjoerslopet",
   "september_13_protocol_summary": {
     "base_volume_km": [12.5, 13.5],
     "base_pace_min_per_km": ["5:35", "5:50"],
@@ -27,6 +29,15 @@
     "carbs_g_per_hr": [45, 60],
     "fueling_mandatory_early": true,
     "detail": "See training_blueprint.local.json week_matrix.sunday.execution_protocols.2026-10-peak"
+  },
+  "november_taper_protocol_summary": {
+    "phase": "taper",
+    "race_date": "2026-11-07",
+    "total_volume_km": [10.0, 14.0],
+    "fast_finish_km": [1.0, 2.0],
+    "target_pace_min_per_km": "4:44",
+    "fast_finish_optional": true,
+    "detail": "See training_blueprint.local.json week_matrix.sunday.execution_protocols.2026-11-taper"
   },
   "session_type_conventions": {
     "tuesday_micro": "Standard micro-interval day",
