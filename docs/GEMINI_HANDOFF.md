@@ -109,7 +109,7 @@ config/               Config + gitignored subject_registry.local.json
 | Layer | Source | Storage | Status |
 |-------|--------|---------|--------|
 | **Macro** | Race result scraping (e.g. runster.no) | SQLite `anatomy_macro.db` | Partial — LFI 2026 results with checkpoint splits |
-| **Meso** | Strava km-splits (planned) | TBD | Not built |
+| **Meso** | Private training blueprint + compliance | Gitignored `training_blueprint.local.json` + `training_compliance.local.db`; public `evaluate_fast_finish.py` | Scaffold — **never** extend `anatomy_macro.db` |
 | **Micro** | Garmin `.fit` telemetry | `02_Raw_Data/` → cleaned Parquet in `03_Processed_Data/micro/` | Partial |
 | **Spatial panel** | Multi-FIT align to course spine | `03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet` | **Operator scope km 22.0–41.0** (Subject_A / Subject_B) |
 
@@ -239,7 +239,9 @@ All scripts live in `04_Python_Scripts/`.
 | `06_benchmark.py` | Paired APR comparison (EAR logic) |
 | `07_batch_benchmark.py` | Multi-session benchmark trends |
 | `05_radar_scrape.py` | Scrape runster.no race results |
-| `init_db.py` | Initialize macro DB schema |
+| `init_db.py` | Initialize **macro** DB schema only (`races` / `athletes` / `race_results`) |
+| `init_training_compliance_local.py` | Initialize gitignored `training_compliance.local.db` (meso only) |
+| `evaluate_fast_finish.py` | Sunday fast-finish score vs local blueprint + micro Parquet |
 | `05_vam_kalkulator.py` | Vertical ascent rate analysis |
 
 **Still not built:**
@@ -247,8 +249,8 @@ All scripts live in `04_Python_Scripts/`.
 - `01_strava_fetcher.py` (OAuth + `.fit` download from reference elites)
 - Full GAP calculation module (unlocks production TI)
 - Kinematic_Scan v0 automation (donor PDF pipeline)
+- Full meso weekly rollups / nutrition logging UI (local DB schema exists)
 - English migration of legacy Norwegian documentation in untouched local files
-
 ---
 
 ## 9. Documentation Index
@@ -314,6 +316,13 @@ Intake method: Strava OAuth 2.0 (`activity:read_all`). Operational routine in ou
 - English migration of all legacy Norwegian documentation
 - GeoPandas / Snap-to-Route at scale
 - Parquet + DuckDB micro processing layer
+
+### Meso scaffold (local only)
+
+- Example blueprint: `config/training_blueprint.local.example.json` → copy to gitignored `.local.json`
+- Example session tags: `config/session_metadata.local.example.json`
+- Compliance DB init: `python3 04_Python_Scripts/init_training_compliance_local.py`
+- Fast-finish eval: `python3 04_Python_Scripts/evaluate_fast_finish.py --activity-id <id> [--write-db]`
 
 ---
 

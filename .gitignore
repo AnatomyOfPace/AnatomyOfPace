@@ -14,6 +14,9 @@ config/session_metadata.local.json
 config/*.backup_*.json
 config/*.gold_local.json
 config/*.local.json
+# Private meso / training compliance (never public macro DB)
+training_compliance.local.db
+*.local.db
 02_Raw_Data/inbox/
 02_Raw_Data/donors/
 02_Raw_Data/**/*.fit

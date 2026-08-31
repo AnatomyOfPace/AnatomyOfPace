@@ -36,6 +36,14 @@ Data science framework for deconstructing running economy in technical mountain 
 | [`donor_pipeline_architecture.md`](donor_pipeline_architecture.md) | Strava intake, Kinematic_Scan tiers, donor deliverable architecture |
 | [`hitl_annotator.md`](hitl_annotator.md) | Human-in-the-loop terrain ontology annotator runbook |
 | [`corridor_lock_policy.md`](corridor_lock_policy.md) | Geographic corridor lock and version policy |
+| [`GEMINI_HANDOFF.md`](GEMINI_HANDOFF.md) | Internal Gemini handoff (status + layer boundaries) |
+
+Meso (private) templates — copy to gitignored `*.local.json` / `*.local.db`, never publish:
+
+| Template | Purpose |
+|----------|---------|
+| [`config/training_blueprint.local.example.json`](../config/training_blueprint.local.example.json) | 4-day Sub-1:40 matrix + fast-finish progression |
+| [`config/session_metadata.local.example.json`](../config/session_metadata.local.example.json) | `activity_id` → session_type tags |
 
 ---
 

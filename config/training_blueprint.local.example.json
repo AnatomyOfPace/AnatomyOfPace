@@ -1,0 +1,74 @@
+{
+  "_schema": "training_blueprint_v1",
+  "_notice": "Copy to config/training_blueprint.local.json (gitignored). Private meso only — never commit, never publish under The Anatomy of Pace, never merge into anatomy_macro.db.",
+  "block_id": "3_sjoerslopet_sub_140",
+  "subject_id": "Subject_A",
+  "horizon": {
+    "label": "Sub-1:40",
+    "reference_course": "3_sjoerslopet",
+    "distance_km": 21.25,
+    "target_finish_sec": 6000,
+    "notes": "reference_course is the race-anchor identity; weekly venues use stream distance unless session is an explicit course simulation"
+  },
+  "week_matrix": {
+    "tuesday": {
+      "session_type": "tuesday_micro",
+      "role": "micro_intervals",
+      "structure": "3x10min work / 45s-15s rest",
+      "target_pace_min_per_km": "4:50",
+      "surface_hint": "gravel"
+    },
+    "wednesday": {
+      "session_type": "wednesday_recovery",
+      "role": "active_recovery",
+      "distance_km": 8.0,
+      "pace_floor_min_per_km": "5:45",
+      "surface_hint": "easy_loop"
+    },
+    "friday": {
+      "session_type": "friday_aerobic",
+      "role": "aerobic_plus_strength",
+      "easy_jog_km": 5.0,
+      "pace_floor_min_per_km": "5:30",
+      "lifting_block": "private_manual"
+    },
+    "sunday": {
+      "session_type": "sunday_simulator",
+      "role": "long_run_simulator",
+      "distance_km_default": 21.0,
+      "fast_finish": {
+        "enabled": true,
+        "target_pace_min_per_km": "4:44",
+        "tolerance_sec_per_km": 5.0,
+        "progression_by_month": {
+          "2026-09": {
+            "fast_finish_km_min": 1.5,
+            "fast_finish_km_max": 2.0
+          },
+          "2026-10": {
+            "fast_finish_km_min": 3.0,
+            "fast_finish_km_max": 5.0
+          }
+        },
+        "default_fast_finish_km": 2.0,
+        "recovery_week_every_n": 4,
+        "recovery_week": {
+          "drop_fast_finish": true,
+          "sunday_distance_cap_km": 14.0,
+          "tuesday_volume_factor": 0.5
+        }
+      }
+    }
+  },
+  "nutrition_anchors": {
+    "_private": true,
+    "body_mass_target_kg": 84.4,
+    "daily_protein_g": 160,
+    "sunday_carbs_g_per_hr_min": 45,
+    "sunday_carbs_g_per_hr_max": 60
+  },
+  "compliance": {
+    "local_db": "training_compliance.local.db",
+    "write_session_summaries": true
+  }
+}

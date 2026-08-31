@@ -1,0 +1,17 @@
+{
+  "_schema": "session_metadata_v1",
+  "_notice": "Copy to config/session_metadata.local.json (gitignored). Map washed micro activity_id values to private session types. Clinical IDs only.",
+  "subject_id": "Subject_A",
+  "donor_id": "Subject_A",
+  "activities": {
+    "EXAMPLE_ACTIVITY_ID": {
+      "session_type": "sunday_simulator",
+      "week_id": "2026-W36",
+      "week_index": 1,
+      "phase": "base",
+      "month_key": "2026-09",
+      "is_recovery_week": false,
+      "notes": "Replace EXAMPLE_ACTIVITY_ID with washed micro activity_id"
+    }
+  }
+}
