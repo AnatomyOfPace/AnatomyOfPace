@@ -48,6 +48,8 @@ Assist on *The Anatomy of Pace* research lab: telemetry pipelines, TI/TPR/EPR me
 | Recovery override logger | `04_Python_Scripts/log_recovery_compliance.py` | Yes — inserts `compliance_flags` only |
 | Unit tests | `04_Python_Scripts/test_evaluate_fast_finish.py` | Yes — recovery_exempt + flag insert |
 
+**Recovery week (current):** top-level `is_recovery_week: true`; Sunday note *"Sunday capped at 12 km, no fast finish."*; next standard simulator FIT **2026-09-13**.
+
 **First live eval (Subject_A):** activity `3_Sjoerslopet_20251108` tagged `sunday_simulator`.
 
 | Field | Result |
