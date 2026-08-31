@@ -5,6 +5,16 @@
   "donor_id": "Subject_A",
   "is_recovery_week": true,
   "next_fast_finish_simulator_date": "2026-09-13",
+  "september_13_protocol_summary": {
+    "base_volume_km": [12.5, 13.5],
+    "base_pace_min_per_km": ["5:35", "5:50"],
+    "venue": "Store_Stokkavatnet_Lille_Stokkavatnet",
+    "trigger_stream_km": 13.0,
+    "fast_finish_km": [1.5, 2.0],
+    "target_pace_min_per_km": "4:44",
+    "carbs_g_per_hr": [45, 60],
+    "detail": "See training_blueprint.local.json week_matrix.sunday.execution_protocols.2026-09-13"
+  },
   "session_type_conventions": {
     "tuesday_micro": "Standard micro-interval day",
     "tuesday_rest": "Recovery-week rest day (preferred over generic rest_override)",
@@ -65,7 +75,9 @@
       "phase": "base",
       "month_key": "2026-09",
       "is_recovery_week": false,
-      "notes": "Replace EXAMPLE_ACTIVITY_ID with washed micro activity_id after 2026-09-13 (standard fast-finish resume)"
+      "fast_finish_required": true,
+      "execution_protocol_id": "2026-09-13",
+      "notes": "Post-recovery resume: tag washed 2026-09-13 Stokkavatnet simulator FIT here; base 12.5–13.5 km @ 5:35–5:50, trigger ~13 km, finish 1.5–2 km @ 4:44"
     }
   }
 }

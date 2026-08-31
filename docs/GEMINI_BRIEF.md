@@ -50,6 +50,8 @@ Assist on *The Anatomy of Pace* research lab: telemetry pipelines, TI/TPR/EPR me
 
 **Recovery week (current):** top-level `is_recovery_week: true`; Sunday note *"Sunday capped at 12 km, no fast finish."*; next standard simulator FIT **2026-09-13**.
 
+**2026-09-13 execution protocol (private blueprint):** Store/Lille Stokkavatnet — base 12.5–13.5 km @ 5:35–5:50; trigger ~13 km → 4:44; hold 1.5–2 km depleted; carbs 45–60 g/hr. Stream distance only (not 3_sjoerslopet projection). Encoded in `training_blueprint.local.example.json` → `execution_protocols.2026-09-13`.
+
 **First live eval (Subject_A):** activity `3_Sjoerslopet_20251108` tagged `sunday_simulator`.
 
 | Field | Result |

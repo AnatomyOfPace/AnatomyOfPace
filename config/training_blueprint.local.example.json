@@ -57,6 +57,46 @@
           "sunday_distance_cap_km": 14.0,
           "tuesday_volume_factor": 0.5
         }
+      },
+      "execution_protocols": {
+        "2026-09-13": {
+          "label": "september_13_stokkavatnet_fast_finish",
+          "is_recovery_week": false,
+          "venue": {
+            "loop": "Store_Stokkavatnet_Lille_Stokkavatnet",
+            "notes": "Base cruise on Store/Lille Stokkavatnet; stream distance (not 3_sjoerslopet course projection)"
+          },
+          "base_volume": {
+            "distance_km_min": 12.5,
+            "distance_km_max": 13.5,
+            "pace_min_per_km_lo": "5:35",
+            "pace_min_per_km_hi": "5:50"
+          },
+          "trigger": {
+            "stream_km_approx": 13.0,
+            "action": "shift_to_target_pace",
+            "target_pace_min_per_km": "4:44"
+          },
+          "finish": {
+            "fast_finish_km_min": 1.5,
+            "fast_finish_km_max": 2.0,
+            "target_pace_min_per_km": "4:44",
+            "condition": "depleted_legs"
+          },
+          "fueling": {
+            "carbs_g_per_hr_min": 45,
+            "carbs_g_per_hr_max": 60,
+            "product_hint": "threshold_gel_support",
+            "intent": "support_threshold_without_spiking_muscular_fatigue"
+          },
+          "evaluator": {
+            "session_type": "sunday_simulator",
+            "month_key": "2026-09",
+            "is_recovery_week": false,
+            "fast_finish_required": true,
+            "notes": "Resume standard evaluate_fast_finish after recovery week; score final 1.5–2 km vs 4:44"
+          }
+        }
       }
     }
   },
