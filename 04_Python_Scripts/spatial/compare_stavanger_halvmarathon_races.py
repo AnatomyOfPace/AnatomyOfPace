@@ -52,6 +52,13 @@ DEFAULT_OUTPUT = BASE_DIR / "06_Visualizations" / "stavanger_halvmarathon_race_c
 DEFAULT_JSON = BASE_DIR / "03_Processed_Data" / "spatial" / "stavanger_halvmarathon_race_compare.json"
 DEFAULT_KM_WINDOW = (0.0, 21.38)
 
+# Elevation divergence → year-over-year route change on a fixed stream-km axis.
+ELEV_DIVERGENCE_THRESHOLD_M = 4.0
+MIN_ROUTE_CHANGE_M = 60
+ROUTE_CHANGE_MERGE_GAP_M = 100
+ELEV_SMOOTH_WINDOW_M = 50
+ROUTE_CHANGE_FILL = "#FF5252"
+
 COMPARE_COLS = ("speed_mps", "ti", "heart_rate", "cadence_spm", "grade_pct", "altitude_m")
 
 
@@ -193,6 +200,101 @@ def _substrate_breakdown(
     return rows
 
 
+def _smooth_series(values: pd.Series, window_m: int) -> pd.Series:
+    if window_m <= 1:
+        return values
+    return values.rolling(window=window_m, center=True, min_periods=max(3, window_m // 4)).median()
+
+
+def detect_course_route_changes(
+    paired: pd.DataFrame,
+    *,
+    label_a: str,
+    label_b: str,
+    elev_threshold_m: float = ELEV_DIVERGENCE_THRESHOLD_M,
+    min_span_m: int = MIN_ROUTE_CHANGE_M,
+    merge_gap_m: int = ROUTE_CHANGE_MERGE_GAP_M,
+    smooth_window_m: int = ELEV_SMOOTH_WINDOW_M,
+) -> tuple[list[dict[str, Any]], pd.Series]:
+    """
+    Flag windows where elevation profiles diverge on the shared stream axis.
+
+    When organiser reroutes slightly, the same course_km no longer maps to the
+    same geography — paired elevation delta spikes locally (typically 2 windows
+    on Stavanger Halvmarathon 2025 vs 2026).
+    """
+    col_a = f"altitude_m_{label_a}"
+    col_b = f"altitude_m_{label_b}"
+    if col_a not in paired.columns or col_b not in paired.columns:
+        return [], pd.Series(False, index=paired.index)
+
+    elev_a = pd.to_numeric(paired[col_a], errors="coerce")
+    elev_b = pd.to_numeric(paired[col_b], errors="coerce")
+    valid = elev_a.notna() & elev_b.notna()
+    delta = (elev_b - elev_a).abs()
+    smoothed = _smooth_series(delta.where(valid), smooth_window_m)
+
+    flagged = valid & smoothed.ge(elev_threshold_m)
+    if not flagged.any():
+        return [], flagged
+
+    course_m = pd.to_numeric(paired["course_m"], errors="coerce")
+    flagged_m = course_m.loc[flagged].astype(int).sort_values().tolist()
+    if not flagged_m:
+        return [], flagged
+
+    raw_spans: list[tuple[int, int]] = []
+    start_m = flagged_m[0]
+    prev_m = flagged_m[0]
+    for metre in flagged_m[1:]:
+        if metre - prev_m <= merge_gap_m + 1:
+            prev_m = metre
+            continue
+        if prev_m - start_m + 1 >= min_span_m:
+            raw_spans.append((start_m, prev_m))
+        start_m = metre
+        prev_m = metre
+    if prev_m - start_m + 1 >= min_span_m:
+        raw_spans.append((start_m, prev_m))
+
+    merged: list[tuple[int, int]] = []
+    for lo_m, hi_m in raw_spans:
+        if merged and lo_m - merged[-1][1] <= merge_gap_m:
+            merged[-1] = (merged[-1][0], hi_m)
+        else:
+            merged.append((lo_m, hi_m))
+
+    changes: list[dict[str, Any]] = []
+    for lo_m, hi_m in merged:
+        mask = (course_m >= lo_m) & (course_m <= hi_m)
+        sub_delta = delta.loc[mask].dropna()
+        if sub_delta.empty:
+            continue
+        changes.append(
+            {
+                "course_km_start": round(lo_m / 1000.0, 3),
+                "course_km_end": round((hi_m + 1) / 1000.0, 3),
+                "metres": int(mask.sum()),
+                "median_delta_elev_m": round(float(sub_delta.median()), 2),
+                "max_delta_elev_m": round(float(sub_delta.max()), 2),
+                "mean_delta_elev_m": round(float(sub_delta.mean()), 2),
+                "detection": "elevation_profile_divergence",
+                "note": "Probable organiser route change — exclude from stream-km pace/TI compare",
+            }
+        )
+    return changes, flagged
+
+
+def _mask_outside_route_changes(paired: pd.DataFrame, route_changes: list[dict[str, Any]]) -> pd.Series:
+    keep = pd.Series(True, index=paired.index)
+    km = pd.to_numeric(paired["course_km"], errors="coerce")
+    for span in route_changes:
+        km0 = float(span["course_km_start"])
+        km1 = float(span["course_km_end"])
+        keep &= ~((km >= km0) & (km < km1))
+    return keep
+
+
 def compare_races(
     frame_a: pd.DataFrame,
     frame_b: pd.DataFrame,
@@ -246,21 +348,46 @@ def compare_races(
             - pd.to_numeric(paired[f"ti_{label_a}"], errors="coerce")
         )
 
+    col_elev_a = f"altitude_m_{label_a}"
+    col_elev_b = f"altitude_m_{label_b}"
+    if col_elev_a in paired.columns and col_elev_b in paired.columns:
+        paired["delta_elev_m"] = (
+            pd.to_numeric(paired[col_elev_b], errors="coerce")
+            - pd.to_numeric(paired[col_elev_a], errors="coerce")
+        )
+        paired["abs_delta_elev_m"] = paired["delta_elev_m"].abs()
+
+    route_changes, route_change_mask = detect_course_route_changes(
+        paired, label_a=label_a, label_b=label_b
+    )
+    stable_route = _mask_outside_route_changes(paired, route_changes)
+
     tiered = paired["friction_tier"].notna()
     substrate_bands = _substrate_breakdown(paired, terrain_map, label_a=label_a, label_b=label_b)
+    substrate_bands_stable = _substrate_breakdown(
+        paired.loc[stable_route],
+        terrain_map,
+        label_a=label_a,
+        label_b=label_b,
+    )
     report: dict[str, Any] = {
         "race_id": "stavanger_halvmarathon",
         "donor_id": "Subject_A",
         "compare_window_km": [round(km_lo, 3), round(km_hi, 3)],
         "grid_metres": int((km_hi - km_lo) * 1000.0) + 1,
         "overlap_metres": int(len(paired)),
+        "stable_route_metres": int(stable_route.sum()),
+        "course_route_change_metres": int((~stable_route).sum()),
+        "course_route_changes": route_changes,
         "tier_assigned_metres": int(tiered.sum()),
         "substrate_band_metres": int(sum(row["metres"] for row in substrate_bands)),
+        "substrate_band_metres_stable_route": int(sum(row["metres"] for row in substrate_bands_stable)),
         "source_a": source_a,
         "source_b": source_b,
         "summary_a": _race_summary(a, label_a),
         "summary_b": _race_summary(b, label_b),
         "substrate_bands": substrate_bands,
+        "substrate_bands_stable_route": substrate_bands_stable,
     }
     if "delta_speed_mps" in paired.columns:
         d_spd = paired["delta_speed_mps"].dropna()
@@ -268,6 +395,19 @@ def compare_races(
     if "delta_ti" in paired.columns:
         d_ti = paired["delta_ti"].dropna()
         report["delta_ti_mean"] = round(float(d_ti.mean()), 4) if not d_ti.empty else None
+    if route_changes:
+        stable = paired.loc[stable_route]
+        if "delta_speed_mps" in stable.columns:
+            d_spd_stable = stable["delta_speed_mps"].dropna()
+            report["delta_speed_mps_mean_stable_route"] = (
+                round(float(d_spd_stable.mean()), 4) if not d_spd_stable.empty else None
+            )
+        if "delta_ti" in stable.columns:
+            d_ti_stable = stable["delta_ti"].dropna()
+            report["delta_ti_mean_stable_route"] = (
+                round(float(d_ti_stable.mean()), 4) if not d_ti_stable.empty else None
+            )
+    paired["_route_change_flag"] = route_change_mask.values
     return paired, report
 
 
@@ -286,13 +426,53 @@ def render_compare_figure(
     ax0, ax1, ax2 = axes
     col_elev_a = f"altitude_m_{label_a}"
     col_elev_b = f"altitude_m_{label_b}"
+    for span in report.get("course_route_changes") or []:
+        ax0.axvspan(
+            span["course_km_start"],
+            span["course_km_end"],
+            color=ROUTE_CHANGE_FILL,
+            alpha=0.18,
+            zorder=1,
+        )
+        for ax in (ax1, ax2):
+            ax.axvspan(
+                span["course_km_start"],
+                span["course_km_end"],
+                color=ROUTE_CHANGE_FILL,
+                alpha=0.12,
+                zorder=0,
+            )
     if col_elev_a in paired.columns:
         ax0.plot(km, paired[col_elev_a], color="#90CAF9", linewidth=1.2, label=label_a)
     if col_elev_b in paired.columns:
         ax0.plot(km, paired[col_elev_b], color="#FFE082", linewidth=1.0, alpha=0.85, label=label_b)
+    if "abs_delta_elev_m" in paired.columns:
+        ax0_t = ax0.twinx()
+        ax0_t.plot(
+            km,
+            paired["abs_delta_elev_m"],
+            color=ROUTE_CHANGE_FILL,
+            linewidth=0.9,
+            alpha=0.75,
+            label=f"|Δelev| ({label_b}−{label_a})",
+        )
+        ax0_t.set_ylabel("|Δ elevation| (m)", color=ROUTE_CHANGE_FILL, fontsize=8)
+        ax0_t.tick_params(axis="y", labelcolor=ROUTE_CHANGE_FILL, labelsize=7)
     ax0.set_ylabel("Elevation (m)")
-    ax0.legend(loc="upper right", fontsize=8)
+    ax0.legend(loc="upper left", fontsize=8)
     ax0.grid(color="#333", linestyle="--", alpha=0.4)
+    route_note = report.get("course_route_changes") or []
+    if route_note:
+        ax0.text(
+            0.99,
+            0.02,
+            f"{len(route_note)} route-change window(s) shaded",
+            transform=ax0.transAxes,
+            ha="right",
+            va="bottom",
+            fontsize=7,
+            color=ROUTE_CHANGE_FILL,
+        )
 
     for col, color in ((f"speed_mps_{label_a}", "#4FC3F7"), (f"speed_mps_{label_b}", "#FFB74D")):
         if col in paired.columns:
@@ -399,6 +579,14 @@ def main(argv: list[str] | None = None) -> int:
         f"    overlap {report['overlap_metres']} m / grid {report['grid_metres']} m · "
         f"substrate bands {report.get('substrate_band_metres')} m"
     )
+    route_changes = report.get("course_route_changes") or []
+    if route_changes:
+        print(f"    route changes {len(route_changes)} window(s) · stable route {report.get('stable_route_metres')} m")
+        for span in route_changes:
+            print(
+                f"      km {span['course_km_start']:.2f}–{span['course_km_end']:.2f} · "
+                f"median |Δelev| {span['median_delta_elev_m']} m"
+            )
     if report["overlap_metres"] < int(report["grid_metres"] * 0.9):
         print(
             "    WARN: overlap <90% of corridor grid — rebuild panel: "
