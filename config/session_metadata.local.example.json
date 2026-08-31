@@ -15,6 +15,19 @@
     "carbs_g_per_hr": [45, 60],
     "detail": "See training_blueprint.local.json week_matrix.sunday.execution_protocols.2026-09-13"
   },
+  "october_peak_protocol_summary": {
+    "phase": "peak_race_simulator",
+    "total_volume_km": [16.0, 18.0],
+    "venue_combo_km": [16.0, 17.0],
+    "venue": "Store_Stokkavatnet_Halandsvatnet",
+    "base_km": [11.0, 15.0],
+    "base_pace_min_per_km": ["5:35", "5:50"],
+    "fast_finish_km": [3.0, 5.0],
+    "target_pace_min_per_km": "4:44",
+    "carbs_g_per_hr": [45, 60],
+    "fueling_mandatory_early": true,
+    "detail": "See training_blueprint.local.json week_matrix.sunday.execution_protocols.2026-10-peak"
+  },
   "session_type_conventions": {
     "tuesday_micro": "Standard micro-interval day",
     "tuesday_rest": "Recovery-week rest day (preferred over generic rest_override)",

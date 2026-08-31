@@ -96,6 +96,60 @@
             "fast_finish_required": true,
             "notes": "Resume standard evaluate_fast_finish after recovery week; score final 1.5–2 km vs 4:44"
           }
+        },
+        "2026-10-peak": {
+          "label": "october_peak_stokkavatnet_halandsvatnet",
+          "phase": "peak_race_simulator",
+          "is_recovery_week": false,
+          "demand": "highest_blueprint_block",
+          "intent": "Maximize time-on-feet then lock long fast-finish on depleted legs; build half-marathon late-km tolerance",
+          "venue": {
+            "loop": "Store_Stokkavatnet_Halandsvatnet",
+            "planned_combo_km_min": 16.0,
+            "planned_combo_km_max": 17.0,
+            "notes": "Store Stokkavatnet + Hålandsvatnet combo hits 16–17 km sweet spot; stream distance (not 3_sjoerslopet projection)"
+          },
+          "total_volume": {
+            "distance_km_min": 16.0,
+            "distance_km_max": 18.0
+          },
+          "base_execution": {
+            "distance_km_min": 11.0,
+            "distance_km_max": 15.0,
+            "pace_min_per_km_lo": "5:35",
+            "pace_min_per_km_hi": "5:50",
+            "notes": "Cruise first 11–15 km strictly in base band before gear shift"
+          },
+          "trigger": {
+            "stream_km_window_start_min": 11.0,
+            "stream_km_window_start_max": 15.0,
+            "action": "shift_to_target_pace",
+            "target_pace_min_per_km": "4:44",
+            "notes": "Begin fast finish so final 3–5 km land at target"
+          },
+          "finish": {
+            "fast_finish_km_min": 3.0,
+            "fast_finish_km_max": 5.0,
+            "target_pace_min_per_km": "4:44",
+            "condition": "depleted_legs",
+            "notes": "Expanded vs September 1.5–2 km — full race-simulation finish"
+          },
+          "fueling": {
+            "mandatory": true,
+            "carbs_g_per_hr_min": 45,
+            "carbs_g_per_hr_max": 60,
+            "start_early": true,
+            "product_hint": "threshold_gel_support",
+            "intent": "Hit 45–60 g/hr early so expanded 3–5 km @ 4:44 does not hit the wall; support late threshold without spiking muscular fatigue"
+          },
+          "evaluator": {
+            "session_type": "sunday_simulator",
+            "month_key": "2026-10",
+            "is_recovery_week": false,
+            "fast_finish_required": true,
+            "fast_finish_km_band": [3.0, 5.0],
+            "notes": "evaluate_fast_finish uses October progression midpoint (~4 km) vs 4:44; log carbs to training_compliance.local.db session_fueling"
+          }
         }
       }
     }

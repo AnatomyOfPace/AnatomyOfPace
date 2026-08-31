@@ -52,6 +52,8 @@ Assist on *The Anatomy of Pace* research lab: telemetry pipelines, TI/TPR/EPR me
 
 **2026-09-13 execution protocol (private blueprint):** Store/Lille Stokkavatnet — base 12.5–13.5 km @ 5:35–5:50; trigger ~13 km → 4:44; hold 1.5–2 km depleted; carbs 45–60 g/hr. Stream distance only (not 3_sjoerslopet projection). Encoded in `training_blueprint.local.example.json` → `execution_protocols.2026-09-13`.
 
+**2026-10 peak simulator (private blueprint):** Store Stokkavatnet + Hålandsvatnet — total 16–18 km (combo ~16–17); base 11–15 km @ 5:35–5:50; fast finish **3–5 km @ 4:44** depleted; mandatory early carbs 45–60 g/hr (expanded finish vs September). → `execution_protocols.2026-10-peak`.
+
 **First live eval (Subject_A):** activity `3_Sjoerslopet_20251108` tagged `sunday_simulator`.
 
 | Field | Result |
