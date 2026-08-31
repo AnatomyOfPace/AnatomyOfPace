@@ -242,6 +242,7 @@ All scripts live in `04_Python_Scripts/`.
 | `05_radar_scrape.py` | Scrape runster.no race results |
 | `init_db.py` | Initialize **macro** DB schema only (`races` / `athletes` / `race_results`) |
 | `init_training_compliance_local.py` | Initialize gitignored `training_compliance.local.db` (meso only) |
+| `log_recovery_compliance.py` | Insert recovery-week override into `compliance_flags` (no schema change) |
 | `evaluate_fast_finish.py` | Sunday fast-finish score vs local blueprint + micro Parquet |
 | `05_vam_kalkulator.py` | Vertical ascent rate analysis |
 

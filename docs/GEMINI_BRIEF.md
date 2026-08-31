@@ -45,7 +45,8 @@ Assist on *The Anatomy of Pace* research lab: telemetry pipelines, TI/TPR/EPR me
 | Compliance DB init | `04_Python_Scripts/init_training_compliance_local.py` | Yes |
 | Compliance DB file | `training_compliance.local.db` | **Never** (gitignored) |
 | Fast-finish evaluator | `04_Python_Scripts/evaluate_fast_finish.py` | Yes (reads local config only) |
-| Unit tests | `04_Python_Scripts/test_evaluate_fast_finish.py` | Yes — **9/9 OK** on Mac |
+| Recovery override logger | `04_Python_Scripts/log_recovery_compliance.py` | Yes — inserts `compliance_flags` only |
+| Unit tests | `04_Python_Scripts/test_evaluate_fast_finish.py` | Yes — recovery_exempt + flag insert |
 
 **First live eval (Subject_A):** activity `3_Sjoerslopet_20251108` tagged `sunday_simulator`.
 
