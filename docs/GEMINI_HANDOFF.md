@@ -3,7 +3,7 @@
 **From:** Cursor AI  
 **To:** Gemini AI  
 **Purpose:** Project context, current status, and active workstreams  
-**Date:** 2026-06-30  
+**Date:** 2026-08-31  
 **Note:** Internal AI handoff — not public copy. Ghost Authority and English-only rules apply to all generated output destined for GitHub, Substack, Instagram, or donor deliverables.
 
 ---
@@ -110,8 +110,53 @@ config/               Config + gitignored subject_registry.local.json
 |-------|--------|---------|--------|
 | **Macro** | Race result scraping (e.g. runster.no) | SQLite `anatomy_macro.db` | Partial — LFI 2026 results with checkpoint splits |
 | **Meso** | Strava km-splits (planned) | TBD | Not built |
-| **Micro** | Garmin `.fit` telemetry | `02_Raw_Data/` → cleaned Parquet in `03_Processed_Data/micro/` | Partial |
-| **Spatial panel** | Multi-FIT align to course spine | `03_Processed_Data/spatial/sut43_terrain_ontology/panel_1m.parquet` | **Operator scope km 22.0–41.0** (Subject_A / Subject_B) |
+| **Micro** | Garmin `.fit` telemetry | `02_Raw_Data/` → washed Parquet in `03_Processed_Data/micro/` via `15_fit_micro_wash.py` | **Partial** — Wave 2 ActivityFrame (`wave2_v1`) |
+| **Spatial panel** | Multi-FIT align to course spine | `03_Processed_Data/spatial/{corridor_id}/panel_1m.parquet` | **Built** for SUT_43 operator scope, O₁ anchors (Stavanger HM, 3_sjoerslopet, Sunderunde), orphan bootstraps |
+| **Meso / compliance** | Planned session tags + weekly rollups | **TBD** — see §5.1 | **Not built** |
+
+### 5.1 Meso layer & private training blueprint (do not conflate with macro DB)
+
+**TRF is diagnostic, not prescriptive** (`docs/training_residual_framework.md`). A periodized **Sub-1:40 / 3-Sjøersløpet-style training blueprint** (4-day matrix, fast-finish Sunday sims, nutrition anchors, lifting) belongs in the **private training manual** and **gitignored local config** — not in public SQLite schema or GitHub commits.
+
+| Need | Correct layer | Wrong approach |
+|------|---------------|----------------|
+| Race results ecology (LFI splits, finish times) | `05_Macro_Database/anatomy_macro.db` — `races`, `race_results` | — |
+| Weekly plan (Tue micro / Wed recovery / Fri aerobic+lifting / Sun sim) | Gitignored `config/training_blueprint.local.json` + private manual | `ALTER TABLE` on `anatomy_macro.db` |
+| Session type per FIT (`activity_id` → `tuesday_micro`, `sunday_simulator`) | Gitignored `config/session_metadata.local.json` | Hard-coded personal targets in public Python |
+| Daily weight / protein / carbs | Gitignored local DB or JSON (`training_compliance.local.db`) | Public repo fields with operator targets |
+| Sunday fast-finish pace check (e.g. 4:44 min/km on final 1.5–5 km) | **Pandas on washed micro Parquet** — future `evaluate_fast_finish.py` reading **local** blueprint | SQL on empty tables before FIT ingest |
+| 3_sjoerslopet course axis / TI calibration | Spatial pipeline — `config/spatial_align_manifest_3_sjoerslopet.json` | Projecting every training run onto race course |
+
+**3_sjoerslopet in this repo** = **O₂ mixed gravel/asphalt race anchor** (~21.25 km stream) for TI/gold-suggester calibration — **not** a weekly training planner. Training venues (e.g. gravel intervals at local lakes, easy recovery loops) use **stream distance** on each FIT unless the session is an explicit race-course simulation.
+
+**Recommended architecture (when building compliance tooling):**
+
+```
+Private (gitignored)
+├── config/training_blueprint.local.json    ← 4-day matrix, pace bands, monthly progression, recovery weeks
+├── config/session_metadata.local.json      ← activity_id → session_type, week_id, phase
+└── training_compliance.local.db            ← optional: daily_metrics, session_summaries, compliance flags
+
+Public (Anatomy of Pace)
+├── 15_fit_micro_wash.py                    ← existing micro ingest
+├── evaluate_fast_finish.py                 ← future: local blueprint + Parquet → pace/drift flags (no personal targets in repo)
+└── docs/                                   ← meso spec only; no operator body-comp numbers
+```
+
+**Sunday fast-finish evaluation (conceptual):**
+
+1. Tag washed activities via local metadata (`session_type = sunday_simulator`).
+2. Resolve fast-finish window from local blueprint (`km_end - [1.5..5.0]` by month; recovery week → no fast finish).
+3. On stream `distance_m` / `course_km`, compute median pace + cardiac drift (HR rise at stable speed) in that window.
+4. Flag deviations vs blueprint tolerance; write summaries to **local** DB only.
+
+**Monthly progression / recovery-week rules** belong in **blueprint JSON**, not SQL migrations:
+
+- Base phase: shorter fast finish (e.g. 1.5–2 km @ target pace).
+- Build phase: extend fast finish (e.g. 3–5 km @ target pace).
+- Recovery week (every 4th): halve Tuesday volume, cap Sunday distance, drop fast finish, reduce lifting intensity — all blueprint flags.
+
+**Bridge:** Compliance findings → Sync Log → private manual. Never reverse-publish blueprint content under The Anatomy of Pace brand.
 
 **Planned pipeline defenses (from master plan):**
 
@@ -239,7 +284,11 @@ All scripts live in `04_Python_Scripts/`.
 | `06_benchmark.py` | Paired APR comparison (EAR logic) |
 | `07_batch_benchmark.py` | Multi-session benchmark trends |
 | `05_radar_scrape.py` | Scrape runster.no race results |
-| `init_db.py` | Initialize macro DB schema |
+| `15_fit_micro_wash.py` | Wave 2 FIT wash → micro Parquet + optional `--project-course` + `--enrich-ti` |
+| `16_fit_corridor_pipeline.py` | End-to-end wash → align → panel orchestrator |
+| `spatial/compare_stavanger_halvmarathon_races.py` | YoY race stream compare (2025 vs 2026); panel-first; GPS route-change detection; manifest-locked reroute windows |
+| `spatial/compute_training_residual.py` | TRF post-session diagnostics (gramstad_band scope) |
+| `init_db.py` | Initialize **macro** DB only (`races`, `athletes`, `race_results`) — not training sessions |
 | `05_vam_kalkulator.py` | Vertical ascent rate analysis |
 
 **Still not built:**
@@ -247,6 +296,7 @@ All scripts live in `04_Python_Scripts/`.
 - `01_strava_fetcher.py` (OAuth + `.fit` download from reference elites)
 - Full GAP calculation module (unlocks production TI)
 - Kinematic_Scan v0 automation (donor PDF pipeline)
+- **Meso layer / training compliance** (`evaluate_fast_finish.py`, local blueprint sync — see §5.1)
 - English migration of legacy Norwegian documentation in untouched local files
 
 ---
@@ -282,48 +332,46 @@ Intake method: Strava OAuth 2.0 (`activity:read_all`). Operational routine in ou
 
 ---
 
-## 11. Current Status (June 2026)
+## 11. Current Status (August 2026)
 
 ### Complete
 
 - Folder structure (00–07, unique numbering)
-- Python venv + `requirements.txt` (includes `streamlit`, `streamlit-plotly-events`, `contextily`, `plotly`)
-- Documentation library in `docs/`
-- Metrics framework defined and documented
-- APR scripts operational on local `.fit` files
-- Macro database: LFI 2026 results with checkpoint splits
-- Spatial HITL pipeline: panel build, terrain maps, upstream + gramstad operator gold, RPS triage, Streamlit annotator v0.3.1
-- Upstream sector (km 22–29): operator gold locked (2026-06-29)
-- Gramstad_band (km 29–41): partial operator gold through chunk_04+; RED queue active
+- Python venv + `requirements.txt` (includes `streamlit`, spatial stack, `fitparse`, Parquet)
+- Wave 2 micro wash (`15_fit_micro_wash.py`, `fit_micro/` ActivityFrame Parquet)
+- Spatial multi-FIT panels + HITL for SUT_43 (upstream + gramstad), O₁ anchors (Stavanger Halvmarathon, 3_sjoerslopet, Sunderunde)
+- Stavanger Halvmarathon YoY compare — panel grid align, GPS route-change detection, two manifest-locked reroute windows (`compare_stavanger_halvmarathon_races.py`)
+- TRF scaffold on gramstad_band (`compute_training_residual.py`)
+- Macro database scaffold + LFI ingest scripts
+- Spatial HITL: suggest_gold_spans, validation_dashboard, chunk exports, Streamlit annotator v0.3.1
+- Upstream sector (km 22–29): operator gold locked
 - `.gitignore` configured (blocks `.fit`, `.db`, `.venv`, secrets, subject registry)
-- GitHub repository: [AnatomyOfPace/AnatomyOfPace](https://github.com/AnatomyOfPace/AnatomyOfPace) — local branch ahead of origin
 
 ### In Progress
 
-- Gramstad_band RED chunk review (km 37–38 and remaining YELLOW/GREEN queue)
-- Terrain HMM / GB draft refinement against operator gold
-- Phase E start-of-course ingest scope (km 0–8) — stub map committed, panel not built
-- Ghost Authority sanitization of scripts and docs for public visibility
-- GAP module and production Terrain Index (TI)
+- Full-course SUT_43 operator gold review (full-lap HITL)
+- SUT_43 gramstad paired TRF Substack publication (on hold pending gold sign-off)
+- Gramstad_band remaining YELLOW/GREEN queue
+- GAP module and production TI
+- Ghost Authority sanitization for public visibility
 
 ### Not Started
 
-- Full-lap SUT_43 panel (km 0.5–42.5)
+- **Meso / training compliance layer** (§5.1) — blueprint evaluator on micro Parquet + local config only
+- Full-lap SUT_43 merged panel after gold gate
 - Strava OAuth fetcher script
 - Kinematic_Scan v0 automation (donor PDF)
-- English migration of all legacy Norwegian documentation
 - GeoPandas / Snap-to-Route at scale
-- Parquet + DuckDB micro processing layer
 
 ---
 
 ## 12. Recommended Next Steps (Priority Order)
 
-1. **Complete gramstad RED queue** — operator gold on highest-RPS chunks; re-run triage after lock waves.
-2. **Phase E panel ingest** — extend spine + panel to km 0.5–8.0 per `docs/memos/16_phase_e_start_ingest_scope.md`.
-3. **GAP module** — unlock production TI, TPR, and EPR.
-4. **Kinematic_Scan v0** — single script: input one `.fit` → APR profile chart + slowest segment → PNG to `06_Visualizations/`.
-5. **Sanitization pass** — English translation + Subject_A identifiers before any public repo visibility.
+1. **Complete SUT_43 full-course operator gold** — full-lap HITL chunks; re-export composite/TRF after sign-off.
+2. **GAP module** — unlock production TI, TPR, and EPR.
+3. **Kinematic_Scan v0** — single script: input one `.fit` → profile chart + slowest segment → PNG to `06_Visualizations/`.
+4. **Meso compliance (local only)** — if operator requests Sub-1:40 / 4-day blueprint tracking: build `evaluate_fast_finish.py` + gitignored `training_blueprint.local.json`; do **not** extend `anatomy_macro.db` (see §5.1).
+5. **Sanitization pass** — English + Subject_A identifiers before public deliverables.
 6. **Strava fetcher** — automated `.fit` intake from reference elites.
 
 ---
@@ -343,6 +391,32 @@ When assisting on this project:
 9. For HITL work, read `docs/hitl_annotator.md` before modifying `hitl_annotator_app.py`.
 10. Legacy Norwegian filenames and content may exist locally — translate on contact; do not reproduce Norwegian conceptual terms in new output (except permitted proper nouns).
 11. Attribute public-facing work to **Dr. Anatomy Pace** — never to real individuals.
+
+### 13.1 Reject or redirect: “Sub-1:40 blueprint → SQLite macro DB” proposals
+
+Operators may ask to align FIT telemetry with a **private 4-day training matrix** (Tuesday micro-intervals, Wednesday recovery, Friday aerobic + lifting, Sunday simulator with fast-finish blocks targeting ~4:44 min/km for a ~21 km Sub-1:40 goal). **Do not implement this by altering `anatomy_macro.db` or adding operator body-weight / macro-nutrition targets to public schema.**
+
+| Gemini-style request | Verdict | What to do instead |
+|---------------------|---------|-------------------|
+| `ALTER TABLE` on `anatomy_macro.db` for workouts | **Reject** | Macro DB = race ecology only (`init_db.py`) |
+| SQL on “final 1.5–5 km Sunday runs” before ingest | **Redirect** | Compute from washed micro Parquet; optional sync to **local** SQLite summaries |
+| Categorize runs in SQLite by day-of-week matrix | **Local only** | `session_metadata.local.json` + `training_blueprint.local.json` |
+| Log daily weight / protein / carbs in public repo | **Reject** | Gitignored `training_compliance.local.db` or private manual |
+| Project all training FITs on `3_sjoerslopet` course axis | **Reject** | Use 3_sjoerslopet spatial pipeline **only** for race-anchor / sim sessions on that course |
+| Pandas weekly deviation + cardiac drift flags | **Approve (public script)** | Generic `evaluate_fast_finish.py` reading **local** blueprint config |
+
+**Session-type pace bands (private blueprint — do not commit numeric targets to GitHub):**
+
+| Day | Session type | Role |
+|-----|--------------|------|
+| Tuesday | Micro-intervals | Gravel intervals (e.g. 3×10 min work / 45s–15s); target pace band in local blueprint |
+| Wednesday | Active recovery | Fixed-distance easy run; high pace floor |
+| Friday | Aerobic + strength | Short easy jog then lifting block (details in private manual) |
+| Sunday | Simulator | Long run with optional fast-finish; distance and finish length progress by month; recovery week removes fast finish |
+
+**Progression rules** (September → October fast-finish length, every-4th-week recovery) live in **`training_blueprint.local.json`**, not SQL migrations.
+
+**Git on Mac:** Operators on `main` must merge feature branches explicitly — `git pull` alone does not apply remote branch commits. Use `git merge origin/<branch>` or `git checkout <branch>`.
 
 ---
 
