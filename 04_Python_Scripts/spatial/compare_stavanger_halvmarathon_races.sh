@@ -20,10 +20,31 @@ DONOR="Subject_A"
 RACE="stavanger_halvmarathon"
 ACT_A="Stavanger_Halvmarathon_20250830"
 ACT_B="Stavanger_Halvmarathon_20260829"
-FIT_A="02_Raw_Data/donors/${DONOR}/${ACT_A}.fit"
-FIT_B="02_Raw_Data/donors/${DONOR}/${ACT_B}.fit"
-# Legacy filename from first anchor ingest
-FIT_A_LEGACY="02_Raw_Data/donors/${DONOR}/Stavanger_Halvmarathon.fit"
+# Legacy filenames (first anchor ingest used alternate spelling)
+FIT_A_LEGACY_CANDIDATES=(
+  "02_Raw_Data/donors/${DONOR}/Stavanger_Halvmarathon_20250830.fit"
+  "02_Raw_Data/donors/${DONOR}/Stavanger_Halvmarathon.fit"
+  "02_Raw_Data/donors/${DONOR}/Stavanger_Halvmaraton.fit"
+  "02_Raw_Data/Stavanger_Halvmaraton.fit"
+)
+
+resolve_fit_a() {
+  if [[ -f "$FIT_A" ]]; then
+    echo "$FIT_A"
+    return 0
+  fi
+  local candidate
+  for candidate in "${FIT_A_LEGACY_CANDIDATES[@]}"; do
+    if [[ -f "$candidate" ]]; then
+      echo "NOTE: using 2025 FIT → $candidate (optional: cp to ${FIT_A})" >&2
+      echo "$candidate"
+      return 0
+    fi
+  done
+  echo "Missing 2025 FIT. Expected one of:" >&2
+  printf '  %s\n' "$FIT_A" "${FIT_A_LEGACY_CANDIDATES[@]}" >&2
+  return 1
+}
 
 COMPARE_ONLY=0
 for arg in "$@"; do
@@ -51,10 +72,7 @@ wash_one() {
 }
 
 if [[ "$COMPARE_ONLY" == "0" ]]; then
-  if [[ ! -f "$FIT_A" && -f "$FIT_A_LEGACY" ]]; then
-    echo "NOTE: using legacy 2025 FIT → $FIT_A_LEGACY (consider: mv to ${FIT_A}.fit)"
-    FIT_A="$FIT_A_LEGACY"
-  fi
+  FIT_A="$(resolve_fit_a)"
   wash_one "$ACT_A" "$FIT_A"
   wash_one "$ACT_B" "$FIT_B"
   echo ""
