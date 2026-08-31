@@ -4,6 +4,7 @@
 **To:** Gemini AI  
 **Purpose:** Project context, current status, and active workstreams  
 **Date:** 2026-08-31  
+**Paste-ready short brief:** [`GEMINI_BRIEF.md`](GEMINI_BRIEF.md) — use that for new Gemini sessions; this file is the full status handoff.  
 **Note:** Internal AI handoff — not public copy. Ghost Authority and English-only rules apply to all generated output destined for GitHub, Substack, Instagram, or donor deliverables.
 
 ---
