@@ -223,5 +223,51 @@ class EvaluateFastFinishTests(unittest.TestCase):
             self.assertGreaterEqual(flag_id, 1)
 
 
+    def test_october_fast_finish_target_ignores_slow_base(self) -> None:
+        """Base cruise @ 6:45 must not change the 4:44 finish score window."""
+        frame = _synthetic_frame(total_km=17.0, finish_pace_min_km=4.7333)
+        n = len(frame)
+        finish_n = int(4.0 * 1000)  # October midpoint window
+        base_n = n - finish_n
+        frame.loc[: base_n - 1, "speed_mps"] = 1000.0 / (6.75 * 60.0)  # 6:45 base
+        frame.loc[base_n:, "speed_mps"] = 1000.0 / (4.7333 * 60.0)  # 4:44 finish
+        result = evaluate_activity(
+            frame,
+            activity_id="synth_october",
+            blueprint=_blueprint(),
+            session_meta={
+                "subject_id": "Subject_A",
+                "session_type": "sunday_simulator",
+                "week_id": "2026-W42",
+                "month_key": "2026-10",
+                "is_recovery_week": False,
+            },
+        )
+        self.assertEqual(result.status, "scored")
+        self.assertIsNone(result.skipped_reason)
+        self.assertAlmostEqual(
+            result.target_pace_min_per_km, pace_str_to_min_per_km("4:44"), places=5
+        )
+        self.assertAlmostEqual(result.fast_finish_km, 4.0, places=5)  # Oct midpoint
+        self.assertTrue(result.held_target)
+        self.assertGreaterEqual(result.compliance_score, 85.0)
+
+    def test_apply_october_local_override_keeps_444(self) -> None:
+        from apply_october_local_overrides import (  # noqa: WPS433
+            OCTOBER_BASE_PACE,
+            OCTOBER_FAST_FINISH,
+            patch_october_protocol,
+        )
+
+        blueprint = patch_october_protocol(_blueprint())
+        peak = blueprint["week_matrix"]["sunday"]["execution_protocols"]["2026-10-peak"]
+        self.assertEqual(peak["base_execution"]["pace_min_per_km_lo"], OCTOBER_BASE_PACE)
+        self.assertEqual(peak["finish"]["target_pace_min_per_km"], OCTOBER_FAST_FINISH)
+        self.assertEqual(
+            blueprint["week_matrix"]["sunday"]["fast_finish"]["target_pace_min_per_km"],
+            OCTOBER_FAST_FINISH,
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -118,7 +118,7 @@
             "distance_km_max": 15.0,
             "pace_min_per_km_lo": "5:35",
             "pace_min_per_km_hi": "5:50",
-            "notes": "Cruise first 11–15 km strictly in base band before gear shift"
+            "notes": "Default template band. Operator local override (gitignored): run apply_october_local_overrides.py → 6:45 easy companion cruise. evaluate_fast_finish ignores base pace and still scores final 3–5 km @ 4:44."
           },
           "trigger": {
             "stream_km_window_start_min": 11.0,
