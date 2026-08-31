@@ -53,11 +53,17 @@ DEFAULT_JSON = BASE_DIR / "03_Processed_Data" / "spatial" / "stavanger_halvmarat
 DEFAULT_KM_WINDOW = (0.0, 21.38)
 
 # Elevation divergence → year-over-year route change on a fixed stream-km axis.
-ELEV_DIVERGENCE_THRESHOLD_M = 4.0
-MIN_ROUTE_CHANGE_M = 60
-ROUTE_CHANGE_MERGE_GAP_M = 100
+ELEV_DIVERGENCE_THRESHOLD_M = 5.0
+MIN_ROUTE_CHANGE_M = 100
+ROUTE_CHANGE_MERGE_GAP_M = 150
+ROUTE_CHANGE_CLUSTER_GAP_KM = 1.5
+MIN_FRAGMENT_METRES = 80
+MIN_CLUSTER_METRES = 250
 ELEV_SMOOTH_WINDOW_M = 50
 ROUTE_CHANGE_FILL = "#FF5252"
+START_CALIBRATION_KM = 0.5
+FINISH_CALIBRATION_KM = 0.5
+PRIMARY_ROUTE_CHANGE_COUNT = 2
 
 COMPARE_COLS = ("speed_mps", "ti", "heart_rate", "cadence_spm", "grade_pct", "altitude_m")
 
@@ -206,27 +212,132 @@ def _smooth_series(values: pd.Series, window_m: int) -> pd.Series:
     return values.rolling(window=window_m, center=True, min_periods=max(3, window_m // 4)).median()
 
 
+def _span_elev_stats(
+    paired: pd.DataFrame,
+    course_m: pd.Series,
+    delta: pd.Series,
+    lo_m: int,
+    hi_m: int,
+    *,
+    min_metres: int = MIN_FRAGMENT_METRES,
+) -> dict[str, Any] | None:
+    mask = (course_m >= lo_m) & (course_m <= hi_m)
+    sub_delta = delta.loc[mask].dropna()
+    if sub_delta.empty or int(mask.sum()) < min_metres:
+        return None
+    return {
+        "course_km_start": round(lo_m / 1000.0, 3),
+        "course_km_end": round((hi_m + 1) / 1000.0, 3),
+        "metres": int(mask.sum()),
+        "median_delta_elev_m": round(float(sub_delta.median()), 2),
+        "max_delta_elev_m": round(float(sub_delta.max()), 2),
+        "mean_delta_elev_m": round(float(sub_delta.mean()), 2),
+        "elev_divergence_score": round(float(sub_delta.sum()), 1),
+        "detection": "elevation_profile_divergence",
+    }
+
+
+def _merge_span_ranges(spans: list[tuple[int, int]], gap_m: int) -> list[tuple[int, int]]:
+    if not spans:
+        return []
+    ordered = sorted(spans)
+    merged: list[tuple[int, int]] = [ordered[0]]
+    for lo_m, hi_m in ordered[1:]:
+        if lo_m - merged[-1][1] <= gap_m:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], hi_m))
+        else:
+            merged.append((lo_m, hi_m))
+    return merged
+
+
+def _cluster_route_fragments(fragments: list[dict[str, Any]], *, gap_km: float) -> list[dict[str, Any]]:
+    if not fragments:
+        return []
+    spans = [
+        (int(round(float(f["course_km_start"]) * 1000.0)), int(round(float(f["course_km_end"]) * 1000.0)) - 1)
+        for f in fragments
+    ]
+    merged = _merge_span_ranges(spans, int(gap_km * 1000.0))
+    clusters: list[dict[str, Any]] = []
+    for lo_m, hi_m in merged:
+        members = [
+            f
+            for f in fragments
+            if float(f["course_km_end"]) > lo_m / 1000.0 and float(f["course_km_start"]) < (hi_m + 1) / 1000.0
+        ]
+        if not members:
+            continue
+        clusters.append(
+            {
+                "course_km_start": round(lo_m / 1000.0, 3),
+                "course_km_end": round((hi_m + 1) / 1000.0, 3),
+                "metres": int(sum(int(m["metres"]) for m in members)),
+                "median_delta_elev_m": round(
+                    float(np.median([m["median_delta_elev_m"] for m in members])), 2
+                ),
+                "max_delta_elev_m": round(float(max(m["max_delta_elev_m"] for m in members)), 2),
+                "mean_delta_elev_m": round(
+                    float(np.average(
+                        [m["mean_delta_elev_m"] for m in members],
+                        weights=[m["metres"] for m in members],
+                    )),
+                    2,
+                ),
+                "elev_divergence_score": round(float(sum(m["elev_divergence_score"] for m in members)), 1),
+                "fragment_count": len(members),
+                "detection": "elevation_profile_divergence_cluster",
+                "note": "Merged elevation-divergence cluster — probable organiser reroute",
+            }
+        )
+    return clusters
+
+
+def _select_primary_route_changes(
+    clusters: list[dict[str, Any]],
+    *,
+    km_hi: float,
+    top_n: int = PRIMARY_ROUTE_CHANGE_COUNT,
+) -> list[dict[str, Any]]:
+    """Keep the strongest mid-course clusters; drop start/finish calibration bands."""
+    candidates = [
+        c
+        for c in clusters
+        if float(c["course_km_start"]) >= START_CALIBRATION_KM
+        and float(c["course_km_end"]) <= km_hi - FINISH_CALIBRATION_KM
+        and int(c["metres"]) >= MIN_CLUSTER_METRES
+    ]
+    ranked = sorted(
+        candidates,
+        key=lambda c: (float(c["elev_divergence_score"]), float(c["median_delta_elev_m"])),
+        reverse=True,
+    )
+    primary = ranked[:top_n]
+    for item in primary:
+        item["note"] = "Primary organiser route-change window (elevation divergence)"
+    return primary
+
+
 def detect_course_route_changes(
     paired: pd.DataFrame,
     *,
     label_a: str,
     label_b: str,
+    km_hi: float,
     elev_threshold_m: float = ELEV_DIVERGENCE_THRESHOLD_M,
     min_span_m: int = MIN_ROUTE_CHANGE_M,
     merge_gap_m: int = ROUTE_CHANGE_MERGE_GAP_M,
     smooth_window_m: int = ELEV_SMOOTH_WINDOW_M,
-) -> tuple[list[dict[str, Any]], pd.Series]:
+    cluster_gap_km: float = ROUTE_CHANGE_CLUSTER_GAP_KM,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], pd.Series]:
     """
     Flag windows where elevation profiles diverge on the shared stream axis.
 
-    When organiser reroutes slightly, the same course_km no longer maps to the
-    same geography — paired elevation delta spikes locally (typically 2 windows
-    on Stavanger Halvmarathon 2025 vs 2026).
+    Returns (fragments, clusters, primary_route_changes, metre_mask).
     """
     col_a = f"altitude_m_{label_a}"
     col_b = f"altitude_m_{label_b}"
     if col_a not in paired.columns or col_b not in paired.columns:
-        return [], pd.Series(False, index=paired.index)
+        return [], [], [], pd.Series(False, index=paired.index)
 
     elev_a = pd.to_numeric(paired[col_a], errors="coerce")
     elev_b = pd.to_numeric(paired[col_b], errors="coerce")
@@ -236,12 +347,12 @@ def detect_course_route_changes(
 
     flagged = valid & smoothed.ge(elev_threshold_m)
     if not flagged.any():
-        return [], flagged
+        return [], [], [], flagged
 
     course_m = pd.to_numeric(paired["course_m"], errors="coerce")
     flagged_m = course_m.loc[flagged].astype(int).sort_values().tolist()
     if not flagged_m:
-        return [], flagged
+        return [], [], [], flagged
 
     raw_spans: list[tuple[int, int]] = []
     start_m = flagged_m[0]
@@ -257,42 +368,24 @@ def detect_course_route_changes(
     if prev_m - start_m + 1 >= min_span_m:
         raw_spans.append((start_m, prev_m))
 
-    merged: list[tuple[int, int]] = []
-    for lo_m, hi_m in raw_spans:
-        if merged and lo_m - merged[-1][1] <= merge_gap_m:
-            merged[-1] = (merged[-1][0], hi_m)
-        else:
-            merged.append((lo_m, hi_m))
-
-    changes: list[dict[str, Any]] = []
-    for lo_m, hi_m in merged:
-        mask = (course_m >= lo_m) & (course_m <= hi_m)
-        sub_delta = delta.loc[mask].dropna()
-        if sub_delta.empty:
+    fragments: list[dict[str, Any]] = []
+    for lo_m, hi_m in _merge_span_ranges(raw_spans, merge_gap_m):
+        stats = _span_elev_stats(paired, course_m, delta, lo_m, hi_m)
+        if stats is None:
             continue
-        changes.append(
-            {
-                "course_km_start": round(lo_m / 1000.0, 3),
-                "course_km_end": round((hi_m + 1) / 1000.0, 3),
-                "metres": int(mask.sum()),
-                "median_delta_elev_m": round(float(sub_delta.median()), 2),
-                "max_delta_elev_m": round(float(sub_delta.max()), 2),
-                "mean_delta_elev_m": round(float(sub_delta.mean()), 2),
-                "detection": "elevation_profile_divergence",
-                "note": "Probable organiser route change — exclude from stream-km pace/TI compare",
-            }
-        )
-    return changes, flagged
+        stats["note"] = "Elevation-divergence fragment"
+        fragments.append(stats)
 
+    clusters = _cluster_route_fragments(fragments, gap_km=cluster_gap_km)
+    clusters = [c for c in clusters if int(c["metres"]) >= MIN_CLUSTER_METRES]
+    primary = _select_primary_route_changes(clusters, km_hi=km_hi)
 
-def _mask_outside_route_changes(paired: pd.DataFrame, route_changes: list[dict[str, Any]]) -> pd.Series:
-    keep = pd.Series(True, index=paired.index)
+    primary_mask = pd.Series(False, index=paired.index)
     km = pd.to_numeric(paired["course_km"], errors="coerce")
-    for span in route_changes:
-        km0 = float(span["course_km_start"])
-        km1 = float(span["course_km_end"])
-        keep &= ~((km >= km0) & (km < km1))
-    return keep
+    for span in primary:
+        primary_mask |= (km >= float(span["course_km_start"])) & (km < float(span["course_km_end"]))
+
+    return fragments, clusters, primary, primary_mask
 
 
 def compare_races(
@@ -357,10 +450,10 @@ def compare_races(
         )
         paired["abs_delta_elev_m"] = paired["delta_elev_m"].abs()
 
-    route_changes, route_change_mask = detect_course_route_changes(
-        paired, label_a=label_a, label_b=label_b
+    route_fragments, route_clusters, route_changes, route_change_mask = detect_course_route_changes(
+        paired, label_a=label_a, label_b=label_b, km_hi=km_hi
     )
-    stable_route = _mask_outside_route_changes(paired, route_changes)
+    stable_route = ~route_change_mask
 
     tiered = paired["friction_tier"].notna()
     substrate_bands = _substrate_breakdown(paired, terrain_map, label_a=label_a, label_b=label_b)
@@ -378,7 +471,10 @@ def compare_races(
         "overlap_metres": int(len(paired)),
         "stable_route_metres": int(stable_route.sum()),
         "course_route_change_metres": int((~stable_route).sum()),
+        "course_route_change_fragments": route_fragments,
+        "course_route_change_clusters": route_clusters,
         "course_route_changes": route_changes,
+        "primary_route_change_count": len(route_changes),
         "tier_assigned_metres": int(tiered.sum()),
         "substrate_band_metres": int(sum(row["metres"] for row in substrate_bands)),
         "substrate_band_metres_stable_route": int(sum(row["metres"] for row in substrate_bands_stable)),
@@ -427,20 +523,13 @@ def render_compare_figure(
     col_elev_a = f"altitude_m_{label_a}"
     col_elev_b = f"altitude_m_{label_b}"
     for span in report.get("course_route_changes") or []:
-        ax0.axvspan(
-            span["course_km_start"],
-            span["course_km_end"],
-            color=ROUTE_CHANGE_FILL,
-            alpha=0.18,
-            zorder=1,
-        )
-        for ax in (ax1, ax2):
+        for ax in (ax0, ax1, ax2):
             ax.axvspan(
                 span["course_km_start"],
                 span["course_km_end"],
                 color=ROUTE_CHANGE_FILL,
-                alpha=0.12,
-                zorder=0,
+                alpha=0.22 if ax is ax0 else 0.14,
+                zorder=1 if ax is ax0 else 0,
             )
     if col_elev_a in paired.columns:
         ax0.plot(km, paired[col_elev_a], color="#90CAF9", linewidth=1.2, label=label_a)
@@ -466,7 +555,7 @@ def render_compare_figure(
         ax0.text(
             0.99,
             0.02,
-            f"{len(route_note)} route-change window(s) shaded",
+            f"{len(route_note)} primary route-change window(s) shaded",
             transform=ax0.transAxes,
             ha="right",
             va="bottom",
@@ -581,12 +670,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     route_changes = report.get("course_route_changes") or []
     if route_changes:
-        print(f"    route changes {len(route_changes)} window(s) · stable route {report.get('stable_route_metres')} m")
+        print(f"    primary route changes {len(route_changes)} · stable route {report.get('stable_route_metres')} m")
         for span in route_changes:
             print(
                 f"      km {span['course_km_start']:.2f}–{span['course_km_end']:.2f} · "
-                f"median |Δelev| {span['median_delta_elev_m']} m"
+                f"median |Δelev| {span['median_delta_elev_m']} m · score {span.get('elev_divergence_score')}"
             )
+    clusters = report.get("course_route_change_clusters") or []
+    if clusters and len(clusters) != len(route_changes):
+        print(f"    ({len(clusters)} merged clusters · {len(report.get('course_route_change_fragments') or [])} fragments in JSON)")
     if report["overlap_metres"] < int(report["grid_metres"] * 0.9):
         print(
             "    WARN: overlap <90% of corridor grid — rebuild panel: "
